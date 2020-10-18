@@ -1,0 +1,72 @@
+<html>
+    <head>
+        <script src="https://d3js.org/d3.v4.min.js"></script>
+        <script src="https://unpkg.com/konva@7.0.3/konva.min.js"></script>
+
+        <script src='APieChart.js'></script>
+        <script src='ConcreteCharts/PieChart.js'></script>
+        <script src='Decorators/APieChartDecorator.js'></script>
+        <script src='Decorators/DonutDecorator.js'></script>
+
+        <script src='/Users/rileycullen/Documents/IndependentStudy/fq2020/Webtool code/FontWidthDetector.js'></script>
+    </head>
+    <body>
+        <div id='container'></div>
+        <script>
+            var stage = new Konva.Stage({
+                container: 'container',
+                width: 500, 
+                height: 500,
+            });
+            
+            var main = new Konva.Layer();
+
+            main.add(new Konva.Rect({
+                x: 0, 
+                y: 0, 
+                width: stage.width(),
+                height: stage.height(),
+                fill: 'white',
+                stroke: 'black',
+            }));
+
+            stage.add(main);
+
+            var chartHeight = 250, chartWidth = 250, startingX = 100, startingY = 150;
+            var testGroup = new Konva.Group({
+                x: 150,
+                y: 150,
+                draggable: true,
+            });
+            main.add(testGroup);
+
+            var data = [];
+            data[0] = {
+                'category': 'dogs',
+                'value': 64,
+                'color': 'lightblue'
+            };
+            data[1] = {
+                'category': 'cats',
+                'value': 36,
+                'color': 'red'
+            };
+            data[2] = {
+                'category': 'fish',
+                'value': 22,
+                'color': 'green'
+            };
+            data[3] = {
+                'category': 'jelly',
+                'value': 90,
+                'color': 'pink'
+            }
+
+            var dChart = new PieChart(data, testGroup, 100);
+            var donutChart = new DonutDecorator(dChart, 50);
+            donutChart.CreateChart();
+
+            main.draw();
+        </script>
+    </body>
+</html>
