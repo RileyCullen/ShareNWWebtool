@@ -48,4 +48,9 @@ class DonutDecorator extends APieChartDecorator
             y: this._startingY,
         }));
     }
+
+    GetRadius()
+    {
+        return this._innerRadius;
+    }
 }
