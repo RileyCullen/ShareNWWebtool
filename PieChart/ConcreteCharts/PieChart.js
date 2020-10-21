@@ -48,7 +48,7 @@ class PieChart extends APieChart
          */
         var startAngle = 0, prevAngle = 0;
         var tmp = custom.selectAll('custom.circle')
-            .data(data)
+            .data(this._data)
             .enter()
             .append('custom')
             .attr('class', 'circle')
@@ -84,7 +84,7 @@ class PieChart extends APieChart
         var elements = custom.selectAll('custom.circle')
         var helper = new Konva.Group();
 
-        var wedgeArr = [];
+        var wedgeArr = [], largestAngle = 0;
 
         elements.each(function(d,i) {
             var node = d3.select(this);
@@ -94,17 +94,19 @@ class PieChart extends APieChart
                 radius: node.attr('radius'),
                 angle: node.attr('sliceAngle'),
                 fill: node.attr('color'),
+                draggable: true
             });
+            if (node.attr('sliceAngle') > largestAngle) largestAngle = parseFloat(node.attr('sliceAngle'));
 
             helper.add(wedge);
             wedgeArr[i] = wedge;
         });
 
-        this._RotateSlices(wedgeArr);
+        this._RotateSlices(wedgeArr, largestAngle);
         this._group.add(helper);
     }
 
-    _RotateSlices(wedgeArr)
+    _RotateSlices(wedgeArr, rotationOffset = -90)
     {
         /**
          * @summary     Rotates the wedges by theta to create full circle
@@ -112,14 +114,17 @@ class PieChart extends APieChart
          *              applies a rotation factor that rotates the wedges to 
          *              for a full circle.
          * 
-         * @param {Array} wedgeArr : An array of konva wedges that we want to apply
-         *                           a rotation factor to.
+         * @param {Array} wedgeArr       : An array of konva wedges that we want to apply
+         *                                 a rotation factor to.
+         * @param {Float} rotationOffset : The amount of rotational offset the entire 
+         *                                 chart is offset by. This is equal to 
+         *                                 the largest angle in the pie chart 
          */
-        var theta = 0, cTheta = parseFloat(wedgeArr[0].getAttr('angle'));
+        var theta = 0, cTheta = parseFloat(wedgeArr[0].getAttr('angle') - 90);
         for (var i = wedgeArr.length - 1; i > -1; i--) {
-            theta = (i === 0) ? 0 : 360 - cTheta;
+            theta = (i === -1) ? 0 : 360 - cTheta;
             cTheta += parseFloat(wedgeArr[i].getAttr('angle'));
-            wedgeArr[i].rotation(-1 * theta);
+            wedgeArr[i].rotation(-1 * (theta + rotationOffset));
         }
     }
 }
