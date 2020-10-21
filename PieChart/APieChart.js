@@ -45,9 +45,14 @@ class APieChart
          *              pie chart can be broken into percentages.
          */
         var total = 0;
-        data.forEach(d => {
+        this._data.forEach(d => {
             total += d.value;
         });
         return total;
+    }
+
+    GetRadius()
+    {
+        return this._radius;
     }
 }
