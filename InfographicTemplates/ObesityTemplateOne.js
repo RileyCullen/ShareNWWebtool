@@ -84,21 +84,15 @@ class ObesityTemplateOne extends AInfographic
 
         // Creating section backgrounds
         var sectionArr = [], sectionColorArr = ['#e33c29', '#2e8acb', '#aea59e', '#94bd31'];
+        var textGroupArr = [];
+        var sectionFontSize = 19, statisticFontSize = 47.5;
 
-        sectionArr[0] = new Konva.Group();
-        sectionArr[1] = new Konva.Group({
-            y: sectionArr[0].getAttr('y') + rectHeight + rectOffset
-        });
-        sectionArr[2] = new Konva.Group({
-            y: sectionArr[1].getAttr('y') + rectHeight + rectOffset
-        });
-        sectionArr[3] = new Konva.Group({
-            y: sectionArr[2].getAttr('y') + rectHeight + rectOffset
-        });
-
-        sectionArr.forEach((section, i) => {
-            content.add(section);
-            section.add(new Konva.Rect({
+        for (var i = 0; i < 4; i++) {
+            sectionArr[i] = (i === 0) ? new Konva.Group() : new Konva.Group({
+                y: sectionArr[i - 1].getAttr('y') + rectHeight + rectOffset
+            });
+            content.add(sectionArr[i]);
+            sectionArr[i].add(new Konva.Rect({
                 x: rectX,
                 y: 0,
                 fill: sectionColorArr[i],
@@ -106,24 +100,49 @@ class ObesityTemplateOne extends AInfographic
                 height: rectHeight,
                 cornerRadius: rectCornerRadius,
             }));
-            section.moveToBottom();
-        });
+
+            textGroupArr[i] = new Konva.Group({
+                x: rectX + 225,
+                y: 35,
+            });
+            sectionArr[i].add(textGroupArr[i]);
+            sectionArr[i].moveToBottom();
+        }
 
         // Section 1 content
         var CHILD = '\uf1ae', CHILD_OFFSET = 40, ICON_FONT = '"Font Awesome 5 Free"';
         var whiteChildPreset = GenerateWafflePreset(CHILD, 'white', CHILD_OFFSET, ICON_FONT),
             redChildPreset = GenerateWafflePreset(CHILD, '#9a2418', CHILD_OFFSET, ICON_FONT);
         var sectionOneWaffleContainer = new Konva.Group({
-            x: 0, 
-            y: 0,
-            width: 225,
+            x: 17.5, 
+            y: 10,
+            width: 200,
             height: 100,
         });
         sectionArr[0].add(sectionOneWaffleContainer);
         sectionOneWaffleContainer.moveToTop();
 
-        var waffleOne = new WaffleChart(1, 3, 50, whiteChildPreset, redChildPreset);
+        var waffleOneNum = 1, waffleOneDenom = 3;
+        var waffleOne = new WaffleChart(waffleOneNum, waffleOneDenom, 50, whiteChildPreset, redChildPreset);
         waffleOne.GenerateChart(60, 50, sectionOneWaffleContainer);
+
+        var waffleOneStatistic = waffleOneNum + ' in ' + waffleOneDenom;
+        textGroupArr[0].add(new Konva.Text({
+            text: waffleOneStatistic,
+            fill: 'white',
+            fontFamily: titleFont,
+            fontSize: statisticFontSize,
+        }));
+
+        var sectionOneText = 'children and teens age\n2 to 19 are considered\noverweight or obese';
+        textGroupArr[0].add(new Konva.Text({
+            text: sectionOneText,
+            fill: '#9a2418',
+            fontFamily: descFontFamily,
+            fontSize: sectionFontSize,
+            fontStyle: 'bold',
+            y: this._GetTextWidth('M', 50, titleFont) + 5,
+        }));
 
         // Section 2 Content
         var RUNNER = '\uf70c';
@@ -131,15 +150,36 @@ class ObesityTemplateOne extends AInfographic
             blueRunnerPreset = GenerateWafflePreset(RUNNER, '#11578a', 0, ICON_FONT);
 
         var sectionTwoWaffleContainer = new Konva.Group({
-            x: 0,
-            y: 0,
-            width: 225,
+            x: 17.5,
+            y: 10,
+            width: 195,
             height: 100,
         });
         sectionArr[1].add(sectionTwoWaffleContainer);
 
-        var waffleTwo = new WaffleChart(2, 3, 50, whiteRunnerPreset, blueRunnerPreset);
+        var waffleTwoNum = 2, waffleTwoDenom = 3;
+        var waffleTwo = new WaffleChart(waffleTwoNum, waffleTwoDenom, 50, whiteRunnerPreset, blueRunnerPreset);
         waffleTwo.GenerateChart(60, 50, sectionTwoWaffleContainer);
+
+        textGroupArr[1].setAttr('y', textGroupArr[1].getAttr('y') + 10);
+
+        var waffleTwoStatistic = waffleTwoNum + ' out of ' + waffleTwoDenom;
+        textGroupArr[1].add(new Konva.Text({
+            text: waffleTwoStatistic,
+            fill: 'white',
+            fontFamily: titleFont,
+            fontSize: statisticFontSize,
+        }));
+
+        var sectionTwoText = 'don\'t get any daily\nphysical activity';
+        textGroupArr[1].add(new Konva.Text({
+            text: sectionTwoText,
+            fill: '#11578a',
+            fontFamily: descFontFamily,
+            fontSize: sectionFontSize,
+            fontStyle: 'bold',
+            y: this._GetTextWidth('M', 50, titleFont) + 5,
+        }));
 
         // Section 3 content
         var pieChartData = [];
@@ -147,12 +187,20 @@ class ObesityTemplateOne extends AInfographic
             'category':  'A',
             'value': 96,
             'color': 'white'
-        }
+        };
         pieChartData[1] = {
             'category': 'B',
             'value': 4,
             'color': sectionColorArr[2],
-        }
+        };
+
+        var percentage = (arr, index) => {
+            var total = 0;
+            for (var i = 0; i < arr.length; i++) {
+                total += arr[i].value;
+            }
+            return parseInt((arr[index].value / total) * 100);
+        };
 
         var pieChartGroup = new Konva.Group({
             x: 160,
@@ -160,11 +208,31 @@ class ObesityTemplateOne extends AInfographic
         });
         sectionArr[2].add(pieChartGroup);
 
-        var pieChart = new PieChart(pieChartData, pieChartGroup, 80);
-        var donutDecorator = new DonutDecorator(pieChart, 50, sectionColorArr[2]);
+        var pieChart = new PieChart(pieChartData, pieChartGroup, 70);
+        var donutDecorator = new DonutDecorator(pieChart, 40, sectionColorArr[2]);
         var outerOutline = new ChartOutlineDecorator(donutDecorator, pieChart.GetRadius(), 5, '#7b706a');
         var innerOutline = new ChartOutlineDecorator(outerOutline, donutDecorator.GetRadius(), 3, '#7b706a');
         innerOutline.CreateChart();
+
+        textGroupArr[2].setAttr('y', textGroupArr[2].getAttr('y') + 5);
+
+        var pieChartStatistic = percentage(pieChartData, 0) + "%";
+        textGroupArr[2].add(new Konva.Text({
+            text: pieChartStatistic,
+            fill: 'white',
+            fontFamily: titleFont,
+            fontSize: statisticFontSize,
+        }));
+
+        var sectionThreeText = 'of elementary schools\noffer no physical\neducation classes';
+        textGroupArr[2].add(new Konva.Text({
+            text: sectionThreeText,
+            fill: '#7b706a',
+            fontFamily: descFontFamily,
+            fontSize: sectionFontSize, 
+            fontStyle: 'bold',
+            y: this._GetTextWidth('M', 50, titleFont) + 5 
+        }));
 
         // Section 4 content
         var TV = '\uf26c';
@@ -172,12 +240,32 @@ class ObesityTemplateOne extends AInfographic
             text: TV,
             fontFamily: ICON_FONT,
             fontStyle: '900',
-            x: 70,
-            y: 25,
+            x: 85,
+            y: 35,
             fill: 'white',
-            fontSize: 150,
+            fontSize: 125,
         });
         sectionArr[3].add(tvHelper);
+
+        textGroupArr[3].setAttr('y', textGroupArr[3].getAttr('y') + 10);
+
+        var sectionThreeStatistic = '7 hours';
+        textGroupArr[3].add(new Konva.Text({
+            text: sectionThreeStatistic,
+            fill: 'white',
+            fontFamily: titleFont,
+            fontSize: statisticFontSize,
+        }));
+
+        var sectionThreeText = 'is the amount of time kids\nspend in front of TV or\ncomputer screens daily';
+        textGroupArr[3].add(new Konva.Text({
+            text: sectionThreeText,
+            fill: '#5f9400',
+            fontFamily: descFontFamily,
+            fontSize: sectionFontSize - 1.5,
+            fontStyle: 'bold',
+            y: this._GetTextWidth('M', 50, titleFont) + 5 
+        }));
 
         // Footer
         var footer = new Konva.Group({
