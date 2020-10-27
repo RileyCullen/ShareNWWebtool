@@ -24,15 +24,20 @@ class BasicBarChart extends ABarChart
         /**
          * @summary     This function adds the bar chart to the Konva.Group passed in
          *              to the constructor.
-         * @description This function calls _CreateHelperNoBinding, which is 
+         * @description This function calls _CreationHelper, which is 
          *              responsible for adding the bars to the Konva.Group.
          */
-        // this._CreationHelperNoBinding();
         this._CreationHelper();
     }
 
     _CreationHelper()
     {
+        /**
+         * @summary     Creates the bar chart.
+         * @description This function creates a custom DOM element, binds the data
+         *              to this custom svg element, the draws those elements to the 
+         *              canvas.
+         */
         var virtualCanvas = document.createElement('custom');
         var custom = d3.select(virtualCanvas);
 
@@ -44,6 +49,9 @@ class BasicBarChart extends ABarChart
 
     _BindData(custom)
     {
+        /**
+         * @summary     Binds data to custom DOM elements in memory.
+         */
         var selection = custom.selectAll('custom.rect')
             .data(this._data)
             .enter()
@@ -67,6 +75,9 @@ class BasicBarChart extends ABarChart
 
     _DrawBars(custom, hidden)
     {
+        /**
+         * @summary     Uses binded data to add Konva.js elements to group.
+         */
         console.log(typeof(custom));
         var elements = custom.selectAll('custom.rect');
         var helper = new Konva.Group();
@@ -82,28 +93,5 @@ class BasicBarChart extends ABarChart
         });
         helper.rotate(this._rotateBy);
         this._group.add(helper);
-    }
-
-    _CreationHelperNoBinding()
-    {
-        /**
-         * @summary     This function adds the bars to the Konva.Group.
-         * @description This function iterates through all of the data within 
-         *              data and adds a rectangle whose height corresponds to
-         *              a scaled value of d.value and whose x location corresponds
-         *              to a mapped value of d.category.
-         */
-        var helper = new Konva.Group();
-        this._data.forEach(d => {
-            helper.add(new Konva.Rect({
-                x: this._xScale(d.category),
-                y: this._chartHeight,
-                width: this._xScale.bandwidth(),
-                height: -(this._chartHeight - this._yScale(d.value)),
-                fill: d.color,
-            }));
-        });
-        this._group.add(helper);
-        helper.rotate(this._rotateBy);
     }
 }
