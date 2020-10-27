@@ -27,14 +27,16 @@ class BasicBarChart extends ABarChart
          * @description This function calls _CreateHelperNoBinding, which is 
          *              responsible for adding the bars to the Konva.Group.
          */
-        this._CreationHelperNoBinding();
-        // this._CreationHelper();
+        // this._CreationHelperNoBinding();
+        this._CreationHelper();
     }
 
     _CreationHelper()
     {
         var virtualCanvas = document.createElement('custom');
         var custom = d3.select(virtualCanvas);
+
+        console.log('_CH: ' + typeof(custom));
 
         this._BindData(custom);
         this._DrawBars(custom, false);
@@ -65,10 +67,12 @@ class BasicBarChart extends ABarChart
 
     _DrawBars(custom, hidden)
     {
+        console.log(typeof(custom));
         var elements = custom.selectAll('custom.rect');
-        elements.each((d, i) => {
+        var helper = new Konva.Group();
+        elements.each(function(d,i) {
             var node = d3.select(this);
-            this._group.add(new Konva.Rect({
+            helper.add(new Konva.Rect({
                 x: node.attr('x'),
                 y: node.attr('y'),
                 width: node.attr('width'),
@@ -76,6 +80,8 @@ class BasicBarChart extends ABarChart
                 fill: hidden ? node.attr('fillStyleHidden') : node.attr('fillStyle')
             }));
         });
+        helper.rotate(this._rotateBy);
+        this._group.add(helper);
     }
 
     _CreationHelperNoBinding()
