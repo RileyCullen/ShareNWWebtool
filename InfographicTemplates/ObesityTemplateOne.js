@@ -1,3 +1,7 @@
+// Cullen, Riley
+// ObesityTemplateOne.js
+// October 26, 2020
+
 class ObesityTemplateOne extends AInfographic
 {
     constructor()

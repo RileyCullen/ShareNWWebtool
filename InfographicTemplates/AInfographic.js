@@ -1,5 +1,20 @@
+// Cullen, Riley
+// AInfographic.js
+// October 26, 2020
+
 class AInfographic 
 {
+    /**
+     * @summary     An abstract class the provide structure and common functionality
+     *              to the Infographic type.
+     * @description See summary.
+     * 
+     * @requires D3.js
+     * @requires Konva.js
+     * 
+     * @param {double} height The height of the canvas element
+     * @param {double} width  The width of the canvas element
+     */
     constructor(height, width)
     {
         if (AInfographic === this.constructor) {
@@ -28,6 +43,9 @@ class AInfographic
 
     _AddStageBorder()
     {
+        /**
+         * @summary     Adds a black border around the edges of the canvas element.
+         */
         this._main.add(new Konva.Rect({
             x: 0,
             y: 0,
@@ -40,6 +58,15 @@ class AInfographic
 
     _GetTextWidth(text, fontSize, fontFamily)
     {
+        /**
+         * @summary     Returns the width of a text element given the text's font.
+         * @description Using canvas' measureText function, _GetTextWidth returns the
+         *              width in pixels of a given piece of text.
+         * 
+         * @param {string} text       The text we want to determine the width of.
+         * @param {double} fontSize   The font size of the text we want to find the width of.
+         * @param {string} fontFamily The font family of the text we want to analyze.
+         */
         var canvas = document.createElement('canvas');
         var ctx = canvas.getContext('2d');
 
@@ -52,6 +79,10 @@ class AInfographic
 
     _CenterXAbout(width, center)
     {
+        /**
+         * @param {double} width  The width of the element we are centering.
+         * @param {double} center The x-coordinate we want to center about.
+         */
         return center - (width / 2);
     }
 }
