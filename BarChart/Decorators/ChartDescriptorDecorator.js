@@ -24,9 +24,6 @@ class ChartDescriptorDecorator extends ABarChartDecorator
         super(chart);
         this._font = font;
         this._iconSize = this._chartWidth / 30;
-
-        // not working
-        this._font.fontSize = (this._iconSize > 8) ? this._iconSize : 8;
     }
 
     CreateBarChart()
@@ -60,8 +57,9 @@ class ChartDescriptorDecorator extends ABarChartDecorator
         }
 
         this._data.forEach((d, i) => {
-            var textWidth = GetFontSize(d.category, this._font);
-            var textHeight = GetFontSize('M', this._font);
+            var textStr = (typeof d.subcategory === 'undefined' || d.subcategory === null)
+                ? d.category : d.subcategory;
+            var textWidth = GetFontSize(textStr, this._font);
 
             var rectX = cumulativeX;
             var textX = rectX + this._iconSize + textOffset;
@@ -77,7 +75,7 @@ class ChartDescriptorDecorator extends ABarChartDecorator
                 fill: d.color,
             }));
             var text = new Konva.Text({
-                text: d.category,
+                text: textStr,
                 x: textX,
                 y: startingY,
                 fill: this._font.color,
