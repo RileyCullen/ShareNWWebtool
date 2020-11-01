@@ -49,6 +49,9 @@ class LabelDecorator extends ABarChartDecorator
          *              that particular bar.
          */
         var helper = new Konva.Group();
+        var groups = this._GetGroups();
+        var offsetHelper = this._CreateOffsetHelper(groups);
+
         this._data.forEach(d => {
             var label = d.value;
 
@@ -56,14 +59,19 @@ class LabelDecorator extends ABarChartDecorator
             if (this._isCategory) label += ' ' + d.category;
 
             var labelWidth = GetFontSize(label, this._font);
+
+            console.log('offsetHelper (LD): ' + offsetHelper[d.category]);
+
             var text = new Konva.Text({
                 x: (this._xScale(d.category) + this._xScale.bandwidth() / 2) - (labelWidth / 2),
-                y: this._chartHeight - ((this._chartHeight - this._yScale(d.value)) / 2),
+                y: (this._chartHeight - ((this._chartHeight - this._yScale(d.value)) / 2)) - offsetHelper[d.category],
                 text: label,
                 fontSize: this._font.fontSize,
                 fontFamily: this._font.fontFamily,
                 fill: this._font.fontColor,
             }); 
+            console.log('yScale(d): ' + this._yScale(d.value));
+            offsetHelper[d.category] += (this._chartHeight - this._yScale(d.value));
             text.rotate(-this._rotateBy);
             helper.add(text);
         });
