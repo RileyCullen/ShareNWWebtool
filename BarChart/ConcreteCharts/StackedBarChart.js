@@ -12,8 +12,6 @@ class StackedBarChart extends ABarChart
     constructor(data, group, width, height, padding, rotateBy = 0)
     {
         super(data, group, width, height, padding, rotateBy);
-        this._SetUpXDomain();
-        this._SetUpYDomain();
     }   
 
     CreateBarChart()
@@ -48,38 +46,22 @@ class StackedBarChart extends ABarChart
         var groups = this._GetGroups();
         var offsetHelper = this._CreateOffsetHelper(groups);
 
-        console.log(offsetHelper);
-
         elements.each(function(d,i) {
             var node = d3.select(this);
-            console.log('oH: ' + offsetHelper[node.attr('id')]);
+
+            console.log('offsetHelper (SBC): ' + offsetHelper[d.category]);
+
             helper.add(new Konva.Rect({
                 x: node.attr('x'),
                 y: node.attr('y') - offsetHelper[node.attr('id')],
                 width: node.attr('width'),
                 height: node.attr('height'),
                 fill: node.attr('fillStyle'),
-                draggable: true,
+                draggable: false,
             }));
-
             offsetHelper[node.attr('id')] += -1 * node.attr('height');
         });
         helper.rotate(this._rotateBy);
         this._group.add(helper);
-    }
-
-    _GetGroups()
-    {
-        return new Set(this._data.map(d => d.category));
-    }
-
-    _CreateOffsetHelper(keys)
-    {
-        var tmp = [];
-        const iter = keys.values();
-        for (var i = 0; i < keys.size; i++) {
-            tmp[iter.next().value] = 0;
-        }
-        return tmp;
     }
 }
