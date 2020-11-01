@@ -81,13 +81,44 @@ class ABarChart
          *              a lower bound of 0 and an upper bound that corresponds 
          *              to the maximum value within the data array.
          */
-        this._yScale.domain([0, 
-            d3.max(this._data, d => {
-                this._data.forEach(d => {
-                    d.value = parseInt(d.value);
-                });
-                return d.value;
-            })
-        ]);
+    
+        var keys = this._GetGroups(), tmp = this._CreateOffsetHelper(keys);
+
+        this._data.forEach(d => {
+            tmp[d.category] += parseInt(d.value);
+        });
+
+        console.log(tmp);
+        var max = this._FindMax(tmp, keys);
+        console.log('m: ' + max);
+
+        this._yScale.domain([0, max]);
+        
+    }
+
+    _FindMax(arr, keys)
+    {
+        const iter = keys.values();
+        var max = 0;
+        for (var i = iter.next().value; i != null; i = iter.next().value) {
+            console.log(arr[i]);
+            if (arr[i] > max) max = arr[i];
+        }
+        return max;
+    }
+
+    _GetGroups()
+    {
+        return new Set(this._data.map(d => d.category));
+    }
+
+    _CreateOffsetHelper(keys)
+    {
+        var tmp = [];
+        const iter = keys.values();
+        for (var i = 0; i < keys.size; i++) {
+            tmp[iter.next().value] = 0;
+        }
+        return tmp;
     }
 }
