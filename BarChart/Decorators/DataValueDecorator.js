@@ -17,15 +17,20 @@ class DataValueDecorator extends ABarChartDecorator
      * @param {BarChart}   chart        : See ABarChartDecorator.js    
      * @param {Boolean}    isPercentage : Determines if percentage sign will be displayed
      * @param {Boolean}    isCategory   : Determines if category will be displayed
+     * @param {Boolean}    isMiddle     : Determines the location of data value labels.
+     *                                    When true, the data value labels will be located
+     *                                    in the middle of the bars. If false, the 
+     *                                    values will be located at the top of the bars.
      * @param {JSON array} font         : Determines font of labels
      */
-    constructor(chart, isPercentage = true, isCategory = false, font = {'fontSize': 8, 
-        'fontFamily': 'Times New Roman, Times, serif', 'fontColor': 'black'}) 
+    constructor(chart, isPercentage = true, isCategory = false, isMiddle = true, 
+        font = {'fontSize': 8, 'fontFamily': 'Times New Roman, Times, serif', 'fontColor': 'black'}) 
     {
         super(chart);
         this._font = font;
         this._isPercentage = isPercentage;
         this._isCategory = isCategory;
+        this._isMiddle = isMiddle;
     }
 
     CreateBarChart()
@@ -51,6 +56,7 @@ class DataValueDecorator extends ABarChartDecorator
         var helper = new Konva.Group();
         var groups = this._GetGroups();
         var offsetHelper = this._CreateOffsetHelper(groups);
+        var labelHeight = GetFontSize('M', this._font);
 
         this._data.forEach(d => {
             var label = d.value;
@@ -60,9 +66,14 @@ class DataValueDecorator extends ABarChartDecorator
 
             var labelWidth = GetFontSize(label, this._font);
 
+            var yPos = (this._isMiddle) ? (this._chartHeight - 
+                ((this._chartHeight - this._yScale(d.value)) / 2)) 
+                - offsetHelper[d.category] : (this._yScale(d.value) - offsetHelper[d.category]
+                - labelHeight);
+
             var text = new Konva.Text({
                 x: (this._xScale(d.category) + this._xScale.bandwidth() / 2) - (labelWidth / 2),
-                y: (this._chartHeight - ((this._chartHeight - this._yScale(d.value)) / 2)) - offsetHelper[d.category],
+                y: yPos,
                 text: label,
                 fontSize: this._font.fontSize,
                 fontFamily: this._font.fontFamily,
