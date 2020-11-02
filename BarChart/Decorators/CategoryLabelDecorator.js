@@ -40,8 +40,17 @@ class CategoryLabelDecorator extends ABarChartDecorator
                 fontFamily: this._font.fontFamily,
                 fill: this._font.textColor,
             });
+            text.rotate(-this._rotateBy);
+
+            if (this._rotateBy === 90) {
+                if ((this._isWithinBars && !this._isTop) || (this._isWithinBars && this._isTop)) {
+                    text.setAttr('y', text.getAttr('y') + width);
+                }
+            }
+
             helper.add(text);
         }
+        helper.rotate(this._rotateBy);
         this._group.add(helper);
     }
 
