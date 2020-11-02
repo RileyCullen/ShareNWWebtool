@@ -12,11 +12,12 @@ class ChartDescriptorDecorator extends ABarChartDecorator
      * @requires FontWidthDetector.js
      *  
      * @param {BarChart}   chart    : Chart object we are adding to 
+     * @param {Boolean}    isTop    : Determines location of descriptor (top or bottom)
      * @param {JSON Array} font     : Determines font 
      * @param {int}        iconSize : Width/height of descriptor rectangles
      * 
      */
-    constructor(chart, font =  {'fontSize' : 8, 
+    constructor(chart, isTop = true, font =  {'fontSize' : 8, 
         'fontFamily' : 'Times New Roman, Times, serif', 
         'textColor' : 'black'}, iconSize = 7) 
     {
@@ -24,6 +25,7 @@ class ChartDescriptorDecorator extends ABarChartDecorator
         super(chart);
         this._font = font;
         this._iconSize = this._chartWidth / 30;
+        this._isTop = isTop;
     }
 
     CreateBarChart()
@@ -49,8 +51,11 @@ class ChartDescriptorDecorator extends ABarChartDecorator
         //       font size, after a certain lower bound that descriptors go to the
         //       'next line'.
         var helper = new Konva.Group();
-        var startingY = -(this._iconSize + 10), cumulativeX = this._xScale(this._data[0].category);
+        var startingY = (this._isTop) ? -(this._iconSize + 30) : chartHeight + this._iconSize + 30, 
+            cumulativeX = this._xScale(this._data[0].category);
         var prevOffset = 0, textOffset = 5, groupOffset = 5;
+
+        helper.setAttr('y', startingY);
 
         while (this._DoesDescriptorExceedWidth(cumulativeX, textOffset) && this._font.fontSize > 6) {
             this._DecreaseFontSize();
@@ -69,7 +74,7 @@ class ChartDescriptorDecorator extends ABarChartDecorator
 
             helper.add(new Konva.Rect({
                 x: rectX,
-                y: startingY,
+                // y: startingY,
                 width: this._iconSize,
                 height: this._iconSize,
                 fill: d.color,
@@ -77,7 +82,7 @@ class ChartDescriptorDecorator extends ABarChartDecorator
             var text = new Konva.Text({
                 text: textStr,
                 x: textX,
-                y: startingY,
+                // y: startingY,
                 fill: this._font.color,
                 fontSize: this._font.fontSize,
                 fontFamily: this._font.fontFamily,
