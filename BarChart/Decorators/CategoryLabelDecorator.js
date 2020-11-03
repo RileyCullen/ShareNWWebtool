@@ -48,12 +48,12 @@ class CategoryLabelDecorator extends ABarChartDecorator
          */
         var iter = this._keys.values();
         var helper = new Konva.Group();
-        var textHeight = GetFontSize('M', this._font);
+        var textHeight = this._GetFontSize('M', this._font);
         for (var i = iter.next().value; i != null; i = iter.next().value) {
-            var width = GetFontSize(i, this._font);
+            var width = this._GetFontSize(i, this._font);
             var height = this._GetBarHeight(i);
             var x = (this._xScale(i) + this._xScale.bandwidth() / 2) - (width / 2)
-            var y = (this._isTop) ? chartHeight - height + textHeight / 2: chartHeight - 1.5 * textHeight;
+            var y = (this._isTop) ? this._chartHeight - height + textHeight / 2: this._chartHeight - 1.5 * textHeight;
 
             if (!this._isWithinBars) {
                 y = (this._isTop) ? y - 2 * textHeight : y + 2 * textHeight;

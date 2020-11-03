@@ -56,7 +56,7 @@ class DataValueDecorator extends ABarChartDecorator
         var helper = new Konva.Group();
         var groups = this._GetGroups();
         var offsetHelper = this._CreateOffsetHelper(groups);
-        var labelHeight = GetFontSize('M', this._font);
+        var labelHeight = this._GetFontSize('M', this._font);
 
         this._data.forEach(d => {
             var label = d.value;
@@ -64,12 +64,12 @@ class DataValueDecorator extends ABarChartDecorator
             if (this._isPercentage) label += '%';
             if (this._isCategory) label += ' ' + d.category;
 
-            var labelWidth = GetFontSize(label, this._font);
+            var labelWidth = this._GetFontSize(label, this._font);
 
             var yPos = (this._isMiddle) ? (this._chartHeight - 
-                ((this._chartHeight - this._yScale(d.value)) / 2)) 
+                ((this._chartHeight - this._yScale(d.value)) / 2)) - labelHeight / 2 
                 - offsetHelper[d.category] : (this._yScale(d.value) - offsetHelper[d.category]
-                - labelHeight);
+                - labelHeight - 5);
 
             var text = new Konva.Text({
                 x: (this._xScale(d.category) + this._xScale.bandwidth() / 2) - (labelWidth / 2),

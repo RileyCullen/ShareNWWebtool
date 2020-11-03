@@ -26,4 +26,16 @@ class ABarChartDecorator extends ABarChart
             throw new TypeError('Abstract class "ABarChartDecorator" cannot be instantiated');
         }
     }
+
+    _GetFontSize(text, font)
+    {
+        var canvas = document.createElement('canvas');
+        var ctx = canvas.getContext('2d');
+
+        ctx.font = font.fontSize + 'px ' + font.fontFamily;
+        var helper = ctx.measureText(text).width;
+        canvas.remove();
+
+        return helper;
+    }
 }

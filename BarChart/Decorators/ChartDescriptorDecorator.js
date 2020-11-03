@@ -64,7 +64,7 @@ class ChartDescriptorDecorator extends ABarChartDecorator
         this._data.forEach((d, i) => {
             var textStr = (typeof d.subcategory === 'undefined' || d.subcategory === null)
                 ? d.category : d.subcategory;
-            var textWidth = GetFontSize(textStr, this._font);
+            var textWidth = this._GetFontSize(textStr, this._font);
 
             var rectX = cumulativeX;
             var textX = rectX + this._iconSize + textOffset;
@@ -107,7 +107,7 @@ class ChartDescriptorDecorator extends ABarChartDecorator
          */
         var totalWidth = startingX;
         this._data.forEach(d => {
-            totalWidth += (this._iconSize + GetFontSize(d.category, this._font) + textOffset);
+            totalWidth += (this._iconSize + this._GetFontSize(d.category, this._font) + textOffset);
         }); 
         return totalWidth > this._chartWidth;
     }

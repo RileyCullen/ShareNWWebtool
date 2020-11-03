@@ -84,9 +84,9 @@ class YAxisDecorator extends ABarChartDecorator
         var yTicks = this._yScale.ticks(10);
         var helper = new Konva.Group();
         var tickLength = 6;
-        var numberHeight = GetFontSize('M', this._font); 
+        var numberHeight = this._GetFontSize('M', this._font); 
         yTicks.forEach(d => {
-            var numberWidth = GetFontSize(d, this._font);
+            var numberWidth = this._GetFontSize(d, this._font);
             helper.add(new Konva.Line({
                 points: [0, this._yScale(d) - 0.5, -tickLength, this._yScale(d) - 0.5],
                 stroke: this._lineColor,

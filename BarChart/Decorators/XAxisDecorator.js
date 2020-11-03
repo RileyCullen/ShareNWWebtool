@@ -81,7 +81,7 @@ class XAxisDecorator extends ABarChartDecorator
          *              then added to the Konva.Group.
          */
         var helper = new Konva.Group();
-        var textHeight = GetFontSize('M', this._font);
+        var textHeight = this._GetFontSize('M', this._font);
         this._xScale.domain().forEach(d => {
             helper.add(new Konva.Line({
                 points: [this._xScale(d) + this._xScale.bandwidth() / 2, 
@@ -91,13 +91,13 @@ class XAxisDecorator extends ABarChartDecorator
                 strokeWidth: this._tickStrokeWidth,
             }));
 
-            var textWidth = GetFontSize(d, this._font);
+            var textWidth = this._GetFontSize(d, this._font);
             var text = new Konva.Text({
                 text: d,
                 fontSize: this._font.fontSize,
                 fontFamily: this._font.fontFamily,
                 x: (this._xScale(d) + this._xScale.bandwidth() / 2) - (textWidth / 2),
-                y: this._chartHeight + (textHeight / 2),
+                y: this._chartHeight + (textHeight),
             }) 
             helper.add(text);
             if (this._rotateBy === 90) {
