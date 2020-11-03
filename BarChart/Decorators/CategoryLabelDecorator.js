@@ -1,6 +1,24 @@
+// Cullen, Riley
+// CategoryLabelDecorator.js
+// November 2, 2020
+
 class CategoryLabelDecorator extends ABarChartDecorator
 {
-    // TODO add rotation factor
+    /**
+     * @summary     Adds category labels to the parameterized bar chart.
+     * @description Draws unique category labels from the this._data array
+     *              to the canvas using Konva.js.
+     * 
+     * @requires ABarChartDecorator.js
+     * @see ABarChartDecorator.js
+     * 
+     * @param {Bar Chart}  chart        : The chart we want to decorate
+     * @param {Boolean}    isWithinBars : Determines if category label is within the bars
+     *                                    or if it is outside of the bars
+     * @param {Boolean}    isTop        : Determines if the label is located at the
+     *                                    top or bottom
+     * @param {JSON Array} font         : The font of the label.
+     */
     constructor(chart, isWithinBars = true, isTop = true, font = 
         {'fontSize' : 10, 'fontFamily' : 'Times New Roman, Times, serif', 'textColor' : 'black'})
     {
@@ -13,12 +31,21 @@ class CategoryLabelDecorator extends ABarChartDecorator
 
     CreateBarChart()
     {
+        /**
+         * @summary     Creates bar chart and adds category labels.
+         * @description Calls this._chart's CreateBarChart method and then creates
+         *              the labels by calling this._CreateLabels.
+         */
         this._chart.CreateBarChart();
         this._CreateLabels();
     }
 
     _CreateLabels()
     {
+        /**
+         * @summary     Creates the category labels.
+         * @description Dynamically positions the category labels within the Konva.Group.
+         */
         var iter = this._keys.values();
         var helper = new Konva.Group();
         var textHeight = GetFontSize('M', this._font);
@@ -56,6 +83,15 @@ class CategoryLabelDecorator extends ABarChartDecorator
 
     _GetBarHeight(category)
     {
+        /**
+         * @summary     Gets the bar height for the given category.
+         * @description Iterates through all of the data and finds the cummulative
+         *              heights of all the bars for that particular category
+         * 
+         * @param {String} category : The category we want to calculate the bar height on.
+         * 
+         * @returns {int} Function returns the bar height.
+         */
         var barHeight = 0;
         this._data.forEach(d => {
             if (d.category === category) barHeight += (this._chartHeight - this._yScale(d.value));

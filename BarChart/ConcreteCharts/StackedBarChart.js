@@ -8,6 +8,9 @@ class StackedBarChart extends ABarChart
      * @summary     Allows for the creation of a stacked bar chart.
      * @description Uses D3 and Konva.js to create stacked bar charts and display
      *              them on canvas.
+     * 
+     * @requires ABarChart.js
+     * @see ABarChart.js for constructor parameters.
      */
     constructor(data, group, width, height, padding, rotateBy = 0)
     {
@@ -16,6 +19,9 @@ class StackedBarChart extends ABarChart
 
     CreateBarChart()
     {
+        /**
+         * @summary     Creates the stacked bar chart.
+         */
         var virtualDOM = document.createElement('custom');
         var custom = d3.select(virtualDOM);
 
@@ -25,6 +31,9 @@ class StackedBarChart extends ABarChart
 
     _BindData(custom)
     {
+        /**
+         * @summary     Binds data to custom DOM elements.
+         */
         var selection = custom.selectAll('custom.rect')
             .data(this._data)
             .enter()
@@ -40,6 +49,9 @@ class StackedBarChart extends ABarChart
 
     _DrawBars(custom)
     {
+        /**
+         * @summary Adds bars to the Konva.Group
+         */
         var elements = custom.selectAll('custom.rect');
         var helper = new Konva.Group();
 
