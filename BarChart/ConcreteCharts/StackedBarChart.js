@@ -61,8 +61,6 @@ class StackedBarChart extends ABarChart
         elements.each(function(d,i) {
             var node = d3.select(this);
 
-            console.log('offsetHelper (SBC): ' + offsetHelper[d.category]);
-
             helper.add(new Konva.Rect({
                 x: node.attr('x'),
                 y: node.attr('y') - offsetHelper[node.attr('id')],

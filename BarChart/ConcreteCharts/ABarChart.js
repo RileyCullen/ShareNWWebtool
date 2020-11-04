@@ -88,9 +88,7 @@ class ABarChart
             tmp[d.category] += parseInt(d.value);
         });
 
-        console.log(tmp);
         var max = this._FindMax(tmp, keys);
-        console.log('m: ' + max);
 
         this._yScale.domain([0, max]);
         
@@ -101,7 +99,6 @@ class ABarChart
         const iter = keys.values();
         var max = 0;
         for (var i = iter.next().value; i != null; i = iter.next().value) {
-            console.log(arr[i]);
             if (arr[i] > max) max = arr[i];
         }
         return max;

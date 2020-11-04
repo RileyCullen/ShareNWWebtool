@@ -41,8 +41,6 @@ class BasicBarChart extends ABarChart
         var virtualCanvas = document.createElement('custom');
         var custom = d3.select(virtualCanvas);
 
-        console.log('_CH: ' + typeof(custom));
-
         this._BindData(custom);
         this._DrawBars(custom, false);
     }
@@ -78,7 +76,6 @@ class BasicBarChart extends ABarChart
         /**
          * @summary     Uses binded data to add Konva.js elements to group.
          */
-        console.log(typeof(custom));
         var elements = custom.selectAll('custom.rect');
         var helper = new Konva.Group();
         elements.each(function(d,i) {
