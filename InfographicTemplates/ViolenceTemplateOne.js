@@ -221,8 +221,15 @@ class ViolenceTemplateOne extends AInfographic
         };
         var valueLabel = new DataValueDecorator(stackedBarChart, true, false, true, valueFont);
         var categoryLabel = new CategoryLabelDecorator(valueLabel, true, true, categoryFont);
-        // var descriptor = new ChartDescriptorDecorator(valueLabel);
-        categoryLabel.CreateBarChart();
+        var descriptor = new ChartDescriptorDecorator(categoryLabel, false, {
+            'fontSize': 10,
+            'fontFamily': roboto,
+            'fontColor': 'black',
+        });
+        descriptor.SetPadding(20);
+        descriptor.SetOffsetX(7);
+        descriptor.SetOffsetY(-10);
+        descriptor.CreateBarChart();
 
         /* PIE CHART ONE CODE */
         var pieChartOneGroup = new Konva.Group({
@@ -241,9 +248,39 @@ class ViolenceTemplateOne extends AInfographic
             'value': 26,
             'color': blueishGray,
         };
-        var pieChartOne = new PieChart(pieChartOneData, pieChartOneGroup, 80);
-        var donutDecorator = new DonutDecorator(pieChartOne, 40);   
-        donutDecorator.CreateChart();
+        var pieChartOneRadius = 80;
+        var pieChartOne = new PieChart(pieChartOneData, pieChartOneGroup, pieChartOneRadius);
+        var donutDecorator = new DonutDecorator(pieChartOne, pieChartOneRadius / 2);   
+        var minorStatistic = new MinorStatisticDecorator(donutDecorator, {
+            'fontSize': 30,
+            'fontFamily': roboto,
+            'fontStyle': 900,
+            'textColor': orange,
+        });
+        minorStatistic.CreateChart();
+
+        var pieChartOneHelper = new Konva.Group();
+        pieChartOneGroup.add(pieChartOneHelper);
+        var pieChartOneText_1 = 'are raising';
+        var pieChartOneText_2 = 'children';
+        var pieChartOneTextElem = new Konva.Text({
+            x: -this._GetTextWidth(pieChartOneText_1, 15, roboto) / 2,
+            y: pieChartOneRadius + (this._GetTextWidth('M', 15, roboto)),
+            text: pieChartOneText_1,
+            fontSize: 15,
+            fontFamily: roboto,
+            fontStyle: 400,
+        });
+        pieChartOneHelper.add(pieChartOneTextElem);
+        var pieChartOneTextElemTwo = new Konva.Text({
+            x: -this._GetTextWidth(pieChartOneText_2, 15, roboto) / 2,
+            y: pieChartOneRadius + 2 * this._GetTextWidth('M', 15, roboto) + 5,
+            text: pieChartOneText_2,
+            fontSize: 15, 
+            fontFamily: roboto,
+            fontStyle: 400,
+        });
+        pieChartOneHelper.add(pieChartOneTextElemTwo);
 
         /* BAR CHART ONE CODE */
         var barChartOneData = [], barChartOneGroup = new Konva.Group({
@@ -251,6 +288,19 @@ class ViolenceTemplateOne extends AInfographic
             y: 70,
         });
         sectionOne.add(barChartOneGroup);
+
+        var bcOneTitleText = 'LGBT Age Distribution', bcOneFontSize = 15;
+        var bcOneTitle = new Konva.Text({
+            x: 50,
+            y: -(20 + 2 * this._GetTextWidth('M', bcOneFontSize, roboto)),
+            text: bcOneTitleText,
+            fill: 'black',
+            fontFamily: roboto,
+            fontSize: bcOneFontSize,
+            fontStyle: 400,
+        });
+        barChartOneGroup.add(bcOneTitle);
+
         barChartOneData[0] = {
             'category': '18-24',
             'value': 30,
@@ -292,6 +342,32 @@ class ViolenceTemplateOne extends AInfographic
         });
         valueDecoratorOne.CreateBarChart();
 
+        /* TOOL TIP */
+        var toolTip = new MessageBubble(sectionOne, 225, 150, '#1e2243');
+        toolTip.CreateMessageBubble(300, 350);
+
+        var toolTipText = [
+            '81% of Virginia Residents',
+            'think that LGBT people ',
+            'experience discrimination',
+            'in the state.'
+        ];
+
+        var prev = 0;
+        toolTipText.forEach((d, i) => {
+            var helper = new Konva.Text({
+                text: toolTipText[i],
+                x: 300 + 15,
+                y: 375 + prev,
+                fill: 'white',
+                fontSize: 17,
+                fontFamily: roboto,
+                fontStyle: 300,
+            });
+            prev += 2 * this._GetTextWidth('M', 17, roboto);
+            sectionOne.add(helper);
+        });
+
         /* WAFFLE CHART CODE */
         var PERSON = '\uf007', ICON_FONT = '"Font Awesome 5 Free"';
         var orangePersonPreset = GenerateWafflePreset(PERSON, orange, 25, ICON_FONT),
@@ -307,6 +383,55 @@ class ViolenceTemplateOne extends AInfographic
         var waffleNum = 65, waffleDenom = 80;
         var waffleChart = new WaffleChart(waffleNum, waffleDenom, 20, orangePersonPreset, bluePersonPreset);
         waffleChart.GenerateChart(20, 30, waffleChartGroup, false);
+
+        var circleGroup = new Konva.Group({
+            x: 345,
+            y: 165
+        });
+        waffleChartGroup.add(circleGroup);
+
+        var circle = new PieChart([{'category': 'test', 'value': 74, 'color': yellow}], circleGroup, 55)
+        var circleOutline = new ChartOutlineDecorator(circle, 60, 2.5, 'black');
+        var circleMinorStatistic = new MinorStatisticDecorator(circleOutline, {
+            'fontSize': 40,
+            'fontFamily': roboto,
+            'textColor': 'black',
+            'fontStyle': 400,
+        });
+        circleMinorStatistic.CreateChart();
+
+        var waffleDescHelper = [
+            'of LGBT Virginia students surveyed',
+            'said they had experienced verbal',
+            'harassment based on their sexual',
+            'orientation at school.'
+        ];
+        var waffleDesc = [];
+        prev = 0;
+
+        waffleDescHelper.forEach((d, i) => {
+            waffleDesc[i] = new Konva.Text({
+                x: 420,
+                y: 130 + prev,
+                text: d,
+                fontSize: 13,
+                fontFamily: roboto,
+                fontStyle: 400,
+            });
+            waffleChartGroup.add(waffleDesc[i]);
+            prev += 1.5 * this._GetTextWidth('M', 15, roboto);
+        });
+
+        var citationOneText = '2017 GLSEN National School Climate Survey';
+        var citationOne = new Konva.Text({
+            x: 420,
+            y: waffleDesc[3].getAttr('y') + 4 * this._GetTextWidth('M', 11, roboto),
+            text: citationOneText,
+            fontSize: 9,
+            fontFamily: roboto,
+            fontStyle: 300,
+        });
+        waffleChartGroup.add(citationOne);
     }   
 
     Draw()
