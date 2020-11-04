@@ -19,13 +19,17 @@ class ChartDescriptorDecorator extends ABarChartDecorator
      */
     constructor(chart, isTop = true, font =  {'fontSize' : 8, 
         'fontFamily' : 'Times New Roman, Times, serif', 
-        'textColor' : 'black'}, iconSize = 7) 
+        'textColor' : 'black'}, iconSize = 7, maxPerRow = 3) 
     {
         // TODO: vertical vs horizontal descriptor
         super(chart);
         this._font = font;
         this._iconSize = this._chartWidth / 30;
         this._isTop = isTop;
+        this._maxPerRow = maxPerRow;
+        this._padding = 10
+        this._offsetX = 0;
+        this._offsetY = 0;
     }
 
     CreateBarChart()
@@ -39,6 +43,10 @@ class ChartDescriptorDecorator extends ABarChartDecorator
         this._CreateDescriptor();
     }
 
+    SetPadding(padding) { this._padding = padding; }
+    SetOffsetX(offset)  { this._offsetX = offset; }
+    SetOffsetY(offset)  { this._offsetY = offset; }
+
     _CreateDescriptor()
     {
         /**
@@ -51,43 +59,56 @@ class ChartDescriptorDecorator extends ABarChartDecorator
         //       font size, after a certain lower bound that descriptors go to the
         //       'next line'.
         var helper = new Konva.Group();
-        var startingY = (this._isTop) ? -(this._iconSize + 30) : chartHeight + this._iconSize + 30, 
-            cumulativeX = this._xScale(this._data[0].category);
+        var keys = this._GetSubCategories(), hasPopulated = this._CreateOffsetHelper(keys);
+        var startingY = (this._isTop) ? -(this._iconSize + 30) : this._chartHeight + this._iconSize + 30, 
+            cumulativeX = this._xScale(this._data[0].category) + this._offsetX;
         var prevOffset = 0, textOffset = 5, groupOffset = 5;
 
-        helper.setAttr('y', startingY);
-
-        while (this._DoesDescriptorExceedWidth(cumulativeX, textOffset) && this._font.fontSize > 6) {
+        /*while (this._DoesDescriptorExceedWidth(cumulativeX, textOffset) && this._font.fontSize > 6) {
             this._DecreaseFontSize();
-        }
+        }*/
 
-        this._data.forEach((d, i) => {
-            var textStr = (typeof d.subcategory === 'undefined' || d.subcategory === null)
-                ? d.category : d.subcategory;
-            var textWidth = this._GetFontSize(textStr, this._font);
+        startingY += this._offsetY;
 
-            var rectX = cumulativeX;
-            var textX = rectX + this._iconSize + textOffset;
+        this._data.slice().reverse().forEach((d, i) => {
+            console.log('cat: ' + d.subcategory);
+            console.log('key size: ' + keys.size);
 
-            prevOffset = this._iconSize + textWidth + textOffset;
-            cumulativeX += prevOffset + groupOffset;
+            if ((i % this._maxPerRow) === 0 && i !== 0) {
+                startingY += 2 * this._iconSize;
+                cumulativeX = this._xScale(this._data[0].category) + this._offsetX;
+            }
+            
+            if (keys.size === 1 || hasPopulated[d.subcategory] === 0) {
+                console.log('in')
+                var textStr = (typeof d.subcategory === 'undefined' || d.subcategory === null)
+                    ? d.category : d.subcategory;
+                var textWidth = this._GetFontSize(textStr, this._font);
 
-            helper.add(new Konva.Rect({
-                x: rectX,
-                // y: startingY,
-                width: this._iconSize,
-                height: this._iconSize,
-                fill: d.color,
-            }));
-            var text = new Konva.Text({
-                text: textStr,
-                x: textX,
-                // y: startingY,
-                fill: this._font.color,
-                fontSize: this._font.fontSize,
-                fontFamily: this._font.fontFamily,
-            });
-            helper.add(text);
+                var rectX = cumulativeX;
+                var textX = rectX + this._iconSize + textOffset;
+
+                prevOffset = this._iconSize + textWidth + textOffset;
+                cumulativeX += prevOffset + groupOffset + this._padding;
+
+                helper.add(new Konva.Rect({
+                    x: rectX,
+                    y: startingY,
+                    width: this._iconSize,
+                    height: this._iconSize,
+                    fill: d.color,
+                }));
+                var text = new Konva.Text({
+                    text: textStr,
+                    x: textX,
+                    y: startingY,
+                    fill: this._font.color,
+                    fontSize: this._font.fontSize,
+                    fontFamily: this._font.fontFamily,
+                });
+                helper.add(text);
+                if (keys.size !== 0) hasPopulated[d.subcategory] = 1;
+            }
         });
 
         if (this._rotateBy === 90) {
@@ -96,6 +117,11 @@ class ChartDescriptorDecorator extends ABarChartDecorator
         }
 
         this._group.add(helper);
+    }
+
+    _GetSubCategories()
+    {
+        return new Set(this._data.map(d => d.subcategory));
     }
 
     _DoesDescriptorExceedWidth(startingX, textOffset)
