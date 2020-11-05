@@ -89,7 +89,7 @@ class ObesityTemplateOne extends AInfographic
         // Creating section backgrounds
         var sectionArr = [], sectionColorArr = ['#e33c29', '#2e8acb', '#aea59e', '#94bd31'];
         var textGroupArr = [];
-        var sectionFontSize = 19, statisticFontSize = 47.5;
+        var sectionFontSize = 18.5, statisticFontSize = 47.5;
 
         for (var i = 0; i < 4; i++) {
             sectionArr[i] = (i === 0) ? new Konva.Group() : new Konva.Group({
@@ -114,7 +114,7 @@ class ObesityTemplateOne extends AInfographic
         }
 
         // Section 1 content
-        var CHILD = '\uf1ae', CHILD_OFFSET = 40, ICON_FONT = '"Font Awesome 5 Free"';
+        var CHILD = '\uf1ae', CHILD_OFFSET = 40, ICON_FONT = (true) ? '"Font Awesome 5 Free"' : "FontAwesome";
         var whiteChildPreset = GenerateWafflePreset(CHILD, 'white', CHILD_OFFSET, ICON_FONT),
             redChildPreset = GenerateWafflePreset(CHILD, '#9a2418', CHILD_OFFSET, ICON_FONT);
         var sectionOneWaffleContainer = new Konva.Group({
@@ -128,7 +128,10 @@ class ObesityTemplateOne extends AInfographic
 
         var waffleOneNum = 1, waffleOneDenom = 3;
         var waffleOne = new WaffleChart(waffleOneNum, waffleOneDenom, 50, whiteChildPreset, redChildPreset);
-        waffleOne.GenerateChart(60, 50, sectionOneWaffleContainer);
+
+        this._chartHandler.AddChart(waffleOne, sectionOneWaffleContainer, 'WaffleChart');
+        this._chartHandler.GetChart(this._chartHandler.GetCurrChartID())
+            .GenerateChart(60, 50, sectionOneWaffleContainer);
 
         var waffleOneStatistic = waffleOneNum + ' in ' + waffleOneDenom;
         textGroupArr[0].add(new Konva.Text({
@@ -163,7 +166,10 @@ class ObesityTemplateOne extends AInfographic
 
         var waffleTwoNum = 2, waffleTwoDenom = 3;
         var waffleTwo = new WaffleChart(waffleTwoNum, waffleTwoDenom, 50, whiteRunnerPreset, blueRunnerPreset);
-        waffleTwo.GenerateChart(60, 50, sectionTwoWaffleContainer);
+        
+        this._chartHandler.AddChart(waffleTwo, sectionTwoWaffleContainer, 'WaffleChart');
+        this._chartHandler.GetChart(this._chartHandler.GetCurrChartID())
+            .GenerateChart(60, 50, this._chartHandler.GetCurrentGroup());
 
         textGroupArr[1].setAttr('y', textGroupArr[1].getAttr('y') + 10);
 
@@ -216,7 +222,13 @@ class ObesityTemplateOne extends AInfographic
         var donutDecorator = new DonutDecorator(pieChart, 40, sectionColorArr[2]);
         var outerOutline = new ChartOutlineDecorator(donutDecorator, pieChart.GetRadius(), 5, '#7b706a');
         var innerOutline = new ChartOutlineDecorator(outerOutline, donutDecorator.GetRadius(), 3, '#7b706a');
-        innerOutline.CreateChart();
+
+        this._chartHandler.AddChart(pieChart, pieChartGroup, 'PieChart');
+        this._chartHandler.AddDecorator(donutDecorator, this._chartHandler.GetCurrChartID());
+        this._chartHandler.AddDecorator(outerOutline, this._chartHandler.GetCurrChartID());
+        this._chartHandler.AddDecorator(innerOutline, this._chartHandler.GetCurrChartID());
+        this._chartHandler.GetDecorator(this._chartHandler.GetCurrChartID(), this._chartHandler.GetCurrDecSize())
+            .CreateChart();
 
         textGroupArr[2].setAttr('y', textGroupArr[2].getAttr('y') + 5);
 
@@ -244,10 +256,10 @@ class ObesityTemplateOne extends AInfographic
             text: TV,
             fontFamily: ICON_FONT,
             fontStyle: '900',
-            x: 85,
-            y: 35,
+            x: 95,
+            y: 40,
             fill: 'white',
-            fontSize: 125,
+            fontSize: 110,
         });
         sectionArr[3].add(tvHelper);
 
@@ -288,6 +300,8 @@ class ObesityTemplateOne extends AInfographic
             fill: 'gray'
         });
         footer.add(source);
+
+        this._AddGraphSelection();
     }
 
     Draw()
