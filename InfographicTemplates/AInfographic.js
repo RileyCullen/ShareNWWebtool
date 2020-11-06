@@ -47,6 +47,8 @@ class AInfographic
             height: this._chartHeight,
         });
         this._main = new Konva.Layer();
+        this._UIAdder = new UIAdder();
+
         this._stage.add(this._main);
 
         this._main.add(this._chartTr);
@@ -105,11 +107,16 @@ class AInfographic
         selection.each((chart) => {
             // desc: Function handles the selection of the two waffle charts
             chart.on('dblclick', () => {
+                var index = parseInt(chart.getAttr('id'));
                 this._chartTr.nodes([chart]);
                 this._chartTr.moveToTop();
                 this._main.batchDraw();
-                //document.getElementById('selectorDisplay').innerHTML = waffleChartSelector;
+                chart.setAttr('draggable', true);
 
+                if (chart.getAttr('name') === 'Chart Waffle') {
+                    this._UIAdder.CreateWaffleEditor(this._chartHandler.GetChart(index),
+                        this._chartHandler.GetGroup(index), this._main, this._chartTr);
+                }
 
                 setTimeout(() => {
                     this._stage.on('click', HandleOutsideClick);
@@ -117,8 +124,9 @@ class AInfographic
 
                 var HandleOutsideClick = (e) => {
                     if (e.target !== chart) {
-                        console.log('outside click')
+                        this._UIAdder.RemoveCurrentEditor();
                         this._chartTr.nodes([]);
+                        chart.setAttr('draggable', false);
                         this._main.batchDraw();
                         this._stage.off('click', HandleOutsideClick);
                     }
