@@ -79,5 +79,7 @@ class ChartHandler
     /**
      * @summary Returns the group of the current handler entry.
      */
-    GetCurrentGroup() { return this._handler[this._curr].group; }
+    GetCurrentGroup() { return this.GetGroup(this._curr); }
+
+    GetGroup(id) { return this._handler[id].group; }
 }
