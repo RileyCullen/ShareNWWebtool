@@ -24,7 +24,7 @@ class APieChart
         }
 
         if (this.CreateChart === undefined) {
-            throw new TypeError('Classes extending APieChart must implement "CreateBarChart"');
+            throw new TypeError('Classes extending APieChart must implement "CreateChart"');
         }
 
         this._data = data;
@@ -51,8 +51,9 @@ class APieChart
         return total;
     }
 
-    GetRadius()
-    {
-        return this._radius;
-    }
+    UpdateData(data) { this._data = data; }
+
+    GetRadius() { return this._radius; }
+
+    GetDataArr() { return this._data; }
 }
