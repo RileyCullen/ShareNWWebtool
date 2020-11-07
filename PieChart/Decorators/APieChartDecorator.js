@@ -24,4 +24,10 @@ class APieChartDecorator extends APieChart
             throw new TypeError('Abstract class "APieChartDecorator" cannot be instantiated');
         }
     }
+
+    UpdateDecorator(chart)
+    {
+        this._data = chart._data;
+        this._chart = chart;
+    }
 }
