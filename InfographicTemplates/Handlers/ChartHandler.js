@@ -82,4 +82,6 @@ class ChartHandler
     GetCurrentGroup() { return this.GetGroup(this._curr); }
 
     GetGroup(id) { return this._handler[id].group; }
+
+    GetHandlerElem(id) { return this._handler[id]; }
 }
