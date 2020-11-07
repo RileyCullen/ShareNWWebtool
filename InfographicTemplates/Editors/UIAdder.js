@@ -37,6 +37,12 @@ class UIAdder
             .CreateWaffleEditor());
     }
 
+    CreatePieEditor(handlerElem, main, tr)
+    {
+        this._AddGroupToMain();
+        this._group.appendChild(new PieChartEditor(handlerElem, main, tr).CreateEditorUI());
+    }
+
     /**
      * @summary Removes the current editor object from DOM.
      */
