@@ -6,7 +6,8 @@ class PieChart extends APieChart
 {
     /**
      * @summary     Allows for the creation of pie charts.
-     * @description This class allows for the user to create a simple bar chart.
+     * @description This class allows for the user to create a simple bar chart. 
+     *              Note that this code only works for pie charts of two categories.
      * 
      * @requires APieChart.js
      * 
@@ -84,7 +85,7 @@ class PieChart extends APieChart
         var elements = custom.selectAll('custom.circle')
         var helper = new Konva.Group();
 
-        var wedgeArr = [], largestAngle = 0;
+        var wedgeArr = [], angleArr = [];
 
         elements.each(function(d,i) {
             var node = d3.select(this);
@@ -94,15 +95,17 @@ class PieChart extends APieChart
                 radius: node.attr('radius'),
                 angle: node.attr('sliceAngle'),
                 fill: node.attr('color'),
-                draggable: true
+                draggable: false,
             });
-            if (node.attr('sliceAngle') > largestAngle) largestAngle = parseFloat(node.attr('sliceAngle'));
+
+            angleArr[i] = parseFloat(node.attr('sliceAngle'));
 
             helper.add(wedge);
             wedgeArr[i] = wedge;
         });
 
-        this._RotateSlices(wedgeArr, largestAngle);
+        if (this._data[0].value > 50) this._RotateSlices(wedgeArr, angleArr[0]);
+        else this._RotateSlices(wedgeArr, 360 - angleArr[1]);
         this._group.add(helper);
     }
 
