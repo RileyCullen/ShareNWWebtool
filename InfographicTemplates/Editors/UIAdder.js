@@ -11,10 +11,11 @@ class UIAdder
      * 
      * @requires WaffleEditor.js
      */
-    constructor()
+    constructor(chartWidth)
     {
         this._main = document.getElementById('editor');
         this._group = document.createElement('div');
+        this._chartWidth = chartWidth;
     }
 
     /**
@@ -57,6 +58,13 @@ class UIAdder
     _AddGroupToMain()
     {
         this._main.appendChild(this._group);
+        this._AddCSS();
+    }
+
+    _AddCSS()
+    {
+        this._group.style.position = 'fixed';
+        this._group.style.left = this._chartWidth + 25 + 'px';
     }
 
     /**
