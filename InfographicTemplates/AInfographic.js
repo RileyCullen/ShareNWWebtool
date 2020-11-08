@@ -47,7 +47,7 @@ class AInfographic
             height: this._chartHeight,
         });
         this._main = new Konva.Layer();
-        this._UIAdder = new UIAdder();
+        this._UIAdder = new UIAdder(this._chartWidth);
 
         this._stage.add(this._main);
 
