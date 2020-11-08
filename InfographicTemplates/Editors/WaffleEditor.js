@@ -1,6 +1,21 @@
+// Cullen, Riley
+// WaffleEditor.js
+// November 6, 2020
+
 class WaffleEditor 
 {
-
+    /**
+     * @summary     This class creates the DOM elements related to editing waffle
+     *              charts.
+     * @description See summary. 
+     * 
+     * @requires WaffleChart/WaffleChart.js
+     * 
+     * @param {WaffleChart}       chart The chart we want to edit.
+     * @param {Konva.Group}       group The group associated with the given chart.
+     * @param {Konva.Layer}       main  The main layer that lets us redraw.
+     * @param {Konva.Transformer} tr    The chart transformer.git 
+     */    
     constructor(chart, group, main, tr)
     {
         this._rows = 1;
@@ -75,9 +90,8 @@ class WaffleEditor
 
         console.log(this._waffleChart);
 
-        this._waffleChart.UpdateSettings(numerator, denominator, this._waffleChart.GetFontSize(),
-            this._waffleChart.GetPresetA(), this._waffleChart.GetPresetB());
-        this._waffleChart.GenerateChart(this._waffleChart.GetStartingX(), this._waffleChart.GetStartingY(), this._group);
+        this._waffleChart.UpdateData(numerator, denominator);
+        this._waffleChart.CreateChart();
 
         this._tr.forceUpdate();
         this._main.batchDraw();

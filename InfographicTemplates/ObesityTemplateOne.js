@@ -118,8 +118,8 @@ class ObesityTemplateOne extends AInfographic
         var whiteChildPreset = GenerateWafflePreset(CHILD, 'white', CHILD_OFFSET, ICON_FONT),
             redChildPreset = GenerateWafflePreset(CHILD, '#9a2418', CHILD_OFFSET, ICON_FONT);
         var sectionOneWaffleContainer = new Konva.Group({
-            x: 17.5, 
-            y: 10,
+            x: 75, 
+            y: 60,
             width: 200,
             height: 100,
         });
@@ -127,11 +127,12 @@ class ObesityTemplateOne extends AInfographic
         sectionOneWaffleContainer.moveToTop();
 
         var waffleOneNum = 1, waffleOneDenom = 3;
-        var waffleOne = new WaffleChart(waffleOneNum, waffleOneDenom, 50, whiteChildPreset, redChildPreset);
+        var waffleOne = new WaffleChart(waffleOneNum, waffleOneDenom, sectionOneWaffleContainer,
+            whiteChildPreset, redChildPreset, 50);
 
-        this._chartHandler.AddChart(waffleOne, sectionOneWaffleContainer, 'WaffleChart');
+        this._chartHandler.AddChart(waffleOne, sectionOneWaffleContainer, 'Waffle');
         this._chartHandler.GetChart(this._chartHandler.GetCurrChartID())
-            .GenerateChart(60, 50, sectionOneWaffleContainer);
+            .CreateChart();
 
         var waffleOneStatistic = waffleOneNum + ' in ' + waffleOneDenom;
         textGroupArr[0].add(new Konva.Text({
@@ -157,19 +158,20 @@ class ObesityTemplateOne extends AInfographic
             blueRunnerPreset = GenerateWafflePreset(RUNNER, '#11578a', 0, ICON_FONT);
 
         var sectionTwoWaffleContainer = new Konva.Group({
-            x: 17.5,
-            y: 10,
+            x: 77,
+            y: 60,
             width: 195,
             height: 100,
         });
         sectionArr[1].add(sectionTwoWaffleContainer);
 
         var waffleTwoNum = 2, waffleTwoDenom = 3;
-        var waffleTwo = new WaffleChart(waffleTwoNum, waffleTwoDenom, 50, whiteRunnerPreset, blueRunnerPreset);
-        
-        this._chartHandler.AddChart(waffleTwo, sectionTwoWaffleContainer, 'WaffleChart');
+        var waffleTwo = new WaffleChart(waffleTwoNum, waffleTwoDenom, sectionTwoWaffleContainer,
+            whiteRunnerPreset, blueRunnerPreset, 50);
+
+        this._chartHandler.AddChart(waffleTwo, sectionTwoWaffleContainer, 'Waffle');
         this._chartHandler.GetChart(this._chartHandler.GetCurrChartID())
-            .GenerateChart(60, 50, this._chartHandler.GetCurrentGroup());
+            .CreateChart();
 
         textGroupArr[1].setAttr('y', textGroupArr[1].getAttr('y') + 10);
 
@@ -218,27 +220,30 @@ class ObesityTemplateOne extends AInfographic
         });
         sectionArr[2].add(pieChartGroup);
 
+        textGroupArr[2].setAttr('y', textGroupArr[2].getAttr('y') + 5);
+
         var pieChart = new PieChart(pieChartData, pieChartGroup, 70);
         var donutDecorator = new DonutDecorator(pieChart, 40, sectionColorArr[2]);
         var outerOutline = new ChartOutlineDecorator(donutDecorator, pieChart.GetRadius(), 5, '#7b706a');
         var innerOutline = new ChartOutlineDecorator(outerOutline, donutDecorator.GetRadius(), 3, '#7b706a');
+        var majorStatistic = new FirstStatisticDecorator(innerOutline, {'fontSize': statisticFontSize,
+            'fontFamily': titleFont, 'textColor': 'white',}, 5, 0, textGroupArr[2]);
 
-        this._chartHandler.AddChart(pieChart, pieChartGroup, 'PieChart');
+        this._chartHandler.AddChart(pieChart, pieChartGroup, 'Pie');
         this._chartHandler.AddDecorator(donutDecorator, this._chartHandler.GetCurrChartID());
         this._chartHandler.AddDecorator(outerOutline, this._chartHandler.GetCurrChartID());
         this._chartHandler.AddDecorator(innerOutline, this._chartHandler.GetCurrChartID());
+        this._chartHandler.AddDecorator(majorStatistic, this._chartHandler.GetCurrChartID());
         this._chartHandler.GetDecorator(this._chartHandler.GetCurrChartID(), this._chartHandler.GetCurrDecSize())
             .CreateChart();
 
-        textGroupArr[2].setAttr('y', textGroupArr[2].getAttr('y') + 5);
-
-        var pieChartStatistic = percentage(pieChartData, 0) + "%";
+        /*var pieChartStatistic = percentage(pieChartData, 0) + "%";
         textGroupArr[2].add(new Konva.Text({
             text: pieChartStatistic,
             fill: 'white',
             fontFamily: titleFont,
             fontSize: statisticFontSize,
-        }));
+        }));*/
 
         var sectionThreeText = 'of elementary schools\noffer no physical\neducation classes';
         textGroupArr[2].add(new Konva.Text({
