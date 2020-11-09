@@ -16,12 +16,11 @@ class WaffleEditor
      * @param {Konva.Layer}       main  The main layer that lets us redraw.
      * @param {Konva.Transformer} tr    The chart transformer.git 
      */    
-    constructor(chart, group, main, tr)
+    constructor(handlerElem, main, tr)
     {
         this._rows = 1;
         this._col = 5;
-        this._waffleChart = chart;
-        this._group = group;
+        this._handlerElem = handlerElem;
         this._main = main;
         this._tr = tr;
     }
@@ -88,11 +87,18 @@ class WaffleEditor
         if (numerator == null || numerator == '' || denominator == null || denominator == '') return;
         if (isNaN(numerator) || isNaN(denominator)) return;
 
-        console.log(this._waffleChart);
+        this._handlerElem.chart.UpdateData(numerator, denominator);
 
-        this._waffleChart.UpdateData(numerator, denominator);
-        this._waffleChart.CreateChart();
+        var prev = this._handlerElem.chart;
+        for (var i = 0; i <= this._handlerElem.decoratorSize; i++) {
+            this._handlerElem.decorators[i].UpdateDecorator(prev);
+            prev = this._handlerElem.decorators[i];
+        }
 
+        console.log('dec size: ' + this._handlerElem.decoratorSize);
+
+        if (this._handlerElem.decoratorSize === -1) this._handlerElem.chart.CreateChart();
+        else this._handlerElem.decorators[this._handlerElem.decoratorSize].CreateChart();
         this._tr.forceUpdate();
         this._main.batchDraw();
     }
