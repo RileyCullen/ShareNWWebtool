@@ -114,8 +114,7 @@ class AInfographic
                 chart.setAttr('draggable', true);
 
                 if (chart.getAttr('name') === 'Chart Waffle') {
-                    this._UIAdder.CreateWaffleEditor(this._chartHandler.GetChart(index),
-                        this._chartHandler.GetGroup(index), this._main, this._chartTr);
+                    this._UIAdder.CreateWaffleEditor(this._chartHandler.GetHandlerElem(index), this._main, this._chartTr);
                 } else if (chart.getAttr('name') === 'Chart Pie') {
                     this._UIAdder.CreatePieEditor(this._chartHandler.GetHandlerElem(index), this._main, this._chartTr);
                 }
