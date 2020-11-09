@@ -63,13 +63,13 @@ class PieChartEditor
         this._handlerElem.chart.UpdateData(updatedData);
         
         var prev = this._handlerElem.chart;
-        for (var i = 0; i < this._handlerElem.decoratorSize; i++) {
-            console.log(this._handlerElem.decorators[i]);
+        for (var i = 0; i <= this._handlerElem.decoratorSize; i++) {
             this._handlerElem.decorators[i].UpdateDecorator(prev);
             prev = this._handlerElem.decorators[i];
         }
 
-        this._handlerElem.decorators[this._handlerElem.decoratorSize].CreateChart();
+        if (this._handlerElem.decoratorSize === -1) this._handlerElem.chart.CreateChart();
+        else this._handlerElem.decorators[this._handlerElem.decoratorSize].CreateChart();
         this._tr.forceUpdate();
         this._main.batchDraw();
     }
