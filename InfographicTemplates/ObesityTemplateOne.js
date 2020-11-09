@@ -129,18 +129,17 @@ class ObesityTemplateOne extends AInfographic
         var waffleOneNum = 1, waffleOneDenom = 3;
         var waffleOne = new WaffleChart(waffleOneNum, waffleOneDenom, sectionOneWaffleContainer,
             whiteChildPreset, redChildPreset, 50);
+        var waffleOneStat = new StatisticDecorator(waffleOne, 'in', textGroupArr[0], {
+            'fontSize': statisticFontSize,
+            'fontFamily': titleFont,
+            'fontStyle': 400,
+            'textColor': 'white',
+        });
 
         this._chartHandler.AddChart(waffleOne, sectionOneWaffleContainer, 'Waffle');
-        this._chartHandler.GetChart(this._chartHandler.GetCurrChartID())
+        this._chartHandler.AddDecorator(waffleOneStat, this._chartHandler.GetCurrChartID());
+        this._chartHandler.GetDecorator(this._chartHandler.GetCurrChartID(), this._chartHandler.GetCurrDecSize())
             .CreateChart();
-
-        var waffleOneStatistic = waffleOneNum + ' in ' + waffleOneDenom;
-        textGroupArr[0].add(new Konva.Text({
-            text: waffleOneStatistic,
-            fill: 'white',
-            fontFamily: titleFont,
-            fontSize: statisticFontSize,
-        }));
 
         var sectionOneText = 'children and teens age\n2 to 19 are considered\noverweight or obese';
         textGroupArr[0].add(new Konva.Text({
@@ -168,20 +167,19 @@ class ObesityTemplateOne extends AInfographic
         var waffleTwoNum = 2, waffleTwoDenom = 3;
         var waffleTwo = new WaffleChart(waffleTwoNum, waffleTwoDenom, sectionTwoWaffleContainer,
             whiteRunnerPreset, blueRunnerPreset, 50);
+        var waffleTwoStat = new StatisticDecorator(waffleTwo, 'out of', textGroupArr[1], {
+            'fontSize': statisticFontSize,
+            'fontFamily': titleFont,
+            'fontStyle': 400,
+            'textColor': 'white',
+        });
 
         this._chartHandler.AddChart(waffleTwo, sectionTwoWaffleContainer, 'Waffle');
-        this._chartHandler.GetChart(this._chartHandler.GetCurrChartID())
-            .CreateChart();
+        this._chartHandler.AddDecorator(waffleTwoStat, this._chartHandler.GetCurrChartID());
+        this._chartHandler.GetDecorator(this._chartHandler.GetCurrChartID(), this._chartHandler.GetCurrDecSize())
+            .CreateChart();;
 
         textGroupArr[1].setAttr('y', textGroupArr[1].getAttr('y') + 10);
-
-        var waffleTwoStatistic = waffleTwoNum + ' out of ' + waffleTwoDenom;
-        textGroupArr[1].add(new Konva.Text({
-            text: waffleTwoStatistic,
-            fill: 'white',
-            fontFamily: titleFont,
-            fontSize: statisticFontSize,
-        }));
 
         var sectionTwoText = 'don\'t get any daily\nphysical activity';
         textGroupArr[1].add(new Konva.Text({
