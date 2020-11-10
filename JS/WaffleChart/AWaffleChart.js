@@ -122,13 +122,13 @@ class AWaffleChart
 
     _GetIconWidth(ctx, preset, fontSize) 
     {
-        ctx.font = fontSize + 'px ' + preset.font;
+        ctx.font = '900 ' + fontSize + 'px ' + preset.font;
         var sample = preset.icon;
         return ctx.measureText(sample).width;
     }
 
     _UpdatePresetOffset(width)
     {
-        return width;
+        return width + 3;
     }
 }
