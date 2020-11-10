@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://d3js.org/d3.v4.min.js"></script>
+        <script src="https://unpkg.com/konva@7.0.3/konva.min.js"></script>
+        <script src="https://kit.fontawesome.com/00764fd490.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+        <script src='FontLoader.js'></script>
+
+        <script src='InfographicTemplates/AInfographic.js'></script>
+        <script src='InfographicTemplates/ObesityTemplateOne.js'></script>
+        <script src='InfographicTemplates/ViolenceTemplateOne.js'></script>
+
+        <script src='Headers/RibbonHeader.js'></script>
+
+        <script src='ToolTips/MessageBubble.js'></script>
+
+        <script src='InfographicTemplates/Handlers/ChartHandler.js'></script>
+        <script src='InfographicTemplates/Editors/UIAdder.js'></script>
+        <script src='InfographicTemplates/Editors/WaffleEditor.js'></script>
+        <script src='InfographicTemplates/Editors/PieChartEditor.js'></script>
+
+        <script src='PieChart/APieChart.js'></script>
+        <script src='PieChart/Decorators/APieChartDecorator.js'></script>
+        <script src='PieChart/ConcreteCharts/PieChart.js'></script>
+        <script src='PieChart/Decorators/DonutDecorator.js'></script>
+        <script src='PieChart/Decorators/ChartOutlineDecorator.js'></script>
+        <script src='PieChart/Decorators/MinorStatisticDecorator.js'></script>
+        <script src='PieChart/Decorators/FirstStatisticDecorator.js'></script>
+
+        <script src='WaffleChart/AWaffleChart.js'></script>
+        <script src='WaffleChart/ConcreteCharts/WaffleChart.js'></script>
+        <script src='WaffleChart/Decorators/AWaffleChartDecorator.js'></script>
+        <script src='WaffleChart/Decorators/StatisticDecorator.js'></script>
+        <script src='WaffleChart/WafflePresetGenerator.js'></script>
+
+        <script src='BarChart/ConcreteCharts/ABarChart.js'></script>
+        <script src='BarChart/ConcreteCharts/BasicBarChart.js'></script>
+        <script src='BarChart/ConcreteCharts/StackedBarChart.js'></script>
+        <script src='BarChart/Decorators/ABarChartDecorator.js'></script>
+        <script src='BarChart/Decorators/XAxisDecorator.js'></script>
+        <script src='BarChart/Decorators/CategoryLabelDecorator.js'></script>
+        <script src='BarChart/Decorators/DataValueDecorator.js'></script>
+        <script src='BarChart/Decorators/ChartDescriptorDecorator.js'></script>
+
+        <!--First link is for obesity template, second link is for Violence template-->
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200&family=Open+Sans&family=Roboto:wght@900&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div class='buttonContainer'>
+            <button class='tab' onclick='UpdatePage()'>HIV Infographic </button>
+        </div>
+        <div id='container' style='float:left; padding-right: 10px'></div>
+        <div id='editor'></div>
+        <script>
+            var infographic = new ObesityTemplateOne();
+            infographic.CreateInfographic();
+            infographic.Draw();
+        </script>
+    </body>
+</html>
