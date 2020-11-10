@@ -56,6 +56,11 @@ class AInfographic
         this._AddStageBorder();
     }
 
+    Remove()
+    {
+        if (this._UIAdder.GetState()) this._UIAdder.RemoveCurrentEditor();
+    }
+
     _AddStageBorder()
     {
         /**
