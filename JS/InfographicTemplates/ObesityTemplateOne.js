@@ -119,8 +119,8 @@ class ObesityTemplateOne extends AInfographic
             redChildPreset = GenerateWafflePreset(CHILD, '#9a2418', CHILD_OFFSET, ICON_FONT);
         var sectionOneWaffleContainer = new Konva.Group({
             x: 75, 
-            y: 60,
-            width: 200,
+            y: 55,
+            width: 180,
             height: 100,
         });
         sectionArr[0].add(sectionOneWaffleContainer);
@@ -159,7 +159,7 @@ class ObesityTemplateOne extends AInfographic
         var sectionTwoWaffleContainer = new Konva.Group({
             x: 77,
             y: 60,
-            width: 195,
+            width: 180,
             height: 100,
         });
         sectionArr[1].add(sectionTwoWaffleContainer);
@@ -202,14 +202,6 @@ class ObesityTemplateOne extends AInfographic
             'category': 'B',
             'value': 4,
             'color': sectionColorArr[2],
-        };
-
-        var percentage = (arr, index) => {
-            var total = 0;
-            for (var i = 0; i < arr.length; i++) {
-                total += arr[i].value;
-            }
-            return parseInt((arr[index].value / total) * 100);
         };
 
         var pieChartGroup = new Konva.Group({
