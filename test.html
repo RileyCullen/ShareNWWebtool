@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<!--
+    Sources:
+        1. https://www.w3schools.com/howto/howto_js_tabs.asp
+-->
 <html>
     <head>
         <script src="https://d3js.org/d3.v4.min.js"></script>
@@ -7,56 +11,97 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
         <script src='FontLoader.js'></script>
 
-        <script src='InfographicTemplates/AInfographic.js'></script>
-        <script src='InfographicTemplates/ObesityTemplateOne.js'></script>
-        <script src='InfographicTemplates/ViolenceTemplateOne.js'></script>
+        <script src='JS/InfographicTemplates/AInfographic.js'></script>
+        <script src='JS/InfographicTemplates/ObesityTemplateOne.js'></script>
+        <script src='JS/InfographicTemplates/ViolenceTemplateOne.js'></script>
+        <script src='JS/InfographicTemplates/HIVTemplateOne.js'></script>
 
-        <script src='Headers/RibbonHeader.js'></script>
+        <script src='JS/Headers/RibbonHeader.js'></script>
 
-        <script src='ToolTips/MessageBubble.js'></script>
+        <script src='JS/ToolTips/MessageBubble.js'></script>
 
-        <script src='InfographicTemplates/Handlers/ChartHandler.js'></script>
-        <script src='InfographicTemplates/Editors/UIAdder.js'></script>
-        <script src='InfographicTemplates/Editors/WaffleEditor.js'></script>
-        <script src='InfographicTemplates/Editors/PieChartEditor.js'></script>
+        <script src='JS/InfographicTemplates/Handlers/ChartHandler.js'></script>
+        <script src='JS/InfographicTemplates/Editors/UIAdder.js'></script>
+        <script src='JS/InfographicTemplates/Editors/WaffleEditor.js'></script>
+        <script src='JS/InfographicTemplates/Editors/PieChartEditor.js'></script>
 
-        <script src='PieChart/APieChart.js'></script>
-        <script src='PieChart/Decorators/APieChartDecorator.js'></script>
-        <script src='PieChart/ConcreteCharts/PieChart.js'></script>
-        <script src='PieChart/Decorators/DonutDecorator.js'></script>
-        <script src='PieChart/Decorators/ChartOutlineDecorator.js'></script>
-        <script src='PieChart/Decorators/MinorStatisticDecorator.js'></script>
-        <script src='PieChart/Decorators/FirstStatisticDecorator.js'></script>
+        <script src='JS/PieChart/APieChart.js'></script>
+        <script src='JS/PieChart/Decorators/APieChartDecorator.js'></script>
+        <script src='JS/PieChart/ConcreteCharts/PieChart.js'></script>
+        <script src='JS/PieChart/Decorators/DonutDecorator.js'></script>
+        <script src='JS/PieChart/Decorators/ChartOutlineDecorator.js'></script>
+        <script src='JS/PieChart/Decorators/MinorStatisticDecorator.js'></script>
+        <script src='JS/PieChart/Decorators/FirstStatisticDecorator.js'></script>
 
-        <script src='WaffleChart/AWaffleChart.js'></script>
-        <script src='WaffleChart/ConcreteCharts/WaffleChart.js'></script>
-        <script src='WaffleChart/Decorators/AWaffleChartDecorator.js'></script>
-        <script src='WaffleChart/Decorators/StatisticDecorator.js'></script>
-        <script src='WaffleChart/WafflePresetGenerator.js'></script>
+        <script src='JS/WaffleChart/AWaffleChart.js'></script>
+        <script src='JS/WaffleChart/ConcreteCharts/WaffleChart.js'></script>
+        <script src='JS/WaffleChart/Decorators/AWaffleChartDecorator.js'></script>
+        <script src='JS/WaffleChart/Decorators/StatisticDecorator.js'></script>
+        <script src='JS/WaffleChart/WafflePresetGenerator.js'></script>
 
-        <script src='BarChart/ConcreteCharts/ABarChart.js'></script>
-        <script src='BarChart/ConcreteCharts/BasicBarChart.js'></script>
-        <script src='BarChart/ConcreteCharts/StackedBarChart.js'></script>
-        <script src='BarChart/Decorators/ABarChartDecorator.js'></script>
-        <script src='BarChart/Decorators/XAxisDecorator.js'></script>
-        <script src='BarChart/Decorators/CategoryLabelDecorator.js'></script>
-        <script src='BarChart/Decorators/DataValueDecorator.js'></script>
-        <script src='BarChart/Decorators/ChartDescriptorDecorator.js'></script>
+        <script src='JS/BarChart/ConcreteCharts/ABarChart.js'></script>
+        <script src='JS/BarChart/ConcreteCharts/BasicBarChart.js'></script>
+        <script src='JS/BarChart/ConcreteCharts/StackedBarChart.js'></script>
+        <script src='JS/BarChart/Decorators/ABarChartDecorator.js'></script>
+        <script src='JS/BarChart/Decorators/XAxisDecorator.js'></script>
+        <script src='JS/BarChart/Decorators/CategoryLabelDecorator.js'></script>
+        <script src='JS/BarChart/Decorators/DataValueDecorator.js'></script>
+        <script src='JS/BarChart/Decorators/ChartDescriptorDecorator.js'></script>
+
+        <script src='JS/UpdatePage.js'></script>
 
         <!--First link is for obesity template, second link is for Violence template-->
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200&family=Open+Sans&family=Roboto:wght@900&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+        
+        <link rel="stylesheet" href="https://use.typekit.net/ltl3soi.css">
+        <link rel="stylesheet" href="https://use.typekit.net/ltl3soi.css">
+        <style>
+            /* Style the tab */
+            .tab {
+            overflow: hidden;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+            }
+
+            /* Style the buttons that are used to open the tab content */
+            .tab button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+            }
+
+            /* Change background color of buttons on hover */
+            .tab button:hover {
+            background-color: #ddd;
+            }
+
+            /* Create an active/current tablink class */
+            .tab button.active {
+            background-color: #ccc;
+            }
+
+            /* Style the tab content */
+            .tabcontent {
+                padding: 6px 12px;
+                border: 1px solid #ccc;
+                border-top: none;
+            }
+        </style>
     </head>
     <body>
-        <div class='buttonContainer'>
-            <button class='tab' onclick='UpdatePage()'>HIV Infographic </button>
+        <div class='tab'>
+            <button class='tablinks' onclick='UpdatePage(0)'>HIV Infographic</button>
+            <button class='tablinks' onclick='UpdatePage(1)'>Obesity Infographic</button>
+            <button class='tablinks' onclick='UpdatePage(2)'>LGBT Infographic</button>
         </div>
-        <div id='container' style='float:left; padding-right: 10px'></div>
+        <div id='container' class='tabcontent' style='float:left; padding-right: 10px'></div>
         <div id='editor'></div>
         <script>
-            var infographic = new ObesityTemplateOne();
-            infographic.CreateInfographic();
-            infographic.Draw();
         </script>
     </body>
 </html>
