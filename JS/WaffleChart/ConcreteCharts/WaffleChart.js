@@ -53,7 +53,8 @@ class WaffleChart extends AWaffleChart
                 if (i === 0) initialOffset = d.offset;
 
                 if (initialOffset !== d.offset && i > this._numerator) {
-                    if (i > (this._numerator + 1)) {
+                    console.log('entered');
+                    if (i > (this._numerator)) {
                         multiplier = this._numerator;
                     } else { 
                         multiplier = (i - 1);
