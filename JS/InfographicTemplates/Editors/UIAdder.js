@@ -16,6 +16,7 @@ class UIAdder
         this._main = document.getElementById('editor');
         this._group = document.createElement('div');
         this._chartWidth = chartWidth;
+        this._isEditing = false;
     }
 
     /**
@@ -49,7 +50,13 @@ class UIAdder
      */
     RemoveCurrentEditor()
     {
+        this._isEditing = false;
         this._RemoveGroupFromMain();
+    }
+
+    GetState()
+    {
+        return this._isEditing;
     }
 
     /**
@@ -58,13 +65,14 @@ class UIAdder
     _AddGroupToMain()
     {
         this._main.appendChild(this._group);
+        this._isEditing = true;
         this._AddCSS();
     }
 
     _AddCSS()
     {
         this._group.style.position = 'fixed';
-        this._group.style.left = this._chartWidth + 25 + 'px';
+        this._group.style.left = this._chartWidth + 35 + 'px';
     }
 
     /**
