@@ -81,7 +81,7 @@ class ViolenceTemplateOne extends AInfographic
             virginia.moveToTop();
             this._main.batchDraw();
         };
-        virginiaImage.src = 'InfographicTemplates/src/virginia.png';
+        virginiaImage.src = 'JS/InfographicTemplates/src/virginia.png';
 
         var introOne = 'The state is home to ', stat = '257,000 ', introTwo = 'LGBT adults';
 
@@ -373,20 +373,21 @@ class ViolenceTemplateOne extends AInfographic
         var orangePersonPreset = GenerateWafflePreset(PERSON, orange, 25, ICON_FONT),
             bluePersonPreset = GenerateWafflePreset(PERSON, mediumBlue, 25, ICON_FONT);
         var waffleChartGroup = new Konva.Group({
-            x: 0,
-            y: whiteBackground.getAttr('y') + 1.6 * whiteBackground.getAttr('height'),
+            x: 20,
+            y: whiteBackground.getAttr('y') + 1.6 * whiteBackground.getAttr('height') + 30,
             width: 1000,
             height: 300,
         });
         this._main.add(waffleChartGroup);
 
         var waffleNum = 65, waffleDenom = 80;
-        var waffleChart = new WaffleChart(waffleNum, waffleDenom, 20, orangePersonPreset, bluePersonPreset);
-        waffleChart.GenerateChart(20, 30, waffleChartGroup, false);
+        var waffleChart = new WaffleChart(waffleNum, waffleDenom, waffleChartGroup, 
+            orangePersonPreset, bluePersonPreset, 20, false);
+        waffleChart.CreateChart();
 
         var circleGroup = new Konva.Group({
-            x: 345,
-            y: 165
+            x: 325,
+            y: 135
         });
         waffleChartGroup.add(circleGroup);
 
@@ -411,8 +412,8 @@ class ViolenceTemplateOne extends AInfographic
 
         waffleDescHelper.forEach((d, i) => {
             waffleDesc[i] = new Konva.Text({
-                x: 420,
-                y: 130 + prev,
+                x: 400,
+                y: 100 + prev,
                 text: d,
                 fontSize: 13,
                 fontFamily: roboto,
@@ -424,8 +425,8 @@ class ViolenceTemplateOne extends AInfographic
 
         var citationOneText = '2017 GLSEN National School Climate Survey';
         var citationOne = new Konva.Text({
-            x: 420,
-            y: waffleDesc[3].getAttr('y') + 4 * this._GetTextWidth('M', 11, roboto),
+            x: 400,
+            y: waffleDesc[3].getAttr('y') + 4 * this._GetTextWidth('M', 11, roboto) - 20,
             text: citationOneText,
             fontSize: 9,
             fontFamily: roboto,
