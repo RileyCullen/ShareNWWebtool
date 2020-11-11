@@ -71,8 +71,6 @@ class ChartDescriptorDecorator extends ABarChartDecorator
         startingY += this._offsetY;
 
         this._data.slice().reverse().forEach((d, i) => {
-            console.log('cat: ' + d.subcategory);
-            console.log('key size: ' + keys.size);
 
             if ((i % this._maxPerRow) === 0 && i !== 0) {
                 startingY += 2 * this._iconSize;
@@ -80,7 +78,6 @@ class ChartDescriptorDecorator extends ABarChartDecorator
             }
             
             if (keys.size === 1 || hasPopulated[d.subcategory] === 0) {
-                console.log('in')
                 var textStr = (typeof d.subcategory === 'undefined' || d.subcategory === null)
                     ? d.category : d.subcategory;
                 var textWidth = this._GetFontSize(textStr, this._font);
