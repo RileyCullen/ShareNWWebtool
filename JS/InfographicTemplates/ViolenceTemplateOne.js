@@ -136,7 +136,6 @@ class ViolenceTemplateOne extends AInfographic
             width: this._chartWidth - 2,
             height: 425,
             fill: 'white',
-            draggable: true,
         });
         sectionOne.add(whiteBackground);
 
