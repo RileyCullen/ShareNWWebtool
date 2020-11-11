@@ -22,6 +22,7 @@ class PieChartEditor
 
         var label = document.createElement('label');
         label.innerHTML = 'Pie Chart Value: ';
+        label.style.paddingRight = 15 + 'px';
         sliderContainer.appendChild(label);
 
         var slider = document.createElement('input');
