@@ -12,7 +12,6 @@ class PieChartEditor
     {
         var main = document.createElement('div');
         main.appendChild(this._CreateSlider());
-        main.appendChild(this._CreateButton());
         return main;
     }
 
@@ -37,22 +36,13 @@ class PieChartEditor
 
         slider.oninput = () => {
             value.innerHTML = slider.value + '%';
+            this._UpdatePieChart();
         };
 
         sliderContainer.appendChild(slider);
         sliderContainer.appendChild(value);
 
         return sliderContainer;
-    }
-
-    _CreateButton()
-    {
-        var button = document.createElement('button');
-        button.textContent = 'Update';
-        button.onclick = () => {
-            this._UpdatePieChart();
-        };
-        return button;
     }
 
     _UpdatePieChart()
