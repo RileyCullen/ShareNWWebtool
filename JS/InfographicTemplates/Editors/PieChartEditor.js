@@ -31,8 +31,11 @@ class PieChartEditor
         slider.step = 1;
         slider.id = 'slider';
 
+        var data = this._handlerElem.chart.GetDataArr();
+        slider.defaultValue = data[0].value;
+
         var value = document.createElement('label');
-        value.innerHTML = '50%';
+        value.innerHTML = data[0].value + '%';
 
         slider.oninput = () => {
             value.innerHTML = slider.value + '%';
