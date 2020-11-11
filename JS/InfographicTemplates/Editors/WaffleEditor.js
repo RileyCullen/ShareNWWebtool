@@ -34,12 +34,20 @@ class WaffleEditor
         return main;
     }
 
+    _AddBottomPadding(elem)
+    {
+        elem.style.paddingBottom = 25 + 'px';
+    }
+
     _CreateNumeratorEditor()
     {
         var numeratorContainer = document.createElement('div');
         numeratorContainer.id = 'NumeratorContainer';
+        this._AddBottomPadding(numeratorContainer);
 
-        var labelText = document.createTextNode('Numerator:');
+        var labelText = document.createElement('label');
+        labelText.innerHTML = 'Numerator: ';
+        labelText.style.paddingRight = 25 + 'px';
         numeratorContainer.appendChild(labelText);
 
         var textarea = document.createElement('textarea');
@@ -55,8 +63,12 @@ class WaffleEditor
     _CreateDenominatorEditor()
     {
         var denomContainer = document.createElement('div');
+        denomContainer.id = 'DenominatorContainer';
+        this._AddBottomPadding(denomContainer);
 
-        var labelText = document.createTextNode('Denominator:');
+        var labelText = document.createElement('label');
+        labelText.innerHTML = 'Denominator: ';
+        labelText.style.paddingRight = 10 + 'px';
         denomContainer.appendChild(labelText);
 
         var textarea = document.createElement('textarea');
@@ -72,6 +84,7 @@ class WaffleEditor
     _CreateButton()
     {
         var button = document.createElement('button');
+        button.id = 'WaffleButton';
         button.textContent = 'Update';
         button.onclick = () => {
             this._UpdateWaffleChart();

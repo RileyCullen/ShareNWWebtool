@@ -72,7 +72,8 @@ class UIAdder
     _AddCSS()
     {
         this._group.style.position = 'fixed';
-        this._group.style.left = this._chartWidth + 35 + 'px';
+        this._group.style.left = this._chartWidth + 55 + 'px';
+        this._group.style.top = 70 + 'px';
     }
 
     /**
