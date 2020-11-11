@@ -1,7 +1,6 @@
 var infogObj;
 function UpdatePage(infogNum)
 {
-    console.log(infogObj)
     if (infogObj !== undefined) infogObj.Remove();
     switch(infogNum) {
         case 0: 
@@ -13,7 +12,6 @@ function UpdatePage(infogNum)
         case 2: 
             infogObj = new ViolenceTemplateOne();
     }
-    console.log(infogObj);
     infogObj.CreateInfographic();
     infogObj.Draw();
 }
