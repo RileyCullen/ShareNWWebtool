@@ -74,7 +74,7 @@ class ObesityTemplateOne extends AInfographic
             x: this._CenterXAbout(descWidth, this._chartWidth / 2),
             y: titleTwo.getAttr('y') + 70,
         });
-        header.add(desc);
+        this._textHandler.AddTextElem(desc, header);
 
         // CONTENT
         var content = new Konva.Group({
@@ -297,6 +297,7 @@ class ObesityTemplateOne extends AInfographic
         footer.add(source);
 
         this._AddGraphSelection();
+        this._AddTextSelection();
     }
 
     Draw()
