@@ -112,6 +112,7 @@ class AInfographic
     _AddTextSelection()
     {
         var selection = this._stage.find('.EditableText');
+        var chartWidth = this._chartWidth;
         selection.each(textNode => {
             textNode.on('dblclick', () => {
                 var HandleOutsideClick = (e) => {
@@ -132,28 +133,22 @@ class AInfographic
                     this._main.draw();
                 };
 
-                var SetTextAreaWidth = (newWidth) => {
-                    if (!newWidth) {
-                        // set width for placeholder
-                        newWidth = textNode.placeholder.length * textNode.fontSize();
-                    }
-                    // some extra fixes on different browsers
-                    var isSafari = /^((?!chrome|android).)*safari/i.test(
-                        navigator.userAgent
-                    );
-                    var isFirefox =
-                        navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
-                    if (isSafari || isFirefox) {
-                        newWidth = Math.ceil(newWidth);
-                    }
+                function _GetTextWidth(text, fontSize, fontFamily)
+                {
+                    var canvas = document.createElement('canvas');
+                    var ctx = canvas.getContext('2d');
 
-                    var isEdge =
-                        document.documentMode || /Edge/.test(navigator.userAgent);
-                    if (isEdge) {
-                        newWidth += 1;
-                    }
-                    textarea.style.width = newWidth + 'px';
-                };
+                    ctx.font = fontSize + 'px ' + fontFamily;
+                    var helper = ctx.measureText(text).width;
+                    canvas.remove();
+
+                    return helper;
+                }
+
+                function _CenterXAbout(width, center)
+                {
+                    return center - (width / 2);
+                }
 
                 textNode.hide();
                 this._tr.hide();
@@ -223,6 +218,9 @@ class AInfographic
                     // but don't hide on shift + enter
                     if (e.keyCode === 13 && !e.shiftKey) {
                         textNode.text(textarea.value);
+                        var width = _GetTextWidth(textarea.value, textNode.getAttr('fontSize'), textNode.getAttr('fontFamily'));
+                        var newX = _CenterXAbout(width, chartWidth / 2);
+                        textNode.x(newX);
                         RemoveTextArea();
                     }
                     // on esc do not set value back to node
