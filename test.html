@@ -25,6 +25,7 @@
         <script src='JS/InfographicTemplates/Editors/UIAdder.js'></script>
         <script src='JS/InfographicTemplates/Editors/WaffleEditor.js'></script>
         <script src='JS/InfographicTemplates/Editors/PieChartEditor.js'></script>
+        <script src='JS/InfographicTemplates/Editors/BarChartEditor.js'></script>
 
         <script src='JS/PieChart/APieChart.js'></script>
         <script src='JS/PieChart/Decorators/APieChartDecorator.js'></script>
@@ -48,6 +49,7 @@
         <script src='JS/BarChart/Decorators/CategoryLabelDecorator.js'></script>
         <script src='JS/BarChart/Decorators/DataValueDecorator.js'></script>
         <script src='JS/BarChart/Decorators/ChartDescriptorDecorator.js'></script>
+        <script src='JS/BarChart/Decorators/RemainderDecorator.js'></script>
 
         <script src='JS/UpdatePage.js'></script>
 
@@ -92,9 +94,14 @@
                 border: 1px solid #ccc;
                 border-top: none;
             }
+
+            #Helper {
+                position: absolute;
+                top: 80px;
+            }
         </style>
     </head>
-    <body>
+    <body id='body'>
         <div class='tab'>
             <button class='tablinks' onclick='UpdatePage(0)'>HIV Infographic</button>
             <button class='tablinks' onclick='UpdatePage(1)'>Obesity Infographic</button>
