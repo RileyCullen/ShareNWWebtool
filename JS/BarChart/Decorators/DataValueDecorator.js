@@ -80,6 +80,13 @@ class DataValueDecorator extends ABarChartDecorator
                 fill: this._font.fontColor,
             }); 
             offsetHelper[d.category] += (this._chartHeight - this._yScale(d.value));
+
+            // Text y position wrong when we rotate so we need to adjust them
+            if (this._rotateBy !== 0) {
+                text.x(text.x() + (1/2.5) * labelWidth);
+                text.y(this._chartHeight / 2 + labelWidth / 2);
+            }
+
             text.rotate(-this._rotateBy);
             helper.add(text);
         });
