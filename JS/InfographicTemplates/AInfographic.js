@@ -38,7 +38,7 @@ class AInfographic
         this._textHandler = new TextHandler();
         this._tr = new Konva.Transformer({
             nodes: [],
-            resizeEnabled: true,
+            resizeEnabled: false,
             rotateEnabled: false,
         });
 
@@ -260,6 +260,8 @@ class AInfographic
                     this._UIAdder.CreateWaffleEditor(this._chartHandler.GetHandlerElem(index), this._main, this._tr);
                 } else if (chart.getAttr('name') === 'Chart Pie') {
                     this._UIAdder.CreatePieEditor(this._chartHandler.GetHandlerElem(index), this._main, this._tr);
+                } else if (chart.getAttr('name') === 'Chart Bar') {
+                    this._UIAdder.CreateBarEditor(this._chartHandler.GetHandlerElem(index), this._main, this._tr);
                 }
 
                 setTimeout(() => {
