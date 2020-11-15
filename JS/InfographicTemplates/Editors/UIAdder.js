@@ -42,7 +42,15 @@ class UIAdder
     CreatePieEditor(handlerElem, main, tr)
     {
         this._AddGroupToMain();
-        this._group.appendChild(new PieChartEditor(handlerElem, main, tr).CreateEditorUI());
+        this._group.appendChild(new PieChartEditor(handlerElem, main, tr)
+            .CreateEditorUI());
+    }
+
+    CreateBarEditor(handlerElem, main, tr)
+    {
+        this._AddGroupToMain();
+        this._group.appendChild(new BarChartEditor(handlerElem, main, tr)
+            .CreateEditorUI());
     }
 
     /**
