@@ -5,7 +5,6 @@ class PieChartEditor
         this._handlerElem = handlerElem;
         this._main = main;
         this._tr = tr;
-        console.log(this._handlerElem);
     }
 
     CreateEditorUI()
