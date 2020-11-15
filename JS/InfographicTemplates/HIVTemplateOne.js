@@ -181,74 +181,52 @@ class HIVTemplateOne extends AInfographic
         }));
         
         var barChartGroup = new Konva.Group({
-            offsetX: -27,
-            offsetY: -30,
+            offsetX: -130,
+            offsetY: -17.5,
         });
+        var barChartLabel = new Konva.Text({
+            text: 'New Infections',
+            fill: '#e71b32',
+            fontSize: 12,
+            fontFamily: 'canada-type-gibson, sans-serif',
+            offsetX: -6,
+            offsetY: -102,
+        });
+        barChartLabel.rotate(90);
+        barChartGroup.add(barChartLabel);
         sectionTwo.add(barChartGroup);
-        
-        d3.csv("JS/InfographicTemplates/Data/barchartdata.csv", (error, data) => {
-            if (error) throw error;
-            var chartWidth = 90, chartHeight = 100;
-            var xScale = d3.scaleBand()
-                .range([0, chartWidth])
-                .padding(0.2),
-                yScale = d3.scaleLinear()
-                .range([chartHeight, 0]);
-        
-            xScale.domain(data.map(d => { return d.race; }));
-            yScale.domain([0, d3.max(data, d => {
-                data.forEach(d => {
-                    d.new_infection_rate = parseInt(d.new_infection_rate);
-                });
-                return d.new_infection_rate;
-            })]);
-        
-            var yLabel = new Konva.Text({
-                text: "New Infections",
-                fontSize: "11",
-                fontFamily: "canada-type-gibson, sans-serif",
-                fontStyle: "100",
-                fill: "#e71b32",
-            });
-            yLabel.rotate(90);
-            barChartGroup.add(yLabel);
-        
-            data.forEach(d => {
-                var helper = new Konva.Group({
-                    offsetX: 12,
-                    offsetY: 102,
-                });
-                var offset = (d.race == 'black') ? 5 : 35;
-                barChartGroup.add(helper);
-                helper.add(new Konva.Rect({
-                    x: barChartGroup.x() + xScale(d.race),
-                    y: barChartGroup.y() + chartHeight,
-                    width: xScale.bandwidth(),
-                    height: -(chartHeight - yScale(d.new_infection_rate)),
-                    fill: '#e71b32',
-                }));
-                helper.add(new Konva.Rect({
-                    x: barChartGroup.x() + xScale(d.race),
-                    y: barChartGroup.y() + yScale(d.new_infection_rate),
-                    width: xScale.bandwidth(),
-                    height: -(20 + yScale(d.new_infection_rate)),
-                    fill: "gray",
-                }));
-                var text = new Konva.Text({
-                    x: barChartGroup.x() + xScale(d.race) + 6,
-                    y: barChartGroup.y() + chartHeight - offset,
-                    text: d.new_infection_rate + "% " + d.race,
-                    fontSize: 12,
-                    fontFamily: 'canada-type-gibson, sans-serif',
-                    fontStyle: '400',
-                    fill: "white",
-                });
-                helper.add(text);
-                helper.rotate(90);
-                text.rotate(-90);
-            });
-        
+       
+        var barChartData = [];
+        barChartData[0] = {
+            'category': 'black',
+            'value': 64,
+            'color': '#e71b32',
+        };
+        barChartData[1] = {
+            'category': 'white',
+            'value': 18,
+            'color': '#e71b32',
+        };
+        barChartData[2] = {
+            'category': 'hispanic',
+            'value': 15,
+            'color': '#e71b32',
+        };
+
+        var barChart = new BasicBarChart(barChartData, barChartGroup, 90, 100, 0.2, 90);
+        var remainder = new RemainderDecorator(barChart);
+        var dataValue = new DataValueDecorator(remainder, true, true, true, {
+            'fontSize': 12,
+            'fontFamily': 'canada-type-gibson, sans-serif',
+            'fontColor': 'white',
         });
+
+        this._chartHandler.AddChart(barChart, barChartGroup, 'Bar');
+        this._chartHandler.AddDecorator(remainder, this._chartHandler.GetCurrChartID());
+        this._chartHandler.AddDecorator(dataValue, this._chartHandler.GetCurrChartID());
+
+        this._chartHandler.GetDecorator(this._chartHandler.GetCurrChartID(), this._chartHandler.GetCurrDecSize())
+            .CreateBarChart();
         
         /* SECTION THREE */ 
         var blueBorderImg = new Image();
