@@ -62,6 +62,11 @@ class ABarChart
         this._SetUpYDomain();
     }
 
+    GetData()
+    {
+        return this._data;
+    }
+
     _SetUpXDomain()
     {
         /**
