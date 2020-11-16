@@ -28,6 +28,20 @@ class ABarChartDecorator extends ABarChart
     }
 
     /**
+     * @summary     Updates the decorator with a new chart value.
+     * @description Updates the data, chart, and yScale associated with this
+     *              particular decorator.
+     * 
+     * @param {BarChart} chart The bar chart we want to base our update on.
+     */
+    UpdateDecorator(chart)
+    {
+        this._data = chart._data;
+        this._chart = chart;
+        this._yScale = chart._yScale;
+    }
+
+    /**
      * @summary     Returns the width of a given piece of text in pixels.
      * @description Uses the canvas measureText function to determine the width
      *              of a particular piece of text given a specific font. 
