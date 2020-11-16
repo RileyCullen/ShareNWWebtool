@@ -32,29 +32,47 @@ class ChartDescriptorDecorator extends ABarChartDecorator
         this._offsetY = 0;
     }
 
+    /**
+     * @summary     This function adds descriptors to the chart.
+     * @description See summary. This function does so by calling _chart's 
+     *              CreateBarChart function and _CreateDescriptor
+     */
     CreateBarChart()
     {
-        /**
-         * @summary     This function adds descriptors to the chart.
-         * @description See summary. This function does so by calling _chart's 
-         *              CreateBarChart function and _CreateDescriptor
-         */
         this._chart.CreateBarChart();
         this._CreateDescriptor();
     }
 
+    /**
+     * @summary     Accessor that changes the value of this._padding.
+     * 
+     * @param {double} padding The new padding value we want the chart descriptor 
+     *                         to have.
+     */
     SetPadding(padding) { this._padding = padding; }
+
+    /**
+     * @summary     Accessor that changes the value of this._offsetX.
+     * 
+     * @param {double} offset The new offsetX value we want the chart descriptor
+     *                        to have.
+     */
     SetOffsetX(offset)  { this._offsetX = offset; }
+
+    /**
+     * @summary     Accessor that changes the value of this._offsetY.
+     * 
+     * @param {double} offset 
+     */
     SetOffsetY(offset)  { this._offsetY = offset; }
 
+    /**
+     * @summary     This function adds descriptors to the chart
+     * @description This function iterates through all of the data and adds
+     *              a descriptor that corresponds to each piece of data.
+     */
     _CreateDescriptor()
     {
-        /**
-         * @summary     This function adds descriptors to the chart
-         * @description This function iterates through all of the data and adds
-         *              a descriptor that corresponds to each piece of data.
-         */
-
         // TODO: Update dynamic fitting so that instead of constantly decreasing 
         //       font size, after a certain lower bound that descriptors go to the
         //       'next line'.
@@ -116,18 +134,22 @@ class ChartDescriptorDecorator extends ABarChartDecorator
         this._group.add(helper);
     }
 
+    /**
+     * @summary     Returns a set of the subcategories found within the data.
+     * @description Maps all of the subcategories found in data to a set.
+     */
     _GetSubCategories()
     {
         return new Set(this._data.map(d => d.subcategory));
     }
 
+    /**
+     * @summary     This function returns if the total with of all the descriptors
+     *              exceeds the total width of the chart
+     * @description See summary. 
+     */
     _DoesDescriptorExceedWidth(startingX, textOffset)
     {
-        /**
-         * @summary     This function returns if the total with of all the descriptors
-         *              exceeds the total width of the chart
-         * @description See summary. 
-         */
         var totalWidth = startingX;
         this._data.forEach(d => {
             totalWidth += (this._iconSize + this._GetFontSize(d.category, this._font) + textOffset);
@@ -135,12 +157,12 @@ class ChartDescriptorDecorator extends ABarChartDecorator
         return totalWidth > this._chartWidth;
     }
 
+    /**
+     * @summary     This function decreases the font size by one.
+     * @description See summary.
+     */
     _DecreaseFontSize()
     {
-        /**
-         * @summary     This function decreases the font size by one.
-         * @description See summary.
-         */
         this._font.fontSize--;
     }
 }

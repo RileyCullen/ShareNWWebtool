@@ -33,26 +33,26 @@ class DataValueDecorator extends ABarChartDecorator
         this._isMiddle = isMiddle;
     }
 
+    /**
+     * @summary     This function adds a label to the bars within a bar chart/
+     * @description See summary. This is done by calling _chart's CreateBarChart
+     *              function and by calling _AddLabels.
+     */
     CreateBarChart()
     {
-        /**
-         * @summary     This function adds a label to the bars within a bar chart/
-         * @description See summary. This is done by calling _chart's CreateBarChart
-         *              function and by calling _AddLabels.
-         */
         this._chart.CreateBarChart();
         this._AddLabels();
     }
 
+    /**
+     * @summary     This function adds the labels to the already drawn bar chart.
+     * @description This function iterates through all of the values in _data
+     *              and create a label for each of the bars based on the booleans
+     *              passed through the constructor as well as the d.value for 
+     *              that particular bar.
+     */
     _AddLabels()
     {
-        /**
-         * @summary     This function adds the labels to the already drawn bar chart.
-         * @description This function iterates through all of the values in _data
-         *              and create a label for each of the bars based on the booleans
-         *              passed through the constructor as well as the d.value for 
-         *              that particular bar.
-         */
         var helper = new Konva.Group();
         var groups = this._GetGroups();
         var offsetHelper = this._CreateOffsetHelper(groups);

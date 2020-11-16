@@ -19,25 +19,25 @@ class BasicBarChart extends ABarChart
         super(data, group, width, height, padding, rotateBy);
     }
 
+    /**
+     * @summary     This function adds the bar chart to the Konva.Group passed in
+     *              to the constructor.
+     * @description This function calls _CreationHelper, which is 
+     *              responsible for adding the bars to the Konva.Group.
+     */
     CreateBarChart()
     {
-        /**
-         * @summary     This function adds the bar chart to the Konva.Group passed in
-         *              to the constructor.
-         * @description This function calls _CreationHelper, which is 
-         *              responsible for adding the bars to the Konva.Group.
-         */
         this._CreationHelper();
     }
 
+    /**
+     * @summary     Creates the bar chart.
+     * @description This function creates a custom DOM element, binds the data
+     *              to this custom svg element, the draws those elements to the 
+     *              canvas.
+     */
     _CreationHelper()
     {
-        /**
-         * @summary     Creates the bar chart.
-         * @description This function creates a custom DOM element, binds the data
-         *              to this custom svg element, the draws those elements to the 
-         *              canvas.
-         */
         var virtualCanvas = document.createElement('custom');
         var custom = d3.select(virtualCanvas);
 
@@ -45,11 +45,11 @@ class BasicBarChart extends ABarChart
         this._DrawBars(custom, false);
     }
 
+    /**
+     * @summary     Binds data to custom DOM elements in memory.
+     */
     _BindData(custom)
     {
-        /**
-         * @summary     Binds data to custom DOM elements in memory.
-         */
         var selection = custom.selectAll('custom.rect')
             .data(this._data)
             .enter()
@@ -71,11 +71,11 @@ class BasicBarChart extends ABarChart
             .attr('fillStyleHidden', d => { return d.color; });
     }
 
+    /**
+     * @summary     Uses binded data to add Konva.js elements to group.
+     */
     _DrawBars(custom, hidden)
     {
-        /**
-         * @summary     Uses binded data to add Konva.js elements to group.
-         */
         var elements = custom.selectAll('custom.rect');
         var helper = new Konva.Group();
         elements.each(function(d,i) {

@@ -17,11 +17,11 @@ class StackedBarChart extends ABarChart
         super(data, group, width, height, padding, rotateBy);
     }   
 
+    /**
+     * @summary     Creates the stacked bar chart.
+     */
     CreateBarChart()
     {
-        /**
-         * @summary     Creates the stacked bar chart.
-         */
         var virtualDOM = document.createElement('custom');
         var custom = d3.select(virtualDOM);
 
@@ -29,11 +29,11 @@ class StackedBarChart extends ABarChart
         this._DrawBars(custom);
     }
 
+    /**
+     * @summary     Binds data to custom DOM elements.
+     */
     _BindData(custom)
     {
-        /**
-         * @summary     Binds data to custom DOM elements.
-         */
         var selection = custom.selectAll('custom.rect')
             .data(this._data)
             .enter()

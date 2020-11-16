@@ -32,35 +32,35 @@ class XAxisDecorator extends ABarChartDecorator
         this._font = font;
     }
 
+    /**
+     * @summary     This function adds an x-axis to the given BarChart type.
+     * @description This function calls _chart's CreateBarChart method as well
+     *              as _CreateXAxis.
+     */
     CreateBarChart()
     {
-        /**
-         * @summary     This function adds an x-axis to the given BarChart type.
-         * @description This function calls _chart's CreateBarChart method as well
-         *              as _CreateXAxis.
-         */
         this._chart.CreateBarChart();
         this._CreateXAxis();
     }
 
+    /**
+     * @summary     This function adds an x-axis to the given BarChart type.
+     * @description This function creates an x-axis by calling _CreateAxis
+     *              and _AddTicks.
+     */
     _CreateXAxis()
     {
-        /**
-         * @summary     This function adds an x-axis to the given BarChart type.
-         * @description This function creates an x-axis by calling _CreateAxis
-         *              and _AddTicks.
-         */
         this._CreateAxis();
         this._AddTicks();
     }
 
+    /**
+     * @summary     This function adds a base line that represents the x-axis.
+     * @description This function adds a line to the Konva.Group that will
+     *              serve as the base for the x-axis.
+     */
     _CreateAxis()
     {
-        /**
-         * @summary     This function adds a base line that represents the x-axis.
-         * @description This function adds a line to the Konva.Group that will
-         *              serve as the base for the x-axis.
-         */
         var helper = new Konva.Group();
         helper.add(new Konva.Line({
             points: [0, this._chartHeight, this._chartWidth, this._chartHeight],
@@ -71,15 +71,15 @@ class XAxisDecorator extends ABarChartDecorator
         this._group.add(helper);
     }
 
+    /**
+     * @summary     This function adds tick marks and labels to the x-axis.
+     * @description This function iterates through all of the previously mapped
+     *              values in the xScale's domain and assigns them a tick 
+     *              mark. The tick mark and the name of the mapped value are
+     *              then added to the Konva.Group.
+     */
     _AddTicks()
     {
-        /**
-         * @summary     This function adds tick marks and labels to the x-axis.
-         * @description This function iterates through all of the previously mapped
-         *              values in the xScale's domain and assigns them a tick 
-         *              mark. The tick mark and the name of the mapped value are
-         *              then added to the Konva.Group.
-         */
         var helper = new Konva.Group();
         var textHeight = this._GetFontSize('M', this._font);
         this._xScale.domain().forEach(d => {

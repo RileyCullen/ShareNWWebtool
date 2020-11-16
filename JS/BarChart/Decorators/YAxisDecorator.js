@@ -31,35 +31,35 @@ class YAxisDecorator extends ABarChartDecorator
         this._font = font;
     }
 
+    /**
+     * @summary     This function adds an y-axis to give BarChart type.
+     * @description This function calls _chart's CreateBarChart function
+     *              as well as the _CreateYAxis function.
+     */
     CreateBarChart()
     {
-        /**
-         * @summary     This function adds an y-axis to give BarChart type.
-         * @description This function calls _chart's CreateBarChart function
-         *              as well as the _CreateYAxis function.
-         */
         this._chart.CreateBarChart();
         this._CreateYAxis();
     }
 
+    /**
+     * @summary     This function adds a y-axis to the given BarChart type.
+     * @description This function creates a y-axis by calling _CreateAxis
+     *              and _AddTicks.
+     */
     _CreateYAxis()
     {
-        /**
-         * @summary     This function adds a y-axis to the given BarChart type.
-         * @description This function creates a y-axis by calling _CreateAxis
-         *              and _AddTicks.
-         */
         this._CreateAxis();
         this._AddTicks();
     }
 
+    /**
+     * @summary     This function adds the base line of the y-axis.
+     * @description This function creates Konva.Line object to represent the
+     *              y-axis and adds it to the given Konva.Group.
+     */
     _CreateAxis()
     {
-        /**
-         * @summary     This function adds the base line of the y-axis.
-         * @description This function creates Konva.Line object to represent the
-         *              y-axis and adds it to the given Konva.Group.
-         */
         var yAxis = new Konva.Line({
             points: [0, 0, 0, this._chartHeight],
             stroke: this._lineColor,
@@ -69,18 +69,18 @@ class YAxisDecorator extends ABarChartDecorator
         this._group.add(yAxis); 
     }
 
+    /**
+     * @summary     This function adds the tick marks and labels to the y-axis.
+     * @description This function iterates through the yScale's range yTick 
+     *              times and assigns each of those ticks a numeric value. 
+     *              These tick marks and corresponding tick mark values are 
+     *              added to the Konva.Group. It should be noted that the 
+     *              canvas API does NOT offer a built in function to determine
+     *              the height of text. Thus, we approximate the height of text
+     *              using the width captial 'M'.
+     */
     _AddTicks()
     {
-        /**
-         * @summary     This function adds the tick marks and labels to the y-axis.
-         * @description This function iterates through the yScale's range yTick 
-         *              times and assigns each of those ticks a numeric value. 
-         *              These tick marks and corresponding tick mark values are 
-         *              added to the Konva.Group. It should be noted that the 
-         *              canvas API does NOT offer a built in function to determine
-         *              the height of text. Thus, we approximate the height of text
-         *              using the width captial 'M'.
-         */
         var yTicks = this._yScale.ticks(10);
         var helper = new Konva.Group();
         var tickLength = 6;

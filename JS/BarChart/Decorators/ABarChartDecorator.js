@@ -27,6 +27,14 @@ class ABarChartDecorator extends ABarChart
         }
     }
 
+    /**
+     * @summary     Returns the width of a given piece of text in pixels.
+     * @description Uses the canvas measureText function to determine the width
+     *              of a particular piece of text given a specific font. 
+     * 
+     * @param {*} text 
+     * @param {*} font 
+     */
     _GetFontSize(text, font)
     {
         var canvas = document.createElement('canvas');

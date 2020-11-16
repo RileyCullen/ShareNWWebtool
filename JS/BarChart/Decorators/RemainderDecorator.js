@@ -25,25 +25,25 @@ class RemainderDecorator extends ABarChartDecorator
         this._barColor = barColor;
     }
 
+    /**
+     * @summary     This function fills in the remainder of space within a 
+     *              bar chart.
+     * @description This function fills in the remainder of space within a bar
+     *              chart by calling the _chart's CreateBarChart function 
+     *              as well as _DrawBars.
+     */
     CreateBarChart()
     {
-        /**
-         * @summary     This function fills in the remainder of space within a 
-         *              bar chart.
-         * @description This function fills in the remainder of space within a bar
-         *              chart by calling the _chart's CreateBarChart function 
-         *              as well as _DrawBars.
-         */
         this._chart.CreateBarChart();
         this._DrawBars();
     }
 
+    /**
+     * @summary     This function draws the remainder bars.
+     * @description See summary.
+     */
     _DrawBars()
     {
-        /**
-         * @summary     This function draws the remainder bars.
-         * @description See summary.
-         */
         var helper = new Konva.Group();
         this._data.forEach(d => {
             helper.add(new Konva.Rect({

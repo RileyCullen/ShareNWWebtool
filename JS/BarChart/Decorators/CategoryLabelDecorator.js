@@ -29,23 +29,23 @@ class CategoryLabelDecorator extends ABarChartDecorator
         this._font = font;
     }
 
+    /**
+     * @summary     Creates bar chart and adds category labels.
+     * @description Calls this._chart's CreateBarChart method and then creates
+     *              the labels by calling this._CreateLabels.
+     */
     CreateBarChart()
     {
-        /**
-         * @summary     Creates bar chart and adds category labels.
-         * @description Calls this._chart's CreateBarChart method and then creates
-         *              the labels by calling this._CreateLabels.
-         */
         this._chart.CreateBarChart();
         this._CreateLabels();
     }
 
+    /**
+     * @summary     Creates the category labels.
+     * @description Dynamically positions the category labels within the Konva.Group.
+     */
     _CreateLabels()
     {
-        /**
-         * @summary     Creates the category labels.
-         * @description Dynamically positions the category labels within the Konva.Group.
-         */
         var iter = this._keys.values();
         var helper = new Konva.Group();
         var textHeight = this._GetFontSize('M', this._font);
@@ -81,17 +81,17 @@ class CategoryLabelDecorator extends ABarChartDecorator
         this._group.add(helper);
     }
 
+    /**
+     * @summary     Gets the bar height for the given category.
+     * @description Iterates through all of the data and finds the cummulative
+     *              heights of all the bars for that particular category
+     * 
+     * @param {String} category : The category we want to calculate the bar height on.
+     * 
+     * @returns {int} Function returns the bar height.
+     */
     _GetBarHeight(category)
     {
-        /**
-         * @summary     Gets the bar height for the given category.
-         * @description Iterates through all of the data and finds the cummulative
-         *              heights of all the bars for that particular category
-         * 
-         * @param {String} category : The category we want to calculate the bar height on.
-         * 
-         * @returns {int} Function returns the bar height.
-         */
         var barHeight = 0;
         this._data.forEach(d => {
             if (d.category === category) barHeight += (this._chartHeight - this._yScale(d.value));
