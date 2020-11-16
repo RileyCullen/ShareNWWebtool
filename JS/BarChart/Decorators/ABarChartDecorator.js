@@ -32,8 +32,8 @@ class ABarChartDecorator extends ABarChart
      * @description Uses the canvas measureText function to determine the width
      *              of a particular piece of text given a specific font. 
      * 
-     * @param {*} text 
-     * @param {*} font 
+     * @param {String} text      The text we want to measure.
+     * @param {JSON Object} font The font of the text we want to measure. 
      */
     _GetFontSize(text, font)
     {

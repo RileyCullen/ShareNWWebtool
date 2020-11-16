@@ -47,11 +47,11 @@ class StackedBarChart extends ABarChart
             .attr('fillStyle', (d) => d.color);
     }
 
+    /**
+     * @summary Adds bars to the Konva.Group
+     */
     _DrawBars(custom)
     {
-        /**
-         * @summary Adds bars to the Konva.Group
-         */
         var elements = custom.selectAll('custom.rect');
         var helper = new Konva.Group();
 

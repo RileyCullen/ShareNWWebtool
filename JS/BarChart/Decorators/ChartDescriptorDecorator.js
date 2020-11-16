@@ -62,7 +62,8 @@ class ChartDescriptorDecorator extends ABarChartDecorator
     /**
      * @summary     Accessor that changes the value of this._offsetY.
      * 
-     * @param {double} offset 
+     * @param {double} offset The new offsetY value we want the chart descriptor
+     *                        to have.
      */
     SetOffsetY(offset)  { this._offsetY = offset; }
 
