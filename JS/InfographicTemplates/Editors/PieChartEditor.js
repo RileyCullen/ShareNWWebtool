@@ -1,5 +1,19 @@
+// Cullen, Riley
+// PieChartEditor.js
+// November 16, 2020
+
 class PieChartEditor 
 {
+    /**
+     * @summary     Provides the ability to edit a selected pie chart.
+     * @description A concrete class that adds the UI that allows a user to edit 
+     *              a selected bar chart. 
+     * 
+     * @param {Chart Handler Element} handlerElem The handler element associated
+     *                                            with the selected pie chart.
+     * @param {Konva.Layer}           main        The main layer of the infographic.
+     * @param {Konva.Transformer}     tr          The transformer of the pie chart.
+     */
     constructor(handlerElem, main, tr)
     {
         this._handlerElem = handlerElem;
@@ -7,6 +21,9 @@ class PieChartEditor
         this._tr = tr;
     }
 
+    /**
+     * @summary Creates the UI that allows for editing of pie charts.
+     */
     CreateEditorUI()
     {
         var main = document.createElement('div');
@@ -14,6 +31,9 @@ class PieChartEditor
         return main;
     }
 
+    /**
+     * @summary Creates the slider that changes the pie chart's value. 
+     */
     _CreateSlider()
     {
         var sliderContainer = document.createElement('div');
@@ -48,6 +68,14 @@ class PieChartEditor
         return sliderContainer;
     }
 
+    /**
+     * @summary     Updates pie chart and all of its associated decorators.
+     * @description An event listener called when the Update button is pressed.
+     *              This function updates the PieChart class' data with the new
+     *              data array then passes this PieChart to the first decorator.
+     *              This first decorator is then passed to the second decorator so
+     *              that all of the elements are updated.
+     */
     _UpdatePieChart()
     {
         var percentage = document.getElementById('slider').value;
@@ -67,6 +95,14 @@ class PieChartEditor
         this._main.batchDraw();
     }
 
+    /**
+     * @summary     Updates old data array with new percentage values.
+     * @description Gets the pie chart's data array and updates it with the new 
+     *              percentage values. This data array is then returned to the 
+     *              caller. 
+     * 
+     * @param {*} percentage 
+     */
     _CreateDataArr(percentage)
     {
         var tmp = this._handlerElem.chart.GetDataArr();

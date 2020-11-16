@@ -25,6 +25,11 @@ class WaffleEditor
         this._tr = tr;
     }
 
+    /**
+     * @summary     Creates the waffle chart editing UI.
+     * @description See summary. This is done by calling the _Create functions
+     *              and appending their return values to the main container.
+     */
     CreateWaffleEditor()
     {
         var main = document.createElement('div');
@@ -34,11 +39,19 @@ class WaffleEditor
         return main;
     }
 
+    /**
+     * @summary Adds padding to the bottom of the parameterized element.
+     * 
+     * @param {HTML DOM Element} elem The element we want to add bottom padding to.
+     */
     _AddBottomPadding(elem)
     {
         elem.style.paddingBottom = 25 + 'px';
     }
 
+    /**
+     * @summary Creates and adds a label and a textarea to the main container.
+     */
     _CreateNumeratorEditor()
     {
         var numeratorContainer = document.createElement('div');
@@ -60,6 +73,9 @@ class WaffleEditor
         return numeratorContainer;
     }
 
+    /**
+     * @summary Creates and adds a label as well as a textarea to the main container.
+     */
     _CreateDenominatorEditor()
     {
         var denomContainer = document.createElement('div');
@@ -81,6 +97,9 @@ class WaffleEditor
         return denomContainer;
     }
 
+    /**
+     * @summary Creates a button and adds it to the main container.
+     */
     _CreateButton()
     {
         var button = document.createElement('button');
@@ -92,6 +111,12 @@ class WaffleEditor
         return button;
     }
 
+    /**
+     * @summary     Updates the waffle chart with new numerator/denominator values.
+     * @description An event listener that handles the updating of the selected 
+     *              waffle chart once the update button is pressed. This function also
+     *              handles error checking for incorrect input values.
+     */
     _UpdateWaffleChart()
     {
         var numerator = document.getElementById('num').value,
@@ -107,8 +132,6 @@ class WaffleEditor
             this._handlerElem.decorators[i].UpdateDecorator(prev);
             prev = this._handlerElem.decorators[i];
         }
-
-        console.log('dec size: ' + this._handlerElem.decoratorSize);
 
         if (this._handlerElem.decoratorSize === -1) this._handlerElem.chart.CreateChart();
         else this._handlerElem.decorators[this._handlerElem.decoratorSize].CreateChart();

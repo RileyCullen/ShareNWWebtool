@@ -39,6 +39,16 @@ class UIAdder
             .CreateWaffleEditor());
     }
 
+    /**
+     * @summary     Creates a pie chart editing UI and adds it to the DOM.
+     * 
+     * @param {Handler Element}   handlerElem The handler element associated with 
+     *                                        the selected pie chart.
+     * @param {Konva.Layer}       main        The main layer of the infographic (so we can
+     *                                        redraw the canvas post update).
+     * @param {Konva.Transformer} tr          The chart transformer object (so we can
+     *                                        update the size of the transformer).
+     */
     CreatePieEditor(handlerElem, main, tr)
     {
         this._AddGroupToMain();
@@ -46,6 +56,16 @@ class UIAdder
             .CreateEditorUI());
     }
 
+    /**
+     * @summary     Creates a bar chart editing UI and adds it to the DOM.
+     * 
+     * @param {Handler Element}   handlerElem The handler element associated with 
+     *                                        the selected bar chart.
+     * @param {Konva.Layer}       main        The main layer of the infographic (so we can
+     *                                        redraw the canvas post update).
+     * @param {Konva.Transformer} tr          The chart transformer object (so we can
+     *                                        update the size of the transformer).
+     */
     CreateBarEditor(handlerElem, main, tr)
     {
         this._AddGroupToMain();
@@ -62,6 +82,9 @@ class UIAdder
         this._RemoveGroupFromMain();
     }
 
+    /**
+     * @summary Returns the state of the UIAdder object.
+     */
     GetState()
     {
         return this._isEditing;
@@ -77,6 +100,9 @@ class UIAdder
         this._AddCSS();
     }
 
+    /**
+     * @summary Adds CSS to the main container of the editing UI.
+     */
     _AddCSS()
     {
         this._group.style.position = 'fixed';
