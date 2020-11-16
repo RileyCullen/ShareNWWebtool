@@ -64,6 +64,19 @@ class ABarChart
     }
 
     /**
+     * @summary     Updates data array.
+     * @description Updates data array as well as the yScale since a given BarChart's
+     *              yScale is determined by the data.
+     * 
+     * @param {JSON Array} data The updated data we want to bind to our BarChart object.
+     */
+    UpdateData(data)
+    {
+        this._data = data;
+        this._SetUpYDomain();
+    }
+
+    /**
      * @summary     This function sets up the xScale's domain.
      * @description This function sets up the xScale's domain by mapping 
      *              each of the categories within the data array to a place
