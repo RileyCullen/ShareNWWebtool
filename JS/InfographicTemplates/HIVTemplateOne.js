@@ -142,6 +142,7 @@ class HIVTemplateOne extends AInfographic
                 width: 400,
                 height: 125,
                 image: redBorderImg,
+                draggable:true,
             });
             sectionTwo.add(redBorder);
             redBorder.moveToBottom();
@@ -181,7 +182,7 @@ class HIVTemplateOne extends AInfographic
         }));
         
         var barChartGroup = new Konva.Group({
-            offsetX: -130,
+            offsetX: -147,
             offsetY: -17.5,
         });
         var barChartLabel = new Konva.Text({
@@ -189,11 +190,11 @@ class HIVTemplateOne extends AInfographic
             fill: '#e71b32',
             fontSize: 12,
             fontFamily: 'canada-type-gibson, sans-serif',
-            offsetX: -6,
-            offsetY: -102,
+            offsetX: -25,
+            offsetY: 30,
         });
         barChartLabel.rotate(90);
-        barChartGroup.add(barChartLabel);
+        sectionTwo.add(barChartLabel);
         sectionTwo.add(barChartGroup);
        
         var barChartData = [];
@@ -213,7 +214,7 @@ class HIVTemplateOne extends AInfographic
             'color': '#e71b32',
         };
 
-        var barChart = new BasicBarChart(barChartData, barChartGroup, 90, 100, 0.2, 90);
+        var barChart = new BasicBarChart(barChartData, barChartGroup, 90, 115, 0.2, 90);
         var remainder = new RemainderDecorator(barChart);
         var dataValue = new DataValueDecorator(remainder, true, true, true, {
             'fontSize': 12,
@@ -224,7 +225,6 @@ class HIVTemplateOne extends AInfographic
         this._chartHandler.AddChart(barChart, barChartGroup, 'Bar');
         this._chartHandler.AddDecorator(remainder, this._chartHandler.GetCurrChartID());
         this._chartHandler.AddDecorator(dataValue, this._chartHandler.GetCurrChartID());
-
         this._chartHandler.GetDecorator(this._chartHandler.GetCurrChartID(), this._chartHandler.GetCurrDecSize())
             .CreateBarChart();
         
