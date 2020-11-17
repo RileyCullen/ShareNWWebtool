@@ -72,8 +72,16 @@ class ABarChart
      */
     UpdateData(data)
     {
+        this._Clean();
         this._data = data;
         this._SetUpYDomain();
+    }
+    /**
+     * @summary     Removes all child nodes in this group.
+     */
+    _Clean()
+    {
+        this._group.destroyChildren();
     }
 
     /**
