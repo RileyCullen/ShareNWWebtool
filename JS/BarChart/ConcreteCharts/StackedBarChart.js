@@ -55,7 +55,7 @@ class StackedBarChart extends ABarChart
         var elements = custom.selectAll('custom.rect');
         var helper = new Konva.Group();
 
-        var groups = this._GetGroups();
+        var groups = this.GetGroups();
         var offsetHelper = this._CreateOffsetHelper(groups);
 
         elements.each(function(d,i) {

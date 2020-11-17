@@ -25,7 +25,7 @@ class CategoryLabelDecorator extends ABarChartDecorator
         super(chart);
         this._isWithinBars = isWithinBars;
         this._isTop = isTop;
-        this._keys = this._GetGroups();
+        this._keys = this.GetGroups();
         this._font = font;
     }
 

@@ -54,7 +54,7 @@ class DataValueDecorator extends ABarChartDecorator
     _AddLabels()
     {
         var helper = new Konva.Group();
-        var groups = this._GetGroups();
+        var groups = this.GetGroups();
         var offsetHelper = this._CreateOffsetHelper(groups);
         var labelHeight = this._GetFontSize('M', this._font);
 
