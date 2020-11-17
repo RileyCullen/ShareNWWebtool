@@ -103,7 +103,7 @@ class ABarChart
      */
     _SetUpYDomain()
     {
-        var keys = this._GetGroups(), tmp = this._CreateOffsetHelper(keys);
+        var keys = this.GetGroups(), tmp = this._CreateOffsetHelper(keys);
 
         this._data.forEach(d => {
             tmp[d.category] += parseInt(d.value);
@@ -135,7 +135,7 @@ class ABarChart
      * @description Creates a new set and maps each of the categories to a value
      *              within the set.
      */
-    _GetGroups()
+    GetGroups()
     {
         return new Set(this._data.map(d => d.category));
     }
