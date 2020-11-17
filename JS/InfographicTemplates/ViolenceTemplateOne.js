@@ -228,6 +228,12 @@ class ViolenceTemplateOne extends AInfographic
         descriptor.SetPadding(20);
         descriptor.SetOffsetX(7);
         descriptor.SetOffsetY(-10);
+        this._chartHandler.AddChart(stackedBarChart, stackedBarChartGroup, 'Stacked');
+        this._chartHandler.AddDecorator(valueLabel, this._chartHandler.GetCurrChartID());
+        this._chartHandler.AddDecorator(categoryLabel, this._chartHandler.GetCurrChartID());
+        this._chartHandler.AddDecorator(descriptor, this._chartHandler.GetCurrChartID());
+        this._chartHandler.GetDecorator(this._chartHandler.GetCurrChartID(), this._chartHandler.GetCurrDecSize())
+            .CreateBarChart();
         descriptor.CreateBarChart();
 
         /* PIE CHART ONE CODE */
@@ -339,7 +345,12 @@ class ViolenceTemplateOne extends AInfographic
             'fontFamily': roboto,
             'fontColor': 'black',
         });
-        valueDecoratorOne.CreateBarChart();
+
+        this._chartHandler.AddChart(barChartOne, barChartOneGroup, 'Bar');
+        this._chartHandler.AddDecorator(xAxisOne, this._chartHandler.GetCurrChartID());
+        this._chartHandler.AddDecorator(valueDecoratorOne, this._chartHandler.GetCurrChartID());
+        this._chartHandler.GetDecorator(this._chartHandler.GetCurrChartID(), this._chartHandler.GetCurrDecSize())
+            .CreateBarChart();
 
         /* TOOL TIP */
         var toolTip = new MessageBubble(sectionOne, 225, 150, '#1e2243');
@@ -432,6 +443,8 @@ class ViolenceTemplateOne extends AInfographic
             fontStyle: 300,
         });
         waffleChartGroup.add(citationOne);
+
+        this._AddGraphSelection();
     }   
 
     Draw()
