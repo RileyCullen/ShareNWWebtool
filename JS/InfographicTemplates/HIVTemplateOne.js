@@ -142,7 +142,6 @@ class HIVTemplateOne extends AInfographic
                 width: 400,
                 height: 125,
                 image: redBorderImg,
-                draggable:true,
             });
             sectionTwo.add(redBorder);
             redBorder.moveToBottom();
@@ -214,7 +213,7 @@ class HIVTemplateOne extends AInfographic
             'color': '#e71b32',
         };
 
-        var barChart = new BasicBarChart(barChartData, barChartGroup, 90, 115, 0.2, 90);
+        var barChart = new PercentageBarChart(barChartData, barChartGroup, 90, 115, 0.2, 90);
         var remainder = new RemainderDecorator(barChart);
         var dataValue = new DataValueDecorator(remainder, true, true, true, {
             'fontSize': 12,
