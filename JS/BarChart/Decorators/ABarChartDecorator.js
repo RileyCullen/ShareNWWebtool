@@ -21,7 +21,8 @@ class ABarChartDecorator extends ABarChart
     constructor(chart) {
         super(chart._data, chart._group, chart._chartWidth, chart._chartHeight, chart._padding, chart._rotateBy);
         this._chart = chart;
-        
+        this._yScale = chart._yScale;
+
         if (this.constructor === ABarChartDecorator) {
             throw new TypeError('Abstract class "ABarChartDecorator" cannot be instantiated');
         }
