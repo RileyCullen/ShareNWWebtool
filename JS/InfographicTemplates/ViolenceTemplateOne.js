@@ -295,7 +295,7 @@ class ViolenceTemplateOne extends AInfographic
         sectionOne.add(barChartOneGroup);
 
         var bcOneTitleText = 'LGBT Age Distribution', bcOneFontSize = 15;
-        var bcOneTitle = new Konva.Text({
+       /* var bcOneTitle = new Konva.Text({
             x: 40,
             y: -(20 + 2 * this._GetTextWidth('M', bcOneFontSize, roboto)),
             text: bcOneTitleText,
@@ -304,7 +304,7 @@ class ViolenceTemplateOne extends AInfographic
             fontSize: bcOneFontSize,
             fontStyle: 400,
         });
-        barChartOneGroup.add(bcOneTitle);
+        barChartOneGroup.add(bcOneTitle);*/
 
         barChartOneData[0] = {
             'category': '18-24',
@@ -345,10 +345,15 @@ class ViolenceTemplateOne extends AInfographic
             'fontFamily': roboto,
             'fontColor': 'black',
         });
+        var titleDecorator = new TitleDecorator(valueDecoratorOne, bcOneTitleText, true, 
+            {'fontSize': bcOneFontSize, 'fontFamily': roboto, 'textColor': 'black',
+             'fontStyle': 400
+        });
 
         this._chartHandler.AddChart(barChartOne, barChartOneGroup, 'Bar');
         this._chartHandler.AddDecorator(xAxisOne, this._chartHandler.GetCurrChartID());
         this._chartHandler.AddDecorator(valueDecoratorOne, this._chartHandler.GetCurrChartID());
+        this._chartHandler.AddDecorator(titleDecorator, this._chartHandler.GetCurrChartID());
         this._chartHandler.GetDecorator(this._chartHandler.GetCurrChartID(), this._chartHandler.GetCurrDecSize())
             .CreateBarChart();
 
