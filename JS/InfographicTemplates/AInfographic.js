@@ -260,8 +260,10 @@ class AInfographic
                     this._UIAdder.CreateWaffleEditor(this._chartHandler.GetHandlerElem(index), this._main, this._tr);
                 } else if (chart.getAttr('name') === 'Chart Pie') {
                     this._UIAdder.CreatePieEditor(this._chartHandler.GetHandlerElem(index), this._main, this._tr);
-                } else if (chart.getAttr('name') === 'Chart Bar' || chart.getAttr('name') === 'Chart Stacked') {
+                } else if (chart.getAttr('name') === 'Chart Bar') {
                     this._UIAdder.CreateBarEditor(this._chartHandler.GetHandlerElem(index), this._main, this._tr);
+                } else if (chart.getAttr('name') === 'Chart Stacked') {
+                    this._UIAdder.CreateStackedBarEditor(this._chartHandler.GetHandlerElem(index), this._main, this._tr);
                 }
 
                 setTimeout(() => {
