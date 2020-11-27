@@ -1,0 +1,160 @@
+// Cullen, Riley
+// StackedBarChartEditor.js
+// November 26, 2020
+
+class StackedBarChartEditor
+{
+    /**
+     * @summary     Provides the UI to edit stacked bar charts.
+     * @description A concrete class that adds elements to the DOM based on the 
+     *              passed in handlerElem to create a UI for editing stacked 
+     *              bar charts
+     * 
+     * @param {Chart Handler Element} handlerElem The handler element associated
+     *                                            with the chart we want to edit.
+     * @param {Konva.Layer}           main        The layer of the infog.
+     * @param {Konva.Transformer}     tr          The infographic's transformer.
+     */
+    constructor(handlerElem, main, tr)
+    {
+        this._handlerElem = handlerElem;
+        this._main = main;
+        this._tr = tr;
+    }
+
+    /**
+     * @summary Creates the stacked bar chart editing UI.
+     */
+    CreateEditorUI()
+    {
+        var main = document.createElement('div');
+        main.appendChild(this._CreateBarEditors());
+        main.appendChild(this._CreateButton());
+        return main;
+    }
+
+    /**
+     * @summary Creates the individual elements contained within editing UI.
+     */
+    _CreateBarEditors()
+    {
+        var categories = this._handlerElem.chart.GetGroups();
+        var iter = categories.values();
+        var main = document.createElement('div');
+        var data = this._handlerElem.chart.GetData();
+
+        for (var i = iter.next().value; i != null; i = iter.next().value) {
+            var subsection = document.createElement('div');
+            subsection.style.paddingBottom = 20 + 'px';
+
+            var textNode = document.createElement('label');
+            textNode.innerHTML = i + ':';
+            textNode.paddingBottom = 10 + 'px';
+            subsection.appendChild(textNode);
+
+            data.forEach(d => {
+                if (d.category === i) {
+                    var group = document.createElement('div');
+                    var label = document.createElement('label');
+                    label.innerHTML = d.subcategory + ': ';
+                    group.appendChild(label);
+
+                    var inputField = document.createElement('textarea');
+                    inputField.style.marginLeft = 30 + 'px';
+                    inputField.rows = 1;
+                    inputField.cols = 5;
+                    inputField.style.resize = false;
+                    inputField.id = i;
+                    inputField.className = 'BarInput'
+                    inputField.innerHTML = d.value;
+                    group.appendChild(inputField);
+
+                    subsection.appendChild(group);
+                }
+            });
+
+            main.appendChild(subsection);
+        }
+
+        return main;
+    }
+
+    /**
+     * @summary     A private method that creates the update button.
+     */
+    _CreateButton()
+    {
+        var button = document.createElement('button');
+        button.textContent = 'Update';
+        button.onclick = () => {
+            this._UpdateBarChart();
+        };
+        return button;
+    }
+
+    /**
+     * @summary     A private method that updates the bar chart when update is 
+     *              pressed.
+     * @description A private method that modifies the original data array to 
+     *              include the new values. The function then passes this modified
+     *              data array to the chart object and then updates all of the 
+     *              corresponding decorators.
+     */
+    _UpdateBarChart()
+    {
+        var input = this._GetInputFieldValues();
+        var updatedData = this._UpdateDataArr(input);
+
+        if (this._ValidateInput(input)) {
+            this._handlerElem.chart.UpdateData(updatedData);
+            var prev = this._handlerElem.chart;
+            for (var i = 0; i <= this._handlerElem.decoratorSize; i++) {
+                this._handlerElem.decorators[i].UpdateDecorator(prev);
+                prev = this._handlerElem.decorators[i];
+            }
+            prev.CreateBarChart();
+            this._tr.forceUpdate();
+            this._main.batchDraw();
+        }
+    }
+
+    /**
+     * @summary     Validates all of the inputs to ensure the input is a number.
+     * 
+     * @param {Array} input The array of inputs we want to evaluate.
+     */
+    _ValidateInput(input)
+    {
+        input.forEach((d, i) => {
+            if (d === null || d === '' || isNaN(d)) return false;
+        });
+        return true;
+    }
+
+    /**
+     * @summary     Gets all of the values within the editor's input fields.
+     */
+    _GetInputFieldValues()
+    {
+        var values = [];
+        var elems = document.getElementsByClassName('BarInput');
+        for (var i = 0; i < elems.length; i++) {
+            values[i] = parseFloat(elems[i].value);
+        }
+        return values;
+    }
+
+    /**
+     * @summary     Updates the selected bar chart's data array.
+     *   
+     * @param {Array} updatedValues The new values we want to use to updated this._data.
+     */
+    _UpdateDataArr(updatedValues)
+    {
+        var data = this._handlerElem.chart.GetData();
+        data.forEach((d, i) => {
+            d.value = updatedValues[i];
+        });
+        return data;
+    }
+}
