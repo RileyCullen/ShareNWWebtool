@@ -74,6 +74,23 @@ class UIAdder
     }
 
     /**
+     * @summary     Creates a stacked bar chart editing UI and adds it to the DOM.
+     * 
+     * @param {Handler Element}   handlerElem The handler element associated with 
+     *                                        the selected bar chart.
+     * @param {Konva.Layer}       main        The main layer of the infographic (so we can
+     *                                        redraw the canvas post update).
+     * @param {Konva.Transformer} tr          The chart transformer object (so we can
+     *                                        update the size of the transformer).
+     */
+    CreateStackedBarEditor(handlerElem, main, tr)
+    {
+        this._AddGroupToMain();
+        this._group.appendChild(new StackedBarChartEditor(handlerElem, main, tr)
+            .CreateEditorUI());
+    }
+
+    /**
      * @summary Removes the current editor object from DOM.
      */
     RemoveCurrentEditor()
