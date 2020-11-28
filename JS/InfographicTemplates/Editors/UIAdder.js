@@ -68,9 +68,10 @@ class UIAdder
      */
     CreateBarEditor(handlerElem, main, tr)
     {
+        var editor = new BarChartEditor(handlerElem, main, tr);
         this._AddGroupToMain();
-        this._group.appendChild(new BarChartEditor(handlerElem, main, tr)
-            .CreateEditorUI());
+        this._group.appendChild(editor.CreateEditorUI());
+        editor.AlignInputFields();
     }
 
     /**
@@ -85,9 +86,10 @@ class UIAdder
      */
     CreateStackedBarEditor(handlerElem, main, tr)
     {
+        var editor = new StackedBarChartEditor(handlerElem, main, tr);
         this._AddGroupToMain();
-        this._group.appendChild(new StackedBarChartEditor(handlerElem, main, tr)
-            .CreateEditorUI());
+        this._group.appendChild(editor.CreateEditorUI());
+        editor.AlignInputFields();
     }
 
     /**
