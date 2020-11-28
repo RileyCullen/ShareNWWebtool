@@ -57,10 +57,10 @@ class StackedBarChartEditor
                     var group = document.createElement('div');
                     var label = document.createElement('label');
                     label.innerHTML = d.subcategory + ': ';
+                    label.className = 'BarLabel';
                     group.appendChild(label);
 
                     var inputField = document.createElement('textarea');
-                    inputField.style.marginLeft = 30 + 'px';
                     inputField.rows = 1;
                     inputField.cols = 5;
                     inputField.style.resize = false;
@@ -156,5 +156,40 @@ class StackedBarChartEditor
             d.value = updatedValues[i];
         });
         return data;
+    }
+
+    /**
+     * @summary     Aligns the UI's textareas so they are consistent with each other.
+     * @description Iterates through all of the label's to find the label with the 
+     *              largest width then uses that to align all of the textareas 
+     *              located to the left of the label.
+     */
+    AlignInputFields()
+    {
+        var labelArr = document.getElementsByClassName('BarLabel');
+        var largestWidth = this._FindLargestLabel(labelArr);
+    
+        console.log('largest width: ' + largestWidth);
+
+        for (var i = 0; i < labelArr.length; i++) {
+            console.log(i + ' width: ' + labelArr[i].offsetWidth);
+            labelArr[i].style.paddingRight = (largestWidth - labelArr[i].offsetWidth) + 10 + 'px';
+        }
+    }
+
+    /**
+     * @summary     Finds the label with the largest width.
+     * @description Iterates through all of the elements in labelArr, finds the 
+     *              label with the largest width, and returns that width.
+     * 
+     * @param {Array} labelArr The label array we want to iterate through.
+     */
+    _FindLargestLabel(labelArr)
+    {
+        var largestWidth = labelArr[0].offsetWidth;
+        for (var i = 1; i < labelArr.length; i++) {
+            if (labelArr[i].offsetWidth > largestWidth) largestWidth = labelArr[i].offsetWidth;
+        }
+        return largestWidth;
     }
 }
