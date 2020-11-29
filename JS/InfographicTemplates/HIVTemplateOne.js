@@ -84,34 +84,14 @@ class HIVTemplateOne extends AInfographic
             offsetY: 0,
         });
         sectionOne.add(textGroupOne);
-        
-        textGroupOne.add(new Konva.Text({
-            text: "ONE IN FOUR",
-            fontSize: 30,
-            fontFamily: "canada-type-gibson, sans-serif",
-            fontStyle: "700",
-            fill: "#f58928",
-            offsetX: -150,
-            offsetY: -25,
-        }));
-        textGroupOne.add(new Konva.Text({
-            text: "PEOPLE LIVING WITH HIV",
-            fontSize: 17,
-            fontFamily: "canada-type-gibson, sans-serif",
-            fontStyle: "400",
-            fill: "#f58928",
-            offsetX: -152,
-            offsetY: -55,
-        }));
-        textGroupOne.add(new Konva.Text({
-            text: "IS A WOMAN",
-            fontSize: 30,
-            fontFamily: "canada-type-gibson, sans-serif",
-            fontStyle: "700",
-            fill: "#f58928",
-            offsetX: -152,
-            offsetY: -75,
-        }));
+       
+        var textOneDiv = document.createElement('div');
+        textOneDiv.style.color = '#f58928';
+        var textOne = '<p style="font-family: canada-type-gibson, sans-serif; font-size: 30px; font-weight: 700; margin-bottom: -18px;">ONE IN FOUR</p>' +
+            '<p style="font-family: canada-type-gibson, sans-serif; font-size: 17px; font-weight: 400; margin-bottom: -32px;">PEOPLE LIVING WITH HIV</p>' +
+            '<p style="font-family: canada-type-gibson, sans-serif; font-size: 30px; font-weight: 700; margin-bottom: -18px;">IS A WOMAN</p>';
+        textOneDiv.innerHTML = textOne;
+        this._textHandler.AddTextElem(textOneDiv, textGroupOne, 150, 20);
         
         const MAN = '\uf183', WOMAN = '\uf182', LIGHT_ORANGE = '#f9ab7d', ORANGE = '#ee5d26',
             DEFAULT_FONT_SIZE = 50, DEFAULT_OFFSET = 30;
@@ -152,33 +132,13 @@ class HIVTemplateOne extends AInfographic
         var textGroupTwo = new Konva.Group();
         sectionTwo.add(textGroupTwo);
         
-        textGroupTwo.add(new Konva.Text({
-            text: "NOT ALL WOMEN",
-            fontSize: 23,
-            fontFamily: "canada-type-gibson, sans-serif",
-            fontStyle: "600",
-            fill: "#e71b32",
-            offsetX: -160,
-            offsetY: -25,
-        }));
-        textGroupTwo.add(new Konva.Text({
-            text: "ARE EQUALLY",
-            fontSize: 32,
-            fontFamily: "canada-type-gibson, sans-serif",
-            fontStyle: "200",
-            fill: "#e71b32",
-            offsetX: -161,
-            offsetY: -50,
-        }));
-        textGroupTwo.add(new Konva.Text({
-            text: "AFFECTED BY HIV",
-            fontSize: 23,
-            fontFamily: "canada-type-gibson, sans-serif",
-            fontStyle: "600",
-            fill: "#e71b32",
-            offsetX: -160,
-            offsetY: -80,
-        }));
+        var textTwoDiv = document.createElement('div');
+        textTwoDiv.style.color = '#e71b32';
+        var textTwo = '<p style="margin-bottom: -35px; font-family: canada-type-gibson, sans-serif; font-weight: 600; font-size: 23px;">NOT ALL WOMEN</p>' +
+            '<p style="margin-bottom: -30px; font-family: canada-type-gibson, sans-serif; font-weight: 200; font-size: 32px;">ARE EQUALLY</p>' +
+            '<p style="margin-bottom: -35px; font-family: canada-type-gibson, sans-serif; font-weight: 600; font-size: 23px;">AFFECTED BY HIV</p>';
+        textTwoDiv.innerHTML = textTwo;
+        this._textHandler.AddTextElem(textTwoDiv, textGroupTwo, 160, 20);
         
         var barChartGroup = new Konva.Group({
             offsetX: -147,
@@ -246,7 +206,16 @@ class HIVTemplateOne extends AInfographic
         var textGroupThree = new Konva.Group();
         sectionThree.add(textGroupThree);
         
-        textGroupThree.add(new Konva.Text({
+        var textThreeDiv = document.createElement('div');
+        textThreeDiv.style.color = '#2f6b8d';
+        var textThree = '<p style="margin-bottom: -20px; font-family: canada-type-gibson, sans-serif; font-weight: 600; font-size: 17px;">ONLY HALF OF WOMEN</p>' +
+            '<p style="margin-bottom: -34px; font-family: canada-type-gibson, sans-serif; font-weight: 400; font-size: 18.5px;">DIAGNOSED WITH HIV</p>' +
+            '<p style="margin-bottom: -38px; font-family: canada-type-gibson, sans-serif; font-weight: 100; font-size: 28.5px;">ARE RECEIVING</p>' +
+            '<p style="margin-bottom: 0px; font-family: canada-type-gibson, sans-serif; font-weight: 600; font-size: 28.5Px;">CARE FOR HIV</p>';
+        textThreeDiv.innerHTML = textThree;
+        this._textHandler.AddTextElem(textThreeDiv, textGroupThree, 160, 18);
+
+        /*textGroupThree.add(new Konva.Text({
             text: "ONLY HALF OF WOMEN",
             fontSize: 17,
             fontFamily: "canada-type-gibson, sans-serif",
@@ -281,7 +250,7 @@ class HIVTemplateOne extends AInfographic
             fill: "#2f6b8d",
             offsetX: -160,
             offsetY: -85,
-        }));
+        }));*/
         
         const LIGHT_BLUE = '#a0b8d2', BLUE = '#1670ac';
         
@@ -338,7 +307,7 @@ class HIVTemplateOne extends AInfographic
         logoHelper.src = "JS/InfographicTemplates/src/cdclogo.png";
         
         footer.moveToTop();
-        this._AddGraphSelection();
+        this._FinalizeInfog();
     }
 
     Draw()
