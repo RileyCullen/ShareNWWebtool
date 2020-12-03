@@ -19,9 +19,6 @@ class AInfographic
      */
     constructor(height, width)
     {
-
-        /** Pass in layer, clear layer before drawing  */
-
         if (AInfographic === this.constructor) {
             throw new TypeError('Abstract class "AInfographic" cannot be instantiated');
         }
@@ -109,6 +106,11 @@ class AInfographic
         return center - (width / 2);
     }
 
+    /**
+     * @summary     Calls additional functions to complete the infographic.
+     * @description Renders all of the text elements and adds the capability to 
+     *              edit graphs and text elements.
+     */
     _FinalizeInfog()
     {
         this._RenderText();
@@ -116,6 +118,11 @@ class AInfographic
         this._AddTextSelection();
     }
 
+    /**
+     * @summary     Renders all of the text elements.
+     * @description Iterates through all of the elements in textHandler and converts
+     *              them from DOM elements to Konva.Image elements.
+     */
     _RenderText()
     {
         var helperElem = document.createElement('div');
@@ -130,9 +137,15 @@ class AInfographic
         helperElem.remove();
     }
 
+    /**
+     * @summary     Converts DOM elements on the page to Konva.Image elements
+     * @description Uses the html2canvas module to convert DOM elements located 
+     *              within the body into Konva.Image elements.
+     * 
+     * @param {int} index The index of the text element we want to convert.
+     */
     _HTMLToCanvas(index)
     {
-        console.log(document.querySelector('.EditableText'));
         html2canvas(document.querySelector('.EditableText'), {
             backgroundColor: null,
         }).then((image) => {
@@ -141,16 +154,49 @@ class AInfographic
         });
     }
 
+    /**
+     * @summary     Adds the capability to select and edit text.
+     * @description Iterates through all of the elements in the text handler and
+     *              adds an event listener that triggers when the text element
+     *              is double clicked.
+     */
     _AddTextSelection()
     {
-        
+        var selection = this._stage.find('.EditableText');
+        selection.each((textElem) => {
+            textElem.on('dblclick', () => {
+                this._tr.nodes([textElem]);
+                this._tr.moveToTop();
+                this._main.batchDraw();
+
+                this._UIAdder.CreateTextEditor();
+
+                setTimeout(() => {
+                    this._stage.on('click', HandleOutsideClick);
+                });
+
+                var HandleOutsideClick = (e) => {
+                    if (e.target !== textElem) {
+                        this._UIAdder.RemoveCurrentEditor();
+                        this._tr.nodes([]);
+                        textElem.setAttr('draggable', false);
+                        this._main.batchDraw();
+                        this._stage.off('click', HandleOutsideClick);
+                    }
+                };
+            });
+        });
     }
 
+    /**
+     * @summary     Adds the capability to select and edit graphs.
+     * @description Iterates through all of the elements in the graph handler and
+     *              adds an event listener when they are double clicked on.
+     */
     _AddGraphSelection()
     {
         var selection = this._stage.find('.Chart');
         selection.each((chart) => {
-            // desc: Function handles the selection of the two waffle charts
             chart.on('dblclick', () => {
                 var index = parseInt(chart.getAttr('id'));
                 this._tr.nodes([chart]);
