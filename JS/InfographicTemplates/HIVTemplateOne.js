@@ -33,37 +33,16 @@ class HIVTemplateOne extends AInfographic
         this._main.add(sectionThree);
         this._main.add(footer);
         
-        /*main.add(new Konva.Line({
-            stroke: "black",
-            points: [stage.width() / 2, 0, stage.width() / 2, stage.height()],
-        }));*/
-        
         /* HEADER */
-        var title = new Konva.Text({
-            text: "Women and HIV",
-            fontSize: 20,
-            fontFamily: "museo, serif",
-            fontStyle: "500",
-            fill: '#3c4c59',
-            name: 'EditableText',
-            x: (this._stage.width() / 2) - (this._GetTextWidth('Women and HIV', 20, "museo, serif") / 2),
-            y: 10,
-        });
-        title.on('dblclick', () => {
-            console.log('hello');
-        });
-        header.add(title);
-        
-        var question = new Konva.Text({
-            text: "Did You Know?",
-            fontSize: 36,
-            fontFamily: "museo, serif",
-            fill: '#3c4c59',
-            name: 'EditableText',
-            x: (this._stage.width() / 2) - (this._GetTextWidth('Did You Know?', 36, 'museo, serif') / 2),
-            y: 35,
-        });
-        header.add(question);
+        var titleDiv = document.createElement('div');
+        var title = '<p style="font-size: 20px; font-family: museo, serif; font-style: 500; color: #3c4c59;">Women and HIV</p>';
+        titleDiv.innerHTML = title;
+        this._textHandler.AddTextElem(titleDiv, header, (this._stage.width() / 2) - (this._GetTextWidth('Women and HIV', 20, "museo, serif") / 2), 10);
+
+        var questionDiv = document.createElement('div');
+        var question = '<p style="font-size: 36px; font-family: museo, serif; color: #3c4c59;">Did you know?</p>';
+        questionDiv.innerHTML = question;
+        this._textHandler.AddTextElem(questionDiv, header, (this._stage.width() / 2) - (this._GetTextWidth('Did you know?', 36, 'museo, serif') / 2), 27);
         
         /* SECTION ONE */ 
         var orangeBorderImg = new Image();
@@ -215,43 +194,6 @@ class HIVTemplateOne extends AInfographic
         textThreeDiv.innerHTML = textThree;
         this._textHandler.AddTextElem(textThreeDiv, textGroupThree, 160, 18);
 
-        /*textGroupThree.add(new Konva.Text({
-            text: "ONLY HALF OF WOMEN",
-            fontSize: 17,
-            fontFamily: "canada-type-gibson, sans-serif",
-            fontStyle: "600",
-            fill: "#2f6b8d",
-            offsetX: -160,
-            offsetY: -20
-        }));
-        textGroupThree.add(new Konva.Text({
-            text: "DIAGNOSED WITH HIV",
-            fontSize: 18.5,
-            fontFamily: "canada-type-gibson, sans-serif",
-            fontStyle: "400",
-            fill: "#2f6b8d",
-            offsetX: -160,
-            offsetY: -40
-        }));
-        textGroupThree.add(new Konva.Text({
-            text: "ARE RECEIVING",
-            fontSize: 28.5,
-            fontFamily: "canada-type-gibson, sans-serif",
-            fontStyle: "100",
-            fill: "#2f6b8d",
-            offsetX: -160,
-            offsetY: -60
-        }));
-        textGroupThree.add(new Konva.Text({
-            text: "CARE FOR HIV",
-            fontSize: 28.5,
-            fontFamily: "canada-type-gibson, sans-serif",
-            fontStyle: "600",
-            fill: "#2f6b8d",
-            offsetX: -160,
-            offsetY: -85,
-        }));*/
-        
         const LIGHT_BLUE = '#a0b8d2', BLUE = '#1670ac';
         
         var lightBlueWomanPreset = GenerateWafflePreset(WOMAN, LIGHT_BLUE, DEFAULT_OFFSET, ICON_FONT),
@@ -272,25 +214,20 @@ class HIVTemplateOne extends AInfographic
         this._chartHandler.GetChart(this._chartHandler.GetCurrChartID()).CreateChart();
         
         /* FOOTER */ 
-        var bottomText = new Konva.Text({
-            text: "Get the facts. Get tested. Get treatment.",
-            fontSize: 16,
-            fontFamily: "museo, serif",
-            fill: "black",
-            offsetX: -((this._stage.width() / 2) - this._GetTextWidth('Get the facts. Get tested. Get treatment.', 16, 'museo, serif') / 2),
-            offsetY: -25,
-        });
-        footer.add(bottomText);
-        
-        var moreInfoText = new Konva.Text({
-            text: "For more info, go to www.cdc.gov/hiv",
-            fontSize: 14,
-            fontFamily: "museo, serif",
-            fill: "black",
-            offsetX: -((this._stage.width() / 2) - this._GetTextWidth('For more info, go to www.cdc.gov/hiv', 14, 'museo, serif') / 2),
-            offsetY: -45,
-        });
-        footer.add(moreInfoText);
+        var bottomTextDiv = document.createElement('div');
+        var bottomText = '<p style="font-size: 16px; font-family: museo, serif;">Get the facts. Get tested. Get treatment</p>';
+        bottomTextDiv.innerHTML = bottomText;
+        this._textHandler.AddTextElem(bottomTextDiv, footer, 
+            ((this._stage.width() / 2) - 
+            this._GetTextWidth('Get the facts. Get tested. Get treatment.', 16, 'museo, serif') / 2), 
+            20);
+
+        var moreInfoTextDiv = document.createElement('div');
+        var moreInfoText = '<p style="font-size: 14px; font-family: museo, serif;">For more info, go to www.cdc.gov/hiv</p>';
+        moreInfoTextDiv.innerHTML = moreInfoText;
+        this._textHandler.AddTextElem(moreInfoTextDiv, footer, 
+            (this._stage.width() / 2) - 
+            this._GetTextWidth('For more info, go to www.cdc.gov/hiv', 14, 'museo, serif') / 2, 40);
         
         var logoHelper = new Image();
         logoHelper.onload = () => {
