@@ -92,6 +92,14 @@ class UIAdder
         editor.AlignInputFields();
     }
 
+    CreateTextEditor()
+    {
+        var editor = new QuillEditor();
+        this._AddGroupToMain();
+        this._group.appendChild(editor.CreateEditorUI());
+        editor.CreateQuillObject();
+    }
+
     /**
      * @summary Removes the current editor object from DOM.
      */
