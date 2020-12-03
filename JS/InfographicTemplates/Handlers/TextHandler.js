@@ -18,6 +18,7 @@ class TextHandler
                 scaleY: 1 / window.devicePixelRatio,
                 x: x, 
                 y: y,
+                name: 'EditableText',
             }),
         };
         textElem.id = this._curr;
