@@ -92,9 +92,18 @@ class UIAdder
         editor.AlignInputFields();
     }
 
-    CreateTextEditor()
+    /**
+     * @summary     Creates a text editing UI and adds it to the DOM.
+     * 
+     * @param {Konva.Image}       handlerElem The image element we want to update.
+     * @param {Konva.Layer}       main        The main layer of the infographic (so we can
+     *                                        redraw the canvas post update).
+     * @param {Konva.Transformer} tr          The chart transformer object (so we can
+     *                                        update the size of the transformer).
+     */
+    CreateTextEditor(textElem, main, tr)
     {
-        var editor = new QuillEditor();
+        var editor = new QuillEditor(textElem, main, tr);
         this._AddGroupToMain();
         this._group.appendChild(editor.CreateEditorUI());
         editor.CreateQuillObject();
@@ -105,8 +114,10 @@ class UIAdder
      */
     RemoveCurrentEditor()
     {
-        this._isEditing = false;
-        this._RemoveGroupFromMain();
+        if (this._isEditing) {
+            this._isEditing = false;
+            this._RemoveGroupFromMain();
+        }
     }
 
     /**
