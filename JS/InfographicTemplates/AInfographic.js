@@ -131,7 +131,7 @@ class AInfographic
 
         for (var i = 0; i < this._textHandler.GetSize(); i++) {
             helperElem.appendChild(this._textHandler.GetTextElem(i));
-            this._HTMLToCanvas(i);
+            this._HTMLToCanvas('.EditableText', i);
             this._textHandler.GetTextElem(i).remove();
         }
         helperElem.remove();
@@ -144,9 +144,9 @@ class AInfographic
      * 
      * @param {int} index The index of the text element we want to convert.
      */
-    _HTMLToCanvas(index)
+    _HTMLToCanvas(query, index)
     {
-        html2canvas(document.querySelector('.EditableText'), {
+        html2canvas(document.querySelector(query), {
             backgroundColor: null,
         }).then((image) => {
             this._textHandler.GetImage(index).image(image);
@@ -165,11 +165,14 @@ class AInfographic
         var selection = this._stage.find('.EditableText');
         selection.each((textElem) => {
             textElem.on('dblclick', () => {
+                textElem.setAttr('draggable', true);
+
                 this._tr.nodes([textElem]);
                 this._tr.moveToTop();
                 this._main.batchDraw();
 
-                this._UIAdder.CreateTextEditor();
+                this._UIAdder.RemoveCurrentEditor();
+                this._UIAdder.CreateTextEditor(textElem, this._main, this._tr);
 
                 setTimeout(() => {
                     this._stage.on('click', HandleOutsideClick);
