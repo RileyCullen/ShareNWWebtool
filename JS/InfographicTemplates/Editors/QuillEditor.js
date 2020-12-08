@@ -28,6 +28,7 @@ class QuillEditor
         this._main = main;
         this._timeout = null;
         this._tr = tr;
+
     }
 
     /**
@@ -49,17 +50,13 @@ class QuillEditor
      */
     CreateQuillObject()
     {
-        let Font = Quill.import('formats/font');
+        var sizeList = ['10px', '11px', '12px', '13px', '14px', '15px', '16px', 
+            '17px', '18px', '20px', 'custom-size'];
         var fontList = ['900-museo', '100-canada', '200-canada', 
             '400-canada', '500-canada', '600-canada', '700-canada', '900-canada'];
-        Font.whitelist = fontList;
-        Quill.register(Font, true);
 
-        var Size = Quill.import('attributors/style/size');
-        var sizeList = ['10px', '11px', '12px', '13px', '14px', '15px', '16px', 
-            '17px', '18px', '20px'];
-        Size.whitelist = sizeList;
-        Quill.register(Size, true);
+        this._RegisterFontFamilies(fontList);
+        this._RegisterFontSizes(sizeList);
 
         var quill = new Quill('#editor-container', {
             modules: {
@@ -82,8 +79,35 @@ class QuillEditor
               theme: 'snow',
         });
 
-        this._AddFontListener(quill);
+        this._AddQuillListeners(quill);
+    }
+
+    _RegisterFontFamilies(fontList)
+    {
+        let Font = Quill.import('formats/font');
+        Font.whitelist = fontList;
+        Quill.register(Font, true);
+    }
+
+    _RegisterFontSizes(sizeList)
+    {
+        var Size = Quill.import('attributors/style/size');
+        Size.whitelist = sizeList;
+        Quill.register(Size, true);
+    }
+
+    /**
+     * @summary     Adds event listeners to the quill object.
+     * @description Adds the event listeners responsible for text change, font color,
+     *              and font size.
+     * 
+     * @param {Quill} quill The quill object we want to add event listeners to.
+     */
+    _AddQuillListeners(quill)
+    {
+        this._AddFontColorListener(quill);
         this._AddTextListener(quill);
+        this._AddFontSizeListener(quill);
     }
 
     /**
@@ -94,13 +118,35 @@ class QuillEditor
      * @param {Quill} quill The quill edtior we want to add the event listener
      *                      to.
      */
-    _AddFontListener(quill)
+    _AddFontColorListener(quill)
     {
         quill.getModule('toolbar').addHandler('color', (value) => {
             if (value == 'custom-color') {
                 value = prompt('Enter Hex/RGB/RGBA');
             }
             quill.format('color', value);
+        });
+    }
+
+    /**
+     * @summary     Allows for the input of custom font sizes.
+     * @description Adds an event listener that allows for the addition of a custom
+     *              font size.
+     * 
+     * @param {Quill} quill The quill editor we want to add the event listener to.
+     */
+    _AddFontSizeListener(quill)
+    {
+        quill.getModule('toolbar').addHandler('size', (value) => {
+            var font = Quill.import('attributors/style/size');
+            if (value == 'custom-size') {
+                value = prompt('Enter font size');
+                value += 'px';
+                font.whitelist = [value]
+                Quill.register(font);
+            }
+            quill.format('size', value);
+            this._RegisterFontSizes();
         });
     }
 
@@ -127,7 +173,6 @@ class QuillEditor
     {
         if (this._timeout) return;
         this._timeout = setTimeout(() => {
-            console.log('yeet');
             this._timeout = null;
             this._HTMLToCanvas();
         }, 100);
@@ -142,12 +187,25 @@ class QuillEditor
      */
     _HTMLToCanvas()
     {
-        html2canvas(document.querySelector('.ql-editor'), {
+        var qlEditor = document.querySelector('.ql-editor').cloneNode(true);
+
+        var helper = document.createElement('div');
+        helper.style.visibility = 'false';
+        helper.style.position = 'absolute';
+        helper.id = 'ql-helper';
+        helper.appendChild(qlEditor);
+        document.getElementById('body').appendChild(helper);
+
+        html2canvas(document.querySelector('#ql-helper'), {
             backgroundColor: null,
         }).then((image) => {
             this._textElem.image(image);
             this._tr.forceUpdate();
             this._main.batchDraw();
         });
+
+        console.log(helper);
+
+        helper.remove();
     }
 }
