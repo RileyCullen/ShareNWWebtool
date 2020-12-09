@@ -1,3 +1,8 @@
+/*
+    Sources:
+    1. CSS adapted from https://stackoverflow.com/questions/38623716/how-to-add-custom-font-sizes-to-quilljs-editor
+*/
+
 .ql-snow .ql-picker.ql-size .ql-picker-label[data-value="10px"]::before, 
 .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="10px"]::before {
     content: '10px';
@@ -62,6 +67,11 @@
 .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="20px"]::before {
     content: '20px';
     font-size: 20px !important;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value="custom-size"]::before, 
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="custom-size"]::before {
+    content: 'custom size';
 }
 
 /*.ql-size-10 {
