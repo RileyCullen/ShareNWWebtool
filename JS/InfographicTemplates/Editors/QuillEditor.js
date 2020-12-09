@@ -78,7 +78,6 @@ class QuillEditor
               placeholder: 'Compose an epic...',
               theme: 'snow',
         });
-
         this._AddQuillListeners(quill);
     }
 
@@ -137,13 +136,13 @@ class QuillEditor
      */
     _AddFontSizeListener(quill)
     {
+        var Size = Quill.import('attributors/style/size'); 
         quill.getModule('toolbar').addHandler('size', (value) => {
-            var font = Quill.import('attributors/style/size');
             if (value == 'custom-size') {
                 value = prompt('Enter font size');
                 value += 'px';
-                font.whitelist = [value]
-                Quill.register(font);
+                Size.whitelist = [value];
+                Quill.register(Size, true);
             }
             quill.format('size', value);
             this._RegisterFontSizes();
