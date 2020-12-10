@@ -37,7 +37,7 @@ class ObesityTemplateOne extends AInfographic
             'AN EVERYDAY HEALTH INFOGRAM</p>';
         ribbonTextDiv.innerHTML = ribbonText;
         this._textHandler.AddTextElem(ribbonTextDiv, ribbonGroup, 
-            (this._chartWidth / 2) - 100 , 
+            (this._chartWidth / 2) - 170 , 
             (ribbonHeight / 2) - this._GetTextWidth('M', 20, ribbonFontFamily) / 2);
 
         var titleFont = '"Roboto", sans-serif', titleFontSize = 75;
