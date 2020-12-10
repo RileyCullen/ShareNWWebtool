@@ -28,17 +28,17 @@ class ObesityTemplateOne extends AInfographic
             ribbonHeight, this._chartWidth, this._chartHeight);
         ribbon.CreateHeader();
 
-        var ribbonText = "AN EVERYDAY HEALTH INFOGRAM",
-            ribbonFontFamily = '"Montserrat", sans-serif',
+        var ribbonFontFamily = '"Montserrat", sans-serif',
             ribbonTextWidth = this._GetTextWidth(ribbonText, 20, ribbonFontFamily);
-        ribbonGroup.add(new Konva.Text({
-            text: ribbonText,
-            x: (this._chartWidth / 2) - (ribbonTextWidth / 2),
-            y: (ribbonHeight / 2) - this._GetTextWidth('M', 20, ribbonFontFamily) / 2,
-            fontFamily: ribbonFontFamily,
-            fontSize: 20,
-            fill: 'white',
-        }));
+
+        var ribbonTextDiv = document.createElement('div');
+        ribbonTextDiv.style.color = 'white';
+        var ribbonText = '<p style="font-family: Montserrat, sans-serif; font-size: 20px; ">' +
+            'AN EVERYDAY HEALTH INFOGRAM</p>';
+        ribbonTextDiv.innerHTML = ribbonText;
+        this._textHandler.AddTextElem(ribbonTextDiv, ribbonGroup, 
+            (this._chartWidth / 2) - 100 , 
+            (ribbonHeight / 2) - this._GetTextWidth('M', 20, ribbonFontFamily) / 2);
 
         var titleFont = '"Roboto", sans-serif', titleFontSize = 75;
         var titleWidth = this._GetTextWidth('CHILDHOOD', titleFontSize, titleFont)
@@ -74,6 +74,7 @@ class ObesityTemplateOne extends AInfographic
             x: this._CenterXAbout(descWidth, this._chartWidth / 2),
             y: titleTwo.getAttr('y') + 70,
         });
+        header.add(desc);
 
         // CONTENT
         var content = new Konva.Group({
@@ -295,8 +296,7 @@ class ObesityTemplateOne extends AInfographic
         });
         footer.add(source);
 
-        this._AddGraphSelection();
-        this._AddTextSelection();
+        this._FinalizeInfog();
     }
 
     Draw()
