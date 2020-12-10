@@ -28,9 +28,7 @@ class ObesityTemplateOne extends AInfographic
             ribbonHeight, this._chartWidth, this._chartHeight);
         ribbon.CreateHeader();
 
-        var ribbonFontFamily = '"Montserrat", sans-serif',
-            ribbonTextWidth = this._GetTextWidth(ribbonText, 20, ribbonFontFamily);
-
+        var ribbonFontFamily = '"Montserrat", sans-serif';
         var ribbonTextDiv = document.createElement('div');
         ribbonTextDiv.style.color = 'white';
         var ribbonText = '<p style="font-family: Montserrat, sans-serif; font-size: 20px; ">' +
@@ -40,46 +38,33 @@ class ObesityTemplateOne extends AInfographic
             (this._chartWidth / 2) - 170 , 
             (ribbonHeight / 2) - this._GetTextWidth('M', 20, ribbonFontFamily) / 2);
 
+        // Creating title text
         var titleFont = '"Roboto", sans-serif', titleFontSize = 75;
         var titleWidth = this._GetTextWidth('CHILDHOOD', titleFontSize, titleFont)
-        var title = new Konva.Text({
-            fontFamily: titleFont,
-            fontSize: titleFontSize,
-            fill: 'black',
-            x: this._CenterXAbout(titleWidth, this._chartWidth / 2),
-            y: 60,
-            text: 'CHILDHOOD\nOBESITY BY'
-        });
-        titleWidth = this._GetTextWidth('THE NUMBERS', titleFontSize - 15, titleFont);
-        var titleTwo = new Konva.Text({
-            fontFamily: titleFont,
-            fontSize: titleFontSize - 15,
-            fill: 'black',
-            x: this._CenterXAbout(titleWidth, this._chartWidth / 2),
-            y: title.getAttr('y') + 150,
-            text: 'THE NUMBERS'
-        });
-        header.add(title);
-        header.add(titleTwo);
+        var titleTextDiv = document.createElement('div');
+        titleTextDiv.style.color = 'black';
+        var titleText = '<p style="font-family: Roboto, sans-serif; font-size: 75px; margin-bottom: -90px;">CHILDHOOD</p>' +
+            '<p style="font-family: Roboto, sans-serif; font-size: 75px; margin-bottom: -70px;">OBESITY BY</p>' +
+            '<p style="font-family: Roboto, sans-serif; font-size: 60px;">THE NUMBERS</p>';
+        titleTextDiv.innerHTML = titleText;
+        this._textHandler.AddTextElem(titleTextDiv, header, this._CenterXAbout(titleWidth, this._chartWidth / 2),
+            50);
 
-        var descText = 'Many U.S. kids are overweight or obese, and most don\'t exercise',
+        var descTextHelper = 'Many U.S. kids are overweight or obese, and most don\'t exercise',
             descFontSize = 15,
             descFontFamily = '"Open Sans", sans-serif',
-            descWidth = this._GetTextWidth(descText, descFontSize, descFontFamily);
-        var desc = new Konva.Text({
-            text: descText,
-            fontFamily: descFontFamily,
-            fontSize: descFontSize,
-            fill: 'black',
-            x: this._CenterXAbout(descWidth, this._chartWidth / 2),
-            y: titleTwo.getAttr('y') + 70,
-        });
-        header.add(desc);
+            descWidth = this._GetTextWidth(descTextHelper, descFontSize, descFontFamily);
+        var descTextDiv = document.createElement('div');
+        var descText = '<p style="font-family: Open Sans, sans-serif; font-size: 15">' + 
+            'Many U.S. kids are overweight or obese and most don\'t exercise</p>';
+        descTextDiv.innerHTML = descText;
+        this._textHandler.AddTextElem(descTextDiv, header, this._CenterXAbout(descWidth, (this._chartWidth / 2) - 10),
+            275);
 
         // CONTENT
         var content = new Konva.Group({
             x: 0,
-            y: desc.getAttr('y') + 40,
+            y: 320,
         });
         this._main.add(content);
 
@@ -141,15 +126,12 @@ class ObesityTemplateOne extends AInfographic
         this._chartHandler.GetDecorator(this._chartHandler.GetCurrChartID(), this._chartHandler.GetCurrDecSize())
             .CreateChart();
 
-        var sectionOneText = 'children and teens age\n2 to 19 are considered\noverweight or obese';
-        textGroupArr[0].add(new Konva.Text({
-            text: sectionOneText,
-            fill: '#9a2418',
-            fontFamily: descFontFamily,
-            fontSize: sectionFontSize,
-            fontStyle: 'bold',
-            y: this._GetTextWidth('M', 50, titleFont) + 5,
-        }));
+        var sectionOneTextDiv = document.createElement('div');
+        sectionOneTextDiv.style.color = '#9a2418';
+        var sectionOneText = '<p style="font-family: Open Sans, sans-serif; font-size: 18.5px; font-weight: bold">' + 
+            'children and teens age<br>2 to 19 are considered<br>overweight or obese</p>';
+        sectionOneTextDiv.innerHTML = sectionOneText;
+        this._textHandler.AddTextElem(sectionOneTextDiv, textGroupArr[0], 0, this._GetTextWidth('M', 50, titleFont) + 5);
 
         // Section 2 Content
         var RUNNER = '\uf70c';
@@ -177,19 +159,16 @@ class ObesityTemplateOne extends AInfographic
         this._chartHandler.AddChart(waffleTwo, sectionTwoWaffleContainer, 'Waffle');
         this._chartHandler.AddDecorator(waffleTwoStat, this._chartHandler.GetCurrChartID());
         this._chartHandler.GetDecorator(this._chartHandler.GetCurrChartID(), this._chartHandler.GetCurrDecSize())
-            .CreateChart();;
+            .CreateChart();
 
         textGroupArr[1].setAttr('y', textGroupArr[1].getAttr('y') + 10);
-
-        var sectionTwoText = 'don\'t get any daily\nphysical activity';
-        textGroupArr[1].add(new Konva.Text({
-            text: sectionTwoText,
-            fill: '#11578a',
-            fontFamily: descFontFamily,
-            fontSize: sectionFontSize,
-            fontStyle: 'bold',
-            y: this._GetTextWidth('M', 50, titleFont) + 5,
-        }));
+        
+        var sectionTwoTextDiv = document.createElement('div');
+        sectionTwoTextDiv.style.color = '#11578a';
+        var sectionTwoText = '<p style="font-family: Open Sans, sans-serif; font-size: 18.5px; font-weight: bold;">' + 
+            'don\'t get any daily<br>physical activity</p>';
+        sectionTwoTextDiv.innerHTML = sectionTwoText;
+        this._textHandler.AddTextElem(sectionTwoTextDiv, textGroupArr[1], 0, this._GetTextWidth('M', 50, titleFont) + 5);
 
         // Section 3 content
         var pieChartData = [];
@@ -227,23 +206,12 @@ class ObesityTemplateOne extends AInfographic
         this._chartHandler.GetDecorator(this._chartHandler.GetCurrChartID(), this._chartHandler.GetCurrDecSize())
             .CreateChart();
 
-        /*var pieChartStatistic = percentage(pieChartData, 0) + "%";
-        textGroupArr[2].add(new Konva.Text({
-            text: pieChartStatistic,
-            fill: 'white',
-            fontFamily: titleFont,
-            fontSize: statisticFontSize,
-        }));*/
-
-        var sectionThreeText = 'of elementary schools\noffer no physical\neducation classes';
-        textGroupArr[2].add(new Konva.Text({
-            text: sectionThreeText,
-            fill: '#7b706a',
-            fontFamily: descFontFamily,
-            fontSize: sectionFontSize, 
-            fontStyle: 'bold',
-            y: this._GetTextWidth('M', 50, titleFont) + 5 
-        }));
+        var sectionThreeTextDiv = document.createElement('div');
+        sectionThreeTextDiv.style.color = '#7b706a';
+        var sectionThreeText = '<p style="font-family: Open Sans, sans-serif; font-size: 18.5px; font-weight: bold">' + 
+            'of elementary schools <br>offer no physical<br>education classes</p>';
+        sectionThreeTextDiv.innerHTML = sectionThreeText;
+        this._textHandler.AddTextElem(sectionThreeTextDiv, textGroupArr[2], 0, this._GetTextWidth('M', 50, titleFont) + 5);
 
         // Section 4 content
         var TV = '\uf26c';
@@ -268,7 +236,7 @@ class ObesityTemplateOne extends AInfographic
             fontSize: statisticFontSize,
         }));
 
-        var sectionThreeText = 'is the amount of time kids\nspend in front of TV or\ncomputer screens daily';
+        /*var sectionThreeText = 'is the amount of time kids\nspend in front of TV or\ncomputer screens daily';
         textGroupArr[3].add(new Konva.Text({
             text: sectionThreeText,
             fill: '#5f9400',
@@ -276,7 +244,13 @@ class ObesityTemplateOne extends AInfographic
             fontSize: sectionFontSize - 1.5,
             fontStyle: 'bold',
             y: this._GetTextWidth('M', 50, titleFont) + 5 
-        }));
+        }));*/
+        var sectionFourTextDiv = document.createElement('div');
+        sectionFourTextDiv.style.color = '#5f9400';
+        var sectionFourText = '<p style="font-family: Open Sans, sans-serif; font-size: 16px; font-weight: bold">' + 
+            'is the amount of time kids<br>spend in front of TV or<br>computer screens daily</p>';
+        sectionFourTextDiv.innerHTML = sectionFourText;
+        this._textHandler.AddTextElem(sectionFourTextDiv, textGroupArr[3], 0, this._GetTextWidth('M', 50, titleFont) + 5);
 
         // Footer
         var footer = new Konva.Group({
@@ -285,16 +259,13 @@ class ObesityTemplateOne extends AInfographic
         });
         this._main.add(footer);
 
-        var sourceText =  'Source: CDC',
-            sourceTextWidth = this._GetTextWidth(sourceText, 10, ribbonFontFamily);
-        var source = new Konva.Text({
-            x: (this._chartWidth / 2) - (sourceTextWidth / 2),
-            text: sourceText,
-            fontFamily: ribbonFontFamily,
-            fontSize: 10,
-            fill: 'gray'
-        });
-        footer.add(source);
+        var sourceTextHelper =  'Source: CDC',
+            sourceTextWidth = this._GetTextWidth(sourceTextHelper, 10, ribbonFontFamily);
+        var sourceTextDiv = document.createElement('div');
+        sourceTextDiv.style.color = 'gray';
+        var sourceText = '<p style="font-family: Montserrat, sans-serif; font-size: 10px;">Source: CDC</p>';
+        sourceTextDiv.innerHTML = sourceText;
+        this._textHandler.AddTextElem(sourceTextDiv, footer, this._CenterXAbout(sourceTextWidth, this._chartWidth / 2), 0);
 
         this._FinalizeInfog();
     }
