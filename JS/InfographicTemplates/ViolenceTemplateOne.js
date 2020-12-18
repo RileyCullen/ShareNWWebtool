@@ -10,6 +10,7 @@ class ViolenceTemplateOne extends AInfographic
         var lightBlue = '#e2f3ff', blueishGray = '#546670', yellow = '#ffc92a',
             orange = '#f8980e', mediumBlue = '#a5c3d2', blueishBlack = '#546670',
             gray = '#849daa', blueishGreen = '#89cad4';
+        var roboto = '"Roboto", sans-serif';
         var background = new Konva.Group();
         background.moveToBottom();
         this._main.add(background);
@@ -26,38 +27,29 @@ class ViolenceTemplateOne extends AInfographic
         var header = new Konva.Group();
         this._main.add(header);
 
-        var titleText = 'VIRGINIA', textFontSize = 50, roboto = '"Roboto", sans-serif';
-        var title = new Konva.Text({
-            x: 40,
-            y: 40,
-            text: titleText,
-            fontFamily: roboto,
-            fontSize: textFontSize,
-            fontStyle: 700,
-        });
-        header.add(title);
+        var titleDiv = document.createElement('div');
+        var title = '<p style="font-size: 50px; font-family: Roboto, sans-serif; font-weight: 700">'
+            + 'VIRGINIA</p>';
+        titleDiv.innerHTML = title;
+        this._textHandler.AddTextElem(titleDiv, header, 40, 30);
 
         var descBackground = new Konva.Rect({
             x: 1,
-            y: title.getAttr('y') + this._GetTextWidth('M', textFontSize, roboto) + 5,
+            y: 40 + this._GetTextWidth('M', 50, roboto) + 5,
             width: this._chartWidth - 2,
             height: 80,
             fill: blueishGray,
         });
         header.add(descBackground);
 
-        var descText = 'The impact of stigma and\ndiscrimination against LGBT people', descFontSize = 20;
-        var desc = new Konva.Text({
-            x: title.getAttr('x'),
-            y: (descBackground.getAttr('y') + descBackground.getAttr('height') / 2) 
-                - this._GetTextWidth('M', descFontSize, roboto),
-            text: descText, 
-            fill: 'white',
-            fontFamily: roboto,
-            fontSize: descFontSize,
-            fontStyle: 300
-        });
-        header.add(desc);        
+        var descFontSize = 20;
+        var descDiv = document.createElement('div');
+        var desc = '<p style="font-family: Roboto, sans-serif; font-weight: 300; font-size: 20px;">'
+            + 'The impact of stigma and<br>discrimination against LGBT people</p>'; 
+        descDiv.innerHTML = desc;
+        descDiv.style.color = 'white';
+        this._textHandler.AddTextElem(descDiv, header, 40, descBackground.getAttr('y') 
+            + descBackground.getAttr('height') / 2 - 1.5 * this._GetTextWidth('M', descFontSize, roboto));
 
         var yellowStrip = new Konva.Rect({
             x: 1,
@@ -94,37 +86,12 @@ class ViolenceTemplateOne extends AInfographic
         var introY = 50, introFontSize = 22, 
             statFontSize = introFontSize * 1.5;
 
-        var tmpOne = new Konva.Text({
-            text: introOne,
-            x: title.getAttr('x') - 15,
-            y: introY - (this._GetTextWidth('M', introFontSize, roboto)),
-            fontFamily: roboto,
-            fontSize: introFontSize,
-            fontStyle: 400,
-            fill: 'black',
-        });
-        var tmpTwo = new Konva.Text({
-            text: stat,
-            x: tmpOne.getAttr('x') + this._GetTextWidth(introOne, introFontSize, roboto),
-            y: introY - (0.8 * this._GetTextWidth('M', statFontSize, roboto)),
-            fontFamily: roboto,
-            fontSize: statFontSize,
-            fontStyle: 900,
-            fill: orange,
-        });
-        var tmpThree = new Konva.Text({
-            text: introTwo,
-            x: tmpTwo.getAttr('x') + this._GetTextWidth(stat, statFontSize, roboto),
-            y: introY - (this._GetTextWidth('M', introFontSize, roboto)),
-            fontFamily: roboto,
-            fontSize: introFontSize,
-            fontStyle: 400,
-            fill: 'black',
-        });
-
-        introHelper.add(tmpOne);
-        introHelper.add(tmpTwo);
-        introHelper.add(tmpThree);
+        var introDiv = document.createElement('div');
+        var intro = '<p style="font-family: Roboto, sans-serif; font-size: 22px; font-weight: 400;">This state is home to'
+            + '<span style="font-family: Roboto, sans-serif; font-size: 33px; font-weight: 900; color: orange;"> 257,000 </span>'
+            + 'LGBT adults</p>';
+        introDiv.innerHTML = intro;
+        this._textHandler.AddTextElem(introDiv, introHelper, 25, introY - 1.5 * this._GetTextWidth('M', introFontSize, roboto));
 
         var sectionOne = new Konva.Group({
             x: 1,
@@ -245,47 +212,41 @@ class ViolenceTemplateOne extends AInfographic
         var pieChartOneData = [];
         pieChartOneData[0] = {
             'category': 'A',
-            'value': 74,
+            'value': 26,
             'color': lightBlue,
         };
         pieChartOneData[1] = {
             'category': 'B',
-            'value': 26,
+            'value': 74,
             'color': blueishGray,
         };
         var pieChartOneRadius = 80;
         var pieChartOne = new PieChart(pieChartOneData, pieChartOneGroup, pieChartOneRadius);
         var donutDecorator = new DonutDecorator(pieChartOne, pieChartOneRadius / 2);   
-        var minorStatistic = new MinorStatisticDecorator(donutDecorator, {
+        var minorStatistic = new FirstStatisticDecorator(donutDecorator, {
             'fontSize': 30,
             'fontFamily': roboto,
             'fontStyle': 900,
             'textColor': orange,
         });
-        minorStatistic.CreateChart();
+        this._chartHandler.AddChart(pieChartOne, pieChartOneGroup, 'Pie');
+        this._chartHandler.AddDecorator(donutDecorator, this._chartHandler.GetCurrChartID());
+        this._chartHandler.AddDecorator(minorStatistic, this._chartHandler.GetCurrChartID());
+        this._chartHandler.GetDecorator(this._chartHandler.GetCurrChartID(), this._chartHandler.GetCurrDecSize())
+            .CreateChart();
 
-        var pieChartOneHelper = new Konva.Group();
-        pieChartOneGroup.add(pieChartOneHelper);
-        var pieChartOneText_1 = 'are raising';
-        var pieChartOneText_2 = 'children';
-        var pieChartOneTextElem = new Konva.Text({
-            x: -this._GetTextWidth(pieChartOneText_1, 15, roboto) / 2,
-            y: pieChartOneRadius + (this._GetTextWidth('M', 15, roboto)),
-            text: pieChartOneText_1,
-            fontSize: 15,
-            fontFamily: roboto,
-            fontStyle: 400,
+        var pieChartOneHelper = new Konva.Group({
+            x: this._chartWidth / 2 + 15, 
+            y: 160, 
         });
-        pieChartOneHelper.add(pieChartOneTextElem);
-        var pieChartOneTextElemTwo = new Konva.Text({
-            x: -this._GetTextWidth(pieChartOneText_2, 15, roboto) / 2,
-            y: pieChartOneRadius + 2 * this._GetTextWidth('M', 15, roboto) + 5,
-            text: pieChartOneText_2,
-            fontSize: 15, 
-            fontFamily: roboto,
-            fontStyle: 400,
-        });
-        pieChartOneHelper.add(pieChartOneTextElemTwo);
+        sectionOne.add(pieChartOneHelper);
+
+        var pieChartOneTextDiv = document.createElement('div');
+        var pieChartOneText = '<p style="font-family: Roboto, sans-serif; font-size: 15px; font-weight: 400; text-align: center;">'
+            +'are raising<br>children</p>';
+        pieChartOneTextDiv.innerHTML = pieChartOneText;
+        this._textHandler.AddTextElem(pieChartOneTextDiv, pieChartOneHelper, 
+            -1 * this._GetTextWidth('are raising', 15, roboto) / 2, pieChartOneRadius + this._GetTextWidth('M', 15, roboto));
 
         /* BAR CHART ONE CODE */
         var barChartOneData = [], barChartOneGroup = new Konva.Group({
@@ -294,17 +255,12 @@ class ViolenceTemplateOne extends AInfographic
         });
         sectionOne.add(barChartOneGroup);
 
-        var bcOneTitleText = 'LGBT Age Distribution', bcOneFontSize = 15;
-       /* var bcOneTitle = new Konva.Text({
-            x: 40,
-            y: -(20 + 2 * this._GetTextWidth('M', bcOneFontSize, roboto)),
-            text: bcOneTitleText,
-            fill: 'black',
-            fontFamily: roboto,
-            fontSize: bcOneFontSize,
-            fontStyle: 400,
-        });
-        barChartOneGroup.add(bcOneTitle);*/
+        var bcOneFontSize = 15;
+        var barOneTitleDiv = document.createElement('div');
+        var barOneTitle = '<p style="font-family: Roboto, sans-serif; font-size: 15px; font-weight: 400;">' 
+            + 'LGBT Age Distribution</p>';
+        barOneTitleDiv.innerHTML = barOneTitle;
+        this._textHandler.AddTextElem(barOneTitleDiv, sectionOne, pieChartOneGroup.getAttr('x') + 135, (0 + 2 * this._GetTextWidth('M', bcOneFontSize, roboto)));
 
         barChartOneData[0] = {
             'category': '18-24',
@@ -345,15 +301,10 @@ class ViolenceTemplateOne extends AInfographic
             'fontFamily': roboto,
             'fontColor': 'black',
         });
-        var titleDecorator = new TitleDecorator(valueDecoratorOne, bcOneTitleText, true, 
-            {'fontSize': bcOneFontSize, 'fontFamily': roboto, 'textColor': 'black',
-             'fontStyle': 400
-        });
 
         this._chartHandler.AddChart(barChartOne, barChartOneGroup, 'Bar');
         this._chartHandler.AddDecorator(xAxisOne, this._chartHandler.GetCurrChartID());
         this._chartHandler.AddDecorator(valueDecoratorOne, this._chartHandler.GetCurrChartID());
-        this._chartHandler.AddDecorator(titleDecorator, this._chartHandler.GetCurrChartID());
         this._chartHandler.GetDecorator(this._chartHandler.GetCurrChartID(), this._chartHandler.GetCurrDecSize())
             .CreateBarChart();
 
@@ -361,27 +312,14 @@ class ViolenceTemplateOne extends AInfographic
         var toolTip = new MessageBubble(sectionOne, 225, 150, '#1e2243');
         toolTip.CreateMessageBubble(300, 350);
 
-        var toolTipText = [
-            '81% of Virginia Residents',
-            'think that LGBT people ',
-            'experience discrimination',
-            'in the state.'
-        ];
-
-        var prev = 0;
-        toolTipText.forEach((d, i) => {
-            var helper = new Konva.Text({
-                text: toolTipText[i],
-                x: 300 + 15,
-                y: 375 + prev,
-                fill: 'white',
-                fontSize: 17,
-                fontFamily: roboto,
-                fontStyle: 300,
-            });
-            prev += 2 * this._GetTextWidth('M', 17, roboto);
-            sectionOne.add(helper);
-        });
+        var toolTipDiv = document.createElement('div');
+        toolTipDiv.style.color = 'white';
+        var toolTipText = '<p style="font-family: Roboto, sans-serif; font-size: 17px; font-weight: 300; margin-bottom: -5px;">81% of Virginia Residents</p>'
+            + '<p style="font-family: Roboto, sans-serif; font-size: 17px; font-weight: 300; margin-bottom: -5px;">think that LGBT people</p>'
+            + '<p style="font-family: Roboto, sans-serif; font-size: 17px; font-weight: 300; margin-bottom: -5px;">experience discrimination</p>'
+            + '<p style="font-family: Roboto, sans-serif; font-size: 17px; font-weight: 300; margin-bottomL -5px;">in the state.</p>';
+        toolTipDiv.innerHTML = toolTipText;
+        this._textHandler.AddTextElem(toolTipDiv, sectionOne, 315, 367);
 
         /* WAFFLE CHART CODE */
         var PERSON = '\uf007', ICON_FONT = '"Font Awesome 5 Free"';
@@ -416,40 +354,20 @@ class ViolenceTemplateOne extends AInfographic
         });
         circleMinorStatistic.CreateChart();
 
-        var waffleDescHelper = [
-            'of LGBT Virginia students surveyed',
-            'said they had experienced verbal',
-            'harassment based on their sexual',
-            'orientation at school.'
-        ];
-        var waffleDesc = [];
-        prev = 0;
+        var waffleDescDiv = document.createElement('div');
+        var waffleDesc = '<p style="font-family: Roboto, sans-serif; font-size: 13px; font-weight: 400;">'
+            + 'of LGBT Virginia students surveyed<br>said they had experienced verbal'
+            + '<br>harassment based on their sexual<br>orientation at school.</p>';
+        waffleDescDiv.innerHTML = waffleDesc;
+        this._textHandler.AddTextElem(waffleDescDiv, waffleChartGroup, 400, 100);
 
-        waffleDescHelper.forEach((d, i) => {
-            waffleDesc[i] = new Konva.Text({
-                x: 400,
-                y: 100 + prev,
-                text: d,
-                fontSize: 13,
-                fontFamily: roboto,
-                fontStyle: 400,
-            });
-            waffleChartGroup.add(waffleDesc[i]);
-            prev += 1.5 * this._GetTextWidth('M', 15, roboto);
-        });
+        var citationOneDiv = document.createElement('div');
+        var citationOne = '<p style="font-family: Roboto, sans-serif; font-size: 9px; font-weight: 300;">'
+            + '2017 GLSEN National Scholl Climate Survey</p>';
+        citationOneDiv.innerHTML = citationOne;
+        //this._textHandler.AddTextElem(citationOneDiv, waffleChartGroup, 400, 170);
 
-        var citationOneText = '2017 GLSEN National School Climate Survey';
-        var citationOne = new Konva.Text({
-            x: 400,
-            y: waffleDesc[3].getAttr('y') + 4 * this._GetTextWidth('M', 11, roboto) - 20,
-            text: citationOneText,
-            fontSize: 9,
-            fontFamily: roboto,
-            fontStyle: 300,
-        });
-        waffleChartGroup.add(citationOne);
-
-        this._AddGraphSelection();
+        this._FinalizeInfog();
     }   
 
     Draw()
