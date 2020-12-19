@@ -236,15 +236,6 @@ class ObesityTemplateOne extends AInfographic
             fontSize: statisticFontSize,
         }));
 
-        /*var sectionThreeText = 'is the amount of time kids\nspend in front of TV or\ncomputer screens daily';
-        textGroupArr[3].add(new Konva.Text({
-            text: sectionThreeText,
-            fill: '#5f9400',
-            fontFamily: descFontFamily,
-            fontSize: sectionFontSize - 1.5,
-            fontStyle: 'bold',
-            y: this._GetTextWidth('M', 50, titleFont) + 5 
-        }));*/
         var sectionFourTextDiv = document.createElement('div');
         sectionFourTextDiv.style.color = '#5f9400';
         var sectionFourText = '<p style="font-family: Open Sans, sans-serif; font-size: 16px; font-weight: bold">' + 
@@ -272,10 +263,6 @@ class ObesityTemplateOne extends AInfographic
 
     Draw()
     {   
-        var fontLoader = new FontLoader('"Font Awesome 5 Free"');
         this._main.draw();
-        fontLoader.whenFontIsLoaded(() => {
-            this._main.batchDraw();
-        });
     }
 }
