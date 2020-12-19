@@ -34,7 +34,7 @@ class FirstStatisticDecorator extends APieChartDecorator
             fontFamily: this._font.fontFamily,
             fill: this._font.textColor,
         }));
-
+        this._top.moveToTop();
         if (this._helper === 0) this._group.add(this._top);
         else this._helper.add(this._top);
     }
