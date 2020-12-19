@@ -88,9 +88,9 @@ class PieChartEditor
             this._handlerElem.decorators[i].UpdateDecorator(prev);
             prev = this._handlerElem.decorators[i];
         }
-
+        console.log(prev);
         if (this._handlerElem.decoratorSize === -1) this._handlerElem.chart.CreateChart();
-        else this._handlerElem.decorators[this._handlerElem.decoratorSize].CreateChart();
+        else prev.CreateChart();
         this._tr.forceUpdate();
         this._main.batchDraw();
     }
@@ -106,10 +106,8 @@ class PieChartEditor
     _CreateDataArr(percentage)
     {
         var tmp = this._handlerElem.chart.GetDataArr();
-
-        tmp[0].value = percentage;
-        tmp[1].value = 100 - percentage;
-
+        tmp[0].value = parseInt(percentage);
+        if (tmp[1]) tmp[1].value = 100 - percentage;
         return tmp;
     }
 }
