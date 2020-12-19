@@ -333,10 +333,13 @@ class ViolenceTemplateOne extends AInfographic
         });
         this._main.add(waffleChartGroup);
 
+        var helperGroup = new Konva.Group();
+        waffleChartGroup.add(helperGroup);
         var waffleNum = 65, waffleDenom = 80;
-        var waffleChart = new WaffleChart(waffleNum, waffleDenom, waffleChartGroup, 
+        var waffleChart = new WaffleChart(waffleNum, waffleDenom, helperGroup, 
             orangePersonPreset, bluePersonPreset, 20, false);
-        waffleChart.CreateChart();
+        this._chartHandler.AddChart(waffleChart, helperGroup, 'Waffle');
+        this._chartHandler.GetChart(this._chartHandler.GetCurrChartID()).CreateChart();
 
         var circleGroup = new Konva.Group({
             x: 325,
@@ -346,13 +349,18 @@ class ViolenceTemplateOne extends AInfographic
 
         var circle = new PieChart([{'category': 'test', 'value': 74, 'color': yellow}], circleGroup, 55)
         var circleOutline = new ChartOutlineDecorator(circle, 60, 2.5, 'black');
-        var circleMinorStatistic = new MinorStatisticDecorator(circleOutline, {
+        var circleMinorStatistic = new FirstStatisticDecorator(circleOutline, {
             'fontSize': 40,
             'fontFamily': roboto,
             'textColor': 'black',
             'fontStyle': 400,
         });
-        circleMinorStatistic.CreateChart();
+        this._chartHandler.AddChart(circle, circleGroup, 'Pie');
+        this._chartHandler.AddDecorator(circleOutline, this._chartHandler.GetCurrChartID());
+        this._chartHandler.AddDecorator(circleMinorStatistic, this._chartHandler.GetCurrChartID());
+        this._chartHandler.GetDecorator(this._chartHandler.GetCurrChartID(), this._chartHandler.GetCurrDecSize())
+            .CreateChart();
+
 
         var waffleDescDiv = document.createElement('div');
         var waffleDesc = '<p style="font-family: Roboto, sans-serif; font-size: 13px; font-weight: 400;">'
@@ -365,7 +373,7 @@ class ViolenceTemplateOne extends AInfographic
         var citationOne = '<p style="font-family: Roboto, sans-serif; font-size: 9px; font-weight: 300;">'
             + '2017 GLSEN National Scholl Climate Survey</p>';
         citationOneDiv.innerHTML = citationOne;
-        //this._textHandler.AddTextElem(citationOneDiv, waffleChartGroup, 400, 170);
+        this._textHandler.AddTextElem(citationOneDiv, waffleChartGroup, 400, 170);
 
         this._FinalizeInfog();
     }   
