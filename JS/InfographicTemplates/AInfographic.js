@@ -66,14 +66,16 @@ class AInfographic
         /**
          * @summary     Adds a black border around the edges of the canvas element.
          */
-        this._main.add(new Konva.Rect({
+        var bkg = new Konva.Rect({
             x: 0,
             y: 0,
             width: this._stage.width(),
             height: this._stage.height(),
             fill: 'white',
             stroke: 'black',
-        }));
+        });
+        this._main.add(bkg);
+        bkg.moveToBottom();
     }
 
     _GetTextWidth(text, fontSize, fontFamily)
@@ -146,7 +148,8 @@ class AInfographic
      */
     _HTMLToCanvas(query, index)
     {
-        html2canvas(document.querySelector(query), {
+        var element = document.querySelector(query);
+        html2canvas(element, {
             backgroundColor: null,
         }).then((image) => {
             this._textHandler.GetImage(index).image(image);
