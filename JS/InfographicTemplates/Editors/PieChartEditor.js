@@ -88,7 +88,6 @@ class PieChartEditor
             this._handlerElem.decorators[i].UpdateDecorator(prev);
             prev = this._handlerElem.decorators[i];
         }
-        console.log(prev);
         if (this._handlerElem.decoratorSize === -1) this._handlerElem.chart.CreateChart();
         else prev.CreateChart();
         this._tr.forceUpdate();
