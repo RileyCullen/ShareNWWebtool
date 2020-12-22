@@ -81,6 +81,14 @@ class QuillEditor
         this._AddQuillListeners(quill);
     }
 
+    /**
+     * @summary     Registers various font families with Quill.
+     * @description Creates a Font object, whitelists the fonts, and registers
+     *              them with Quill.
+     * 
+     * @param {Array} fontList An array of strings that represent the data value 
+     *                         associated with the fonts.
+     */
     _RegisterFontFamilies(fontList)
     {
         let Font = Quill.import('formats/font');
@@ -88,6 +96,13 @@ class QuillEditor
         Quill.register(Font, true);
     }
 
+    /**
+     * @summary     Registers the various font sizes with Quill.
+     * @description Creates a Size object, whitelists the sizes, and registers 
+     *              them with Quill.
+     * 
+     * @param {Array} sizeList An array of size strings.
+     */
     _RegisterFontSizes(sizeList)
     {
         var Size = Quill.import('attributors/style/size');
