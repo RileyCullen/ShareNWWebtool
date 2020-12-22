@@ -52,7 +52,8 @@ class QuillEditor
         var sizeList = ['10px', '11px', '12px', '13px', '14px', '15px', '16px', 
             '17px', '18px', '20px', 'custom-size'];
         var fontList = ['900-museo', '100-canada', '200-canada', 
-            '400-canada', '500-canada', '600-canada', '700-canada', '900-canada'];
+            '400-canada', '500-canada', '600-canada', '700-canada', '900-canada',
+            '200-Montserrat'];
 
         this._RegisterFontFamilies(fontList);
         this._RegisterFontSizes(sizeList);

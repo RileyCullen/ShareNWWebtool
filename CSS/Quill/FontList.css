@@ -75,6 +75,14 @@
   font-weight: 900;
 }
 
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value='200-Montserrat']::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value='200-Montserrat']::before
+{
+  content: '200 Montserrat';
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 200;
+}
+
 .ql-font-900-museo {
   font-family: 'museo', serif;
   font-weight: 900;
@@ -113,4 +121,9 @@
 .ql-font-900-canada {
   font-family: 'canada-type-gibson', sans-serif;
   font-weight: 900;
+}
+
+.ql-font-200-Montserrat {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 200;
 }
