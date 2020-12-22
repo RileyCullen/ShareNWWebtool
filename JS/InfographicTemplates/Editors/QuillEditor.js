@@ -28,7 +28,6 @@ class QuillEditor
         this._main = main;
         this._timeout = null;
         this._tr = tr;
-
     }
 
     /**
@@ -195,16 +194,14 @@ class QuillEditor
         helper.appendChild(qlEditor);
         document.getElementById('body').appendChild(helper);
 
-        html2canvas(document.querySelector('#ql-helper'), {
+        html2canvas(helper, {
             backgroundColor: null,
+            scrollY: -(window.scrollY),
         }).then((image) => {
             this._textElem.image(image);
             this._tr.forceUpdate();
             this._main.batchDraw();
         });
-
-        console.log(helper);
-
         helper.remove();
     }
 }
