@@ -1,5 +1,21 @@
+// Cullen, Riley
+// December 21, 2020
+// MessageBubble.js
+
 class MessageBubble 
 {
+    /**
+     * @summary     Creates a message bubble in KonvaJS.
+     * @description Constructs a message bubble using the various shapes defined
+     *              in the KonvaJS library.
+     * 
+     * @requires Konva.JS
+     * 
+     * @param {Konva.Group} group  The group associated with the message bubble.
+     * @param {double}      width  The width of the message bubble.
+     * @param {double}      height The height of the message bubble.
+     * @param {string}      color  The color of the message bubble.
+     */
     constructor(group, width, height, color)
     {
         this._group = group;
@@ -8,6 +24,16 @@ class MessageBubble
         this._color = color;
     }
 
+    /**
+     * @summary     Creates the message bubble at coordinates (x, y). 
+     * @description Adds a Konva.Rect and Konva.Line object to the group specified
+     *              in the constructor. Note that the rectangle is aligned at 
+     *              (x, y) while the triangle like object created using the Konva
+     *              .Line class is dynamically placed.
+     * 
+     * @param {double} x The x coordinate we want to place our message bubble at.
+     * @param {double} y The y coordinate we want to place our message bubble at.
+     */
     CreateMessageBubble(x, y)
     {
         var helper = new Konva.Group();
@@ -31,10 +57,5 @@ class MessageBubble
             fill: this._color,
             closed: true
         }));
-    }
-
-    AddMessage()
-    {
-        
     }
 }
