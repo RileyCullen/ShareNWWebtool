@@ -1,5 +1,23 @@
+// Cullen, Riley
+// AWaffleChart.js
+// December 23, 2020
+
 class AWaffleChart
 {
+    /**
+     * @summary     Abstract class for the waffle chart type.
+     * @description Abstract class that provides a common interface for the waffle
+     *              chart type to use.
+     * 
+     * @param {int} numerator        The number of presetA icons to display.
+     * @param {int} denominator      The number of total icons.
+     * @param {Konva.Group} group    The group we want to add the chart to. 
+     * @param {WafflePreset} presetA The first set of icons to display.
+     * @param {WafflePreset} presetB The second set of icons to display.
+     * @param {int} fontSize         The icon size.
+     * @param {bool} isDynamicResize Determines if the waffle chart will dynamically 
+     *                               resize the chart when data is updated.
+     */
     constructor(numerator, denominator, group, presetA, presetB, fontSize, isDynamicResize)
     {
         if (AWaffleChart === this.constructor) {
@@ -18,36 +36,38 @@ class AWaffleChart
         this._isDynamicResize = isDynamicResize;
     }
 
+    /**
+     * @summary     Updates the data bound to the given waffle chart.
+     * @description Updates the numerator and denominator bound to the calling
+     *              waffle chart (note: UpdateData only updates _numerator and
+     *              _denominator. CreateChart still needs to be called to actually
+     *              change the chart given on the canvas).
+     * 
+     * @param {int} numerator   The number of presetA icons in a waffle chart.
+     * @param {int} denominator The number of total icons in a waffle chart.
+     */
     UpdateData(numerator, denominator) 
     {
         this._numerator = numerator;
         this._denominator = denominator;
     }
 
+    /**
+     * @summary     Removes all of the children in _group.
+     * @description A wrapper function that calls the Konva.js function 
+     *              destroyChildren() which removes all of the children in
+     *              _group.
+     */
     _DestroyChildren()
     {
         this._group.destroyChildren();
     }
 
-    // desc: This function returns an array of json objects that BindData uses to 
-    //       create custom icon elements in memory
-    //
-    // parameters:
-    // -----------
-    // numerator : int 
-    //      The number of presetA.icon's we will draw to the screen
-    // denominator : int
-    //      The number of total icons that will be drawn to the screen
-    // fontSize : int
-    //      The size of the icons being drawn to the screen
-    // presetA : preset object
-    //      The icons that will be drawn first
-    // presetB : preset object
-    //      The icons that will be drawn second
-    //
-    // return type:
-    // ------------
-    // This function returns an array of json objects hereafter called a WaffleDataArr
+    /**
+     * @summary     Generates the data used to create waffle chart.
+     * @description A function that creates a JSON array used to draw the waffle 
+     *              chart on the canvas.
+     */
     _GenerateWaffleDataArr()
     {
         var tmp = []
@@ -64,33 +84,41 @@ class AWaffleChart
         return tmp;
     }
 
-    // desc: Private function that removes the original waffle chart from the 
-    //       container and removes the custom DOM elements from memory
-    //
-    // parameters: 
-    // -----------
-    // custom : d3.select() object
-    //      The custom DOM element that contains our binded data
-    // container : Konva.Group
-    //      The container that contains our waffle chart
+    /**
+     * @summary     Removes waffle chart elements the custom DOM container and 
+     *              from _group.
+     * @description Removes d3 data bound to the chart's DOM container and calls
+     *              _DestroyChildren.
+     * 
+     * @param {D3 selection} custom The D3 selection we want to clean.
+     */
     _RemoveWaffleChart(custom)
     {
         this._RemoveCustomElements(custom);
         this._DestroyChildren();
     }
 
-    // desc: Remove all of the custom DOM elements from memory
-    // 
-    // parameters:
-    // -----------
-    // custom : d3.select() object
-    //      See _RemoveWaffleChart()
+    /**
+     * @summary     Removes all of the D3 elements called custom.rect.
+     * @description Selects all of the elements named custom.rect and removes them
+     *              from the container.
+     * 
+     * @param {D3 Selection} custom The D3 selection we want to clean.
+     */
     _RemoveCustomElements(custom)
     {
         custom.selectAll('custom.rect')
             .remove();
     }
 
+    /**
+     * @summary     Determines the size of waffle chart icons.
+     * @description Dynamically calculates the size of the icons within a waffle 
+     *              chart given the width defined in _group.
+     * 
+     * @param {double} timeout Max amount of tries the function will take before 
+     *                         it times out.
+     */
     _DetermineFontSize(timeout = 500)
     {
         // Canvas variables
@@ -120,6 +148,17 @@ class AWaffleChart
         return currentFontSize;
     }
 
+    /**
+     * @summary     Calculates the width of an icon within a preset.
+     * @description Finds the width of an icon within a preset given a specified 
+     *              font size.
+     * 
+     * @param {Canvas context} ctx   The context of the virtual canvas created 
+     *                               in calling function.
+     * @param {Waffle Preset} preset The preset associated with the icon we want 
+     *                               to calculate the width of.
+     * @param {int} fontSize         The size of the icon.
+     */
     _GetIconWidth(ctx, preset, fontSize) 
     {
         ctx.font = '900 ' + fontSize + 'px ' + preset.font;
@@ -127,6 +166,12 @@ class AWaffleChart
         return ctx.measureText(sample).width;
     }
 
+    /**
+     * @summary     Updates the preset's offset.
+     * @description Updates the preset's offset using the preset's width.
+     * 
+     * @param {double} width Width associated with a preset's icon.
+     */
     _UpdatePresetOffset(width)
     {
         return width + 3;

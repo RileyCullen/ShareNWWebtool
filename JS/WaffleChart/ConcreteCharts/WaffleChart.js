@@ -1,5 +1,21 @@
+// Cullen, Riley
+// December 23, 2020
+// WaffleChart.js
+
 class WaffleChart extends AWaffleChart
 {
+    /**
+     * @summary     Concrete class that creates a waffle chart in Konva.js.
+     * @description Concrete class that uses FontAwesome and Konva.js to display 
+     *              icons on the canvas.
+     * 
+     * @requires FontAwesome
+     * @requires D3.js
+     * @requires Konva.js
+     * @requires AWaffleChart.js
+     *
+     * @see AWaffleChart.js for constructor variable documentation. 
+     */
     constructor(numerator, denominator, group, presetA, presetB, fontSize, isDynamicResize = true)
     {
         super(numerator, denominator, group, presetA, presetB, fontSize, isDynamicResize);
@@ -7,6 +23,11 @@ class WaffleChart extends AWaffleChart
         this._startingY = 0;
     }
 
+    /**
+     * @summary     Creates waffle chart in the canvas.
+     * @description Creates a virtual DOM container, binds data to the container,
+     *              then draws the waffle chart on the canvas.
+     */
     CreateChart()
     {
         var virtualCanvas = document.createElement('custom');
@@ -23,18 +44,15 @@ class WaffleChart extends AWaffleChart
         this._Draw(custom, false, container)
     }
 
-    // desc: This function creates data.length number of custom dom elements in memory
-    //
-    // parameters:
-    // -----------
-    // custom : A d3 selection of the custom container 
-    //      This allows us to bind data to the custom container
-    // data : WaffleDataArr
-    //      This contains the number of quantities of data we want to bind
-    // startingX : int
-    //      The x position we want the first icon to occupy
-    // startingY : int 
-    //      The y position we want the first icon to occup
+    /**
+     * @summary     Binds data to the parameterized custom DOM element.
+     * @description Uses D3.js to bind the parameterized data array to custom 
+     *              DOM elements located in memory.
+     * 
+     * @param {D3 selection} custom The DOM container located in memory that we 
+     *                              want to bind data to.
+     * @param {JSON Array} data     The data array we want to use to bind our data.
+     */
     _BindData(custom, data)
     {
         var prevOffset = 0, initialOffset = 0, helper = 0;
@@ -77,17 +95,15 @@ class WaffleChart extends AWaffleChart
             .attr('fillStyleHidden', d => { return d.color; });
     }
 
-    // desc: This function uses the virtual dom elements in custom to draw the specific
-    //       icons to the screen
-    // 
-    // parameters:
-    // -----------
-    // custom : A d3 selection of the custom container
-    //      Allows us to find the bounded data
-    // hidden : boolean
-    // container : Konva.Group
-    //      The Konva.Group container we add the icons to.
-    _Draw(custom, hidden) { // <---- new arguments
+    /**
+     * @summary     Draws waffle chart.
+     * @description Uses FontAwesome and Konva.js to draw the icons in a waffle 
+     *              chart to the canvas.
+     * 
+     * @param {D3 selection} custom The D3 selection with our bound data.
+     * @param {boolean} hidden
+     */
+    _Draw(custom, hidden) {
 
         var elements = custom.selectAll('custom.rect');
         var tmp = new Konva.Group();
