@@ -1,6 +1,6 @@
 // Cullen, Riley
 // AInfographic.js
-// October 26, 2020
+// October 26, 2020 
 
 class AInfographic 
 {
@@ -230,6 +230,7 @@ class AInfographic
                         this._tr.nodes([]);
                         chart.setAttr('draggable', false);
                         this._main.batchDraw();
+                        console.log('off');
                         this._stage.off('click', HandleOutsideClick);
                     }
                 };

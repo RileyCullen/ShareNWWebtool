@@ -15,8 +15,16 @@ class UIAdder
     {
         this._main = document.getElementById('editor');
         this._group = document.createElement('div');
+        this._toolbar = document.createElement('div');
+        this._remover = new Remover();
+
+        this._main.appendChild(this._toolbar);
+        this._AddRemovalUI();
+
         this._chartWidth = chartWidth;
         this._isEditing = false;
+
+        this._AddCSS();
     }
 
     /**
@@ -37,6 +45,7 @@ class UIAdder
         this._AddGroupToMain();
         this._group.appendChild(new WaffleEditor(chart, group, main, tr)
             .CreateWaffleEditor());
+        this._SetChartRemover(chart, main);
     }
 
     /**
@@ -54,6 +63,7 @@ class UIAdder
         this._AddGroupToMain();
         this._group.appendChild(new PieChartEditor(handlerElem, main, tr)
             .CreateEditorUI());
+        this._SetChartRemover(handlerElem, main);
     }
 
     /**
@@ -72,6 +82,7 @@ class UIAdder
         this._AddGroupToMain();
         this._group.appendChild(editor.CreateEditorUI());
         editor.AlignInputFields();
+        this._SetChartRemover(handlerElem, main);
     }
 
     /**
@@ -90,6 +101,7 @@ class UIAdder
         this._AddGroupToMain();
         this._group.appendChild(editor.CreateEditorUI());
         editor.AlignInputFields();
+        this._SetChartRemover(handlerElem, main);
     }
 
     /**
@@ -107,6 +119,7 @@ class UIAdder
         this._AddGroupToMain();
         this._group.appendChild(editor.CreateEditorUI());
         editor.CreateQuillObject();
+        this._SetTextRemover(textElem, main);
     }
 
     /**
@@ -117,6 +130,7 @@ class UIAdder
         if (this._isEditing) {
             this._isEditing = false;
             this._RemoveGroupFromMain();
+            this._ResetRemover();
         }
     }
 
@@ -128,6 +142,12 @@ class UIAdder
         return this._isEditing;
     }
 
+    _AddRemovalUI()
+    {
+        var container = document.querySelector('#Remover');
+        if (!container) this._toolbar.appendChild(this._remover.CreateRemoverUI());
+    }
+
     /**
      * @summary A private method that appends the _group object to _main.
      */
@@ -135,7 +155,6 @@ class UIAdder
     {
         this._main.appendChild(this._group);
         this._isEditing = true;
-        this._AddCSS();
     }
 
     /**
@@ -143,9 +162,9 @@ class UIAdder
      */
     _AddCSS()
     {
-        this._group.style.position = 'fixed';
-        this._group.style.left = this._chartWidth + 55 + 'px';
-        this._group.style.top = 70 + 'px';
+        this._main.style.position = 'fixed';
+        this._main.style.left = this._chartWidth + 55 + 'px';
+        this._main.style.top = 70 + 'px';
     }
 
     /**
@@ -169,5 +188,20 @@ class UIAdder
         while (node.firstChild) {
             node.removeChild(node.firstChild);
         }
+    }
+
+    _ResetRemover()
+    {
+        this._remover.ResetRemover();
+    }
+
+    _SetTextRemover(textElem, main)
+    {
+        this._remover.SetTextElem(textElem, main);
+    }
+
+    _SetChartRemover(chartHandler, main) 
+    {
+        this._remover.SetChartElem(chartHandler, main);
     }
 }
