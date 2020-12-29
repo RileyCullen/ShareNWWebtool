@@ -52,6 +52,11 @@ class AWaffleChart
         this._denominator = denominator;
     }
 
+    Remove()
+    {
+        this._group.destroy();
+    }
+
     /**
      * @summary     Removes all of the children in _group.
      * @description A wrapper function that calls the Konva.js function 

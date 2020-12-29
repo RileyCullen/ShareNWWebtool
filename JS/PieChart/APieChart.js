@@ -53,6 +53,11 @@ class APieChart
 
     UpdateData(data) { this._data = data; }
 
+    Remove()
+    {
+        this._group.destroy();
+    }
+
     GetRadius() { return this._radius; }
 
     GetDataArr() { return this._data; }

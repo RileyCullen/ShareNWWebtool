@@ -76,6 +76,12 @@ class ABarChart
         this._data = data;
         this._SetUpYDomain();
     }
+
+    Remove()
+    {
+        this._group.destroy();
+    }
+
     /**
      * @summary     Removes all child nodes in this group.
      */
