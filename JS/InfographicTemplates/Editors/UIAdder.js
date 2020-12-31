@@ -190,16 +190,43 @@ class UIAdder
         }
     }
 
+    /**
+     * @summary     Resets remover object.
+     * @description A wrapper function that calls _remover's ResetRemover function.
+     *              This function is responsible for nullifying its encapsulated
+     *              variables.
+     */
     _ResetRemover()
     {
         this._remover.ResetRemover();
     }
 
+    /**
+     * @summary     Private function responsible for setting up Remover to remove
+     *              a text element.
+     * @description A wrapper function that calls _remover's SetTextElem function.
+     *              This function sets up the Remover so that it can support removing 
+     *              text elements (Konva.Images).
+     * 
+     * @param {Konva.Image} textElem The text element we want to remove.
+     * @param {Konva.Layer} main     The main layer of the infographic.
+     */
     _SetTextRemover(textElem, main)
     {
         this._remover.SetTextElem(textElem, main);
     }
 
+    /**
+     * @summary     Private function responsible for setting up the Remover to
+     *              remove charts (and its associated decorators).
+     * @description A wrapper function that calls _remover's SetChartElem function.
+     *              This function sets up the Remover so that it supports removing 
+     *              chart elements.
+     * 
+     * @param {JSONArray} chartHandler The chart handler element associated with
+     *                                 the chart we want to remove.
+     * @param {Konva.Layer} main       The main layer of the infographic.
+     */
     _SetChartRemover(chartHandler, main) 
     {
         this._remover.SetChartElem(chartHandler, main);
