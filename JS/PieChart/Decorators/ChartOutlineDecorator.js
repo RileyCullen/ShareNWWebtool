@@ -25,23 +25,23 @@ class ChartOutlineDecorator extends APieChartDecorator
         this._startingRadius = radius;
     }
 
+    /**
+     * @summary     Adds outline to the pie chart.
+     * @description Adds outline to pie chart by creating a Konva.Ring object 
+     *              and adding it to this._group.
+     */
     CreateChart()
     {
-        /**
-         * @summary     Adds outline to the pie chart.
-         * @description Adds outline to pie chart by creating a Konva.Ring object 
-         *              and adding it to this._group.
-         */
         this._chart.CreateChart();
         this._DrawOutline();
     }
 
+    /**
+     * @summary     Adds outline to pie chart.
+     * @description Creates a Konva.Ring object and adds it to this._group.
+     */
     _DrawOutline()
     {
-        /**
-         * @summary     Adds outline to pie chart.
-         * @description Creates a Konva.Ring object and adds it to this._group.
-         */
         this._group.add(new Konva.Ring({
             innerRadius: this._startingRadius,
             outerRadius: this._startingRadius + (3/2) * this._outlineWidth,

@@ -25,6 +25,14 @@ class APieChartDecorator extends APieChart
         }
     }
 
+    /**
+     * @summary     Updates decorator with new data values.
+     * @description Updates decorator by assigning chart's _data to _data. The 
+     *              chart object itself is also updated.
+     * 
+     * @param {APieChart} chart The chart we want to use to update the current 
+     *                          decorator.
+     */
     UpdateDecorator(chart)
     {
         this._data = chart._data;

@@ -24,23 +24,23 @@ class DonutDecorator extends APieChartDecorator
         this._color = color;
     }
 
+    /**
+     * @summary     Creates pie chart, decorates it, and adds it to group.
+     * @description Calls _chart's CreateChart method and calls _DrawInnerCircle
+     *              to turn the given pie chart into a donut chart.
+     */
     CreateChart()
     {
-        /**
-         * @summary     Creates pie chart, decorates it, and adds it to group.
-         * @description Calls _chart's CreateChart method and calls _DrawInnerCircle
-         *              to turn the given pie chart into a donut chart.
-         */
         this._chart.CreateChart();
         this._DrawInnerCircle();
     }
 
+    /**
+     * @summary     Draws inner circle.
+     * @description See summary.
+     */
     _DrawInnerCircle()
     {
-        /**
-         * @summary     Draws inner circle.
-         * @description See summary.
-         */
         this._group.add(new Konva.Circle({
             radius: this._innerRadius,
             fill: this._color,
@@ -49,6 +49,9 @@ class DonutDecorator extends APieChartDecorator
         }));
     }
 
+    /**
+     * @summary Updates GetRadius to return _innerRadius instead of _radius.
+     */
     GetRadius()
     {
         return this._innerRadius;

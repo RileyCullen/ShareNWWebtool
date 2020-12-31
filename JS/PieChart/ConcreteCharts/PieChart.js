@@ -22,31 +22,31 @@ class PieChart extends APieChart
         super(data, group, radius);
     }
 
+    /**
+     * @summary     This function adds the bar chart elements to the Konva
+     *              group.
+     * @description This function creates a virtual DOM element in memory, binds the
+     *              data from data to custom DOM elements in memory, and uses
+     *              the custom elements to create the slices.
+     */
     CreateChart()
     {
-        /**
-         * @summary     This function adds the bar chart elements to the Konva
-         *              group.
-         * @description This function creates a virtual DOM element in memory, binds the
-         *              data from data to custom DOM elements in memory, and uses
-         *              the custom elements to create the slices.
-         */
         var virtualCanvas = document.createElement('custom');
         var custom = d3.select(virtualCanvas);
         this._BindData(custom);
         this._Draw(custom);
     }
 
+    /**
+     * @summary     This function binds the data to custom DOM elements located
+     *              in custom.
+     * @description See summary.
+     * 
+     * @param {DOM Element} custom : The virtual DOM element that holds all of
+     *                               our custom DOM elements.
+     */
     _BindData(custom)
     {
-        /**
-         * @summary     This function binds the data to custom DOM elements located
-         *              in custom.
-         * @description See summary.
-         * 
-         * @param {DOM Element} custom : The virtual DOM element that holds all of
-         *                               our custom DOM elements.
-         */
         var startAngle = 0, prevAngle = 0;
         var tmp = custom.selectAll('custom.circle')
             .data(this._data)
@@ -73,15 +73,15 @@ class PieChart extends APieChart
             });
     }
 
+    /**
+     * @summary     This function creates the wedge pieces.
+     * @description This function iterates through all of the custom DOM
+     *              elements in custom and adds them to the group.
+     * 
+     * @param {DOM Element} custom : See _BindData.
+     */
     _Draw(custom) 
     { 
-        /**
-         * @summary     This function creates the wedge pieces.
-         * @description This function iterates through all of the custom DOM
-         *              elements in custom and adds them to the group.
-         * 
-         * @param {DOM Element} custom : See _BindData.
-         */
         var elements = custom.selectAll('custom.circle')
         var helper = new Konva.Group();
 
@@ -109,20 +109,20 @@ class PieChart extends APieChart
         this._group.add(helper);
     }
 
+    /**
+     * @summary     Rotates the wedges by theta to create full circle
+     * @description Iterates backwards through all of the konva wedges and 
+     *              applies a rotation factor that rotates the wedges to 
+     *              for a full circle.
+     * 
+     * @param {Array} wedgeArr       : An array of konva wedges that we want to apply
+     *                                 a rotation factor to.
+     * @param {Float} rotationOffset : The amount of rotational offset the entire 
+     *                                 chart is offset by. This is equal to 
+     *                                 the largest angle in the pie chart 
+     */
     _RotateSlices(wedgeArr, rotationOffset = -90)
     {
-        /**
-         * @summary     Rotates the wedges by theta to create full circle
-         * @description Iterates backwards through all of the konva wedges and 
-         *              applies a rotation factor that rotates the wedges to 
-         *              for a full circle.
-         * 
-         * @param {Array} wedgeArr       : An array of konva wedges that we want to apply
-         *                                 a rotation factor to.
-         * @param {Float} rotationOffset : The amount of rotational offset the entire 
-         *                                 chart is offset by. This is equal to 
-         *                                 the largest angle in the pie chart 
-         */
         var theta = 0, cTheta = parseFloat(wedgeArr[0].getAttr('angle') - 90);
         for (var i = wedgeArr.length - 1; i > -1; i--) {
             theta = (i === -1) ? 0 : 360 - cTheta;
