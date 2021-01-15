@@ -46,6 +46,8 @@ class StackedBarChartEditor
         for (var i = iter.next().value; i != null; i = iter.next().value) {
             var subsection = document.createElement('div');
             subsection.style.paddingBottom = 23 + 'px';
+            subsection.style.paddingRight = 30 + 'px';
+            subsection.style.float = 'left';
 
             var textNode = document.createElement('label');
             textNode.innerHTML = i + ':';
@@ -54,9 +56,20 @@ class StackedBarChartEditor
             subsection.appendChild(textNode);
 
             data.forEach(d => {
+                console.log(d)
                 if (d.category === i) {
                     var group = document.createElement('div');
                     group.style.paddingTop = 13 + 'px';
+
+                    var colorBox = document.createElement('div');
+                    colorBox.style.backgroundColor = d.color;
+                    colorBox.style.width = 20 + 'px';
+                    colorBox.style.height = 20 + 'px';
+                    colorBox.style.float = 'left';
+                    colorBox.style.marginRight = 15 + 'px';
+
+                    group.appendChild(colorBox);
+
                     var label = document.createElement('label');
                     label.innerHTML = d.subcategory + ': ';
                     label.className = 'BarLabel';
