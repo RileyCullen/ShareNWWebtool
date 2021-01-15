@@ -2,9 +2,7 @@ var infogObj;
 function UpdatePage(infogNum)
 {
     if (infogObj !== undefined) infogObj.Remove();
-
-    console.log(document.getElementById('Placeholder'));
-    if (document.getElementById('Placeholder') !== null) RemovePlaceholder();
+    if (document.getElementById('Placeholder') != null) RemovePlaceholder();
 
     switch(infogNum) {
         case 0: 
@@ -24,13 +22,35 @@ function UpdatePage(infogNum)
 function CreatePlaceholder()
 {
     var editor = document.getElementById('editor');
+
+    var container = document.createElement('div');
+    container.id = 'Placeholder';
+    editor.appendChild(container);
+
+    var arrow = document.createElement('i');
+    arrow.className = 'fas fa-arrow-left';
+    arrow.style.height = 20 + 'px';
+    arrow.style.float = 'left';
+    arrow.style.paddingTop = 12 + 'px';
+    container.appendChild(arrow);
+
     var message = document.createElement('p');
-    message.id = 'Placeholder';
-    message.innerHTML = '<-- Double click on a chart or text element to begin editing!';
-    editor.appendChild(message);
+    message.innerHTML = 'Double click on a chart or text element to begin editing!';
+    message.style.backgroundColor = '#ccc';
+    message.style.padding = 10 + 'px';
+    message.style.marginLeft = 30 + 'px';
+    message.style.borderLeftStyle = 'solid';
+    message.style.width = 400 + 'px';
+    message.style.height = 20 + 'px';
+    container.appendChild(message);
 }
 
 function RemovePlaceholder()
 {
-    document.getElementById('Placeholder').remove();
+    var parent = document.getElementById('Placeholder');
+    console.log('fuck');
+    while(parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
+    parent.remove();
 }
