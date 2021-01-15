@@ -26,6 +26,9 @@ class Remover
     {
         var container = document.createElement('div');
         container.id = 'Remover';
+        container.style.position = 'fixed';
+        container.style.bottom = 10 + 'px';
+        container.style.right = 10 + 'px';
         container.appendChild(this._CreateButton());
         return container;
     }
