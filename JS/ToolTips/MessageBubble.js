@@ -47,9 +47,10 @@ class MessageBubble
             fill: this._color,
         }));
 
-        var x1 = x, x2 = x1 - (this._width / 10), x3 = x;
-        var y1 = y + (3/5) * this._height + 5, y2 = y1 + (this._height / 6),
-            y3 = y + (8.5/10) * this._height + 5;
+        var triangleOffset = 5;
+        var x1 = x + triangleOffset, x2 = x1 - (this._width / 10), x3 = x + triangleOffset;
+        var y1 = y + (3 / 5) * this._height + 5, y2 = y1 + (this._height / 6),
+            y3 = y + (8.5 / 10) * this._height + 5;
 
         helper.add(new Konva.Line({
             fill: this._color,
