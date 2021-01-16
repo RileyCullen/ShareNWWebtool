@@ -55,7 +55,7 @@ class StackedBarChartEditor
             textNode.style.fontSize = 25 + 'px';
             subsection.appendChild(textNode);
 
-            data.forEach(d => {
+            data.slice().reverse().forEach(d => {
                 console.log(d)
                 if (d.category === i) {
                     var group = document.createElement('div');
@@ -79,7 +79,7 @@ class StackedBarChartEditor
                     inputField.rows = 1;
                     inputField.cols = 5;
                     inputField.style.resize = false;
-                    inputField.id = i;
+                    inputField.id = i + d.subcategory;
                     inputField.className = 'BarInput'
                     inputField.innerHTML = d.value;
                     group.appendChild(inputField);
@@ -153,8 +153,10 @@ class StackedBarChartEditor
     {
         var values = [];
         var elems = document.getElementsByClassName('BarInput');
+
         for (var i = 0; i < elems.length; i++) {
-            values[i] = parseFloat(elems[i].value);
+            values[i] = {'value': parseFloat(elems[i].value),
+                         'id': elems[i].id};
         }
         return values;
     }
@@ -167,8 +169,21 @@ class StackedBarChartEditor
     _UpdateDataArr(updatedValues)
     {
         var data = this._handlerElem.chart.GetData();
+
+        /**
+         * Map is needed to "fix" data array. Due to the way I decided to draw
+         * the konva.js elements on the canvas, when we reverse the creation of 
+         * the HTMLCollection in _CreateBarEditors, it creates an incorrect 
+         * representation of the data array which creates an incorrect version
+         * of the bar graph. This fixes it.
+         */
+        var map = [];
+        updatedValues.forEach((d) => {
+            map[d.id] = d.value;
+        });
+
         data.forEach((d, i) => {
-            d.value = updatedValues[i];
+           d.value = map[d.category + d.subcategory];
         });
         return data;
     }
