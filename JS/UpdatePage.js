@@ -48,7 +48,6 @@ function CreatePlaceholder()
 function RemovePlaceholder()
 {
     var parent = document.getElementById('Placeholder');
-    console.log('fuck');
     while(parent.firstChild) {
         parent.removeChild(parent.firstChild);
     }

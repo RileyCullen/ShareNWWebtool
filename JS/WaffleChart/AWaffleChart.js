@@ -52,6 +52,12 @@ class AWaffleChart
         this._denominator = denominator;
     }
 
+    /**
+     * @summary     Removes group and its children from canvas.
+     * @description A wrapper function that call's _group's destroy function. 
+     *              This function removes the group and its children from the 
+     *              canvas
+     */
     Remove()
     {
         this._group.destroy();
