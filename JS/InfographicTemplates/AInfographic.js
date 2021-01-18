@@ -151,6 +151,7 @@ class AInfographic
         var element = document.querySelector(query);
         html2canvas(element, {
             backgroundColor: null,
+            scrollY: -(window.scrollY),
         }).then((image) => {
             this._textHandler.GetImage(index).image(image);
             this._main.batchDraw();
