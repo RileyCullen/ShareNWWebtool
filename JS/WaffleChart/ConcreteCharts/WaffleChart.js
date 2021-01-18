@@ -45,6 +45,28 @@ class WaffleChart extends AWaffleChart
     }
 
     /**
+     * @summary     Returns the unicode icon and color for both presets to the 
+     *              caller.
+     * @description Returns a JSON array with two elements. The first element 
+     *              corresponds to presetA and the second corresponds to presetB.
+     *              Within each element, the icon's unicode representation and 
+     *              color are returned.
+     */
+    GetIconData()
+    {
+        return [
+            {
+                'icon': this._presetA.icon,
+                'color': this._presetA.color
+            },
+            {
+                'icon': this._presetB.icon,
+                'color': this._presetB.color
+            }
+        ];
+    }
+
+    /**
      * @summary     Binds data to the parameterized custom DOM element.
      * @description Uses D3.js to bind the parameterized data array to custom 
      *              DOM elements located in memory.
