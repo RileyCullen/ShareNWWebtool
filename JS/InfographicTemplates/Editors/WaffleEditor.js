@@ -23,6 +23,7 @@ class WaffleEditor
         this._handlerElem = handlerElem;
         this._main = main;
         this._tr = tr;
+        this._iconData = this._handlerElem.chart.GetIconData();
     }
 
     /**
@@ -33,8 +34,8 @@ class WaffleEditor
     CreateWaffleEditor()
     {
         var main = document.createElement('div');
-        main.appendChild(this._CreateNumeratorEditor());
-        main.appendChild(this._CreateDenominatorEditor());
+        main.appendChild(this._CreatePresetAEditor());
+        main.appendChild(this._CreatePresetBEditor());
         main.appendChild(this._CreateButton());
         return main;
     }
@@ -47,6 +48,84 @@ class WaffleEditor
     _AddBottomPadding(elem)
     {
         elem.style.paddingBottom = 25 + 'px';
+    }
+
+    /**
+     * @summary     Creates the editor associated for adding icons of presetA.
+     * @description Creates an icon and input field that allows for the updating 
+     *              of presetA icons located in the selected waffle chart.
+     */
+    _CreatePresetAEditor()
+    {   
+        var presetAContainer = document.createElement('div');
+        presetAContainer.id = 'PresetAContainer';
+        this._AddBottomPadding(presetAContainer);
+
+        var icon = this._CreateIcon(this._iconData[0]);
+        presetAContainer.appendChild(icon);
+        presetAContainer.appendChild(this._CreateInputField('PresetAInput'));
+
+        return presetAContainer;
+    }   
+
+    /**
+     * @summary     Creates the editor associated for adding icons of presetB.
+     * @description Creates an icon and input field that allows for the updating 
+     *              of presetB icons located in the selected waffle chart.
+     */
+    _CreatePresetBEditor()
+    {
+        var presetBContainer = document.createElement('div');
+        presetBContainer.id = 'PresetBContainer';
+        this._AddBottomPadding(presetBContainer);
+
+        var icon = this._CreateIcon(this._iconData[1]);
+        presetBContainer.appendChild(icon);
+
+        presetBContainer.appendChild(this._CreateInputField('PresetBInput'));
+
+        return presetBContainer;
+    }
+
+    /**
+     * @summary     Creates an icon and returns it to caller.
+     * 
+     * @param {JSON array element} presetData An element of this._iconData.
+     */
+    _CreateIcon(presetData)
+    {
+        var label = document.createElement('label');
+        var iconContainer = document.createElement('i');
+        iconContainer.className = 'FontAwesome';
+        iconContainer.style.color = presetData.color;
+        iconContainer.style.fontSize = 50 + 'px';
+        iconContainer.style.float = 'left';
+        iconContainer.innerHTML = presetData.icon;
+        label.appendChild(iconContainer);
+        var para = document.createElement('p');
+        para.style.paddingTop = 12 + 'px';
+        para.style.marginLeft = 20 + 'px'
+        para.innerHTML = ': ';
+        label.appendChild(para);
+        return label;
+    }
+
+    /**
+     * @summary     Creates a textfield and returns it to the caller.
+     * @param {string} id The id we want to give to the textarea. 
+     */
+    _CreateInputField(id)
+    {
+        var textarea = document.createElement('textarea');
+        textarea.rows = this._rows;
+        textarea.col = this._col;
+        textarea.id = id;
+        textarea.style.resize = false;
+        textarea.style.float = 'left';
+        textarea.style.position = 'relative';
+        textarea.style.marginLeft = 20 + 'px';
+        textarea.style.bottom = 30 + 'px'; 
+        return textarea;
     }
 
     /**
@@ -119,13 +198,16 @@ class WaffleEditor
      */
     _UpdateWaffleChart()
     {
-        var numerator = document.getElementById('num').value,
-            denominator = document.getElementById('denom').value;
+        var presetAValue = document.getElementById('PresetAInput').value,
+            presetBValue = document.getElementById('PresetBInput').value;
 
-        if (numerator == null || numerator == '' || denominator == null || denominator == '') return;
-        if (isNaN(numerator) || isNaN(denominator)) return;
+        console.log(presetAValue);
+        console.log(presetBValue);
 
-        this._handlerElem.chart.UpdateData(numerator, denominator);
+        if (presetAValue == null || presetAValue == '' || presetBValue == null || presetBValue == '') return;
+        if (isNaN(presetAValue) || isNaN(presetBValue)) return;
+
+        this._handlerElem.chart.UpdateData(presetAValue, parseInt(presetAValue) + parseInt(presetBValue));
 
         var prev = this._handlerElem.chart;
         for (var i = 0; i <= this._handlerElem.decoratorSize; i++) {
