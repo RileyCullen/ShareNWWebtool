@@ -126,7 +126,7 @@ class HIVTemplateOne extends AInfographic
             offsetX: -147,
             offsetY: -17.5,
         });
-        var barChartLabel = new Konva.Text({
+        /*var barChartLabel = new Konva.Text({
             text: 'New Infections',
             fill: '#e71b32',
             fontSize: 12,
@@ -135,7 +135,15 @@ class HIVTemplateOne extends AInfographic
             offsetY: 30,
         });
         barChartLabel.rotate(90);
-        sectionTwo.add(barChartLabel);
+        sectionTwo.add(barChartLabel);*/
+
+        var barChartLabelDiv = document.createElement('div');
+        barChartLabelDiv.style.color = '#e71b32';
+        var labelText = '<p style="font-family: canada-type-gibson, sans-serif; font-size: 12px">'
+            + 'New Infections</p>';
+        barChartLabelDiv.innerHTML = labelText;
+        this._textHandler.AddTextElem(barChartLabelDiv, sectionTwo, 27, 23, 90);
+
         sectionTwo.add(barChartGroup);
        
         var barChartData = [];
