@@ -29,7 +29,7 @@ class TextHandler
      * @param {double}       x        The x position of the image within the group.
      * @param {double}       y        The y position of the image within the group.
      */
-    AddTextElem(textElem, group, x = 0, y = 0)
+    AddTextElem(textElem, group, x = 0, y = 0, rotateby = 0)
     {
         this._curr++;
         this._handler[this._curr] = {
@@ -40,12 +40,13 @@ class TextHandler
                 scaleY: 1 / window.devicePixelRatio,
                 x: x, 
                 y: y,
-                name: 'EditableText',
+                name: 'Selectable EditableText',
             }),
         };
         textElem.id = this._curr;
         textElem.className = 'EditableText';
         textElem.style.textAlign = 'left';
+        this._handler[this._curr].image.rotate(rotateby);
         group.add(this._handler[this._curr].image);
         group.setAttr('id', this._curr);
     }
