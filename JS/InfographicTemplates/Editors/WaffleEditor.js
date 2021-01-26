@@ -34,8 +34,8 @@ class WaffleEditor
     CreateWaffleEditor()
     {
         var main = document.createElement('div');
-        main.appendChild(this._CreatePresetAEditor());
-        main.appendChild(this._CreatePresetBEditor());
+        main.appendChild(this._CreateNumeratorEditor());
+        main.appendChild(this._CreateDenominatorEditor());
         main.appendChild(this._CreateButton());
         return main;
     }
@@ -145,7 +145,7 @@ class WaffleEditor
         var textarea = document.createElement('textarea');
         textarea.rows = this._rows;
         textarea.col = this._col;
-        textarea.id = 'num';
+        textarea.id = 'PresetAInput';
         textarea.style.resize = false;
         numeratorContainer.appendChild(textarea);
 
@@ -168,7 +168,7 @@ class WaffleEditor
 
         var textarea = document.createElement('textarea');
         textarea.rows = this._rows;
-        textarea.id = 'denom';
+        textarea.id = 'PresetBInput';
         textarea.col = this._col;
         textarea.style.resize = false;
         denomContainer.appendChild(textarea);
@@ -207,7 +207,7 @@ class WaffleEditor
         if (presetAValue == null || presetAValue == '' || presetBValue == null || presetBValue == '') return;
         if (isNaN(presetAValue) || isNaN(presetBValue)) return;
 
-        this._handlerElem.chart.UpdateData(presetAValue, parseInt(presetAValue) + parseInt(presetBValue));
+        this._handlerElem.chart.UpdateData(parseInt(presetAValue), parseInt(presetBValue));
 
         var prev = this._handlerElem.chart;
         for (var i = 0; i <= this._handlerElem.decoratorSize; i++) {
