@@ -38,9 +38,7 @@ class ArrowHeader
      */
     CreateHeader()
     {
-        var helper = Math.sqrt(
-            Math.pow(this._height / 2, 2) + Math.pow(this._width / 8192, 2)
-        );
+        var helper = this._width / 10;
         var x1 = this._x,
             y1 = this._y,
             x2 = x1 + (this._width - helper),
