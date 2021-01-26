@@ -4,6 +4,24 @@
 
 class ArrowHeader 
 {
+    /**
+     * @summary     Constructs a new ArrowHeader and adds it to the parameterized
+     *              group.
+     * @description Constructor that sets up the instance variable associated with
+     *              an ArrowHeader object. This object draws an arrow like section
+     *              background and adds it to the canvas via the parameterized 
+     *              group object.
+     * 
+     * @requires Konva.js
+     * 
+     * @param {double}      x               The x position of the arrow.
+     * @param {double}      y               The y position of the arrow.
+     * @param {double}      width           Width of arrow. 
+     * @param {double}      height          Height of arrow.
+     * @param {Konva.Group} group           The group we want to add the arrow object to.
+     * @param {string}      borderColor     Color of arrow's border.
+     * @param {string}      backgroundColor Color of arrow's background.
+     */
     constructor(x, y, width, height, group, borderColor, backgroundColor)
     {   
         this._x = x;
@@ -15,6 +33,9 @@ class ArrowHeader
         this._backgroundColor = backgroundColor;
     }
 
+    /**
+     * @summary     Creates the ArrowHeader section in group.
+     */
     CreateHeader()
     {
         var helper = Math.sqrt(
