@@ -59,7 +59,7 @@ class HIVTemplateOne extends AInfographic
         orangeBorderImg.src = "JS/InfographicTemplates/src/orangeborder.png";*/
         const MAN = '\uf183', WOMAN = '\uf182', LIGHT_ORANGE = '#f9ab7d', ORANGE = '#ee5d26',
             DEFAULT_FONT_SIZE = 50, DEFAULT_OFFSET = 30;
-        var orangeBackground = new ArrowHeader(10, 0, 400, 125, sectionOne, ORANGE, 'white');
+        var orangeBackground = new ArrowHeader(0, 0, 400, 125, sectionOne, ORANGE, 'white');
         orangeBackground.CreateHeader();
         
         var textGroupOne = new Konva.Group({
@@ -108,7 +108,7 @@ class HIVTemplateOne extends AInfographic
             this._main.batchDraw();
         };
         redBorderImg.src = "JS/InfographicTemplates/src/redborder.png";*/
-        var redBackground = new ArrowHeader(10, 0, 400, 125, sectionTwo, '#e71b32', 'white');
+        var redBackground = new ArrowHeader(0, 0, 400, 125, sectionTwo, '#e71b32', 'white');
         redBackground.CreateHeader();
 
         var textGroupTwo = new Konva.Group();
@@ -185,7 +185,7 @@ class HIVTemplateOne extends AInfographic
         blueBorderImg.src = "JS/InfographicTemplates/src/blueborder.png";*/
 
         const LIGHT_BLUE = '#a0b8d2', BLUE = '#1670ac';
-        var blueBackground = new ArrowHeader(10, 0, 400, 125, sectionThree, BLUE, 'white');
+        var blueBackground = new ArrowHeader(0, 0, 400, 125, sectionThree, BLUE, 'white');
         blueBackground.CreateHeader();
 
         var helper = new Konva.Group();
