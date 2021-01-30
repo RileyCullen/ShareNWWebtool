@@ -10,11 +10,14 @@ class Remover
      *              infographic elements from the canvas. Also creates the UI 
      *              elements responsible for removal.
      */
-    constructor()
+    constructor(chartWidth, chartHeight)
     {
        this._elem = null;
        this._type = null;
        this._layer = null;
+
+       this._chartWidth = chartWidth + 75;
+       this._chartHeight = chartHeight;
     }
 
     /**
@@ -27,8 +30,19 @@ class Remover
         var container = document.createElement('div');
         container.id = 'Remover';
         container.style.position = 'fixed';
-        container.style.bottom = 10 + 'px';
-        container.style.right = 10 + 'px';
+        container.style.left = this._chartWidth + 'px';
+
+        var height = Math.max(
+            window.innerHeight,
+            document.body.offsetHeight,
+            document.documentElement.clientHeight);
+
+        if (this._chartHeight > height){
+            container.style.top = height - 50 + 'px';
+        } else {
+            container.style.top = this._chartHeight + 45 + 'px';
+        }
+
         container.appendChild(this._CreateButton());
         return container;
     }
