@@ -13,6 +13,7 @@ class AInfographic
      * @requires Konva.js
      * 
      * @source _AddTextSelection() uses code from https://konvajs.org/docs/sandbox/Editable_Text.html
+     * @source Selecting mutliple elements demo uses code from https://konvajs.org/docs/select_and_transform/Basic_demo.html#page-title
      * 
      * @param {double} height The height of the canvas element
      * @param {double} width  The width of the canvas element
@@ -46,8 +47,18 @@ class AInfographic
             width: this._chartWidth,
             height: this._chartHeight,
         });
+
+        this._selectionRectangle = new Konva.Rect({
+            fill: 'rgba(0, 0, 255, 0.5)',
+            visible: false,
+        });
+        this._hasSelected = false;
+        this._isSelecting = false;
+        this._oldNodes = [];
+        this._mouseX1 = 0, this._mouseX2 = 0, this._mouseY1 = 0, this._mouseY2 = 0;
+
         this._main = new Konva.Layer();
-        this._UIAdder = new UIAdder(this._chartWidth);
+        this._UIAdder = new UIAdder(this._chartWidth, this._chartHeight);
 
         this._stage.add(this._main);
 
@@ -118,6 +129,7 @@ class AInfographic
         this._RenderText();
         this._AddGraphSelection();
         this._AddTextSelection();
+        // this._AddMultipleElementSelector();
     }
 
     /**
@@ -131,7 +143,9 @@ class AInfographic
         helperElem.style.position = 'absolute';
         document.getElementById('body').appendChild(helperElem);
 
+        console.log('text widths: ')
         for (var i = 0; i < this._textHandler.GetSize(); i++) {
+            console.log(i)
             helperElem.appendChild(this._textHandler.GetTextElem(i));
             this._HTMLToCanvas('.EditableText', i);
             this._textHandler.GetTextElem(i).remove();
@@ -149,13 +163,20 @@ class AInfographic
     _HTMLToCanvas(query, index)
     {
         var element = document.querySelector(query);
+        // var comp = window.getComputedStyle(element, null);
         html2canvas(element, {
             backgroundColor: null,
             scrollY: -(window.scrollY),
+            // width: comp.width.replace('px', ''),
         }).then((image) => {
+            // console.log('image width: ' + image.width)
             this._textHandler.GetImage(index).image(image);
             this._main.batchDraw();
         });
+        /*console.log('width: ' + comp.width);
+        console.log('height: ' + comp.height);
+        console.log('x: ' + comp.x);
+        console.log('y: ' + comp.y)*/
     }
 
     /**
@@ -166,7 +187,10 @@ class AInfographic
      */
     _AddTextSelection()
     {
-        var selection = this._stage.find('.EditableText');
+        var selection = this._stage.find((node) => {
+            return node.hasName('Selectable') && node.hasName('EditableText');
+        });
+
         selection.each((textElem) => {
             textElem.on('dblclick', () => {
                 textElem.setAttr('draggable', true);
@@ -202,7 +226,9 @@ class AInfographic
      */
     _AddGraphSelection()
     {
-        var selection = this._stage.find('.Chart');
+        var selection = this._stage.find((node) => {
+            return node.hasName('Selectable') && node.hasName('Chart');
+        });
         selection.each((chart) => {
             chart.on('dblclick', () => {
                 var index = parseInt(chart.getAttr('id'));
@@ -211,13 +237,13 @@ class AInfographic
                 this._main.batchDraw();
                 chart.setAttr('draggable', true);
 
-                if (chart.getAttr('name') === 'Chart Waffle') {
+                if (chart.getAttr('name') === 'Selectable Chart Waffle') {
                     this._UIAdder.CreateWaffleEditor(this._chartHandler.GetHandlerElem(index), this._main, this._tr);
-                } else if (chart.getAttr('name') === 'Chart Pie') {
+                } else if (chart.getAttr('name') === 'Selectable Chart Pie') {
                     this._UIAdder.CreatePieEditor(this._chartHandler.GetHandlerElem(index), this._main, this._tr);
-                } else if (chart.getAttr('name') === 'Chart Bar') {
+                } else if (chart.getAttr('name') === 'Selectable Chart Bar') {
                     this._UIAdder.CreateBarEditor(this._chartHandler.GetHandlerElem(index), this._main, this._tr);
-                } else if (chart.getAttr('name') === 'Chart Stacked') {
+                } else if (chart.getAttr('name') === 'Selectable Chart Stacked') {
                     this._UIAdder.CreateStackedBarEditor(this._chartHandler.GetHandlerElem(index), this._main, this._tr);
                 }
 
@@ -236,6 +262,112 @@ class AInfographic
                     }
                 };
             });
+        });
+    }
+
+    _AddMultipleElementSelector()
+    {
+        this._main.add(this._selectionRectangle);
+        this._MultipleSelectorStart();
+        this._MultipleSelectorMove();
+        this._MultipleSelectorEnd();
+        this._MultipleSelectorDeselect();
+    }
+
+    _MultipleSelectorStart()
+    {
+        this._stage.on('mousedown touchstart', e => {
+            //if (e.target !== this._stage) return;
+            this._isSelecting = true;
+
+            this._mouseX1 = this._stage.getPointerPosition().x;
+            this._mouseX2 = this._mouseX1;
+            this._mouseY1 = this._stage.getPointerPosition().y;
+            this._mouseY2 = this._mouseY1;
+
+            this._selectionRectangle.visible(true);
+            this._selectionRectangle.width(0);
+            this._selectionRectangle.height(0);
+            this._main.batchDraw();
+        });
+    }
+
+    _MultipleSelectorMove()
+    {
+        this._stage.on('mousemove touchmove', () => {
+            if (!this._selectionRectangle.visible()) return;
+
+            this._mouseX2 = this._stage.getPointerPosition().x;
+            this._mouseY2 = this._stage.getPointerPosition().y;
+
+            this._selectionRectangle.setAttrs({
+                x: Math.min(this._mouseX1, this._mouseX2),
+                y: Math.min(this._mouseY1, this._mouseY2),
+                width: Math.abs(this._mouseX2 - this._mouseX1),
+                height: Math.abs(this._mouseY2 - this._mouseY1),
+            });
+
+            this._main.batchDraw();
+        });
+    }
+
+    _MultipleSelectorEnd()
+    {
+        this._stage.on('mouseup touchend', () => {
+            if (!this._selectionRectangle.visible()) return;
+            // selection code 
+            var elems = this._stage.find('.Selectable').toArray();
+            var box = this._selectionRectangle.getClientRect();
+            /*var selected = elems.filter((element) => {
+                if (Konva.Util.haveIntersection(box, element.getClientRect())) {
+                    alert('h')
+                    return element;
+                }
+                var x = element.getClientRect().x,
+                    y = element.getClientRect().y;
+                if (x >= box.x &&
+                    x <= box.x + box.width &&
+                    y >= box.y &&
+                    y <= box.y + box.height)
+                {
+                    element.setAttr('draggable', true);
+                    this._oldNodes.push(element);
+                    return element;
+                }
+            });*/
+
+            var selected = elems.filter((elem) =>
+                Konva.Util.haveIntersection(box, elem.getClientRect())
+            );
+            console.log(selected)
+
+            this._tr.nodes(selected);
+            this._tr.moveToTop();
+            this._main.batchDraw();
+
+            setTimeout(() => {
+                this._selectionRectangle.visible(false);
+                this._main.batchDraw();
+                this._hasSelected = true;
+                this._isSelecting = false;
+            });
+        });
+    }
+
+    _MultipleSelectorDeselect()
+    {
+        this._stage.on('click tap', e => {
+            if (this._selectionRectangle.visible()) return;
+            if (this._hasSelected) {
+                this._oldNodes.forEach(node => {
+                    node.setAttr('draggable', false);
+                });
+                
+                this._tr.nodes([]);
+                this._main.batchDraw();
+                this._hasSelected = false;
+                return;
+            }
         });
     }
 }
