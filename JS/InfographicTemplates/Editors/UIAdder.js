@@ -11,18 +11,17 @@ class UIAdder
      * 
      * @requires WaffleEditor.js
      */
-    constructor(chartWidth)
+    constructor(chartWidth, chartHeight)
     {
         this._main = document.getElementById('editor');
         this._group = document.createElement('div');
         this._toolbar = document.createElement('div');
         this._chartWidth = chartWidth;
-        this._remover = new Remover(chartWidth);
+        this._chartHeight = chartHeight
+        this._remover = new Remover(chartWidth, chartHeight);
 
         this._main.appendChild(this._toolbar);
         this._AddRemovalUI();
-
-        this._chartWidth = chartWidth;
         this._isEditing = false;
 
         this._AddCSS();
