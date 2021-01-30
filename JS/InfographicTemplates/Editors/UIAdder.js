@@ -16,7 +16,8 @@ class UIAdder
         this._main = document.getElementById('editor');
         this._group = document.createElement('div');
         this._toolbar = document.createElement('div');
-        this._remover = new Remover();
+        this._chartWidth = chartWidth;
+        this._remover = new Remover(chartWidth);
 
         this._main.appendChild(this._toolbar);
         this._AddRemovalUI();
@@ -145,7 +146,10 @@ class UIAdder
     _AddRemovalUI()
     {
         var container = document.querySelector('#Remover');
-        if (!container) this._toolbar.appendChild(this._remover.CreateRemoverUI());
+        if (container) {
+            container.remove();
+        }
+        this._toolbar.appendChild(this._remover.CreateRemoverUI());
     }
 
     /**
