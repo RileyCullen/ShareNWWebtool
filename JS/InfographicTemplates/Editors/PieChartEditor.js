@@ -39,9 +39,44 @@ class PieChartEditor
         var sliderContainer = document.createElement('div');
         sliderContainer.id = 'SliderContainer';
 
+        var data = this._handlerElem.chart.GetDataArr();
+
+        var upperContainer = document.createElement('div');
+        upperContainer.style.display = 'flex';
+        upperContainer.style.alignItems = 'center';
+        upperContainer.style.position = 'relative';
+        upperContainer.style.left = 60 + 'px';
+        sliderContainer.appendChild(upperContainer);
+
+        var buttonOne = document.createElement('button');
+        buttonOne.innerHTML = '-';
+        buttonOne.style.marginRight = 10 + 'px';
+        upperContainer.appendChild(buttonOne);
+        
+
+        var value = document.createElement('textarea');
+        value.innerHTML = data[0].value;
+        value.style.width = 50 + 'px';
+        value.style.height = 20 + 'px';
+        value.style.resize = 'none';
+        value.style.textAlign = 'center';
+        upperContainer.appendChild(value);
+
+        var percentage = document.createElement('p')
+        percentage.innerHTML = '%';
+        percentage.style.width = 50 + 'px';
+        percentage.style.height = 20 + 'px';
+        percentage.style.marginLeft = 3 + 'px';
+        upperContainer.appendChild(percentage);
+
+        var buttonTwo = document.createElement('button');
+        buttonTwo.innerHTML = '+';
+        buttonTwo.style.marginLeft = -30 + 'px';
+        upperContainer.appendChild(buttonTwo);
+
         var label = document.createElement('label');
         label.innerHTML = 'Pie Chart Value: ';
-        label.style.paddingRight = 15 + 'px';
+        label.style.paddingRight = 3 + 'px';
         sliderContainer.appendChild(label);
 
         var slider = document.createElement('input');
@@ -51,19 +86,34 @@ class PieChartEditor
         slider.step = 1;
         slider.id = 'slider';
 
-        var data = this._handlerElem.chart.GetDataArr();
         slider.defaultValue = data[0].value;
 
-        var value = document.createElement('label');
-        value.innerHTML = data[0].value + '%';
-
         slider.oninput = () => {
-            value.innerHTML = slider.value + '%';
+            value.value = slider.value;
+            this._UpdatePieChart();
+        };
+
+        buttonOne.onclick = () => {
+            if (slider.value == 0) return;
+            value.value = slider.value -= 1;
+            slider.value = value.value;
+            this._UpdatePieChart();
+        };
+
+        buttonTwo.onclick = () => {
+            if (slider.value == 100) return;
+            value.value = ++slider.value;
+            slider.value = value.value;
+            this._UpdatePieChart();
+        };
+
+        value.oninput = () => {
+            if (parseInt(value.value) > 100 || parseInt(value.value) < 0) return;
+            slider.value = value.value;
             this._UpdatePieChart();
         };
 
         sliderContainer.appendChild(slider);
-        sliderContainer.appendChild(value);
 
         return sliderContainer;
     }
