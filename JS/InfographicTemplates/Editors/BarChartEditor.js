@@ -58,7 +58,7 @@ class BarChartEditor
             var inputField = document.createElement('textarea');
             inputField.rows = 1;
             inputField.cols = 5;
-            inputField.style.resize = false;
+            inputField.style.resize = 'none';
             inputField.id = i;
             inputField.className = 'BarInput'
             inputField.innerHTML = d.value;

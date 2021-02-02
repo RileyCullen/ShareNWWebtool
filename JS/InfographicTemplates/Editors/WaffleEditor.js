@@ -146,7 +146,7 @@ class WaffleEditor
         textarea.rows = this._rows;
         textarea.col = this._col;
         textarea.id = 'PresetAInput';
-        textarea.style.resize = false;
+        textarea.style.resize = 'none';
         numeratorContainer.appendChild(textarea);
 
         return numeratorContainer;
@@ -170,7 +170,7 @@ class WaffleEditor
         textarea.rows = this._rows;
         textarea.id = 'PresetBInput';
         textarea.col = this._col;
-        textarea.style.resize = false;
+        textarea.style.resize = 'none';
         denomContainer.appendChild(textarea);
 
         return denomContainer;
