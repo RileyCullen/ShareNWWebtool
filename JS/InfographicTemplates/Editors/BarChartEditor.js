@@ -46,6 +46,8 @@ class BarChartEditor
 
         data.forEach((d, i) => {
             var group = document.createElement('div');
+            group.style.display = 'flex';
+            group.style.alignItems = 'center';
             group.style.paddingBottom = 15 + 'px';
             main.appendChild(group);
 

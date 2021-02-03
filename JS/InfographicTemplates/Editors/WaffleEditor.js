@@ -134,6 +134,8 @@ class WaffleEditor
     _CreateNumeratorEditor()
     {
         var numeratorContainer = document.createElement('div');
+        numeratorContainer.style.display = 'flex';
+        numeratorContainer.style.alignItems = 'center';
         numeratorContainer.id = 'NumeratorContainer';
         this._AddBottomPadding(numeratorContainer);
 
@@ -159,6 +161,8 @@ class WaffleEditor
     {
         var denomContainer = document.createElement('div');
         denomContainer.id = 'DenominatorContainer';
+        denomContainer.style.display = 'flex';
+        denomContainer.style.alignItems = 'center';
         this._AddBottomPadding(denomContainer);
 
         var labelText = document.createElement('label');

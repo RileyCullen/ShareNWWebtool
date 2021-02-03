@@ -59,6 +59,8 @@ class StackedBarChartEditor
                 console.log(d)
                 if (d.category === i) {
                     var group = document.createElement('div');
+                    group.style.display = 'flex';
+                    group.style.alignItems = 'center';
                     group.style.paddingTop = 13 + 'px';
 
                     var colorBox = document.createElement('div');

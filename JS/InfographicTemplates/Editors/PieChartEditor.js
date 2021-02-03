@@ -74,10 +74,15 @@ class PieChartEditor
         buttonTwo.style.marginLeft = -30 + 'px';
         upperContainer.appendChild(buttonTwo);
 
+
+        var lowerContainer = document.createElement('div');
+        lowerContainer.style.display = 'flex';
+        sliderContainer.appendChild(lowerContainer);
+        
         var label = document.createElement('label');
         label.innerHTML = 'Pie Chart Value: ';
         label.style.paddingRight = 3 + 'px';
-        sliderContainer.appendChild(label);
+        lowerContainer.appendChild(label);
 
         var slider = document.createElement('input');
         slider.type = 'range';
@@ -113,7 +118,7 @@ class PieChartEditor
             this._UpdatePieChart();
         };
 
-        sliderContainer.appendChild(slider);
+        lowerContainer.appendChild(slider);
 
         return sliderContainer;
     }
