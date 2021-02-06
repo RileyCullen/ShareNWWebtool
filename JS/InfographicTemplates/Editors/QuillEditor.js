@@ -76,7 +76,7 @@ class QuillEditor
                     "#3d1466", 'custom-color']}]
                 ],
               },
-              // placeholder: 'Compose an epic...',
+              placeholder: 'Compose an epic...',
               theme: 'snow',
         });
         this._AddQuillListeners(quill);
