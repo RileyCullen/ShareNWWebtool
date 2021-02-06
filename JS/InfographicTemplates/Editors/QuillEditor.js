@@ -24,7 +24,8 @@ class QuillEditor
      */
     constructor(textElem, main, tr)
     {
-        this._textElem = textElem;
+        this._textImage = textElem.image;
+        this._DOMText = textElem.textElem;
         this._main = main;
         this._timeout = null;
         this._tr = tr;
@@ -75,10 +76,24 @@ class QuillEditor
                     "#3d1466", 'custom-color']}]
                 ],
               },
-              placeholder: 'Compose an epic...',
+              // placeholder: 'Compose an epic...',
               theme: 'snow',
         });
         this._AddQuillListeners(quill);
+        this._AddPlaceholder();
+    }
+
+    _AddPlaceholder()
+    {
+        var container = document.querySelector('.ql-editor');
+        
+        this._DOMText.childNodes.forEach(child => {
+            var clone = child.cloneNode(true);
+            clone.style.paddingTop = -2 + 'px';
+            // clone.style.marginBottom = -5 + 'px';
+            console.log(clone)
+            container.appendChild(clone);
+        });
     }
 
     /**
@@ -214,7 +229,7 @@ class QuillEditor
             backgroundColor: null,
             scrollY: -(window.scrollY),
         }).then((image) => {
-            this._textElem.image(image);
+            this._textImage.image(image);
             this._tr.forceUpdate();
             this._main.batchDraw();
         });
