@@ -48,14 +48,14 @@ class AInfographic
             height: this._chartHeight,
         });
 
-        this._selectionRectangle = new Konva.Rect({
+        /*this._selectionRectangle = new Konva.Rect({
             fill: 'rgba(0, 0, 255, 0.5)',
             visible: false,
         });
         this._hasSelected = false;
         this._isSelecting = false;
         this._oldNodes = [];
-        this._mouseX1 = 0, this._mouseX2 = 0, this._mouseY1 = 0, this._mouseY2 = 0;
+        this._mouseX1 = 0, this._mouseX2 = 0, this._mouseY1 = 0, this._mouseY2 = 0;*/
 
         this._main = new Konva.Layer();
         this._UIAdder = new UIAdder(this._chartWidth, this._chartHeight);
@@ -199,8 +199,12 @@ class AInfographic
                 this._tr.moveToTop();
                 this._main.batchDraw();
 
+                var index = textElem.getAttr('id');
+
                 this._UIAdder.RemoveCurrentEditor();
-                this._UIAdder.CreateTextEditor(textElem, this._main, this._tr);
+                // this._UIAdder.CreateTextEditor(textElem, this._main, this._tr);
+                this._UIAdder.CreateTextEditor(this._textHandler.GetHandlerElem(index),
+                    this._main, this._tr);
 
                 setTimeout(() => {
                     this._stage.on('click', HandleOutsideClick);
