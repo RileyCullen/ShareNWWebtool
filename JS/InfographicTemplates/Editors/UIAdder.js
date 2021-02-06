@@ -119,7 +119,7 @@ class UIAdder
         this._AddGroupToMain();
         this._group.appendChild(editor.CreateEditorUI());
         editor.CreateQuillObject();
-        this._SetTextRemover(textElem, main);
+        this._SetTextRemover(textElem.image, main);
     }
 
     /**
