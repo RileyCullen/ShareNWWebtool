@@ -41,6 +41,7 @@ class TextHandler
                 x: x, 
                 y: y,
                 name: 'Selectable EditableText',
+                id: this._curr
             }),
         };
         textElem.id = this._curr;
@@ -78,4 +79,6 @@ class TextHandler
      * @param {int} id The index of the text element we want to find. 
      */
     GetImage(id)    { return this._handler[id].image; }
+
+    GetHandlerElem(id) { return this._handler[id]; }
 }
