@@ -80,7 +80,7 @@ class QuillEditor
               theme: 'snow',
         });
         this._AddQuillListeners(quill);
-        this._AddPlaceholder();
+        // this._AddPlaceholder();
     }
 
     _AddPlaceholder()
