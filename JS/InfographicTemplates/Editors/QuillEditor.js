@@ -80,20 +80,6 @@ class QuillEditor
               theme: 'snow',
         });
         this._AddQuillListeners(quill);
-        // this._AddPlaceholder();
-    }
-
-    _AddPlaceholder()
-    {
-        var container = document.querySelector('.ql-editor');
-        
-        this._DOMText.childNodes.forEach(child => {
-            var clone = child.cloneNode(true);
-            clone.style.paddingTop = -2 + 'px';
-            // clone.style.marginBottom = -5 + 'px';
-            console.log(clone)
-            container.appendChild(clone);
-        });
     }
 
     /**
