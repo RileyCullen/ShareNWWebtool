@@ -56,7 +56,8 @@ class QuillEditor
             '17px', '18px', '20px', 'custom-size'];
         var fontList = ['900-museo', '100-canada', '200-canada', 
             '400-canada', '500-canada', '600-canada', '700-canada', '900-canada',
-            '200-Montserrat', 'Open-Sans'];
+            '200-Montserrat', 'Open-Sans', '100-Roboto', '300-Roboto', '400-Roboto',
+            '500-Roboto', '700-Roboto', '900-Roboto'];
 
         this._RegisterFontFamilies(fontList);
         this._RegisterFontSizes(sizeList);
