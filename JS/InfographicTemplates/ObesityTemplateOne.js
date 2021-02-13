@@ -37,6 +37,8 @@ class ObesityTemplateOne extends AInfographic
         this._textHandler.AddTextElem(ribbonTextDiv, ribbonGroup, 
             (this._chartWidth / 2) - 170 , 
             (ribbonHeight / 2) - this._GetTextWidth('M', 20, ribbonFontFamily) / 2);
+        this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
+            '200-Montserrat', '20px', ribbonTextDiv.style.color);
 
         // Creating title text
         var titleFont = '"Roboto", sans-serif', titleFontSize = 75;
@@ -49,17 +51,21 @@ class ObesityTemplateOne extends AInfographic
         titleTextDiv.innerHTML = titleText;
         this._textHandler.AddTextElem(titleTextDiv, header, this._CenterXAbout(titleWidth, this._chartWidth / 2),
             50);
+        this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
+            'Roboto', '75px', titleTextDiv.style.color);
 
         var descTextHelper = 'Many U.S. kids are overweight or obese, and most don\'t exercise',
             descFontSize = 15,
             descFontFamily = '"Open Sans", sans-serif',
             descWidth = this._GetTextWidth(descTextHelper, descFontSize, descFontFamily);
         var descTextDiv = document.createElement('div');
-        var descText = '<p style="font-family: Open Sans, sans-serif; font-size: 15">' + 
+        var descText = '<p style="font-family: Open Sans, sans-serif; font-size: 15px">' + 
             'Many U.S. kids are overweight or obese and most don\'t exercise</p>';
         descTextDiv.innerHTML = descText;
         this._textHandler.AddTextElem(descTextDiv, header, this._CenterXAbout(descWidth, (this._chartWidth / 2) - 10),
             275);
+        this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
+            'Open-Sans', '15px', 'black');
 
         // CONTENT
         var content = new Konva.Group({
@@ -132,6 +138,8 @@ class ObesityTemplateOne extends AInfographic
             'children and teens age<br>2 to 19 are considered<br>overweight or obese</p>';
         sectionOneTextDiv.innerHTML = sectionOneText;
         this._textHandler.AddTextElem(sectionOneTextDiv, textGroupArr[0], 0, this._GetTextWidth('M', 50, titleFont) + 5);
+        this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
+            'Open-Sans', '18.5px', sectionOneTextDiv.style.color);
 
         // Section 2 Content
         var RUNNER = '\uf70c';
@@ -169,6 +177,8 @@ class ObesityTemplateOne extends AInfographic
             'don\'t get any daily<br>physical activity</p>';
         sectionTwoTextDiv.innerHTML = sectionTwoText;
         this._textHandler.AddTextElem(sectionTwoTextDiv, textGroupArr[1], 0, this._GetTextWidth('M', 50, titleFont) + 5);
+        this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
+            'Open-Sans', '18.5px', sectionTwoTextDiv.style.color);
 
         // Section 3 content
         var pieChartData = [];
@@ -212,6 +222,8 @@ class ObesityTemplateOne extends AInfographic
             'of elementary schools <br>offer no physical<br>education classes</p>';
         sectionThreeTextDiv.innerHTML = sectionThreeText;
         this._textHandler.AddTextElem(sectionThreeTextDiv, textGroupArr[2], 0, this._GetTextWidth('M', 50, titleFont) + 5);
+        this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
+            'Open-Sans', '18.5px', sectionThreeTextDiv.style.color);
 
         // Section 4 content
         var TV = '\uf26c';
@@ -242,6 +254,8 @@ class ObesityTemplateOne extends AInfographic
             'is the amount of time kids<br>spend in front of TV or<br>computer screens daily</p>';
         sectionFourTextDiv.innerHTML = sectionFourText;
         this._textHandler.AddTextElem(sectionFourTextDiv, textGroupArr[3], 0, this._GetTextWidth('M', 50, titleFont) + 5);
+        this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
+            'Open-Sans', '16px', sectionFourTextDiv.style.color);
 
         // Footer
         var footer = new Konva.Group({
@@ -257,6 +271,8 @@ class ObesityTemplateOne extends AInfographic
         var sourceText = '<p style="font-family: Montserrat, sans-serif; font-size: 10px;">Source: CDC</p>';
         sourceTextDiv.innerHTML = sourceText;
         this._textHandler.AddTextElem(sourceTextDiv, footer, this._CenterXAbout(sourceTextWidth, this._chartWidth / 2), 0);
+        this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
+            '200-Montserrat', '10px', sourceTextDiv.style.color);
 
         this._FinalizeInfog();
     }
