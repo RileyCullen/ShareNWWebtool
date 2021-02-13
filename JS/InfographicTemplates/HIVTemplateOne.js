@@ -37,26 +37,18 @@ class HIVTemplateOne extends AInfographic
         var titleDiv = document.createElement('div');
         var title = '<p style="font-size: 20px; font-family: museo, serif; font-style: 500; color: #3c4c59;">Women and HIV</p>';
         titleDiv.innerHTML = title;
-        this._textHandler.AddTextElem(titleDiv, header, (this._stage.width() / 2) - (this._GetTextWidth('Women and HIV', 20, "museo, serif") / 2), 10);
+        this._textHandler.AddTextElem(titleDiv, header, 
+            (this._stage.width() / 2) 
+            - (this._GetTextWidth('Women and HIV', 20, "museo, serif") / 2), 
+            10, 0);
+        this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), '900-museo', '20px', '#3c4c59');
 
         var questionDiv = document.createElement('div');
         var question = '<p style="font-size: 36px; font-family: museo, serif; color: #3c4c59;">Did you know?</p>';
         questionDiv.innerHTML = question;
         this._textHandler.AddTextElem(questionDiv, header, (this._stage.width() / 2) - (this._GetTextWidth('Did you know?', 36, 'museo, serif') / 2), 27);
+        this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), '900-museo', '36px', '#3c4c59');
         
-        /* SECTION ONE */ 
-        /*var orangeBorderImg = new Image();
-        orangeBorderImg.onload = () => {
-            var orangeBorder = new Konva.Image({
-                width: 400,
-                height: 125,
-                image: orangeBorderImg,
-            });
-            sectionOne.add(orangeBorder);
-            orangeBorder.moveToBottom();
-            this._main.batchDraw();
-        };
-        orangeBorderImg.src = "JS/InfographicTemplates/src/orangeborder.png";*/
         const MAN = '\uf183', WOMAN = '\uf182', LIGHT_ORANGE = '#f9ab7d', ORANGE = '#ee5d26',
             DEFAULT_FONT_SIZE = 50, DEFAULT_OFFSET = 30;
         var orangeBackground = new ArrowHeader(0, 0, 400, 125, sectionOne, ORANGE, 'white');
@@ -75,7 +67,9 @@ class HIVTemplateOne extends AInfographic
             '<p style="font-family: canada-type-gibson, sans-serif; font-size: 30px; font-weight: 700; margin-bottom: -18px;">IS A WOMAN</p>';
         textOneDiv.innerHTML = textOne;
         this._textHandler.AddTextElem(textOneDiv, textGroupOne, 150, 20);
-        
+        this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
+            '700-canada', '30px', '#f58928');
+
         var waffleOneGroup = new Konva.Group({
             name: 'WaffleChart',
             id: 0,
@@ -95,19 +89,6 @@ class HIVTemplateOne extends AInfographic
         this._chartHandler.AddChart(waffleOne, waffleOneGroup, 'Waffle');
         this._chartHandler.GetChart(this._chartHandler.GetCurrChartID()).CreateChart();
         
-        /* SECTION TWO */ 
-        /*var redBorderImg = new Image();
-        redBorderImg.onload = () => {
-            var redBorder = new Konva.Image({
-                width: 400,
-                height: 125,
-                image: redBorderImg,
-            });
-            sectionTwo.add(redBorder);
-            redBorder.moveToBottom();
-            this._main.batchDraw();
-        };
-        redBorderImg.src = "JS/InfographicTemplates/src/redborder.png";*/
         var redBackground = new ArrowHeader(0, 0, 400, 125, sectionTwo, '#e71b32', 'white');
         redBackground.CreateHeader();
 
@@ -121,21 +102,13 @@ class HIVTemplateOne extends AInfographic
             '<p style="margin-bottom: -35px; font-family: canada-type-gibson, sans-serif; font-weight: 600; font-size: 23px;">AFFECTED BY HIV</p>';
         textTwoDiv.innerHTML = textTwo;
         this._textHandler.AddTextElem(textTwoDiv, textGroupTwo, 160, 20);
+        this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
+            '600-canada', '23px', '#e71b32');
         
         var barChartGroup = new Konva.Group({
             offsetX: -147,
             offsetY: -17.5,
         });
-        /*var barChartLabel = new Konva.Text({
-            text: 'New Infections',
-            fill: '#e71b32',
-            fontSize: 12,
-            fontFamily: 'canada-type-gibson, sans-serif',
-            offsetX: -25,
-            offsetY: 30,
-        });
-        barChartLabel.rotate(90);
-        sectionTwo.add(barChartLabel);*/
 
         var barChartLabelDiv = document.createElement('div');
         barChartLabelDiv.style.color = '#e71b32';
@@ -143,6 +116,8 @@ class HIVTemplateOne extends AInfographic
             + 'New Infections</p>';
         barChartLabelDiv.innerHTML = labelText;
         this._textHandler.AddTextElem(barChartLabelDiv, sectionTwo, 27, 23, 90);
+        this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
+            '400-canada', '12px', '#e71b32');
 
         sectionTwo.add(barChartGroup);
        
@@ -176,21 +151,6 @@ class HIVTemplateOne extends AInfographic
         this._chartHandler.AddDecorator(dataValue, this._chartHandler.GetCurrChartID());
         this._chartHandler.GetDecorator(this._chartHandler.GetCurrChartID(), this._chartHandler.GetCurrDecSize())
             .CreateBarChart();
-        
-        /* SECTION THREE */ 
-        /*var blueBorderImg = new Image();
-        blueBorderImg.onload = () => {
-            var blueBorder = new Konva.Image({
-                width: 400,
-                height: 125,
-                image: blueBorderImg,
-            });
-            sectionThree.add(blueBorder);
-            blueBorder.moveToBottom();
-            this._main.batchDraw();
-        };
-        
-        blueBorderImg.src = "JS/InfographicTemplates/src/blueborder.png";*/
 
         const LIGHT_BLUE = '#a0b8d2', BLUE = '#1670ac';
         var blueBackground = new ArrowHeader(0, 0, 400, 125, sectionThree, BLUE, 'white');
@@ -209,6 +169,8 @@ class HIVTemplateOne extends AInfographic
             '<p style="margin-bottom: 0px; font-family: canada-type-gibson, sans-serif; font-weight: 600; font-size: 28.5Px;">CARE FOR HIV</p>';
         textThreeDiv.innerHTML = textThree;
         this._textHandler.AddTextElem(textThreeDiv, textGroupThree, 160, 18);
+        this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
+            '600-canada', '17px', textThreeDiv.style.color);
 
         var lightBlueWomanPreset = GenerateWafflePreset(WOMAN, LIGHT_BLUE, DEFAULT_OFFSET, ICON_FONT),
             blueWomanPreset = GenerateWafflePreset(WOMAN, BLUE, DEFAULT_OFFSET, ICON_FONT);
@@ -235,6 +197,8 @@ class HIVTemplateOne extends AInfographic
             ((this._stage.width() / 2) - 
             this._GetTextWidth('Get the facts. Get tested. Get treatment.', 16, 'museo, serif') / 2), 
             20);
+        this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
+            '900-museo', '16px', 'black');
 
         var moreInfoTextDiv = document.createElement('div');
         var moreInfoText = '<p style="font-size: 14px; font-family: museo, serif;">For more info, go to www.cdc.gov/hiv</p>';
@@ -242,7 +206,9 @@ class HIVTemplateOne extends AInfographic
         this._textHandler.AddTextElem(moreInfoTextDiv, footer, 
             (this._stage.width() / 2) - 
             this._GetTextWidth('For more info, go to www.cdc.gov/hiv', 14, 'museo, serif') / 2, 40);
-        
+        this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
+            '900-museo', '14px', 'black');
+
         var logoHelper = new Image();
         logoHelper.onload = () => {
             var logo = new Konva.Image({
