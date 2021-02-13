@@ -43,6 +43,11 @@ class TextHandler
                 name: 'Selectable EditableText',
                 id: this._curr
             }),
+            'textInfo': {
+                'color': 'black',
+                'initialSize': '10px',
+                'initialFont': '900-museo',
+            }
         };
         textElem.id = this._curr;
         textElem.className = 'EditableText';
@@ -50,6 +55,13 @@ class TextHandler
         this._handler[this._curr].image.rotate(rotateby);
         group.add(this._handler[this._curr].image);
         group.setAttr('id', this._curr);
+    }
+
+    SetTextInfo(id, font, size, color)
+    {
+        this._handler[id].textInfo.initialFont = font;
+        this._handler[id].textInfo.initialSize = size;
+        this._handler[id].textInfo.color = color;
     }
 
     /**
