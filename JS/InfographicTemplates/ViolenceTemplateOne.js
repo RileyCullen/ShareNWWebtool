@@ -32,6 +32,8 @@ class ViolenceTemplateOne extends AInfographic
             + 'VIRGINIA</p>';
         titleDiv.innerHTML = title;
         this._textHandler.AddTextElem(titleDiv, header, 40, 30);
+        this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
+            '700-Roboto', '50px', 'black');
 
         var descBackground = new Konva.Rect({
             x: 1,
@@ -50,6 +52,8 @@ class ViolenceTemplateOne extends AInfographic
         descDiv.style.color = 'white';
         this._textHandler.AddTextElem(descDiv, header, 40, descBackground.getAttr('y') 
             + descBackground.getAttr('height') / 2 - 1.5 * this._GetTextWidth('M', descFontSize, roboto));
+        this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
+            '300-Roboto', '20px', 'white');
 
         var yellowStrip = new Konva.Rect({
             x: 1,
@@ -75,16 +79,13 @@ class ViolenceTemplateOne extends AInfographic
         };
         virginiaImage.src = 'JS/InfographicTemplates/src/virginia.png';
 
-        var introOne = 'The state is home to ', stat = '257,000 ', introTwo = 'LGBT adults';
-
         var introHelper = new Konva.Group({
             x: 1,
             y: yellowStrip.getAttr('y'),
         });
         this._main.add(introHelper);
 
-        var introY = 50, introFontSize = 22, 
-            statFontSize = introFontSize * 1.5;
+        var introY = 50, introFontSize = 22;
 
         var introDiv = document.createElement('div');
         var intro = '<p style="font-family: Roboto, sans-serif; font-size: 22px; font-weight: 400;">This state is home to'
@@ -92,6 +93,8 @@ class ViolenceTemplateOne extends AInfographic
             + 'LGBT adults</p>';
         introDiv.innerHTML = intro;
         this._textHandler.AddTextElem(introDiv, introHelper, 25, introY - 1.5 * this._GetTextWidth('M', introFontSize, roboto));
+        this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
+            '400-Roboto', '22px', 'black');
 
         var sectionOne = new Konva.Group({
             x: 1,
@@ -247,6 +250,8 @@ class ViolenceTemplateOne extends AInfographic
         pieChartOneTextDiv.innerHTML = pieChartOneText;
         this._textHandler.AddTextElem(pieChartOneTextDiv, pieChartOneHelper, 
             -1 * this._GetTextWidth('are raising', 15, roboto) / 2, pieChartOneRadius + this._GetTextWidth('M', 15, roboto));
+        this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
+            '400-Roboto', '15px', 'black');
 
         /* BAR CHART ONE CODE */
         var barChartOneData = [], barChartOneGroup = new Konva.Group({
@@ -261,6 +266,8 @@ class ViolenceTemplateOne extends AInfographic
             + 'LGBT Age Distribution</p>';
         barOneTitleDiv.innerHTML = barOneTitle;
         this._textHandler.AddTextElem(barOneTitleDiv, sectionOne, pieChartOneGroup.getAttr('x') + 135, (0 + 2 * this._GetTextWidth('M', bcOneFontSize, roboto)));
+        this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
+            '400-Roboto', '22px', 'black');
 
         barChartOneData[0] = {
             'category': '18-24',
@@ -320,6 +327,9 @@ class ViolenceTemplateOne extends AInfographic
             + '<p style="font-family: Roboto, sans-serif; font-size: 17px; font-weight: 300; margin-bottomL -5px;">in the state.</p>';
         toolTipDiv.innerHTML = toolTipText;
         this._textHandler.AddTextElem(toolTipDiv, sectionOne, 315, 367);
+        this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
+            '300-Roboto', '17px', 'white');
+
 
         /* WAFFLE CHART CODE */
         var PERSON = '\uf007', ICON_FONT = '"Font Awesome 5 Free"';
@@ -368,12 +378,18 @@ class ViolenceTemplateOne extends AInfographic
             + '<br>harassment based on their sexual<br>orientation at school.</p>';
         waffleDescDiv.innerHTML = waffleDesc;
         this._textHandler.AddTextElem(waffleDescDiv, waffleChartGroup, 400, 100);
+        this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
+            '400-Roboto', '13px', 'black');
+
 
         var citationOneDiv = document.createElement('div');
         var citationOne = '<p style="font-family: Roboto, sans-serif; font-size: 9px; font-weight: 300;">'
             + '2017 GLSEN National Scholl Climate Survey</p>';
         citationOneDiv.innerHTML = citationOne;
         this._textHandler.AddTextElem(citationOneDiv, waffleChartGroup, 400, 170);
+        this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
+            '300-Roboto', '9px', 'black');
+
 
         this._FinalizeInfog();
     }   
