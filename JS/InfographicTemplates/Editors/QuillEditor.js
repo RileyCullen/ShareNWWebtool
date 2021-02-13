@@ -25,7 +25,9 @@ class QuillEditor
     constructor(textElem, main, tr)
     {
         this._textImage = textElem.image;
-        this._DOMText = textElem.textElem;
+        this._primaryColor = textElem.textInfo.color;
+        this._font = textElem.textInfo.initialFont;
+        this._size = textElem.textInfo.initialSize;
         this._main = main;
         this._timeout = null;
         this._tr = tr;
@@ -76,10 +78,39 @@ class QuillEditor
                     "#3d1466", 'custom-color']}]
                 ],
               },
-              placeholder: 'Compose an epic...',
+              //placeholder: 'Compose an epic...',
               theme: 'snow',
         });
         this._AddQuillListeners(quill);
+        this._InitEditor(quill, sizeList);
+    }
+
+    /**
+     * @summary     Updates editor so that text color, size, and font are the 
+     *              same as that on the infographic.
+     * @description Given the selected elements attributes (size, color, and font),
+     *              this function will update the Quill editor so that when the
+     *              user starts typing, the text in the text editor will have 
+     *              the given attributes from above.
+     * 
+     * @param {QuillEditor} quill The quill editor.
+     * @param {Array} sizeList The array of default font sizes.
+     */
+    _InitEditor(quill, sizeList)
+    {
+        var Size = Quill.import('attributors/style/size');
+        
+        if (!sizeList.find(elem => elem == this._size)) {
+            Size.whitelist = [this._size];
+            Quill.register(this._size, true);
+        }
+        
+        console.log('size: ' + this._size);
+        quill.format('color', this._primaryColor);
+
+        quill.format('size', this._size);
+        quill.format('font', this._font);
+        quill.update();
     }
 
     /**
