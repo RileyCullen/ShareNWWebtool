@@ -208,7 +208,6 @@ class QuillEditor
                 Quill.register(Size, true);
             }
             quill.format('size', value);
-            console.log(quill)
             this._textElem.textInfo.initialSize = quill.root.firstChild.firstChild.style.fontSize;
             this._RegisterFontSizes();
         });
