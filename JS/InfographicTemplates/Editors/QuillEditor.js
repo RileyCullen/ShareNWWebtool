@@ -176,7 +176,17 @@ class QuillEditor
                 value = prompt('Enter Hex/RGB/RGBA');
             }
             quill.format('color', value);
-            this._textElem.textInfo.color = value;
+            this._textElem.textInfo.color = quill.root.firstChild.firstChild.style.color;
+            /**
+             * Note: we need the code above instead of this._textElem.textInfo.color
+             * = value because we only want to update the color if the first line 
+             * changes. 
+             * 
+             * Since the root is the container for all of the text, we want to access
+             * its first child, and then since the paragraph nodes hold span nodes 
+             * which are what contain the actual text and styling, we want to get 
+             * root's first child's first child. 
+             */
         });
     }
 
@@ -198,7 +208,8 @@ class QuillEditor
                 Quill.register(Size, true);
             }
             quill.format('size', value);
-            this._textElem.textInfo.initialSize = value;
+            console.log(quill)
+            this._textElem.textInfo.initialSize = quill.root.firstChild.firstChild.style.fontSize;
             this._RegisterFontSizes();
         });
     }
