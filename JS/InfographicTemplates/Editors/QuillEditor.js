@@ -175,7 +175,6 @@ class QuillEditor
                 value = prompt('Enter Hex/RGB/RGBA');
             }
             quill.format('color', value);
-            // this._primaryColor = value;
             this._textElem.textInfo.color = value;
         });
     }
@@ -198,6 +197,7 @@ class QuillEditor
                 Quill.register(Size, true);
             }
             quill.format('size', value);
+            this._textElem.textInfo.initialSize = value;
             this._RegisterFontSizes();
         });
     }
