@@ -158,6 +158,7 @@ class QuillEditor
         this._AddFontColorListener(quill);
         this._AddTextListener(quill);
         this._AddFontSizeListener(quill);
+        this._AddFontListener(quill);
     }
 
     /**
@@ -199,6 +200,23 @@ class QuillEditor
             quill.format('size', value);
             this._textElem.textInfo.initialSize = value;
             this._RegisterFontSizes();
+        });
+    }
+
+    /**
+     * @summary     Overrides default handler for changing quill fonts.
+     * @description Manually overwrites default handler to provide the ability to
+     *              update the textInfo element located in _textElem. Besides this,
+     *              the behavior between this and the default handler is essentially
+     *              the same.
+     * 
+     * @param {Quill} quill The quill editor we want to add the event listener to.
+     */
+    _AddFontListener(quill)
+    {
+        quill.getModule('toolbar').addHandler('font', value => {
+            quill.format('font', value);
+            this._textElem.textInfo.initialFont = value;
         });
     }
 
