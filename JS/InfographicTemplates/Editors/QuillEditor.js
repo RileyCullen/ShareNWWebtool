@@ -24,6 +24,7 @@ class QuillEditor
      */
     constructor(textElem, main, tr)
     {
+        this._textElem = textElem;
         this._textImage = textElem.image;
         this._primaryColor = textElem.textInfo.color;
         this._font = textElem.textInfo.initialFont;
@@ -31,6 +32,8 @@ class QuillEditor
         this._main = main;
         this._timeout = null;
         this._tr = tr;
+
+        console.log(this._primaryColor);
     }
 
     /**
@@ -172,6 +175,8 @@ class QuillEditor
                 value = prompt('Enter Hex/RGB/RGBA');
             }
             quill.format('color', value);
+            // this._primaryColor = value;
+            this._textElem.textInfo.color = value;
         });
     }
 
