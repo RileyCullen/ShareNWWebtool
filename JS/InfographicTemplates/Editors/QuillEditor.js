@@ -85,7 +85,7 @@ class QuillEditor
               //placeholder: 'Compose an epic...',
               theme: 'snow',
         });
-        this._AddQuillListeners(quill);
+        this._AddQuillListeners(quill, sizeList);
         this._InitEditor(quill, sizeList);
     }
 
@@ -153,11 +153,11 @@ class QuillEditor
      * 
      * @param {Quill} quill The quill object we want to add event listeners to.
      */
-    _AddQuillListeners(quill)
+    _AddQuillListeners(quill, sizelist)
     {
         this._AddFontColorListener(quill);
         this._AddTextListener(quill);
-        this._AddFontSizeListener(quill);
+        this._AddFontSizeListener(quill, sizelist);
         this._AddFontListener(quill);
     }
 
@@ -197,19 +197,17 @@ class QuillEditor
      * 
      * @param {Quill} quill The quill editor we want to add the event listener to.
      */
-    _AddFontSizeListener(quill)
+    _AddFontSizeListener(quill, sizeList)
     {
-        var Size = Quill.import('attributors/style/size'); 
         quill.getModule('toolbar').addHandler('size', (value) => {
             if (value == 'custom-size') {
                 value = prompt('Enter font size');
                 value += 'px';
-                Size.whitelist = [value];
-                Quill.register(Size, true);
+                sizeList.push(value);
             }
+            this._RegisterFontSizes(sizeList);
             quill.format('size', value);
             this._textElem.textInfo.initialSize = quill.root.firstChild.firstChild.style.fontSize;
-            this._RegisterFontSizes();
         });
     }
 
