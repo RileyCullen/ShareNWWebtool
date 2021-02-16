@@ -71,7 +71,7 @@
 
 .ql-snow .ql-picker.ql-size .ql-picker-label[data-value="custom-size"]::before, 
 .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="custom-size"]::before {
-    content: 'custom size';
+    content: 'custom';
 }
 
 /*.ql-size-10 {
