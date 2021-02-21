@@ -66,7 +66,11 @@ class AInfographic
 
         this._AddStageBorder();
     }
-
+    /**
+     * @summary     Removes the current editor from DOM.
+     * @description A wrapper function that call's _UIAdder's RemoveCurrentEditor
+     *              function, which removes the editor if it exists.
+     */
     Remove()
     {
         if (this._UIAdder.GetState()) this._UIAdder.RemoveCurrentEditor();
