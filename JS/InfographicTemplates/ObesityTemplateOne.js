@@ -28,6 +28,7 @@ class ObesityTemplateOne extends AInfographic
             ribbonHeight, this._chartWidth, this._chartHeight);
         ribbon.CreateHeader();
 
+        var montserrat200 = this._quillMap('Montserrat', 200);
         var ribbonFontFamily = '"Montserrat", sans-serif';
         var ribbonTextDiv = document.createElement('div');
         ribbonTextDiv.style.color = 'white';
@@ -38,7 +39,7 @@ class ObesityTemplateOne extends AInfographic
             (this._chartWidth / 2) - 170 , 
             (ribbonHeight / 2) - this._GetTextWidth('M', 20, ribbonFontFamily) / 2);
         this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
-            '200-Montserrat', '20px', ribbonTextDiv.style.color);
+            montserrat200, '20px', ribbonTextDiv.style.color);
 
         // Creating title text
         var titleFont = '"Roboto", sans-serif', titleFontSize = 75;
@@ -54,6 +55,7 @@ class ObesityTemplateOne extends AInfographic
         this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
             'Roboto', '75px', titleTextDiv.style.color);
 
+        var openSans = this._quillMap('Open Sans');
         var descTextHelper = 'Many U.S. kids are overweight or obese, and most don\'t exercise',
             descFontSize = 15,
             descFontFamily = '"Open Sans", sans-serif',
@@ -65,7 +67,7 @@ class ObesityTemplateOne extends AInfographic
         this._textHandler.AddTextElem(descTextDiv, header, this._CenterXAbout(descWidth, (this._chartWidth / 2) - 10),
             275);
         this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
-            'Open-Sans', '15px', 'black');
+            openSans, '15px', 'black');
 
         // CONTENT
         var content = new Konva.Group({
@@ -80,7 +82,7 @@ class ObesityTemplateOne extends AInfographic
         // Creating section backgrounds
         var sectionArr = [], sectionColorArr = ['#e33c29', '#2e8acb', '#aea59e', '#94bd31'];
         var textGroupArr = [];
-        var sectionFontSize = 18.5, statisticFontSize = 47.5;
+        var statisticFontSize = 47.5;
 
         for (var i = 0; i < 4; i++) {
             sectionArr[i] = (i === 0) ? new Konva.Group() : new Konva.Group({
@@ -139,7 +141,7 @@ class ObesityTemplateOne extends AInfographic
         sectionOneTextDiv.innerHTML = sectionOneText;
         this._textHandler.AddTextElem(sectionOneTextDiv, textGroupArr[0], 0, this._GetTextWidth('M', 50, titleFont) + 5);
         this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
-            'Open-Sans', '18.5px', sectionOneTextDiv.style.color);
+            openSans, '18.5px', sectionOneTextDiv.style.color);
 
         // Section 2 Content
         var RUNNER = '\uf70c';
@@ -178,7 +180,7 @@ class ObesityTemplateOne extends AInfographic
         sectionTwoTextDiv.innerHTML = sectionTwoText;
         this._textHandler.AddTextElem(sectionTwoTextDiv, textGroupArr[1], 0, this._GetTextWidth('M', 50, titleFont) + 5);
         this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
-            'Open-Sans', '18.5px', sectionTwoTextDiv.style.color);
+            openSans, '18.5px', sectionTwoTextDiv.style.color);
 
         // Section 3 content
         var pieChartData = [];
@@ -223,7 +225,7 @@ class ObesityTemplateOne extends AInfographic
         sectionThreeTextDiv.innerHTML = sectionThreeText;
         this._textHandler.AddTextElem(sectionThreeTextDiv, textGroupArr[2], 0, this._GetTextWidth('M', 50, titleFont) + 5);
         this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
-            'Open-Sans', '18.5px', sectionThreeTextDiv.style.color);
+            openSans, '18.5px', sectionThreeTextDiv.style.color);
 
         // Section 4 content
         var TV = '\uf26c';
@@ -255,7 +257,7 @@ class ObesityTemplateOne extends AInfographic
         sectionFourTextDiv.innerHTML = sectionFourText;
         this._textHandler.AddTextElem(sectionFourTextDiv, textGroupArr[3], 0, this._GetTextWidth('M', 50, titleFont) + 5);
         this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
-            'Open-Sans', '16px', sectionFourTextDiv.style.color);
+            openSans, '16px', sectionFourTextDiv.style.color);
 
         // Footer
         var footer = new Konva.Group({
@@ -272,7 +274,7 @@ class ObesityTemplateOne extends AInfographic
         sourceTextDiv.innerHTML = sourceText;
         this._textHandler.AddTextElem(sourceTextDiv, footer, this._CenterXAbout(sourceTextWidth, this._chartWidth / 2), 0);
         this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
-            '200-Montserrat', '10px', sourceTextDiv.style.color);
+            montserrat200, '10px', sourceTextDiv.style.color);
 
         this._FinalizeInfog();
     }

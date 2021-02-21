@@ -32,7 +32,12 @@ class HIVTemplateOne extends AInfographic
         this._main.add(sectionTwo);
         this._main.add(sectionThree);
         this._main.add(footer);
-        
+
+        var museo900 = this._quillMap('museo', 900);
+        var canada400 = this._quillMap('canada-type-gibson', 400);
+        var canada600 = this._quillMap('canada-type-gibson', 600);
+        var canada700 = this._quillMap('canada-type-gibson', 700);
+
         /* HEADER */
         var titleDiv = document.createElement('div');
         var title = '<p style="font-size: 20px; font-family: museo, serif; font-style: 500; color: #3c4c59;">Women and HIV</p>';
@@ -41,13 +46,13 @@ class HIVTemplateOne extends AInfographic
             (this._stage.width() / 2) 
             - (this._GetTextWidth('Women and HIV', 20, "museo, serif") / 2), 
             10, 0);
-        this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), '900-museo', '20px', '#3c4c59');
+        this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), museo900, '20px', '#3c4c59');
 
         var questionDiv = document.createElement('div');
         var question = '<p style="font-size: 36px; font-family: museo, serif; color: #3c4c59;">Did you know?</p>';
         questionDiv.innerHTML = question;
         this._textHandler.AddTextElem(questionDiv, header, (this._stage.width() / 2) - (this._GetTextWidth('Did you know?', 36, 'museo, serif') / 2), 27);
-        this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), '900-museo', '36px', '#3c4c59');
+        this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), museo900, '36px', '#3c4c59');
         
         const MAN = '\uf183', WOMAN = '\uf182', LIGHT_ORANGE = '#f9ab7d', ORANGE = '#ee5d26',
             DEFAULT_FONT_SIZE = 50, DEFAULT_OFFSET = 30;
@@ -68,7 +73,7 @@ class HIVTemplateOne extends AInfographic
         textOneDiv.innerHTML = textOne;
         this._textHandler.AddTextElem(textOneDiv, textGroupOne, 150, 20);
         this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
-            '700-canada', '30px', '#f58928');
+            canada700, '30px', '#f58928');
 
         var waffleOneGroup = new Konva.Group({
             name: 'WaffleChart',
@@ -103,7 +108,7 @@ class HIVTemplateOne extends AInfographic
         textTwoDiv.innerHTML = textTwo;
         this._textHandler.AddTextElem(textTwoDiv, textGroupTwo, 160, 20);
         this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
-            '600-canada', '23px', '#e71b32');
+            canada600, '23px', '#e71b32');
         
         var barChartGroup = new Konva.Group({
             offsetX: -147,
@@ -117,7 +122,7 @@ class HIVTemplateOne extends AInfographic
         barChartLabelDiv.innerHTML = labelText;
         this._textHandler.AddTextElem(barChartLabelDiv, sectionTwo, 27, 23, 90);
         this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
-            '400-canada', '12px', '#e71b32');
+            canada400, '12px', '#e71b32');
 
         sectionTwo.add(barChartGroup);
        
@@ -170,7 +175,7 @@ class HIVTemplateOne extends AInfographic
         textThreeDiv.innerHTML = textThree;
         this._textHandler.AddTextElem(textThreeDiv, textGroupThree, 160, 18);
         this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
-            '600-canada', '17px', textThreeDiv.style.color);
+            canada600, '17px', textThreeDiv.style.color);
 
         var lightBlueWomanPreset = GenerateWafflePreset(WOMAN, LIGHT_BLUE, DEFAULT_OFFSET, ICON_FONT),
             blueWomanPreset = GenerateWafflePreset(WOMAN, BLUE, DEFAULT_OFFSET, ICON_FONT);
@@ -198,7 +203,7 @@ class HIVTemplateOne extends AInfographic
             this._GetTextWidth('Get the facts. Get tested. Get treatment.', 16, 'museo, serif') / 2), 
             20);
         this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
-            '900-museo', '16px', 'black');
+            museo900, '16px', 'black');
 
         var moreInfoTextDiv = document.createElement('div');
         var moreInfoText = '<p style="font-size: 14px; font-family: museo, serif;">For more info, go to www.cdc.gov/hiv</p>';
@@ -207,7 +212,7 @@ class HIVTemplateOne extends AInfographic
             (this._stage.width() / 2) - 
             this._GetTextWidth('For more info, go to www.cdc.gov/hiv', 14, 'museo, serif') / 2, 40);
         this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
-            '900-museo', '14px', 'black');
+            museo900, '14px', 'black');
 
         var logoHelper = new Image();
         logoHelper.onload = () => {

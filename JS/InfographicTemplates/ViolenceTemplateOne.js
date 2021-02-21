@@ -27,13 +27,14 @@ class ViolenceTemplateOne extends AInfographic
         var header = new Konva.Group();
         this._main.add(header);
 
+        var roboto700 = this._quillMap('Roboto', 700);
         var titleDiv = document.createElement('div');
         var title = '<p style="font-size: 50px; font-family: Roboto, sans-serif; font-weight: 700">'
             + 'VIRGINIA</p>';
         titleDiv.innerHTML = title;
         this._textHandler.AddTextElem(titleDiv, header, 40, 30);
         this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
-            '700-Roboto', '50px', 'black');
+            roboto700, '50px', 'black');
 
         var descBackground = new Konva.Rect({
             x: 1,
@@ -44,6 +45,7 @@ class ViolenceTemplateOne extends AInfographic
         });
         header.add(descBackground);
 
+        var roboto300 = this._quillMap('Roboto', 300);
         var descFontSize = 20;
         var descDiv = document.createElement('div');
         var desc = '<p style="font-family: Roboto, sans-serif; font-weight: 300; font-size: 20px;">'
@@ -53,7 +55,7 @@ class ViolenceTemplateOne extends AInfographic
         this._textHandler.AddTextElem(descDiv, header, 40, descBackground.getAttr('y') 
             + descBackground.getAttr('height') / 2 - 1.5 * this._GetTextWidth('M', descFontSize, roboto));
         this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
-            '300-Roboto', '20px', 'white');
+            roboto300, '20px', 'white');
 
         var yellowStrip = new Konva.Rect({
             x: 1,
@@ -87,6 +89,7 @@ class ViolenceTemplateOne extends AInfographic
 
         var introY = 50, introFontSize = 22;
 
+        var roboto400 = this._quillMap('Roboto', 400);
         var introDiv = document.createElement('div');
         var intro = '<p style="font-family: Roboto, sans-serif; font-size: 22px; font-weight: 400;">This state is home to'
             + '<span style="font-family: Roboto, sans-serif; font-size: 33px; font-weight: 900; color: orange;"> 257,000 </span>'
@@ -94,7 +97,7 @@ class ViolenceTemplateOne extends AInfographic
         introDiv.innerHTML = intro;
         this._textHandler.AddTextElem(introDiv, introHelper, 25, introY - 1.5 * this._GetTextWidth('M', introFontSize, roboto));
         this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
-            '400-Roboto', '22px', 'black');
+            roboto400, '22px', 'black');
 
         var sectionOne = new Konva.Group({
             x: 1,
@@ -251,7 +254,7 @@ class ViolenceTemplateOne extends AInfographic
         this._textHandler.AddTextElem(pieChartOneTextDiv, pieChartOneHelper, 
             -1 * this._GetTextWidth('are raising', 15, roboto) / 2, pieChartOneRadius + this._GetTextWidth('M', 15, roboto));
         this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
-            '400-Roboto', '15px', 'black');
+            roboto400, '15px', 'black');
 
         /* BAR CHART ONE CODE */
         var barChartOneData = [], barChartOneGroup = new Konva.Group({
@@ -267,7 +270,7 @@ class ViolenceTemplateOne extends AInfographic
         barOneTitleDiv.innerHTML = barOneTitle;
         this._textHandler.AddTextElem(barOneTitleDiv, sectionOne, pieChartOneGroup.getAttr('x') + 135, (0 + 2 * this._GetTextWidth('M', bcOneFontSize, roboto)));
         this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
-            '400-Roboto', '22px', 'black');
+            roboto400, '22px', 'black');
 
         barChartOneData[0] = {
             'category': '18-24',
@@ -328,7 +331,7 @@ class ViolenceTemplateOne extends AInfographic
         toolTipDiv.innerHTML = toolTipText;
         this._textHandler.AddTextElem(toolTipDiv, sectionOne, 315, 367);
         this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
-            '300-Roboto', '17px', 'white');
+            roboto300, '17px', 'white');
 
 
         /* WAFFLE CHART CODE */
@@ -379,7 +382,7 @@ class ViolenceTemplateOne extends AInfographic
         waffleDescDiv.innerHTML = waffleDesc;
         this._textHandler.AddTextElem(waffleDescDiv, waffleChartGroup, 400, 100);
         this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
-            '400-Roboto', '13px', 'black');
+            roboto400, '13px', 'black');
 
 
         var citationOneDiv = document.createElement('div');
@@ -388,7 +391,7 @@ class ViolenceTemplateOne extends AInfographic
         citationOneDiv.innerHTML = citationOne;
         this._textHandler.AddTextElem(citationOneDiv, waffleChartGroup, 400, 170);
         this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
-            '300-Roboto', '9px', 'black');
+            roboto300, '9px', 'black');
 
 
         this._FinalizeInfog();
