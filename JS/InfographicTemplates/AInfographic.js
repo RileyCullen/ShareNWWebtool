@@ -72,6 +72,40 @@ class AInfographic
         if (this._UIAdder.GetState()) this._UIAdder.RemoveCurrentEditor();
     }
 
+    /**
+     * @summary     A function that takes in a font and a font weight and maps it
+     *              to the proper quill code.
+     * 
+     * @param {string} font   The font associated with a quill code.
+     * @param {int}    weight The weight associated with a quill code. 
+     */
+    _quillMap(font, weight = 0)
+    {
+        if (font == 'museo' && weight == 900) return '900-museo';
+        else if (font == 'canada-type-gibson') {
+            switch (weight) {
+                case 100: return '100-canada';
+                case 200: return '200-canada';
+                case 400: return '400-canada';
+                case 500: return '500-canada';
+                case 600: return '600-canada';
+                case 700: return '700-canada';
+                case 900: return '900-canada';
+            }
+        } else if (font == 'Montserrat') return '200-Montserrat';
+        else if (font == 'Open Sans') return 'Open-Sans';
+        else if (font == 'Roboto') {
+            switch(weight) {
+                case 100: return '100-Roboto';
+                case 300: return '300-Roboto';
+                case 400: return '400-Roboto';
+                case 500: return '500-Roboto';
+                case 700: return '700-Roboto';
+                case 900: return '900-Roboto';
+            }
+        }
+    }
+
     _AddStageBorder()
     {
         /**
