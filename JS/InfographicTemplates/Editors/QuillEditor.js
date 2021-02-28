@@ -5,6 +5,7 @@
 // Sources
 // 1. Quill color related code taken from https://stackoverflow.com/questions/42068335/quill-js-color-textbox
 // 2. Quill font size code adapted from https://stackoverflow.com/questions/38623716/how-to-add-custom-font-sizes-to-quilljs-editor
+// 3. Quill line height code (_InitLineHeight) taken from https://github.com/quilljs/quill/issues/197
 
 class QuillEditor
 {
@@ -44,7 +45,12 @@ class QuillEditor
     CreateEditorUI()
     {
         var container = document.createElement('div');
-        container.id = 'editor-container';
+        container.id = 'QuillEditor';
+
+        var editor = document.createElement('div');
+        editor.id = 'editor-container';
+        container.appendChild(editor);
+
         return container;
     }
 
@@ -61,15 +67,18 @@ class QuillEditor
             '400-canada', '500-canada', '600-canada', '700-canada', '900-canada',
             '200-Montserrat', 'Open-Sans', '100-Roboto', '300-Roboto', '400-Roboto',
             '500-Roboto', '700-Roboto', '900-Roboto'];
+        var lineHeightList = ['1.0', '1.2', '1.5', '1.75', '2.0'];
 
         this._RegisterFontFamilies(fontList);
         this._RegisterFontSizes(sizeList);
+        this._InitLineHeights(lineHeightList);
 
         var quill = new Quill('#editor-container', {
             modules: {
                 toolbar: [
                   [{'font': fontList}],
                   [{'size': sizeList}],
+                  [{'lineheight': lineHeightList}],
                   ['italic', 'underline'],
                   ['image', 'code-block'],
                   [{'color': ["#000000", "#e60000", "#ff9900", "#ffff00", 
@@ -85,8 +94,26 @@ class QuillEditor
               //placeholder: 'Compose an epic...',
               theme: 'snow',
         });
+
+        console.log(quill)
+
         this._AddQuillListeners(quill, sizeList);
         this._InitEditor(quill, sizeList);
+    }
+
+    _InitLineHeights(lineHeightList)
+    {
+        var Parchment = Quill.import('parchment');
+        var lineHeightConfig = {
+            scope: Parchment.Scope.INLINE,
+            whilelist: lineHeightList
+        };
+        var lineHeightClass = new Parchment.Attributor.Class('lineheight', 'ql-line-height', lineHeightConfig);
+        var lineHeightStyle = new Parchment.Attributor.Style('lineheight', 'line-height', lineHeightConfig);
+
+        Parchment.register(lineHeightClass);
+        Parchment.register(lineHeightStyle);
+        Quill.register(lineHeightList, true);
     }
 
     /**
@@ -102,19 +129,50 @@ class QuillEditor
      */
     _InitEditor(quill, sizeList)
     {
-        var Size = Quill.import('attributors/style/size');
-        
+        // Checking if the text's font size is registered or not. If not, we 
+        // register it then format the editor.
         if (!sizeList.find(elem => elem == this._size)) {
-            Size.whitelist = [this._size];
-            Quill.register(this._size, true);
+            sizeList.push(this._size);
+            this._RegisterFontSizes(sizeList);
         }
-        
-        console.log('size: ' + this._size);
-        quill.format('color', this._primaryColor);
+    
+        var quillContentList = [];
+        var contentListSize = 0, elemCount = 0
+        var cssList = this._textElem.spanCSS;
 
-        quill.format('size', this._size);
-        quill.format('font', this._font);
-        quill.update();
+        cssList.forEach(d => {
+            if (!sizeList.find(elem => elem == d.fontSize)) {
+                sizeList.push(d.fontSize);
+                this._RegisterFontSizes(sizeList);
+            }
+        });
+
+        console.log(cssList)
+        console.log(cssList[elemCount].fontSize)
+
+        this._textElem.textElem.childNodes.forEach((d, i) => {
+            d.childNodes.forEach((elem) => {
+                console.log(elem);
+                quillContentList[contentListSize] = {
+                    insert: elem.innerHTML, 
+                    attributes: {
+                        color: cssList[elemCount].textColor, 
+                        size: cssList[elemCount].fontSize,
+                        font: cssList[elemCount].fontFamily,
+                        lineheight: cssList[elemCount].lineHeight
+                    } 
+                };
+                elemCount++;
+                contentListSize++;
+            });
+            quillContentList[contentListSize++] = {
+                insert: "\n",
+            }
+            quill.format('size', '10px');
+        });
+
+        console.log(quillContentList)
+        quill.setContents(quillContentList);
     }
 
     /**
@@ -210,6 +268,13 @@ class QuillEditor
             this._textElem.textInfo.initialSize = quill.root.firstChild.firstChild.style.fontSize;
         });
     }
+
+    _UpdateDataLabel()
+    {
+        var element = document.querySelector('.ql-size > .ql-picker-label');
+        console.log(element);
+    }
+
 
     /**
      * @summary     Overrides default handler for changing quill fonts.
