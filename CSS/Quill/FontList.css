@@ -78,7 +78,7 @@
 .ql-snow .ql-picker.ql-font .ql-picker-label[data-value='200-Montserrat']::before,
 .ql-snow .ql-picker.ql-font .ql-picker-item[data-value='200-Montserrat']::before
 {
-  content: '200 Montserrat';
+  content: 'Montserrat';
   font-family: 'Montserrat', sans-serif;
   font-weight: 200;
 }
