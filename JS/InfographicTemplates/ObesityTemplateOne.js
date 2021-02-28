@@ -32,28 +32,49 @@ class ObesityTemplateOne extends AInfographic
         var ribbonFontFamily = '"Montserrat", sans-serif';
         var ribbonTextDiv = document.createElement('div');
         ribbonTextDiv.style.color = 'white';
-        var ribbonText = '<p style="font-family: Montserrat, sans-serif; font-size: 20px; ">' +
-            'AN EVERYDAY HEALTH INFOGRAM</p>';
+        var ribbonText = '<p><span style="font-family: Montserrat, sans-serif; font-size: 20px; ">' +
+            'AN EVERYDAY HEALTH INFOGRAM</span></p>';
         ribbonTextDiv.innerHTML = ribbonText;
         this._textHandler.AddTextElem(ribbonTextDiv, ribbonGroup, 
             (this._chartWidth / 2) - 170 , 
             (ribbonHeight / 2) - this._GetTextWidth('M', 20, ribbonFontFamily) / 2);
-        this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
-            montserrat200, '20px', ribbonTextDiv.style.color);
+        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+            fontFamily: montserrat200,
+            fontSize: '20px',
+            textColor: ribbonTextDiv.style.color,
+            lineHeight: '1.0',
+        });
 
         // Creating title text
         var titleFont = '"Roboto", sans-serif', titleFontSize = 75;
+        var roboto400 = this._quillMap('Roboto', 400);
         var titleWidth = this._GetTextWidth('CHILDHOOD', titleFontSize, titleFont)
         var titleTextDiv = document.createElement('div');
         titleTextDiv.style.color = 'black';
-        var titleText = '<p style="font-family: Roboto, sans-serif; font-size: 75px; margin-bottom: -90px;">CHILDHOOD</p>' +
-            '<p style="font-family: Roboto, sans-serif; font-size: 75px; margin-bottom: -70px;">OBESITY BY</p>' +
-            '<p style="font-family: Roboto, sans-serif; font-size: 60px;">THE NUMBERS</p>';
+        var titleText = '<p style="margin: 0px;"><span style="font-family: Roboto, sans-serif; font-size: 75px; line-height: 1.0;">CHILDHOOD</span></p>' +
+            '<p style="margin: 0px;"><span style="font-family: Roboto, sans-serif; font-size: 75px; line-height: 1.0;">OBESITY BY</span></p>' +
+            '<p style="margin: 0px;"><span style="font-family: Roboto, sans-serif; font-size: 60px; line-height: 1.0;">THE NUMBERS</span></p>';
         titleTextDiv.innerHTML = titleText;
-        this._textHandler.AddTextElem(titleTextDiv, header, this._CenterXAbout(titleWidth, this._chartWidth / 2),
-            50);
-        this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
-            'Roboto', '75px', titleTextDiv.style.color);
+        this._textHandler.AddTextElem(titleTextDiv, header, this._CenterXAbout(titleWidth, (this._chartWidth / 2) + 5),
+            60);
+        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+            fontFamily: roboto400,
+            fontSize: '75px',
+            textColor: 'black',
+            lineHeight: '1.0',
+        });
+        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+            fontFamily: roboto400,
+            fontSize: '75px',
+            textColor: 'black',
+            lineHeight: '1.0',
+        });
+        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+            fontFamily: roboto400,
+            fontSize: '60px',
+            textColor: 'black',
+            lineHeight: '1.0',
+        });
 
         var openSans = this._quillMap('Open Sans');
         var descTextHelper = 'Many U.S. kids are overweight or obese, and most don\'t exercise',
@@ -61,13 +82,17 @@ class ObesityTemplateOne extends AInfographic
             descFontFamily = '"Open Sans", sans-serif',
             descWidth = this._GetTextWidth(descTextHelper, descFontSize, descFontFamily);
         var descTextDiv = document.createElement('div');
-        var descText = '<p style="font-family: Open Sans, sans-serif; font-size: 15px">' + 
-            'Many U.S. kids are overweight or obese and most don\'t exercise</p>';
+        var descText = '<p><span style="font-family: Open Sans, sans-serif; font-size: 15px">' + 
+            'Many U.S. kids are overweight or obese and most don\'t exercise</span></p>';
         descTextDiv.innerHTML = descText;
-        this._textHandler.AddTextElem(descTextDiv, header, this._CenterXAbout(descWidth, (this._chartWidth / 2) - 10),
+        this._textHandler.AddTextElem(descTextDiv, header, this._CenterXAbout(descWidth, (this._chartWidth / 2)),
             275);
-        this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
-            openSans, '15px', 'black');
+        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+            fontFamily: openSans,
+            fontSize: '15px',
+            textColor: 'black',
+            lineHeight: '1.0',
+        });
 
         // CONTENT
         var content = new Konva.Group({
@@ -136,12 +161,30 @@ class ObesityTemplateOne extends AInfographic
 
         var sectionOneTextDiv = document.createElement('div');
         sectionOneTextDiv.style.color = '#9a2418';
-        var sectionOneText = '<p style="font-family: Open Sans, sans-serif; font-size: 18.5px; font-weight: bold">' + 
-            'children and teens age<br>2 to 19 are considered<br>overweight or obese</p>';
+        var sectionOneText = '' +
+            '<p style="margin: 0px;"><span style="font-family: Open Sans, sans-serif; font-size: 18.5px; font-weight: bold; line-height: 1.5;">children and teens age</span></p>' +
+            '<p style="margin: 0px;"><span style="font-family: Open Sans, sans-serif; font-size: 18.5px; font-weight: bold; line-height: 1.5;">2 to 19 are considered</span></p>' +
+            '<p style="margin: 0px;"><span style="font-family: Open Sans, sans-serif; font-size: 18.5px; font-weight: bold; line-height: 1.5;">overweight or obese</span></p>';
         sectionOneTextDiv.innerHTML = sectionOneText;
         this._textHandler.AddTextElem(sectionOneTextDiv, textGroupArr[0], 0, this._GetTextWidth('M', 50, titleFont) + 5);
-        this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
-            openSans, '18.5px', sectionOneTextDiv.style.color);
+        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+            fontFamily: openSans,
+            fontSize: '18.5px',
+            textColor: sectionOneTextDiv.style.color,
+            lineHeight: '1.5',
+        });
+        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+            fontFamily: openSans,
+            fontSize: '18.5px',
+            textColor: sectionOneTextDiv.style.color,
+            lineHeight: '1.5',
+        });
+        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+            fontFamily: openSans,
+            fontSize: '18.5px',
+            textColor: sectionOneTextDiv.style.color,
+            lineHeight: '1.5',
+        });
 
         // Section 2 Content
         var RUNNER = '\uf70c';
@@ -175,12 +218,23 @@ class ObesityTemplateOne extends AInfographic
         
         var sectionTwoTextDiv = document.createElement('div');
         sectionTwoTextDiv.style.color = '#11578a';
-        var sectionTwoText = '<p style="font-family: Open Sans, sans-serif; font-size: 18.5px; font-weight: bold;">' + 
-            'don\'t get any daily<br>physical activity</p>';
+        var sectionTwoText = '' +
+            '<p style="margin: 0px;"><span style="font-family: Open Sans, sans-serif; font-size: 18.5px; font-weight: bold; line-height: 1.5;">don\'t get any daily</span></p>' + 
+            '<p style="margin: 0px;"><span style="font-family: Open Sans, sans-serif; font-size: 18.5px; font-weight: bold; line-height: 1.5;">physical activity</span></p>';
         sectionTwoTextDiv.innerHTML = sectionTwoText;
         this._textHandler.AddTextElem(sectionTwoTextDiv, textGroupArr[1], 0, this._GetTextWidth('M', 50, titleFont) + 5);
-        this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
-            openSans, '18.5px', sectionTwoTextDiv.style.color);
+        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+            fontFamily: openSans,
+            fontSize: '18.5px',
+            textColor: sectionTwoTextDiv.style.color,
+            lineHeight: '1.5',
+        });
+        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+            fontFamily: openSans,
+            fontSize: '18.5px',
+            textColor: sectionTwoTextDiv.style.color,
+            lineHeight: '1.5',
+        });
 
         // Section 3 content
         var pieChartData = [];
@@ -222,10 +276,30 @@ class ObesityTemplateOne extends AInfographic
         sectionThreeTextDiv.style.color = '#7b706a';
         var sectionThreeText = '<p style="font-family: Open Sans, sans-serif; font-size: 18.5px; font-weight: bold">' + 
             'of elementary schools <br>offer no physical<br>education classes</p>';
+        var sectionThreeText = '' + 
+            '<p style="margin: 0px;"><span style="font-family: Open Sans, sans-serif; font-size: 18.5px; font-weight: bold; line-height: 1.5;">of elementary schools</span></p>' +
+            '<p style="margin: 0px;"><span style="font-family: Open Sans, sans-serif; font-size: 18.5px; font-weight: bold; line-height: 1.5;">offer no physical</span></p>' + 
+            '<p style="margin: 0px;"><span style="font-family: Open Sans, sans-serif; font-size: 18.5px; font-weight: bold; line-height: 1.5;">education classes</span></p>';
         sectionThreeTextDiv.innerHTML = sectionThreeText;
         this._textHandler.AddTextElem(sectionThreeTextDiv, textGroupArr[2], 0, this._GetTextWidth('M', 50, titleFont) + 5);
-        this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
-            openSans, '18.5px', sectionThreeTextDiv.style.color);
+        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+            fontFamily: openSans,
+            fontSize: '18.5px',
+            textColor: sectionThreeTextDiv.style.color,
+            lineHeight: '1.5',
+        });
+        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+            fontFamily: openSans,
+            fontSize: '18.5px',
+            textColor: sectionThreeTextDiv.style.color,
+            lineHeight: '1.5',
+        });
+        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+            fontFamily: openSans,
+            fontSize: '18.5px',
+            textColor: sectionThreeTextDiv.style.color,
+            lineHeight: '1.5',
+        });
 
         // Section 4 content
         var TV = '\uf26c';
@@ -254,10 +328,30 @@ class ObesityTemplateOne extends AInfographic
         sectionFourTextDiv.style.color = '#5f9400';
         var sectionFourText = '<p style="font-family: Open Sans, sans-serif; font-size: 16px; font-weight: bold">' + 
             'is the amount of time kids<br>spend in front of TV or<br>computer screens daily</p>';
+        var sectionFourText = '' + 
+            '<p style="margin: 0px;"><span style="font-family: Open Sans, sans-serif; font-size: 16px; font-weight: bold; line-height: 1.5;">is the amount of time kids</span></p>' +
+            '<p style="margin: 0px;"><span style="font-family: Open Sans, sans-serif; font-size: 16px; font-weight: bold; line-height: 1.5;">spend in front of TV or</span></p>' + 
+            '<p style="margin: 0px;"><span style="font-family: Open Sans, sans-serif; font-size: 16px; font-weight: bold; line-height: 1.5;">computer screens daily</span></p>';
         sectionFourTextDiv.innerHTML = sectionFourText;
         this._textHandler.AddTextElem(sectionFourTextDiv, textGroupArr[3], 0, this._GetTextWidth('M', 50, titleFont) + 5);
-        this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
-            openSans, '16px', sectionFourTextDiv.style.color);
+        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+            fontFamily: openSans,
+            fontSize: '16px',
+            textColor: sectionFourTextDiv.style.color,
+            lineHeight: '1.5',
+        });
+        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+            fontFamily: openSans,
+            fontSize: '16px',
+            textColor: sectionFourTextDiv.style.color,
+            lineHeight: '1.5',
+        });
+        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+            fontFamily: openSans,
+            fontSize: '16px',
+            textColor: sectionFourTextDiv.style.color,
+            lineHeight: '1.5',
+        });
 
         // Footer
         var footer = new Konva.Group({
@@ -270,11 +364,15 @@ class ObesityTemplateOne extends AInfographic
             sourceTextWidth = this._GetTextWidth(sourceTextHelper, 10, ribbonFontFamily);
         var sourceTextDiv = document.createElement('div');
         sourceTextDiv.style.color = 'gray';
-        var sourceText = '<p style="font-family: Montserrat, sans-serif; font-size: 10px;">Source: CDC</p>';
+        var sourceText = '<p><span style="font-family: Montserrat, sans-serif; font-size: 10px;">Source: CDC</span></p>';
         sourceTextDiv.innerHTML = sourceText;
-        this._textHandler.AddTextElem(sourceTextDiv, footer, this._CenterXAbout(sourceTextWidth, this._chartWidth / 2), 0);
-        this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
-            montserrat200, '10px', sourceTextDiv.style.color);
+        this._textHandler.AddTextElem(sourceTextDiv, footer, this._CenterXAbout(sourceTextWidth, this._chartWidth / 2), -10);
+        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+            fontFamily: montserrat200,
+            fontSize: '10px',
+            textColor: sourceTextDiv.style.color,
+            lineHeight: '1.0',
+        });
 
         this._FinalizeInfog();
     }

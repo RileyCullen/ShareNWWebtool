@@ -29,12 +29,16 @@ class ViolenceTemplateOne extends AInfographic
 
         var roboto700 = this._quillMap('Roboto', 700);
         var titleDiv = document.createElement('div');
-        var title = '<p style="font-size: 50px; font-family: Roboto, sans-serif; font-weight: 700">'
-            + 'VIRGINIA</p>';
+        var title = '<p><span style="font-size: 50px; font-family: Roboto, sans-serif; font-weight: 700">'
+            + 'VIRGINIA</span></p>';
         titleDiv.innerHTML = title;
         this._textHandler.AddTextElem(titleDiv, header, 40, 30);
-        this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
-            roboto700, '50px', 'black');
+        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+            fontFamily: roboto700,
+            fontSize: '50px',
+            textColor: 'black',
+            lineHeight: '1.0',
+        });
 
         var descBackground = new Konva.Rect({
             x: 1,
@@ -48,14 +52,24 @@ class ViolenceTemplateOne extends AInfographic
         var roboto300 = this._quillMap('Roboto', 300);
         var descFontSize = 20;
         var descDiv = document.createElement('div');
-        var desc = '<p style="font-family: Roboto, sans-serif; font-weight: 300; font-size: 20px;">'
-            + 'The impact of stigma and<br>discrimination against LGBT people</p>'; 
+        var desc = '<p style="margin: 0px;"><span style="font-family: Roboto, sans-serif; font-weight: 300; font-size: 20px; line-height: 1.2;">The impact of stigma and</span></p>'
+            + '<p style="margin: 0px;"><span style="font-family: Roboto, sans-serif; font-weight: 300; font-size: 20px; line-height: 1.2;">discrimination against LGBT people</span></p>';
         descDiv.innerHTML = desc;
         descDiv.style.color = 'white';
         this._textHandler.AddTextElem(descDiv, header, 40, descBackground.getAttr('y') 
             + descBackground.getAttr('height') / 2 - 1.5 * this._GetTextWidth('M', descFontSize, roboto));
-        this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
-            roboto300, '20px', 'white');
+        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+            fontFamily: roboto300,
+            fontSize: '20px',
+            textColor: descDiv.style.color,
+            lineHeight: '1.2',
+        });
+        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+            fontFamily: roboto300,
+            fontSize: '20px',
+            textColor: descDiv.style.color,
+            lineHeight: '1.2',
+        });
 
         var yellowStrip = new Konva.Rect({
             x: 1,
@@ -91,13 +105,29 @@ class ViolenceTemplateOne extends AInfographic
 
         var roboto400 = this._quillMap('Roboto', 400);
         var introDiv = document.createElement('div');
-        var intro = '<p style="font-family: Roboto, sans-serif; font-size: 22px; font-weight: 400;">This state is home to'
+        var intro = '<p><span style="font-family: Roboto, sans-serif; font-size: 22px; font-weight: 400;">This state is home to</span>'
             + '<span style="font-family: Roboto, sans-serif; font-size: 33px; font-weight: 900; color: orange;"> 257,000 </span>'
-            + 'LGBT adults</p>';
+            + '<span style="font-family: Roboto, sans-serif; font-size: 22px; font-weight: 400;">LGBT adults</span></p>';
         introDiv.innerHTML = intro;
         this._textHandler.AddTextElem(introDiv, introHelper, 25, introY - 1.5 * this._GetTextWidth('M', introFontSize, roboto));
-        this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
-            roboto400, '22px', 'black');
+        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+            fontFamily: roboto400,
+            fontSize: '22px',
+            textColor: 'black',
+            lineHeight: '1.0',
+        });
+        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+            fontFamily: this._quillMap('Roboto', 900),
+            fontSize: '33px',
+            textColor: 'orange',
+            lineHeight: '1.0',
+        });
+        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+            fontFamily: roboto400,
+            fontSize: '22px',
+            textColor: 'black',
+            lineHeight: '1.0',
+        });
 
         var sectionOne = new Konva.Group({
             x: 1,
@@ -248,13 +278,24 @@ class ViolenceTemplateOne extends AInfographic
         sectionOne.add(pieChartOneHelper);
 
         var pieChartOneTextDiv = document.createElement('div');
-        var pieChartOneText = '<p style="font-family: Roboto, sans-serif; font-size: 15px; font-weight: 400; text-align: center;">'
-            +'are raising<br>children</p>';
+        var pieChartOneText = '<p style="margin: 0px; text-align: center;"><span style="font-family: Roboto, sans-serif; font-size: 15px; font-weight: 400; line-height: 1.2;">'
+            + 'are raising</span></p>'
+            + '<p style="margin: 0px; text-align: center;"><span style="font-family: Roboto, sans-serif; font-size: 15px; font-weight: 400; line-height: 1.2;">children</span></p>';
         pieChartOneTextDiv.innerHTML = pieChartOneText;
         this._textHandler.AddTextElem(pieChartOneTextDiv, pieChartOneHelper, 
             -1 * this._GetTextWidth('are raising', 15, roboto) / 2, pieChartOneRadius + this._GetTextWidth('M', 15, roboto));
-        this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
-            roboto400, '15px', 'black');
+        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+            fontFamily: roboto400,
+            fontSize: '15px',
+            textColor: 'black',
+            lineHeight: '1.2',
+        });
+        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+            fontFamily: roboto400,
+            fontSize: '15px',
+            textColor: 'black',
+            lineHeight: '1.2',
+        }); 
 
         /* BAR CHART ONE CODE */
         var barChartOneData = [], barChartOneGroup = new Konva.Group({
@@ -265,12 +306,16 @@ class ViolenceTemplateOne extends AInfographic
 
         var bcOneFontSize = 15;
         var barOneTitleDiv = document.createElement('div');
-        var barOneTitle = '<p style="font-family: Roboto, sans-serif; font-size: 15px; font-weight: 400;">' 
-            + 'LGBT Age Distribution</p>';
+        var barOneTitle = '<p><span style="font-family: Roboto, sans-serif; font-size: 15px; font-weight: 400;">' 
+            + 'LGBT Age Distribution</span></p>';
         barOneTitleDiv.innerHTML = barOneTitle;
-        this._textHandler.AddTextElem(barOneTitleDiv, sectionOne, pieChartOneGroup.getAttr('x') + 135, (0 + 2 * this._GetTextWidth('M', bcOneFontSize, roboto)));
-        this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
-            roboto400, '22px', 'black');
+        this._textHandler.AddTextElem(barOneTitleDiv, sectionOne, pieChartOneGroup.getAttr('x') + 135, (-10 + 2 * this._GetTextWidth('M', bcOneFontSize, roboto)));
+        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+            fontFamily: roboto400,
+            fontSize: '15px',
+            textColor: 'black',
+            lineHeight: '1.0',
+        });
 
         barChartOneData[0] = {
             'category': '18-24',
@@ -324,15 +369,36 @@ class ViolenceTemplateOne extends AInfographic
 
         var toolTipDiv = document.createElement('div');
         toolTipDiv.style.color = 'white';
-        var toolTipText = '<p style="font-family: Roboto, sans-serif; font-size: 17px; font-weight: 300; margin-bottom: -5px;">81% of Virginia Residents</p>'
-            + '<p style="font-family: Roboto, sans-serif; font-size: 17px; font-weight: 300; margin-bottom: -5px;">think that LGBT people</p>'
-            + '<p style="font-family: Roboto, sans-serif; font-size: 17px; font-weight: 300; margin-bottom: -5px;">experience discrimination</p>'
-            + '<p style="font-family: Roboto, sans-serif; font-size: 17px; font-weight: 300; margin-bottomL -5px;">in the state.</p>';
+        var toolTipText = '<p style="margin:0px;"><span style="font-family: Roboto, sans-serif; font-size: 17px; font-weight: 300; line-height: 1.75;">81% of Virginia Residents</span></p>'
+            + '<p style="margin: 0px;"><span style="font-family: Roboto, sans-serif; font-size: 17px; font-weight: 300; line-height: 1.75;">think that LGBT people</span></p>'
+            + '<p style="margin: 0px;"><span style="font-family: Roboto, sans-serif; font-size: 17px; font-weight: 300; line-height: 1.75;">experience discrimination</span></p>'
+            + '<p style="margin: 0px;"><span style="font-family: Roboto, sans-serif; font-size: 17px; font-weight: 300; line-height: 1.75;">in the state.</span></p>';
         toolTipDiv.innerHTML = toolTipText;
-        this._textHandler.AddTextElem(toolTipDiv, sectionOne, 315, 367);
-        this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
-            roboto300, '17px', 'white');
-
+        this._textHandler.AddTextElem(toolTipDiv, sectionOne, 315, 365);
+        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+            fontFamily: roboto300,
+            fontSize: '17px',
+            textColor: 'white',
+            lineHeight: '2.0',
+        });
+        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+            fontFamily: roboto300,
+            fontSize: '17px',
+            textColor: 'white',
+            lineHeight: '2.0',
+        });
+        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+            fontFamily: roboto300,
+            fontSize: '17px',
+            textColor: 'white',
+            lineHeight: '2.0',
+        });
+        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+            fontFamily: roboto300,
+            fontSize: '17px',
+            textColor: 'white',
+            lineHeight: '2.0',
+        });
 
         /* WAFFLE CHART CODE */
         var PERSON = '\uf007', ICON_FONT = '"Font Awesome 5 Free"';
@@ -379,19 +445,49 @@ class ViolenceTemplateOne extends AInfographic
         var waffleDesc = '<p style="font-family: Roboto, sans-serif; font-size: 13px; font-weight: 400;">'
             + 'of LGBT Virginia students surveyed<br>said they had experienced verbal'
             + '<br>harassment based on their sexual<br>orientation at school.</p>';
+        var waffleDesc = '<p style="margin: 0px;"><span style="font-family: Roboto, sans-serif; font-size: 13px; font-weight: 400; line-height: 1.0;">of LGBT Virginia students surveyed</span></p>'
+            + '<p style="margin: 0px;"><span style="font-family: Roboto, sans-serif; font-size: 13px; font-weight: 400; line-height: 1.0;">said they had experienced verbal</span></p>'
+            + '<p style="margin: 0px;"><span style="font-family: Roboto, sans-serif; font-size: 13px; font-weight: 400; line-height: 1.0;">harassment based on their sexual</span></p>'
+            + '<p style="margin: 0px;"><span style="font-family: Roboto, sans-serif; font-size: 13px; font-weight: 400; line-height: 1.0;">orientation at school.</span></p>'
         waffleDescDiv.innerHTML = waffleDesc;
         this._textHandler.AddTextElem(waffleDescDiv, waffleChartGroup, 400, 100);
-        this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
-            roboto400, '13px', 'black');
+        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+            fontFamily: roboto400,
+            fontSize: '13px',
+            textColor: 'black',
+            lineHeight: '1.0',
+        });
+        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+            fontFamily: roboto400,
+            fontSize: '13px',
+            textColor: 'black',
+            lineHeight: '1.0',
+        });
+        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+            fontFamily: roboto400,
+            fontSize: '13px',
+            textColor: 'black',
+            lineHeight: '1.0',
+        });
+        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+            fontFamily: roboto400,
+            fontSize: '13px',
+            textColor: 'black',
+            lineHeight: '1.0',
+        });
 
 
         var citationOneDiv = document.createElement('div');
-        var citationOne = '<p style="font-family: Roboto, sans-serif; font-size: 9px; font-weight: 300;">'
-            + '2017 GLSEN National Scholl Climate Survey</p>';
+        var citationOne = '<p><span style="font-family: Roboto, sans-serif; font-size: 9px; font-weight: 300;">'
+            + '2017 GLSEN National Scholl Climate Survey</span></p>';
         citationOneDiv.innerHTML = citationOne;
-        this._textHandler.AddTextElem(citationOneDiv, waffleChartGroup, 400, 170);
-        this._textHandler.SetTextInfo(this._textHandler.GetCurrID(), 
-            roboto300, '9px', 'black');
+        this._textHandler.AddTextElem(citationOneDiv, waffleChartGroup, 400, 180);
+        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+            fontFamily: roboto300,
+            fontSize: '9px',
+            textColor: 'black',
+            lineHeight: '1.0',
+        });
 
 
         this._FinalizeInfog();
