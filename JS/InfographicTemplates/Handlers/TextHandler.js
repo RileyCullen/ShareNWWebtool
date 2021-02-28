@@ -47,7 +47,8 @@ class TextHandler
                 'color': 'black',
                 'initialSize': '10px',
                 'initialFont': '900-museo',
-            }
+            },
+            'spanCSS': []
         };
         textElem.id = this._curr;
         textElem.className = 'EditableText';
@@ -62,6 +63,26 @@ class TextHandler
         this._handler[id].textInfo.initialFont = font;
         this._handler[id].textInfo.initialSize = size;
         this._handler[id].textInfo.color = color;
+    }
+
+    /**
+     * @summary     Associates CSS attributes with the <span> elements in textElem.
+     * @description Stores the CSS attributes associated with the <span> elements
+     *              in textElem so that the QuillEditor can properly output the
+     *              text in the text editor. 
+     * 
+     * @param {Integer} id  The id of the handler element we want to access. 
+     * @param {JSON} param1 A JSON object that holds the necessary CSS attributes.
+     */
+    SetCSSInfo(id, {fontFamily = '900-museo', fontSize = '10px', 
+        textColor = 'black', lineHeight = '1.0'})
+    {
+        this._handler[id].spanCSS.push({
+            fontFamily: fontFamily,
+            fontSize: fontSize,
+            textColor: textColor,
+            lineHeight: lineHeight
+        });
     }
 
     /**
