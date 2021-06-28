@@ -1,0 +1,29 @@
+/*
+    Sources:
+    1. Color related CSS taken from https://stackoverflow.com/questions/42068335/quill-js-color-textbox
+*/
+
+.ql-editor {
+    font-family: 'museo', serif;
+    font-size: 10px;
+    font-weight: 900;
+}
+
+.ql-picker-options 
+{
+    overflow: scroll;
+    height: 100px;
+}
+
+.ql-color .ql-picker-options [data-value=custom-color] {
+    background: none !important;
+    width: 100% !important;
+    height: 20px !important;
+    text-align: center;
+}
+.ql-color .ql-picker-options [data-value=custom-color]:before {
+    content: 'Custom Color';
+}
+.ql-color .ql-picker-options [data-value=custom-color]:hover {
+    border-color: transparent !important;
+}

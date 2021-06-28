@@ -1,0 +1,218 @@
+/**
+*   source: https://stackoverflow.com/questions/43728080/how-to-add-font-types-on-quill-js-with-toolbar-options
+*/
+
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value='']::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value='']::before
+{
+  content: 'Default';
+  overflow: hidden;
+}
+
+/* Setting up Museo font*/
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value='900-museo']::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value='900-museo']::before
+{
+  content: '900 museo';
+  font-family: 'museo', serif;
+  font-weight: 900;
+}
+
+/* Setting up canada-type-gibson font */
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value='100-canada']::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value='100-canada']::before
+{
+  content: '100 Canada';
+  font-family: 'canada-type-gibson', sans-serif;
+  font-weight: 100;
+}
+
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value='200-canada']::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value='200-canada']::before
+{
+  content: '200 Canada';
+  font-family: 'canada-type-gibson', sans-serif;
+  font-weight: 200;
+}
+
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value='400-canada']::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value='400-canada']::before
+{
+  content: '400 Canada';
+  font-family: 'canada-type-gibson', sans-serif;
+  font-weight: 400;
+}
+
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value='500-canada']::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value='500-canada']::before
+{
+  content: '500 Canada';
+  font-family: 'canada-type-gibson', sans-serif;
+  font-weight: 500;
+}
+
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value='600-canada']::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value='600-canada']::before
+{
+  content: '600 Canada';
+  font-family: 'canada-type-gibson', sans-serif;
+  font-weight: 600;
+}
+
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value='700-canada']::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value='700-canada']::before
+{
+  content: '700 Canada';
+  font-family: 'canada-type-gibson', sans-serif;
+  font-weight: 700;
+}
+
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value='900-canada']::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value='900-canada']::before
+{
+  content: '900 Canada';
+  font-family: 'canada-type-gibson', sans-serif;
+  font-weight: 900;
+}
+
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value='200-Montserrat']::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value='200-Montserrat']::before
+{
+  content: 'Montserrat';
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 200;
+}
+
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value='Open-Sans']::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value='Open-Sans']::before
+{
+  content: 'Open Sans';
+  font-family: 'Open Sans', sans-serif;
+}
+
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value='100-Roboto']::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value='100-Roboto']::before
+{
+  content: '100 Roboto';
+  font-family: 'Roboto', sans-serif;
+  font-weight: 100;
+}
+
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value='300-Roboto']::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value='300-Roboto']::before
+{
+  content: '300 Roboto';
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+}
+
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value='400-Roboto']::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value='400-Roboto']::before
+{
+  content: '400 Roboto';
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+}
+
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value='500-Roboto']::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value='500-Roboto']::before
+{
+  content: '500 Roboto';
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+}
+
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value='700-Roboto']::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value='700-Roboto']::before
+{
+  content: '700 Roboto';
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+}
+
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value='900-Roboto']::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value='900-Roboto']::before
+{
+  content: '900 Roboto';
+  font-family: 'Roboto', sans-serif;
+  font-weight: 900;
+}
+
+.ql-font-900-museo {
+  font-family: 'museo', serif;
+  font-weight: 900;
+}
+
+.ql-font-100-canada {
+  font-family: 'canada-type-gibson', sans-serif;
+  font-weight: 100;
+}
+
+.ql-font-200-canada {
+  font-family: 'canada-type-gibson', sans-serif;
+  font-weight: 200;
+}
+
+.ql-font-400-canada {
+  font-family: 'canada-type-gibson', sans-serif;
+  font-weight: 400;
+}
+
+.ql-font-500-canada {
+  font-family: 'canada-type-gibson', sans-serif;
+  font-weight: 500;
+}
+
+.ql-font-600-canada {
+  font-family: 'canada-type-gibson', sans-serif;
+  font-weight: 600;
+}
+
+.ql-font-700-canada {
+  font-family: 'canada-type-gibson', sans-serif;
+  font-weight: 700;
+}
+
+.ql-font-900-canada {
+  font-family: 'canada-type-gibson', sans-serif;
+  font-weight: 900;
+}
+
+.ql-font-200-Montserrat {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 200;
+}
+
+.ql-font-Open-Sans {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.ql-font-100-Roboto {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 100;
+}
+
+.ql-font-300-Roboto {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+}
+
+.ql-font-400-Roboto {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+}
+
+.ql-font-500-Roboto {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+}
+
+.ql-font-700-Roboto {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+}
+
+.ql-font-900-Roboto {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 900;
+}

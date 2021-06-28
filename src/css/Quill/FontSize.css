@@ -1,0 +1,119 @@
+/*
+    Sources:
+    1. CSS adapted from https://stackoverflow.com/questions/38623716/how-to-add-custom-font-sizes-to-quilljs-editor
+*/
+
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value="10px"]::before, 
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="10px"]::before {
+    content: '10px';
+    font-size: 10px !important;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value="11px"]::before, 
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="11px"]::before {
+    content: '11px';
+    font-size: 11px !important;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value="12px"]::before, 
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="12px"]::before {
+    content: '12px';
+    font-size: 12px !important;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value="13px"]::before, 
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="13px"]::before {
+    content: '13px';
+    font-size: 13px !important;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value="14px"]::before, 
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="14px"]::before {
+    content: '14px';
+    font-size: 14px !important;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value="15px"]::before, 
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="15px"]::before {
+    content: '15px';
+    font-size: 15px !important;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value="16px"]::before, 
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="16px"]::before {
+    content: '16px';
+    font-size: 16px !important;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value="17px"]::before, 
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="17px"]::before {
+    content: '17px';
+    font-size: 17px !important;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value="18px"]::before, 
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="18px"]::before {
+    content: '18px';
+    font-size: 18px !important;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value="19px"]::before, 
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="19px"]::before {
+    content: '19px';
+    font-size: 19px !important;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value="20px"]::before, 
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="20px"]::before {
+    content: '20px';
+    font-size: 20px !important;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value="custom-size"]::before, 
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="custom-size"]::before {
+    content: attr(data-value);
+}
+
+/*.ql-size-10 {
+    font-size: 10px;
+}
+
+.ql-size-11 {
+    font-size: 11px;
+}
+
+.ql-size-12 {
+    font-size: 12px;
+}
+
+.ql-size-13 {
+    font-size: 13px;
+}
+
+.ql-size-14 {
+    font-size: 14px;
+}
+
+.ql-size-15 {
+    font-size: 15px;
+}
+
+.ql-size-16 {
+    font-size: 16px;
+}
+
+.ql-size-17 {
+    font-size: 17px;
+}
+
+.ql-size-18 {
+    font-size: 18px;
+}
+
+.ql-size-19 {
+    font-size: 19px;
+}
+
+.ql-size-20 {
+    font-size: 20px;
+}*/

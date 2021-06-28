@@ -1,0 +1,14 @@
+.ql-snow .ql-picker.ql-lineheight{
+    width: 58px;
+ }
+
+.ql-snow .ql-picker.ql-lineheight .ql-picker-item[data-value='1.0']::before {content: '1.0';}
+.ql-snow .ql-picker.ql-lineheight .ql-picker-label[data-value='1.0']::before {content: '1.0' !important;}
+.ql-snow .ql-picker.ql-lineheight .ql-picker-item[data-value='1.2']::before {content: '1.2';}
+.ql-snow .ql-picker.ql-lineheight .ql-picker-label[data-value='1.2']::before {content: '1.2' !important;}
+.ql-snow .ql-picker.ql-lineheight .ql-picker-item[data-value='1.5']::before {content: '1.5';}
+.ql-snow .ql-picker.ql-lineheight .ql-picker-label[data-value='1.5']::before {content: '1.5' !important;}
+.ql-snow .ql-picker.ql-lineheight .ql-picker-item[data-value='1.75']::before {content: '1.75';}
+.ql-snow .ql-picker.ql-lineheight .ql-picker-label[data-value='1.75']::before {content: '1.75' !important;}
+.ql-snow .ql-picker.ql-lineheight .ql-picker-item[data-value='2.0']::before {content: '2.0';}
+.ql-snow .ql-picker.ql-lineheight .ql-picker-label[data-value='2.0']::before {content: '2.0' !important;}
