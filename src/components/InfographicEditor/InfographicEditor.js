@@ -13,7 +13,7 @@ class InfographicEditor extends React.Component
     render()
     {
         return (
-            <CanvasContainer />
+            <CanvasContainer infographic={this.props.currentInfographic}/>
         );
     }
 }
