@@ -4,7 +4,7 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {InfographicEditor} from './Components/InfographicEditor/InfographicEditor';
+import {InfographicEditor} from './components/InfographicEditor/InfographicEditor';
 
 /**
  * The "head" react class for our application. 
