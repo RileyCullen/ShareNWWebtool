@@ -67,7 +67,7 @@ class LineDataValueDecorator extends ALineChartDecorator
                     xPos -= (textWidth / 2) + this._pointRadius;
                     break;
                 case 'right':
-                    xpos += (textWidth / 2) + this._pointRadius;
+                    xPos += (textWidth / 2) + this._pointRadius;
                     break;
             }
 
