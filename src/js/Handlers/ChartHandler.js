@@ -85,3 +85,5 @@ class ChartHandler
 
     GetHandlerElem(id) { return this._handler[id]; }
 }
+
+export { ChartHandler }; 

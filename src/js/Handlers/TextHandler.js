@@ -2,6 +2,8 @@
 // TextHandler.js
 // December 3, 2020
 
+import Konva from 'konva';
+
 class TextHandler
 {
     /**
@@ -110,3 +112,5 @@ class TextHandler
 
     GetHandlerElem(id) { return this._handler[id]; }
 }
+
+export { TextHandler };
