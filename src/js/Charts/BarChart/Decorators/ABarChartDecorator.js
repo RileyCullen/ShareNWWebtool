@@ -2,6 +2,8 @@
 // ABarChartDecorator.js
 // October 7, 2020
 
+import { ABarChart } from '../ConcreteCharts/ABarChart';
+
 class ABarChartDecorator extends ABarChart
 {
     /**
@@ -115,3 +117,5 @@ class ABarChartDecorator extends ABarChart
         return this._GetTextHeight(icon, font);
     }
 }
+
+export { ABarChartDecorator };

@@ -2,6 +2,10 @@
 // IconBarChart.js
 // Lasted Updated: May 31, 2021
 
+import { ABarChart } from './ABarChart';
+import * as d3 from 'd3';
+import Konva from 'konva';
+
 class IconBarChart extends ABarChart
 {
     /**
@@ -213,3 +217,5 @@ class IconBarChart extends ABarChart
         this._group.add(helper);
     }
 }
+
+export { IconBarChart };

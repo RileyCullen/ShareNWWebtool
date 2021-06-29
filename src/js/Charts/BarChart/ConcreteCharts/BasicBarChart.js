@@ -2,6 +2,10 @@
 // BasicBarChart.js
 // October 6, 2020
 
+import { ABarChart } from './ABarChart';
+import * as d3 from 'd3';
+import Konva from 'konva';
+
 class BasicBarChart extends ABarChart 
 {
      /**
@@ -87,14 +91,25 @@ class BasicBarChart extends ABarChart
         elements.each(function(d,i) {
             var node = d3.select(this);
             helper.add(new Konva.Rect({
-                x: node.attr('x'),
-                y: node.attr('y'),
-                width: node.attr('width'),
-                height: node.attr('height'),
+                x: parseFloat(node.attr('x')),
+                y: parseFloat(node.attr('y')),
+                width: parseFloat(node.attr('width')),
+                height: parseFloat(node.attr('height')),
                 fill: hidden ? node.attr('fillStyleHidden') : node.attr('fillStyle')
             }));
         });
+        helper.add(new Konva.Rect({
+            x: 0, 
+            y: 0,
+            width: 10,
+            height: 10,
+            fill: 'black'
+        }))
         helper.rotate(this._rotateBy);
         this._group.add(helper);
+        console.log('group');
+        console.log(this._group);
     }
 }
+
+export { BasicBarChart };

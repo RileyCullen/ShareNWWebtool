@@ -2,6 +2,9 @@
 // CategoryLabelDecorator.js
 // November 2, 2020
 
+import { ABarChartDecorator } from "./ABarChartDecorator";
+import Konva from 'konva';
+
 class CategoryLabelDecorator extends ABarChartDecorator
 {
     /**
@@ -192,3 +195,5 @@ class CategoryLabelDecorator extends ABarChartDecorator
         return barHeight;
     }
 }
+
+export { CategoryLabelDecorator };

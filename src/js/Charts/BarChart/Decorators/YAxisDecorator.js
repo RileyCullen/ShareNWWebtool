@@ -2,6 +2,9 @@
 // YAxisDecorator.js
 // October 8, 2020
 
+import { ABarChartDecorator } from "./ABarChartDecorator";
+import Konva from 'konva';
+
 class YAxisDecorator extends ABarChartDecorator
 {
     /**
@@ -111,3 +114,5 @@ class YAxisDecorator extends ABarChartDecorator
         helper.rotate(this._rotateBy);
     }
 }
+
+export { YAxisDecorator };

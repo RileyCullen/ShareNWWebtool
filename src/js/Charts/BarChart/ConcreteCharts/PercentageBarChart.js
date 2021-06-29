@@ -2,6 +2,9 @@
 // November 24, 2020
 // PercentageBarChart.js
 
+import { ABarChart } from './ABarChart';
+import { StackedBarChart } from './StackedBarChart';
+
 class PercentageBarChart extends ABarChart
 {
     /**
@@ -74,3 +77,5 @@ class PercentageBarChart extends ABarChart
         this._yScale = this._basicBar._yScale;
     }
 }
+
+export { PercentageBarChart };

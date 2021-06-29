@@ -2,6 +2,9 @@
 // XAxisDecorator.js
 // October 10, 2020
 
+import { ABarChartDecorator } from "./ABarChartDecorator";
+import Konva from 'konva';
+
 class XAxisDecorator extends ABarChartDecorator
 {
     /**
@@ -110,3 +113,5 @@ class XAxisDecorator extends ABarChartDecorator
         helper.rotate(this._rotateBy);
     }
 }
+
+export { XAxisDecorator };

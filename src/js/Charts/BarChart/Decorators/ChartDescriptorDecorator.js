@@ -2,6 +2,9 @@
 // ChartDescriptorDecorator.js
 // October 14, 2020
 
+import { ABarChartDecorator } from "./ABarChartDecorator";
+import Konva from 'konva';
+
 class ChartDescriptorDecorator extends ABarChartDecorator
 {
     /**
@@ -174,3 +177,5 @@ class ChartDescriptorDecorator extends ABarChartDecorator
         this._font.fontSize--;
     }
 }
+
+export { ChartDescriptorDecorator };

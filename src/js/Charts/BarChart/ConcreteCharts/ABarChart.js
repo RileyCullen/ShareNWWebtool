@@ -2,6 +2,8 @@
 // ABarChart.js
 // October 6, 2020
 
+import * as d3 from 'd3';
+
 class ABarChart 
 {
     /**
@@ -46,7 +48,7 @@ class ABarChart
         this._chartWidth = width;
         this._chartHeight = height;
         this._padding = padding;
-        this._rotateBy = (rotateBy == 90 || rotateBy == 0) ? rotateBy : 0;
+        this._rotateBy = (rotateBy === 90 || rotateBy === 0) ? rotateBy : 0;
         this._xScale = d3.scaleBand()
             .range([0, this._chartWidth])
             .padding(this._padding);
@@ -169,7 +171,7 @@ class ABarChart
     {
         var index = 0;
         for (var i = 1; i < this._data.length; i++) {
-            if (this._data[i].value > this._data[i].value) index = i;
+            if (this._data[index].value > this._data[i].value) index = i;
         }
         return this._data[index].category;
     }
@@ -204,3 +206,5 @@ class ABarChart
         return tmp;
     }
 }
+
+export { ABarChart };

@@ -2,6 +2,9 @@
 // NumericLabelDecorator.js
 // October 10, 2020
 
+import { ABarChartDecorator } from "./ABarChartDecorator";
+import Konva from 'konva';
+
 class DataValueDecorator extends ABarChartDecorator 
 {
     /**
@@ -201,3 +204,5 @@ class DataValueDecorator extends ABarChartDecorator
         });
     }
 }
+
+export { DataValueDecorator };

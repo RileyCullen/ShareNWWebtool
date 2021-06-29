@@ -2,6 +2,9 @@
 // RemainderDecorator.js
 // October 10, 2020
 
+import { ABarChartDecorator } from "./ABarChartDecorator";
+import Konva from 'konva';
+
 class RemainderDecorator extends ABarChartDecorator 
 {
     /**
@@ -59,3 +62,5 @@ class RemainderDecorator extends ABarChartDecorator
         helper.rotate(this._rotateBy);
     }
 }
+
+export { RemainderDecorator };

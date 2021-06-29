@@ -2,6 +2,10 @@
 // StackedBarChart.js
 // October 27, 2020
 
+import { ABarChart } from './ABarChart';
+import * as d3 from 'd3';
+import Konva from 'konva';
+
 class StackedBarChart extends ABarChart
 {
     /**
@@ -82,3 +86,5 @@ class StackedBarChart extends ABarChart
         this._group.add(helper);
     }
 }
+
+export { StackedBarChart };

@@ -2,6 +2,9 @@
 // TitleDecorator.js
 // November 25, 2020
 
+import { ABarChartDecorator } from "./ABarChartDecorator";
+import Konva from 'konva';
+
 class TitleDecorator extends ABarChartDecorator
 {
     /**
@@ -63,3 +66,5 @@ class TitleDecorator extends ABarChartDecorator
         this._group.add(textElem);
     }
 }
+
+export { TitleDecorator };
