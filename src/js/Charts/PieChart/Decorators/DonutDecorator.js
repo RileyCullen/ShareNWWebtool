@@ -2,6 +2,9 @@
 // DonutDecorator.js
 // October 18, 2020
 
+import { APieChartDecorator } from "./APieChartDecorator";
+import Konva from 'konva';
+
 class DonutDecorator extends APieChartDecorator
 {
     /**
@@ -57,3 +60,5 @@ class DonutDecorator extends APieChartDecorator
         return this._innerRadius;
     }
 }
+
+export { DonutDecorator };

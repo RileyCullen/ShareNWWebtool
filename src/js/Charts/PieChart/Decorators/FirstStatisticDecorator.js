@@ -2,6 +2,9 @@
 // FirstStatisticDecorator.js
 // December 30, 2020
 
+import { APieChartDecorator } from "./APieChartDecorator";
+import Konva from 'konva';
+
 class FirstStatisticDecorator extends APieChartDecorator 
 {
     /**
@@ -95,3 +98,5 @@ class FirstStatisticDecorator extends APieChartDecorator
         return helper;
     }
 }
+
+export { FirstStatisticDecorator };

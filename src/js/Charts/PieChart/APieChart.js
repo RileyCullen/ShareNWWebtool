@@ -2,6 +2,8 @@
 // APieChart.js
 // October 16, 2020
 
+import Konva from 'konva';
+
 class APieChart 
 {
     /**
@@ -78,3 +80,5 @@ class APieChart
      */
     GetDataArr() { return this._data; }
 }
+
+export { APieChart };

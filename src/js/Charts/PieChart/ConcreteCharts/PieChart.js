@@ -2,6 +2,10 @@
 // PieChart.js
 // October 16, 2020
 
+import Konva from 'konva';
+import * as d3 from 'd3';
+import { APieChart } from '../APieChart';
+
 class PieChart extends APieChart
 {
     /**
@@ -131,3 +135,5 @@ class PieChart extends APieChart
         }
     }
 }
+
+export { PieChart };

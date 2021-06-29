@@ -2,6 +2,9 @@
 // ChartOutlineDecorator.js
 // October 26, 2020
 
+import { APieChartDecorator } from "./APieChartDecorator";
+import Konva from 'konva';
+
 class ChartOutlineDecorator extends APieChartDecorator
 {
     /**
@@ -49,3 +52,5 @@ class ChartOutlineDecorator extends APieChartDecorator
         }));
     }
 }
+
+export { ChartOutlineDecorator };

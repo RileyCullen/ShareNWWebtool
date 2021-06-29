@@ -2,6 +2,8 @@
 // APieChartDecorator.js
 // October 18, 2020
 
+import { APieChart } from '../APieChart';
+
 class APieChartDecorator extends APieChart
 {
     /**
@@ -39,3 +41,5 @@ class APieChartDecorator extends APieChart
         this._chart = chart;
     }
 }
+
+export { APieChartDecorator };
