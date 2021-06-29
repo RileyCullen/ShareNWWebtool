@@ -1,3 +1,13 @@
+import { AInfographic } from "./AInfographic";
+import Konva from 'konva';
+import { BasicBarChart, StackedBarChart, DataValueDecorator, 
+    CategoryLabelDecorator, ChartDescriptorDecorator, XAxisDecorator } 
+    from '../Charts/BarChart/index';
+import { PieChart, DonutDecorator, FirstStatisticDecorator, ChartOutlineDecorator } 
+    from '../Charts/PieChart/index';
+import { MessageBubble } from '../ToolTips/index';
+import { WaffleChart, GenerateWafflePreset } from '../Charts/WaffleChart/index';
+
 class ViolenceTemplateOne extends AInfographic
 {
     constructor()
@@ -515,3 +525,5 @@ class ViolenceTemplateOne extends AInfographic
         this._main.draw();
     }
 }
+
+export { ViolenceTemplateOne };

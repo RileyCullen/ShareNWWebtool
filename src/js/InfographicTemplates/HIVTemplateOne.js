@@ -3,6 +3,7 @@ import Konva from "konva";
 import { PercentageBarChart, RemainderDecorator, DataValueDecorator } from '../Charts/BarChart/index';
 import { ArrowHeader } from '../Headers/ArrowHeader';
 import { WaffleChart, GenerateWafflePreset} from '../Charts/WaffleChart/index';
+import CDCLogo from '../../Media/cdclogo.png';
 
 class HIVTemplateOne extends AInfographic
 {
@@ -322,7 +323,7 @@ class HIVTemplateOne extends AInfographic
             footer.add(logo);
             this._main.batchDraw();
         };
-        logoHelper.src = "JS/InfographicTemplates/src/cdclogo.png";
+        logoHelper.src = CDCLogo;
         footer.moveToTop();
         this._FinalizeInfog();
     }

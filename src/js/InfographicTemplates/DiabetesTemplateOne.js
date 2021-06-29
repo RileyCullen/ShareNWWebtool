@@ -1,3 +1,12 @@
+import { AInfographic } from './AInfographic';
+import { RibbonHeader } from '../Headers/index';
+import { LineChart, LineXAxisDecorator, LineYAxisDecorator, LineDataValueDecorator } from '../Charts/LineChart/index';
+import { IconBarChart, CategoryLabelDecorator, DataValueDecorator } from '../Charts/BarChart';
+import California from '../../Media/States/california.svg';
+import Florida from '../../Media/States/florida.svg';
+import Texas from '../../Media/States/texas.svg';
+import Konva from 'konva';
+
 class DiabetesTemplateOne extends AInfographic
 {
     constructor()
@@ -323,7 +332,7 @@ class DiabetesTemplateOne extends AInfographic
             group: barChartGroup,
             width: 200,
             height: 300,
-            padding: 50,
+            padding: 115,
             icon: icon,
             remainderColor: 'white',
             iconSize: iconSize,
@@ -427,7 +436,7 @@ class DiabetesTemplateOne extends AInfographic
         });
 
         this._DrawSVG({
-            source: 'Media/States/california.svg',
+            source: California,
             layer: sectionThree,
             width: 100,
             height: 120,
@@ -449,7 +458,7 @@ class DiabetesTemplateOne extends AInfographic
         });
 
         this._DrawSVG({
-            source: 'Media/States/florida.svg',
+            source: Florida,
             layer: sectionThree,
             width: 140,
             height: 140,
@@ -472,7 +481,7 @@ class DiabetesTemplateOne extends AInfographic
 
 
         this._DrawSVG({
-            source: 'Media/States/texas.svg',
+            source: Texas,
             layer: sectionThree,
             width: 140,
             height: 140,
@@ -494,3 +503,5 @@ class DiabetesTemplateOne extends AInfographic
         group.add(rect);
     }
 }
+
+export { DiabetesTemplateOne };

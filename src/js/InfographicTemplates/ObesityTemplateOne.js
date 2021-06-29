@@ -2,6 +2,12 @@
 // ObesityTemplateOne.js
 // October 26, 2020
 
+import { AInfographic } from "./AInfographic";
+import Konva from 'konva';
+import { RibbonHeader } from '../Headers/index';
+import { GenerateWafflePreset, WaffleChart, StatisticDecorator } from '../Charts/WaffleChart/index';
+import { PieChart, DonutDecorator, ChartOutlineDecorator,FirstStatisticDecorator } from '../Charts/PieChart/index';
+
 class ObesityTemplateOne extends AInfographic
 {
     constructor()
@@ -393,3 +399,5 @@ class ObesityTemplateOne extends AInfographic
         this._main.draw();
     }
 }
+
+export { ObesityTemplateOne };
