@@ -2,6 +2,10 @@
 // AInfographic.js
 // October 26, 2020 
 
+import Konva from 'konva';
+import html2canvas from 'html2canvas';
+import { ChartHandler, TextHandler } from '../Handlers/index';
+
 class AInfographic 
 {
     /**
@@ -44,7 +48,7 @@ class AInfographic
         this._chartHeight = height;
         this._chartWidth = width;
         this._stage = new Konva.Stage({
-            container: 'container',
+            container: 'canvas-container',
             width: this._chartWidth,
             height: this._chartHeight,
         });
@@ -59,7 +63,7 @@ class AInfographic
         this._mouseX1 = 0, this._mouseX2 = 0, this._mouseY1 = 0, this._mouseY2 = 0;*/
 
         this._main = new Konva.Layer();
-        this._UIAdder = new UIAdder(this._chartWidth, this._chartHeight);
+        // this._UIAdder = new UIAdder(this._chartWidth, this._chartHeight);
 
         this._stage.add(this._main);
 
@@ -257,7 +261,7 @@ class AInfographic
             return node.hasName('Selectable') && node.hasName('EditableText');
         });
 
-        selection.each((textElem) => {
+        selection.forEach((textElem) => {
             textElem.on('dblclick', () => {
                 textElem.setAttr('draggable', true);
 
@@ -299,7 +303,7 @@ class AInfographic
         var selection = this._stage.find((node) => {
             return node.hasName('Selectable') && node.hasName('Chart');
         });
-        selection.each((chart) => {
+        selection.forEach((chart) => {
             chart.on('dblclick', () => {
                 var index = parseInt(chart.getAttr('id'));
                 this._tr.nodes([chart]);
@@ -441,3 +445,5 @@ class AInfographic
         });
     }
 }
+
+export { AInfographic };

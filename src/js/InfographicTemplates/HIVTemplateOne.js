@@ -1,3 +1,9 @@
+import { AInfographic } from "./AInfographic";
+import Konva from "konva";
+import { PercentageBarChart, RemainderDecorator, DataValueDecorator } from '../Charts/BarChart/index';
+import { ArrowHeader } from '../Headers/ArrowHeader';
+import { WaffleChart, GenerateWafflePreset} from '../Charts/WaffleChart/index';
+
 class HIVTemplateOne extends AInfographic
 {
     constructor()
@@ -326,3 +332,5 @@ class HIVTemplateOne extends AInfographic
         this._main.draw();
     }
 }
+
+export { HIVTemplateOne };
