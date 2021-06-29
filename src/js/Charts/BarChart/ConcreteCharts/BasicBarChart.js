@@ -98,13 +98,6 @@ class BasicBarChart extends ABarChart
                 fill: hidden ? node.attr('fillStyleHidden') : node.attr('fillStyle')
             }));
         });
-        helper.add(new Konva.Rect({
-            x: 0, 
-            y: 0,
-            width: 10,
-            height: 10,
-            fill: 'black'
-        }))
         helper.rotate(this._rotateBy);
         this._group.add(helper);
         console.log('group');
