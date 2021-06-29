@@ -4,6 +4,7 @@
 
 import { ALineChartDecorator } from "./ALineChartDecorator";
 import Konva from 'konva';
+import * as d3 from 'd3';
 
 class LineXAxisDecorator extends ALineChartDecorator
 {
