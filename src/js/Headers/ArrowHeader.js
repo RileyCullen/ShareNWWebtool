@@ -2,6 +2,8 @@
 // ArrowHeader.js
 // Janurary 24, 2020
 
+import Konva from 'konva';
+
 class ArrowHeader 
 {
     /**
@@ -67,3 +69,5 @@ class ArrowHeader
         this._group.add(miniBorder);
     }
 }
+
+export { ArrowHeader };
