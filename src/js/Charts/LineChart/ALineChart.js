@@ -1,6 +1,9 @@
 // Cullen, Riley
 // ALineChart.js
 // May 8, 2021
+
+import Konva from 'konva';
+import * as d3 from 'd3';
  
 class ALineChart 
 {
@@ -116,3 +119,5 @@ class ALineChart
         this._yScale.domain([0, d3.max(this._data, function(d) { return +d.value; })]);
     }
 }
+
+export { ALineChart };

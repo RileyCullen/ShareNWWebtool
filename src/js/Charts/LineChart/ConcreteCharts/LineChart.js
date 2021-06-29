@@ -2,6 +2,10 @@
 // LineChart.js
 // May 13, 2021
 
+import { ALineChart } from '../ALineChart';
+import Konva from 'konva';
+import * as d3 from 'd3';
+
 class LineChart extends ALineChart 
 {
     /**
@@ -147,3 +151,5 @@ class LineChart extends ALineChart
         this._group.add(helper);
     }
 }
+
+export { LineChart };

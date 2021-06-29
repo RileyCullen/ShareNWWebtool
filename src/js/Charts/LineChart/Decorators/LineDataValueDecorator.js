@@ -2,6 +2,9 @@
 // LineDataValueDecorator.js
 // May 13, 2021
 
+import { ALineChartDecorator } from "./ALineChartDecorator";
+import Konva from 'konva';
+
 class LineDataValueDecorator extends ALineChartDecorator
 {
     /**
@@ -80,3 +83,5 @@ class LineDataValueDecorator extends ALineChartDecorator
         });
     }
 }
+
+export { LineDataValueDecorator };

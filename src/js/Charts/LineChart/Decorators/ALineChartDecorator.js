@@ -2,6 +2,8 @@
 // ALineChartDecorator.js
 // May 13, 2021
 
+import { ALineChart } from '../ALineChart';
+
 class ALineChartDecorator extends ALineChart 
 {
     /**
@@ -63,3 +65,5 @@ class ALineChartDecorator extends ALineChart
          return helper;
      }
 }
+
+export { ALineChartDecorator };

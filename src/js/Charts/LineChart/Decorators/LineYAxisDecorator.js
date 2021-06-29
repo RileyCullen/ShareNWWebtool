@@ -2,6 +2,9 @@
 // LineYAxisDecorator.js
 // May 13, 2021
 
+import { ALineChartDecorator } from "./ALineChartDecorator";
+import Konva from 'konva';
+
 class LineYAxisDecorator extends ALineChartDecorator
 {
     /**
@@ -138,3 +141,5 @@ class LineYAxisDecorator extends ALineChartDecorator
         return maxWidth + tickLength + 5 + this._internalOffsetX;
     }
 }
+
+export { LineYAxisDecorator };
