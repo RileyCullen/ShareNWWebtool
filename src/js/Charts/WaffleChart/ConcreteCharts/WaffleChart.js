@@ -2,6 +2,10 @@
 // December 23, 2020
 // WaffleChart.js
 
+import { AWaffleChart, GenerateIconDataArray } from "../index";
+import * as d3 from 'd3';
+import Konva from 'konva';
+
 class WaffleChart extends AWaffleChart
 {
     /**
@@ -44,7 +48,7 @@ class WaffleChart extends AWaffleChart
             var data = this._GenerateWaffleDataArr();
     
             this._BindData(custom, data);
-            this._Draw(custom, false, container)
+            this._Draw(custom, false)
         });
     }
 
@@ -180,3 +184,5 @@ class WaffleChart extends AWaffleChart
         this._group.add(tmp);
     }
 }
+
+export { WaffleChart };

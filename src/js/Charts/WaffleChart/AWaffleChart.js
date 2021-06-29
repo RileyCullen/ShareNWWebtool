@@ -190,3 +190,5 @@ class AWaffleChart
         return width + 3;
     }
 }
+
+export { AWaffleChart };

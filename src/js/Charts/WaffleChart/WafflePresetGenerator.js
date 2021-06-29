@@ -17,3 +17,5 @@ function GenerateIconDataArray({icon, color, offset, font})
         'font': font,
     };
 }
+
+export { GenerateIconDataArray, GenerateWafflePreset };

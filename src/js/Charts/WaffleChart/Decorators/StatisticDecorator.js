@@ -2,6 +2,9 @@
 // StatisticDecorator.js
 // December 23, 2020
 
+import { AWaffleChartDecorator } from "./AWaffleChartDecorator";
+import Konva from 'konva';
+
 class StatisticDecorator extends AWaffleChartDecorator
 {
     /**
@@ -71,3 +74,5 @@ class StatisticDecorator extends AWaffleChartDecorator
         else this._helper.add(this._top);
     }
 }
+
+export { StatisticDecorator };

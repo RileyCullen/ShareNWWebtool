@@ -2,6 +2,8 @@
 // AWaffleChartDecorator.js
 // December 23, 2020
 
+import { AWaffleChart } from "../AWaffleChart";
+
 class AWaffleChartDecorator extends AWaffleChart
 {
     /**
@@ -38,3 +40,5 @@ class AWaffleChartDecorator extends AWaffleChart
         this._presetB = chart._presetB;
     }
 }
+
+export { AWaffleChartDecorator };
