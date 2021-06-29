@@ -2,6 +2,8 @@
 // RibbonHeader.js
 // November 16, 2020
 
+import Konva from 'konva';
+
 class RibbonHeader 
 {
     /**
@@ -92,3 +94,5 @@ class RibbonHeader
         tmp.moveToBottom();
     }
 }
+
+export { RibbonHeader };

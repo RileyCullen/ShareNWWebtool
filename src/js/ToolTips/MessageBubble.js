@@ -2,6 +2,8 @@
 // December 21, 2020
 // MessageBubble.js
 
+import Konva from 'konva';
+
 class MessageBubble 
 {
     /**
@@ -60,3 +62,5 @@ class MessageBubble
         }));
     }
 }
+
+export { MessageBubble };
