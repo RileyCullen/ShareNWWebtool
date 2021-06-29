@@ -131,7 +131,7 @@ class IconBarChart extends ABarChart
                  * the first icon starts at 0. In addition, we add offset to account 
                  * for the padding set by the user.
                  */
-                var offset = (i == 0) ? 0 : this._padding;
+                var offset = (i === 0) ? 0 : this._padding;
                 return this._xScale(d.category) - this._xScale(minCategory) + offset;
             })
             .attr('y', () => {
@@ -170,7 +170,7 @@ class IconBarChart extends ABarChart
     {
         var index = 0;
         for (var i = 1; i < this._data.length; i++) {
-            if (this._data[i].value > this._data[i].value) index = i;
+            if (this._data[index].value > this._data[i].value) index = i;
         }
         return this._data[index].category;
     }
