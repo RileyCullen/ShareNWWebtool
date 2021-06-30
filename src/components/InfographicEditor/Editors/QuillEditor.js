@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
 import { useQuill } from 'react-quilljs';
+import Delta from 'quill-delta';
 import 'quill/dist/quill.snow.css';
 import '../../../css/Quill/FontList.css';
 import '../../../css/Quill/FontSize.css';
 import '../../../css/Quill/LineHeight.css';
 import '../../../css/Quill/Toolbar.css';
 
-function QuillEditor()
+function QuillEditor(props)
 {
-
     var sizeList = ['10px', '11px', '12px', '13px', '14px', '15px', '16px', 
             '17px', '18px', '20px', 'custom-size'];
     var fontList = ['900-museo', '100-canada', '200-canada', 
@@ -42,13 +42,27 @@ function QuillEditor()
 
     const { quill, quillRef, Quill } = useQuill({ theme, modules, formats, placeholder });
 
-    if (Quill) {
+    var font = 0, fontArr = [], fontSize = -1;
+
+    if (Quill && quill) {
         RegisterFontSizes(Quill, sizeList);
         RegisterFontFamilies(Quill, fontList)
         InitLineHeights(Quill, lineHeightList);
+
+        InitEditor({
+            textElem: props.textElem,
+            quillObj: quill,
+            quillClass: Quill,
+            sizeList: sizeList,
+            font: font,
+            fontList: fontArr,
+        });
     }
+
+    
+
     return (
-        <div className='text-editor' style={{width: 500, height: 300}}>
+        <div className='text-editor' style={{width: 500}}>
             <div ref={quillRef}></div>
         </div>
     )
@@ -96,6 +110,188 @@ function RegisterFontSizes(Quill, sizeList)
     var Size = Quill.import('attributors/style/size');
     Size.whitelist = sizeList;
     Quill.register(Size, true);
+}
+
+/**
+ * @summary     Updates editor so that text color, size, and font are the 
+ *              same as that on the infographic.
+ * @description Given the selected elements attributes (size, color, and font),
+ *              this function will update the Quill editor so that when the
+ *              user starts typing, the text in the text editor will have 
+ *              the given attributes from above.
+ * 
+ * @param {QuillEditor} quill The quill editor.
+ * @param {Array} sizeList The array of default font sizes.
+ */
+function InitEditor({textElem, cssList, quillObj, quillClass, sizeList, font, fontList})
+{    
+    var cssList = textElem.spanCSS;
+
+    /**
+     * Registers font sizes if they are not already registered.
+     */
+    cssList.forEach(d => {
+        if (!sizeList.find(elem => elem == d.fontSize)) {
+            sizeList.push(d.fontSize);
+            RegisterFontSizes(quillClass, sizeList);
+        }
+    });
+
+    var contents = SpanCSSToDelta(textElem, quillClass);
+    
+    // Sets content to the contents delta.
+    quillObj.setContents(contents);
+    DetermineInitialFont(quillObj, contents, font, fontList);
+
+    /**
+     * "Fixes" the quill editor contents. For some reason (and I am not 
+     * entirely sure why), the quill editor will simplify the delta and remove 
+     * important attribute data (like the font). 
+     * 
+     * We fix this issue by simply reformatting the undefined fonts to the
+     * value of this._font.
+     */
+    UpdateQuillFont(quillObj, true, font, fontList);
+
+    var alignment = (cssList.length != 0) ? cssList[0].align : 'left';
+    AlignText(quillObj, alignment);
+}
+
+/**
+ * @summary     Converts spanCSS data in a text handler element to a Quill
+ *              Delta.
+ * @description Iterates through all of the elements in spanCSS (which itself 
+ *              is a JSON Array) and converts it to a Delta that will be used
+ *              to populate the contents of the Quill text editor.
+ * @returns     The Delta version of spanCSS.
+ */
+function SpanCSSToDelta(textElem, Quill)
+{
+    var elemCount = 0
+    var cssList = textElem.spanCSS;
+    // var Delta = Quill.import('delta');
+    var contents = new Delta();
+
+    console.log(textElem)
+
+    textElem.textElem.childNodes.forEach((d, i) => {
+        d.childNodes.forEach((elem) => {
+            contents.insert(elem.innerHTML, {
+                font: cssList[elemCount].fontFamily,
+                color: cssList[elemCount].textColor, 
+                size: cssList[elemCount].fontSize,
+                lineheight: cssList[elemCount].lineHeight,
+            });
+            elemCount++;
+        });
+        contents.insert('\n');
+    });
+    return contents;
+}
+
+/**
+ * @summary     Determines the initial value of this._font.
+ * @description Determines the initial value of this._font greedily by finding
+ *              the first possible instance.
+ * 
+ * @param {Delta} contents The contents delta created using spanCSS from the
+ *                         textHandler.
+ */
+function DetermineInitialFont(quillObj, contents, font, fontArr)
+{
+    quillObj.getContents().ops.forEach((d, i) => {
+        if (d.insert !== '\n'){
+            if (d.attributes !== undefined && (d.attributes.font === undefined 
+                || d.attributes.font === null)) {
+                font = contents.ops[i].attributes.font;
+                fontArr[fontArr.length + 1] = contents.ops[i].attributes.font;
+            }
+        }
+    });
+}
+
+/**
+ * @summary     Aligns all of the lines in the quill editor.
+ * 
+ * @param {string} align The type of alignment for each line.
+ */
+function AlignText(quillObj, align)
+{
+    var contents = quillObj.getContents();
+    var contentLength = 0;
+
+    contents.ops.forEach((d) => {
+        contentLength += d.insert.length;
+    });
+    quillObj.formatLine(0, contentLength, 'align', align)
+}
+
+/**
+ * @summary     Updates null or undefined elements with current value of their 
+ *              repsective instance variables.
+ * 
+ * @description Updates null or undefined attributes in the Delta object associated
+ *              with the quill editor's contents. In some cases, these variables
+ *              can go undefined when they should have explicit values. This 
+ *              function re-adds those values so they are explicitly given.
+ * 
+ * @param {bool} useFontArray A boolean that determines if this function
+ *                            should use the fontArr instance variable or 
+ *                            the font instance variable.
+ */
+function UpdateQuillFont(quillObj, useFontArray = false, font, fontArr)
+{
+    quillObj.getContents().ops.forEach((d, i) => {
+        if (d.attributes !== undefined && (d.attributes.font === undefined 
+            || d.attributes.font === null)) {
+            var bounds = FindSelectionBounds(i);
+            ReformatQuillFont(quillObj, bounds.lowerBound, bounds.upperBound, 
+                useFontArray, font, fontArr);
+        }
+    });
+}
+
+/**
+ * @summary     This function finds the selection bounds of the null or 
+ *              undefined delta element so that it can be formated properly.W
+ * @description This function assumes that opsIndex is in the quill content's 
+ *              delta.
+ * 
+ * @param {int} opsIndex Index of the ops we want to convert to quill selection
+ *                       bounds.
+ */
+function FindSelectionBounds(quill, opsIndex)
+{   
+    var count = 0, lowerBound = 0, upperBound = 0;
+    quill.getContents().ops.forEach((d, i) => {
+        var prevCount = count;
+        count += d.insert.length;
+        if (i === opsIndex) {
+            lowerBound = prevCount;
+            upperBound = count;
+        }
+    });
+    return { lowerBound, upperBound };
+}
+
+/**
+ * @summary     Reformats the font in the quill editor at index lower with 
+ *              length of (upper - lower).
+ * 
+ * @param {int}     lower        The starting index of the text we need to reformat.
+ * @param {int}     upper        The ending index of the text we need to reformat.
+ * @param {boolean} useFontArray Determines whether quill reformats based on 
+ *                               _font or _fontArr 
+ */
+function ReformatQuillFont(quill, lower, upper, useFontArray, _font, fontArr) 
+{
+    var font = 0;
+    if (useFontArray) font = fontArr[fontArr.length + 1];
+    else font = _font;
+    
+    quill.formatText(lower, upper - lower, {
+        font: font,
+    });
 }
 
 export { QuillEditor };
