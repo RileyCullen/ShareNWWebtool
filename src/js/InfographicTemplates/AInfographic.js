@@ -68,6 +68,8 @@ class AInfographic
         this._editorHandler = editorHandler;
         this._textCallback = textCallback;
 
+        this._selectedTextIndex = -1;
+
         this._stage.add(this._main);
 
         this._main.add(this._tr);
@@ -272,11 +274,10 @@ class AInfographic
                 this._tr.moveToTop();
                 this._main.batchDraw();
 
-                var index = textElem.getAttr('id');
+                this._selectedTextIndex = textElem.getAttr('id');
   
+                this._textCallback(this._textHandler.GetHandlerElem(this._selectedTextIndex))
                 this._editorHandler('text-editor');
-                this._textCallback(this._textHandler.GetHandlerElem(index));
-
 
                 setTimeout(() => {
                     this._stage.on('click', HandleOutsideClick);
@@ -292,6 +293,22 @@ class AInfographic
                     }
                 };
             });
+        });
+    }
+
+    UpdateTextHandler(textElem)
+    {
+        if (textElem.image === undefined || textElem.textElem === undefined || 
+            textElem.group === undefined || textElem.spanCSS === undefined || 
+            textElem === 0) {
+            return;
+        } 
+        this._textHandler.UpdateTextElem({
+            index: this._selectedTextIndex,
+            textElem: textElem.textElem,
+            group: textElem.group,
+            image: textElem.image,
+            spanCSS: textElem.spanCSS,
         });
     }
 
