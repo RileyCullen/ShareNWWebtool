@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import html2canvas from 'html2canvas';
 import { useQuill } from 'react-quilljs';
 import Delta from 'quill-delta';
 import 'quill/dist/quill.snow.css';
@@ -63,6 +64,9 @@ function QuillEditor(props)
         });
     }
 
+    /**
+     * The function component version of react's lifecycle functions. 
+     */
     useEffect(() => {
         if (quill && Quill) {
             AddQuillListeners({
@@ -71,6 +75,8 @@ function QuillEditor(props)
                 font: font,
                 quillClass: Quill,
                 fontArr: fontArr,
+                textElem: props.textElem,
+                setTextElem: (textElem) => { props.setTextElem(textElem); }
             })
         }
     });
@@ -317,9 +323,9 @@ function ReformatQuillFont(quill, lower, upper, useFontArray, _font, fontArr)
  * 
  * @param {Quill} quill The quill object we want to add event listeners to.
  */
-function AddQuillListeners({quill, sizelist, font, quillClass, fontArr})
+function AddQuillListeners({quill, sizelist, font, quillClass, fontArr, textElem, setTextElem})
 {
-    AddTextListener(quill, font, fontArr);
+    AddTextListener(quill, font, fontArr, textElem, (textElem) => {setTextElem(textElem);});
     AddFontListener(quill, font);
     AddFontColorListener(quill, font);
     AddFontSizeListener(quill, font, sizelist, quillClass);
@@ -382,12 +388,122 @@ function AddFontSizeListener(quill, font, sizeList, quillClass)
  * @description Call's the quill object's on method with option 'text-change'
  *              and adds an event listener to it.
  */
-function AddTextListener(quill, font, fontArr)
+function AddTextListener(quill, font, fontArr, textElem, setTextElem)
 {
+    var timeout = {timeout: null};
     quill.on('text-change', () => { 
         UpdateQuillFont(quill, false, font.font, fontArr);
-        // UpdateTextListener(); 
+        UpdateTextListener(quill, timeout, textElem, (textElem) => (setTextElem(textElem))); 
     });
+}
+
+/**
+ * @summary     Updates the selected text element.
+ * @description An event listener that is called whenever the text within
+ *              "editor-container" changes.
+ */
+function UpdateTextListener(quill, timeout, textElem, setTextElem)
+{
+    if (timeout.timeout) return;
+    timeout.timeout = setTimeout(() => {
+        timeout.timeout = null;
+        HTMLToCanvas(quill, textElem, setTextElem);
+    }, 100);
+}
+
+/**
+ * @summary     Converts DOM elements on the page to Konva.Image elements
+ * @description Uses the html2canvas module to convert DOM elements located 
+ *              within the body into Konva.Image elements.
+ */
+function HTMLToCanvas(quill, textElem, setTextElem)
+{
+
+    /** 
+     * Error check to ensure that Konva.js doesn't try to write an empty 
+     * image to the canvas. If this occurs, the program will break so we 
+     * need this error check here.
+     */
+    if (IsEditorEmpty(quill)) {
+        quill.format('font', '900-museo');
+        return;
+    }
+
+    // Gets the text in the quill editor 
+    var qlEditor = document.querySelector('.ql-editor').cloneNode(true);
+    qlEditor.style.padding = 0 + 'px';
+
+    // Creates a helper <div> to render text. This is necessary because with
+    // out it, text would not render properly. 
+    var helper = document.createElement('div');
+    helper.style.visibility = 'false';
+    helper.style.position = 'absolute';
+    helper.id = 'ql-helper';
+    helper.appendChild(qlEditor);
+    document.getElementById('body').appendChild(helper);
+
+    // Update textElem in textHandler element
+    textElem.textElem = qlEditor;
+    DeltaToSpanCSS(quill, textElem);
+
+    // Calling html2canvas and converting the quill editor contents into
+    // a Konva.Image.
+    html2canvas(helper, {
+        backgroundColor: null,
+        scrollY: -(window.scrollY),
+    }).then((image) => {
+        // this._textImage.image(image);
+        // this._tr.forceUpdate();
+        // this._main.batchDraw();
+        // alert('test')
+        // textElem.image.image(image);
+        // above line updates image on canvas 
+        var newElem = {
+            textElem: textElem.textElem,
+            group: textElem.group,
+            image: image,
+            spanCSS: textElem.spanCSS
+        };
+        setTextElem(newElem);
+    });
+    helper.remove();
+    console.log('final')
+    console.log(textElem)
+}
+
+/**
+ * @summary     Converts the Quill Delta into a spanCSS element.
+ * @description Iterates through the contents of the Quill editor, which is
+ *              in the form of a delta, and converts each element into an 
+ *              object of spanCSS.
+ */
+function DeltaToSpanCSS(quill, textElem)
+{
+    var attributeCount = 0;
+    var cssList = [];
+    quill.getContents().ops.forEach((d, i) => {
+        if (d.attributes && d.insert !== '\n') {
+            var elem = {
+                fontFamily: (d.attributes) ? d.attributes.font : '900-museo',
+                fontSize: (d.attributes) ? d.attributes.size : '10px',
+                textColor: (d.attributes) ? d.attributes.color : 'black',
+                lineHeight: (d.attributes) ? d.attributes.lineheight : '1.0',
+                align: (d.attributes) ? quill.getFormat().align : 'left'
+            };
+            cssList[attributeCount] = elem;
+            attributeCount++;
+        }
+    });
+    textElem.spanCSS = cssList; 
+}
+
+/**
+ * @summary Determines if quill editor is empty.
+ * @returns True if empty and false if not empty.
+ */
+function IsEditorEmpty(quill)
+{
+    return (quill.getContents().ops[0].insert == '\n')
 }
 
 export { QuillEditor };
