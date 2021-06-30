@@ -9,9 +9,9 @@ import Konva from 'konva';
 
 class DiabetesTemplateOne extends AInfographic
 {
-    constructor()
+    constructor({editorHandler})
     {
-        super(900, 635);
+        super(900, 635, editorHandler);
     }
 
     CreateInfographic()

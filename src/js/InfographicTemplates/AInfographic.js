@@ -23,7 +23,7 @@ class AInfographic
      * @param {double} height The height of the canvas element
      * @param {double} width  The width of the canvas element
      */
-    constructor(height, width)
+    constructor(height, width, editorHandler)
     {
         if (AInfographic === this.constructor) {
             throw new TypeError('Abstract class "AInfographic" cannot be instantiated');
@@ -64,6 +64,8 @@ class AInfographic
 
         this._main = new Konva.Layer();
         // this._UIAdder = new UIAdder(this._chartWidth, this._chartHeight);
+
+        this._editorHandler = editorHandler;
 
         this._stage.add(this._main);
 
@@ -271,10 +273,14 @@ class AInfographic
 
                 var index = textElem.getAttr('id');
 
+                /*
                 this._UIAdder.RemoveCurrentEditor();
                 // this._UIAdder.CreateTextEditor(textElem, this._main, this._tr);
                 this._UIAdder.CreateTextEditor(this._textHandler.GetHandlerElem(index),
-                    this._main, this._tr);
+                    this._main, this._tr);*/
+                
+                this._editorHandler('text-editor');
+
 
                 setTimeout(() => {
                     this._stage.on('click', HandleOutsideClick);
@@ -282,7 +288,8 @@ class AInfographic
 
                 var HandleOutsideClick = (e) => {
                     if (e.target !== textElem) {
-                        this._UIAdder.RemoveCurrentEditor();
+                        // this._UIAdder.RemoveCurrentEditor();
+                        this._editorHandler('none');
                         this._tr.nodes([]);
                         textElem.setAttr('draggable', false);
                         this._main.batchDraw();

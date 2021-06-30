@@ -10,9 +10,9 @@ import { WaffleChart, GenerateWafflePreset } from '../Charts/WaffleChart/index';
 
 class ViolenceTemplateOne extends AInfographic
 {
-    constructor()
+    constructor({editorHandler})
     {
-        super(3125 / 3 - 100, 2550 / 4);
+        super(3125 / 3 - 100, 2550 / 4, editorHandler);
     }
 
     CreateInfographic()
