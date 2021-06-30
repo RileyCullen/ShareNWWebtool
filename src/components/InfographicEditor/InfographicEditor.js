@@ -4,6 +4,7 @@
 
 import React from 'react';
 import {CanvasContainer} from './CanvasContainer';
+import { QuillEditor } from './Editors/index';
 
 /**
  * Container for all of the react components related to editing infographics.
@@ -21,17 +22,21 @@ class InfographicEditor extends React.Component
 
     render()
     {
-        var currentEditor = this.state.currentEditor;
+        var currentEditor = this._SelectEditor();
  
         return (
-            <div className='infographiceditor'>
-                <div className='editor'>
-                    {currentEditor}
-                </div>
+            <div className='infographiceditor'
+                style={{display: 'flex'}}>
                 <CanvasContainer 
                     infographic={this.props.currentInfographic}
                     editorHandler={(editor) => { this._SetCurrentEditor(editor); }}
+                    style={{flex: 1}}
                 />
+                <div className='editor'
+                    style={{marginLeft: 30}}
+                >
+                    {currentEditor}
+                </div>
             </div>
         );
     }
@@ -42,6 +47,14 @@ class InfographicEditor extends React.Component
             previousEditor: this.state.currentEditor,
             currentEditor: editor,
         });
+    }
+
+    _SelectEditor()
+    {
+        if (this.state.currentEditor === 'text-editor') {
+            return <QuillEditor />;
+        }
+        return false;
     }
 }
 
