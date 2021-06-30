@@ -37,14 +37,7 @@ class TextHandler
         this._handler[this._curr] = {
             'textElem': textElem,
             'group': group,
-            'image': new Konva.Image({
-                scaleX: 1 / window.devicePixelRatio,
-                scaleY: 1 / window.devicePixelRatio,
-                x: x, 
-                y: y,
-                name: 'Selectable EditableText',
-                id: this._curr
-            }),
+            'image': this._CreateKonvaImage(this._curr, x, y),
             'spanCSS': []
         };
         textElem.id = this._curr;
@@ -52,6 +45,16 @@ class TextHandler
         this._handler[this._curr].image.rotate(rotateby);
         group.add(this._handler[this._curr].image);
         group.setAttr('id', this._curr);
+    }
+
+    UpdateTextElem({index, textElem, group, image, spanCSS})
+    {
+        this._handler[index] = {
+            textElem: textElem,
+            group: group,
+            image: image,
+            spanCSS: spanCSS,
+        };
     }
 
     SetTextInfo(id, font, size, color)
@@ -110,7 +113,27 @@ class TextHandler
      */
     GetImage(id)    { return this._handler[id].image; }
 
-    GetHandlerElem(id) { return this._handler[id]; }
+    GetHandlerElem(id) { 
+        return {
+            'textElem': this._handler[id].textElem,
+            'group': this._handler[id].group,
+            'image': this._handler[id].image,
+            'spanCSS': this._handler[id].spanCSS
+        };
+        // return this._handler[id]; 
+    }
+
+    _CreateKonvaImage(index, x, y)
+    {
+        return new Konva.Image({
+            scaleX: 1 / window.devicePixelRatio,
+            scaleY: 1 / window.devicePixelRatio,
+            x: x, 
+            y: y,
+            name: 'Selectable EditableText',
+            id: index
+        });
+    }
 }
 
 export { TextHandler };
