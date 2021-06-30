@@ -16,20 +16,20 @@ class InfographicEditor extends React.Component
         super(props);
         this.state = {
             currentEditor: 'none',
-            previousEditor: 'none',
+            textElem: 'none',
         };
     }
 
     render()
     {
         var currentEditor = this._SelectEditor();
- 
         return (
             <div className='infographiceditor'
                 style={{display: 'flex'}}>
                 <CanvasContainer 
                     infographic={this.props.currentInfographic}
                     editorHandler={(editor) => { this._SetCurrentEditor(editor); }}
+                    textHandler={(textElem) => { this._SetTextElem(textElem); }}
                     style={{flex: 1}}
                 />
                 <div className='editor'
@@ -44,15 +44,21 @@ class InfographicEditor extends React.Component
     _SetCurrentEditor(editor)
     {
         this.setState({
-            previousEditor: this.state.currentEditor,
             currentEditor: editor,
+        });
+    }
+
+    _SetTextElem(textElem) 
+    {
+        this.setState({
+            textElem: textElem,
         });
     }
 
     _SelectEditor()
     {
         if (this.state.currentEditor === 'text-editor') {
-            return <QuillEditor />;
+            return <QuillEditor textElem={this.state.textElem}/>;
         }
         return false;
     }

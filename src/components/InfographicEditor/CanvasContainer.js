@@ -63,21 +63,25 @@ class CanvasContainer extends React.Component
                 case 'HIVTemplateOne': 
                     this._infogObj = new HIVTemplateOne({
                         editorHandler: (editor) => { this.props.editorHandler(editor); },
+                        textHandler: (textElem) => { this.props.textHandler(textElem); }
                     });
                     break;
                 case 'ObesityTemplateOne': 
                     this._infogObj = new ObesityTemplateOne({
                         editorHandler: (editor) => { this.props.editorHandler(editor); },
+                        textHandler: (textElem) => { this.props.textHandler(textElem); }
                     });
                     break;
                 case 'ViolenceTemplateOne': 
                     this._infogObj = new ViolenceTemplateOne({
                         editorHandler: (editor) => { this.props.editorHandler(editor); },
+                        textHandler: (textElem) => { this.props.textHandler(textElem); }
                     });
                     break;
                 case 'DiabetesTemplateOne':
                     this._infogObj = new DiabetesTemplateOne({
                         editorHandler: (editor) => { this.props.editorHandler(editor); },
+                        textHandler: (textElem) => { this.props.textHandler(textElem); }
                     });
                     break;
             }
