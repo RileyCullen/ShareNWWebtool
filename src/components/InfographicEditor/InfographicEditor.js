@@ -10,11 +10,38 @@ import {CanvasContainer} from './CanvasContainer';
  */
 class InfographicEditor extends React.Component
 {
+    constructor(props)
+    {
+        super(props);
+        this.state = {
+            currentEditor: 'none',
+            previousEditor: 'none',
+        };
+    }
+
     render()
     {
+        var currentEditor = this.state.currentEditor;
+ 
         return (
-            <CanvasContainer infographic={this.props.currentInfographic}/>
+            <div className='infographiceditor'>
+                <div className='editor'>
+                    {currentEditor}
+                </div>
+                <CanvasContainer 
+                    infographic={this.props.currentInfographic}
+                    editorHandler={(editor) => { this._SetCurrentEditor(editor); }}
+                />
+            </div>
         );
+    }
+
+    _SetCurrentEditor(editor)
+    {
+        this.setState({
+            previousEditor: this.state.currentEditor,
+            currentEditor: editor,
+        });
     }
 }
 

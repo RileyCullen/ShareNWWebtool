@@ -15,8 +15,8 @@ class CanvasContainer extends React.Component
     constructor(props)
     {
         super(props);
-        this._stage = 0;
-        this._layer = 0;
+        this._infog = 0;
+        this._previousInfographic = '';
     }
 
     render()
@@ -35,36 +35,54 @@ class CanvasContainer extends React.Component
      */
     componentDidMount()
     {
+        this._previousInfographic = this.props.infographic;
         this._DrawInfographic();
     }
 
     componentDidUpdate()
     {
-        this._DrawInfographic();
+        /**
+         * TODO current expr does redraw infographic when user clicks on same button
+         * again.
+         */
+        var expr = (this.props.infographic !== this._previousInfographic);
+        if (expr) {
+            this._DrawInfographic();
+        } else {
+            // update
+        }
+        this._previousInfographic = this.props.infographic;
     }
 
     _DrawInfographic()
     {
-        var infogObj;
         document.fonts.ready.then(() => {
             // if (infogObj !== undefined) infogObj.Remove();
 
             switch(this.props.infographic) {
                 case 'HIVTemplateOne': 
-                    infogObj = new HIVTemplateOne();
+                    this._infogObj = new HIVTemplateOne({
+                        editorHandler: (editor) => { this.props.editorHandler(editor); },
+                    });
                     break;
                 case 'ObesityTemplateOne': 
-                    infogObj = new ObesityTemplateOne();
+                    this._infogObj = new ObesityTemplateOne({
+                        editorHandler: (editor) => { this.props.editorHandler(editor); },
+                    });
                     break;
                 case 'ViolenceTemplateOne': 
-                    infogObj = new ViolenceTemplateOne();
+                    this._infogObj = new ViolenceTemplateOne({
+                        editorHandler: (editor) => { this.props.editorHandler(editor); },
+                    });
                     break;
                 case 'DiabetesTemplateOne':
-                    infogObj = new DiabetesTemplateOne();
+                    this._infogObj = new DiabetesTemplateOne({
+                        editorHandler: (editor) => { this.props.editorHandler(editor); },
+                    });
                     break;
             }
-            infogObj.CreateInfographic();
-            infogObj.Draw();
+            this._infogObj.CreateInfographic();
+            this._infogObj.Draw();
         });
     }
 }
