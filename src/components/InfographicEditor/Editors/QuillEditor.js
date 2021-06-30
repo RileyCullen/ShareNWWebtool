@@ -42,13 +42,17 @@ function QuillEditor(props)
 
     const { quill, quillRef, Quill } = useQuill({ theme, modules, formats, placeholder });
 
-    var font = 0, fontArr = [], fontSize = -1;
+    var font = {font: 0}, fontArr = [], fontSize = -1;
 
+    // Initialize text editor
     if (Quill && quill) {
+        // Set up font, font sizes, and line heights so Quill recognizes them
+        // and can use them
         RegisterFontSizes(Quill, sizeList);
         RegisterFontFamilies(Quill, fontList)
         InitLineHeights(Quill, lineHeightList);
 
+        // Insert the selected text into QuillEditor
         InitEditor({
             textElem: props.textElem,
             quillObj: quill,
@@ -59,6 +63,17 @@ function QuillEditor(props)
         });
     }
 
+    useEffect(() => {
+        if (quill && Quill) {
+            AddQuillListeners({
+                quill: quill,
+                sizeList: sizeList,
+                font: font,
+                quillClass: Quill,
+                fontArr: fontArr,
+            })
+        }
+    });
     
 
     return (
@@ -149,7 +164,7 @@ function InitEditor({textElem, cssList, quillObj, quillClass, sizeList, font, fo
      * important attribute data (like the font). 
      * 
      * We fix this issue by simply reformatting the undefined fonts to the
-     * value of this._font.
+     * value of font.
      */
     UpdateQuillFont(quillObj, true, font, fontList);
 
@@ -203,7 +218,7 @@ function DetermineInitialFont(quillObj, contents, font, fontArr)
         if (d.insert !== '\n'){
             if (d.attributes !== undefined && (d.attributes.font === undefined 
                 || d.attributes.font === null)) {
-                font = contents.ops[i].attributes.font;
+                font.font = contents.ops[i].attributes.font;
                 fontArr[fontArr.length + 1] = contents.ops[i].attributes.font;
             }
         }
@@ -241,10 +256,11 @@ function AlignText(quillObj, align)
  */
 function UpdateQuillFont(quillObj, useFontArray = false, font, fontArr)
 {
+    console.log(quillObj);
     quillObj.getContents().ops.forEach((d, i) => {
         if (d.attributes !== undefined && (d.attributes.font === undefined 
             || d.attributes.font === null)) {
-            var bounds = FindSelectionBounds(i);
+            var bounds = FindSelectionBounds(quillObj, i);
             ReformatQuillFont(quillObj, bounds.lowerBound, bounds.upperBound, 
                 useFontArray, font, fontArr);
         }
@@ -291,6 +307,86 @@ function ReformatQuillFont(quill, lower, upper, useFontArray, _font, fontArr)
     
     quill.formatText(lower, upper - lower, {
         font: font,
+    });
+}
+
+/**
+ * @summary     Adds event listeners to the quill object.
+ * @description Adds the event listeners responsible for text change, font color,
+ *              and font size.
+ * 
+ * @param {Quill} quill The quill object we want to add event listeners to.
+ */
+function AddQuillListeners({quill, sizelist, font, quillClass, fontArr})
+{
+    AddTextListener(quill, font, fontArr);
+    AddFontListener(quill, font);
+    AddFontColorListener(quill, font);
+    AddFontSizeListener(quill, font, sizelist, quillClass);
+}
+
+/**
+ * @summary     Custom event listener that is triggered when the font option
+ *              on Quill toolbar is selected.
+ * @description Custom event listener that essentially performs the same 
+ *              action as the default event listener for fonts with the 
+ *              exception that it updated this._font for usage later in the
+ *              program.
+ */
+function AddFontListener(quill, font)
+{
+    quill.getModule('toolbar').addHandler('font', (value) => {
+        font.font = quill.getFormat(quill.getSelection()).font;
+        quill.format('font', value);
+    });
+}
+
+/**
+ * @summary     Allows for the input of custom font colors.
+ * @description Adds an event listener that allows for the addition of custom 
+ *              font colors.
+ */
+function AddFontColorListener(quill, font)
+{
+    quill.getModule('toolbar').addHandler('color', (value) => {
+        if (value == 'custom-color') {
+            value = prompt('Enter Hex/RGB/RGBA');
+        }
+        font.font = quill.getFormat(quill.getSelection()).font;
+        quill.format('color', value);
+    });
+}
+
+/**
+ * @summary     Allows for the input of custom font sizes.
+ * @description Adds an event listener that allows for the addition of a custom
+ *              font size.
+ */
+function AddFontSizeListener(quill, font, sizeList, quillClass)
+{
+    quill.getModule('toolbar').addHandler('size', (value) => {
+        if (value == 'custom-size') {
+            value = prompt('Enter font size');
+            value += 'px';
+            sizeList.push(value);
+        }
+        RegisterFontSizes(quillClass, sizeList);
+        font.font = quill.getFormat(quill.getSelection()).font;
+        quill.format('size', value);
+    });
+}
+
+/**
+ * @summary     Adds an event listener that is called when text is changed
+ *              to the parameterized quill object.
+ * @description Call's the quill object's on method with option 'text-change'
+ *              and adds an event listener to it.
+ */
+function AddTextListener(quill, font, fontArr)
+{
+    quill.on('text-change', () => { 
+        UpdateQuillFont(quill, false, font.font, fontArr);
+        // UpdateTextListener(); 
     });
 }
 
