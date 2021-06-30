@@ -15,7 +15,7 @@ class CanvasContainer extends React.Component
     constructor(props)
     {
         super(props);
-        this._infog = 0;
+        this._infogObj = 0;
         this._previousInfographic = '';
     }
 
@@ -49,7 +49,7 @@ class CanvasContainer extends React.Component
         if (expr) {
             this._DrawInfographic();
         } else {
-            // update
+            this._infogObj.UpdateTextHandler(this.props.textElem, this.props.image);
         }
         this._previousInfographic = this.props.infographic;
     }
