@@ -67,6 +67,7 @@ function QuillEditor(props)
     /**
      * The function component version of react's lifecycle functions. 
      */
+    
     useEffect(() => {
         if (quill && Quill) {
             AddQuillListeners({
@@ -77,11 +78,9 @@ function QuillEditor(props)
                 fontArr: fontArr,
                 textElem: props.textElem,
                 setTextElem: (textElem) => { props.setTextElem(textElem); }
-            })
+            });
         }
     });
-    
-
     return (
         <div className='text-editor' style={{width: 500}}>
             <div ref={quillRef}></div>
@@ -158,6 +157,8 @@ function InitEditor({textElem, cssList, quillObj, quillClass, sizeList, font, fo
         }
     });
 
+    // Converts the spanCSS element in textElem to a Delta (the Quill way of
+    // describing elements)
     var contents = SpanCSSToDelta(textElem, quillClass);
     
     // Sets content to the contents delta.
@@ -172,7 +173,7 @@ function InitEditor({textElem, cssList, quillObj, quillClass, sizeList, font, fo
      * We fix this issue by simply reformatting the undefined fonts to the
      * value of font.
      */
-    UpdateQuillFont(quillObj, true, font, fontList);
+    UpdateQuillFont(quillObj, true, font.font, fontList);
 
     var alignment = (cssList.length != 0) ? cssList[0].align : 'left';
     AlignText(quillObj, alignment);
@@ -192,8 +193,6 @@ function SpanCSSToDelta(textElem, Quill)
     var cssList = textElem.spanCSS;
     // var Delta = Quill.import('delta');
     var contents = new Delta();
-
-    console.log(textElem)
 
     textElem.textElem.childNodes.forEach((d, i) => {
         d.childNodes.forEach((elem) => {
@@ -225,7 +224,7 @@ function DetermineInitialFont(quillObj, contents, font, fontArr)
             if (d.attributes !== undefined && (d.attributes.font === undefined 
                 || d.attributes.font === null)) {
                 font.font = contents.ops[i].attributes.font;
-                fontArr[fontArr.length + 1] = contents.ops[i].attributes.font;
+                fontArr[fontArr.length] = contents.ops[i].attributes.font;
             }
         }
     });
@@ -262,13 +261,14 @@ function AlignText(quillObj, align)
  */
 function UpdateQuillFont(quillObj, useFontArray = false, font, fontArr)
 {
-    console.log(quillObj);
+    var errorCount = 0;
     quillObj.getContents().ops.forEach((d, i) => {
         if (d.attributes !== undefined && (d.attributes.font === undefined 
             || d.attributes.font === null)) {
             var bounds = FindSelectionBounds(quillObj, i);
             ReformatQuillFont(quillObj, bounds.lowerBound, bounds.upperBound, 
-                useFontArray, font, fontArr);
+                useFontArray, font, fontArr, errorCount);
+            errorCount++;
         }
     });
 }
@@ -305,12 +305,11 @@ function FindSelectionBounds(quill, opsIndex)
  * @param {boolean} useFontArray Determines whether quill reformats based on 
  *                               _font or _fontArr 
  */
-function ReformatQuillFont(quill, lower, upper, useFontArray, _font, fontArr) 
+function ReformatQuillFont(quill, lower, upper, useFontArray, _font, fontArr, index) 
 {
     var font = 0;
-    if (useFontArray) font = fontArr[fontArr.length + 1];
+    if (useFontArray) font = fontArr[index];
     else font = _font;
-    
     quill.formatText(lower, upper - lower, {
         font: font,
     });
@@ -412,7 +411,7 @@ function UpdateTextListener(quill, timeout, textElem, setTextElem)
 }
 
 /**
- * @summary     Converts DOM elements on the page to Konva.Image elements
+ * @summary     Converts DOM elements in the Quill editor to Konva.Image elements
  * @description Uses the html2canvas module to convert DOM elements located 
  *              within the body into Konva.Image elements.
  */
@@ -452,23 +451,21 @@ function HTMLToCanvas(quill, textElem, setTextElem)
         backgroundColor: null,
         scrollY: -(window.scrollY),
     }).then((image) => {
-        // this._textImage.image(image);
-        // this._tr.forceUpdate();
-        // this._main.batchDraw();
-        // alert('test')
-        // textElem.image.image(image);
-        // above line updates image on canvas 
+        // Update the <canvas> with the new text image... NOTE that his occurs
+        // as soon as the change is detected while the actual textElement (in
+        // infographic) is not updated until the text editor is removed.
+        textElem.image.image(image);
+
+        // Create a new text element and pass it to InfographicEditor
         var newElem = {
             textElem: textElem.textElem,
             group: textElem.group,
-            image: image,
+            image: textElem.image,
             spanCSS: textElem.spanCSS
         };
-        setTextElem(newElem);
+        setTextElem(newElem, image);
     });
     helper.remove();
-    console.log('final')
-    console.log(textElem)
 }
 
 /**
