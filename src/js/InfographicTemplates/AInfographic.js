@@ -216,11 +216,9 @@ class AInfographic
     {
         var helperElem = document.createElement('div');
         helperElem.style.position = 'absolute';
-        document.getElementById('body').appendChild(helperElem);
+        document.getElementById('renderHelper').appendChild(helperElem);
 
-        console.log('text widths: ')
         for (var i = 0; i < this._textHandler.GetSize(); i++) {
-            console.log(i)
             helperElem.appendChild(this._textHandler.GetTextElem(i));
             this._HTMLToCanvas('.EditableText', i);
             this._textHandler.GetTextElem(i).remove();

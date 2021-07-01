@@ -439,7 +439,7 @@ function HTMLToCanvas(quill, textElem, setTextElem)
     helper.style.position = 'absolute';
     helper.id = 'ql-helper';
     helper.appendChild(qlEditor);
-    document.getElementById('body').appendChild(helper);
+    document.getElementById('renderHelper').appendChild(helper);
 
     // Update textElem in textHandler element
     textElem.textElem = qlEditor;
