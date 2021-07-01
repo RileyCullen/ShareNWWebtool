@@ -17,8 +17,8 @@ class InfographicEditor extends React.Component
         this.state = {
             currentEditor: 'none',
         };
-        this._infogTextElem = 'none';
-        this._editorTextElem = 'none';
+        this._infogTextElem = 0;
+        this._editorTextElem = 0;
     }
 
     render()
@@ -48,6 +48,8 @@ class InfographicEditor extends React.Component
         this.setState({
             currentEditor: editor,
         });
+        this._infogTextElem = 0;
+        this._editorTextElem = 0;
     }
 
     _SetInfogTextElem(textElem) 
