@@ -35,7 +35,7 @@ function QuillEditor(props)
             "#5c0000", "#663d00", "#666600", "#003700", "#002966", 
             "#3d1466", 'custom-color']}]
         ],
-        };
+    };
 
     const placeholder = 'Compose an epic...';
 
@@ -145,6 +145,7 @@ function RegisterFontSizes(Quill, sizeList)
  */
 function InitEditor({textElem, cssList, quillObj, quillClass, sizeList, font, fontList})
 {    
+    if (textElem === 0) return;
     var cssList = textElem.spanCSS;
 
     /**
@@ -396,6 +397,7 @@ function AddTextListener(quill, font, fontArr, textElem, setTextElem)
     });
 }
 
+
 /**
  * @summary     Updates the selected text element.
  * @description An event listener that is called whenever the text within
@@ -417,7 +419,6 @@ function UpdateTextListener(quill, timeout, textElem, setTextElem)
  */
 function HTMLToCanvas(quill, textElem, setTextElem)
 {
-
     /** 
      * Error check to ensure that Konva.js doesn't try to write an empty 
      * image to the canvas. If this occurs, the program will break so we 
@@ -427,6 +428,14 @@ function HTMLToCanvas(quill, textElem, setTextElem)
         quill.format('font', '900-museo');
         return;
     }
+
+    /**
+     * Error check to ensure that program does not try to convert Quill contents
+     * when the editor is closed. This usually occurs after the component unmounts.
+     * I'm not 100% sure why, but my thought process is that right before the Quill
+     * editor gets removed, the contents are cleared which triggers this method.
+     */
+    if (document.querySelector('.ql-editor') === null) return;
 
     // Gets the text in the quill editor 
     var qlEditor = document.querySelector('.ql-editor').cloneNode(true);
