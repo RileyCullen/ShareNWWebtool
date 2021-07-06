@@ -82,6 +82,7 @@ class CanvasContainer extends React.Component
             }
             this._infogObj.CreateInfographic();
             this._infogObj.Draw();
+            this.props.dimensionHandler(this._infogObj.GetDimensions());
         });
     }
 }

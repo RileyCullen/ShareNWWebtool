@@ -87,6 +87,20 @@ class AInfographic
     }
 
     /**
+     * @summary     Returns chart's dimensions to caller.
+     * @description Returns the chart's width and height in the form of a JSON
+     *              object to the caller.
+     * @returns A JSON object containing the chart's width and height.
+     */
+    GetDimensions()
+    {
+        return {
+            width: this._chartWidth,
+            height: this._chartHeight,
+        };
+    }
+
+    /**
      * @summary     Draws SVG on the canvas.
      * @description A function that uses native canvas to draw an SVG and then
      *              add it using a Konva.JS image object. NOTE that canvas does

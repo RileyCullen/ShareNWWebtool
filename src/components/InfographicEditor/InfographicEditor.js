@@ -19,11 +19,16 @@ class InfographicEditor extends React.Component
         };
         this._infogTextElem = 0;
         this._editorTextElem = 0;
+        this._infogDimensions = {
+            width: -1,
+            height: -1,
+        };
     }
 
     render()
     {
-        var currentEditor = this._SelectEditor();
+        var currentEditor = this._SelectEditor(),
+            width = this._infogDimensions.width;
         return (
             <div className='infographiceditor'
                 style={{display: 'flex'}}>
@@ -31,11 +36,12 @@ class InfographicEditor extends React.Component
                     infographic={this.props.currentInfographic}
                     editorHandler={(editor) => { this._SetCurrentEditor(editor); }}
                     textHandler={(textElem) => { this._SetInfogTextElem(textElem); }}
+                    dimensionHandler={(dims) => { this._SetInfogDimensions(dims); }}
                     textElem={this._editorTextElem}
                     style={{flex: 1}}
                 />
                 <div className='editor'
-                    style={{marginLeft: 30}}
+                    style={{marginLeft: 30, position: 'fixed', left: width + 55 + 'px', top: 70 + 'px'}}
                 >
                     {currentEditor}
                 </div>
@@ -60,6 +66,14 @@ class InfographicEditor extends React.Component
     _SetEditorTextElem(textElem)
     {
         this._editorTextElem = textElem;
+    }
+
+    _SetInfogDimensions(dimensions) 
+    {
+        this._infogDimensions = {
+            width: dimensions.width,
+            height: dimensions.height,
+        };
     }
 
     _SelectEditor()
