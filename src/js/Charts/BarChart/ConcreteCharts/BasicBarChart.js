@@ -57,7 +57,7 @@ class BasicBarChart extends ABarChart
      */
     _BindData(custom)
     {
-        var selection = custom.selectAll('custom.rect')
+        custom.selectAll('custom.rect')
             .data(this._data)
             .enter()
             .append('custom')

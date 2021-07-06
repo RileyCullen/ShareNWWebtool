@@ -48,7 +48,7 @@ class AWaffleChart
      */
     UpdateData(numerator, denominator) 
     {
-        if (numerator == null || numerator == '' || denominator == null || denominator == '') return;
+        if (numerator === null || numerator === '' || denominator === null || denominator === '') return;
         if (isNaN(numerator) || isNaN(denominator)) return;
         this._numerator = numerator;
         this._denominator = denominator;

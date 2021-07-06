@@ -76,7 +76,7 @@ class HIVTemplateOne extends AInfographic
         });
         
         const MAN = '\uf183', WOMAN = '\uf182', LIGHT_ORANGE = '#f9ab7d', ORANGE = '#ee5d26',
-            DEFAULT_FONT_SIZE = 50, DEFAULT_OFFSET = 30;
+            DEFAULT_OFFSET = 30;
         var orangeBackground = new ArrowHeader(0, 0, 400, 125, sectionOne, ORANGE, 'white');
         orangeBackground.CreateHeader();
         

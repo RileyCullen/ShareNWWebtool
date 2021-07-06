@@ -85,18 +85,18 @@ class WaffleChart extends AWaffleChart
      */
     UpdateIcon({iconNum = -1, iconCode = -1})
     {
-        if (iconCode == null || iconCode == '') return;
+        if (iconCode === null || iconCode === '') return;
 
         iconCode = String.fromCharCode(parseInt(iconCode,16));
 
-        if (iconNum == 0) {
+        if (iconNum === 0) {
             this._presetA = GenerateIconDataArray({
                 icon: iconCode,
                 color: this._presetA.color,
                 offset: this._presetA.offset,
                 font: this._presetA.font,
             });
-        } else if (iconNum == 1) {
+        } else if (iconNum === 1) {
             this._presetB = GenerateIconDataArray({
                 icon: iconCode,
                 color: this._presetB.color,
@@ -117,11 +117,11 @@ class WaffleChart extends AWaffleChart
      */
     _BindData(custom, data)
     {
-        var prevOffset = 0, initialOffset = 0, helper = 0;
+        var prevOffset = 0, initialOffset = 0;
 
         custom.selectAll('custom.rect')
             .remove();
-        var join = custom.selectAll('custom.rect')
+        custom.selectAll('custom.rect')
             .data(data)
             .enter()
             .append("custom")

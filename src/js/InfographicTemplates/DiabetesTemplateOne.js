@@ -83,7 +83,6 @@ class DiabetesTemplateOne extends AInfographic
         this._main.add(group);
 
         // Creating Title text
-        var titleFont = '"Roboto", sans-serif', titleFontSize = 60;
         var roboto400 = this._quillMap('Roboto', 400);
         var titleWidth = this._GetTextWidth('THE RISING PRICE');
         var titleTextDiv = document.createElement('div');

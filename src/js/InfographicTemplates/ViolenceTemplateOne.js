@@ -469,9 +469,6 @@ class ViolenceTemplateOne extends AInfographic
 
 
         var waffleDescDiv = document.createElement('div');
-        var waffleDesc = '<p style="font-family: Roboto, sans-serif; font-size: 13px; font-weight: 400;">'
-            + 'of LGBT Virginia students surveyed<br>said they had experienced verbal'
-            + '<br>harassment based on their sexual<br>orientation at school.</p>';
         var waffleDesc = '<p style="margin: 0px;"><span style="font-family: Roboto, sans-serif; font-size: 13px; font-weight: 400; line-height: 1.0;">of LGBT Virginia students surveyed</span></p>'
             + '<p style="margin: 0px;"><span style="font-family: Roboto, sans-serif; font-size: 13px; font-weight: 400; line-height: 1.0;">said they had experienced verbal</span></p>'
             + '<p style="margin: 0px;"><span style="font-family: Roboto, sans-serif; font-size: 13px; font-weight: 400; line-height: 1.0;">harassment based on their sexual</span></p>'

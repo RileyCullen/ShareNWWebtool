@@ -57,7 +57,6 @@ class MessageBubble
         helper.add(new Konva.Line({
             fill: this._color,
             points: [x1, y1, x2, y2, x3, y3, x1, y1],
-            fill: this._color,
             closed: true
         }));
     }

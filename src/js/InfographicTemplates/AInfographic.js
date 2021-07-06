@@ -122,8 +122,8 @@ class AInfographic
      */
     _quillMap(font, weight = 0)
     {
-        if (font == 'museo' && weight == 900) return '900-museo';
-        else if (font == 'canada-type-gibson') {
+        if (font === 'museo' && weight === 900) return '900-museo';
+        else if (font === 'canada-type-gibson') {
             switch (weight) {
                 case 100: return '100-canada';
                 case 200: return '200-canada';
@@ -132,10 +132,11 @@ class AInfographic
                 case 600: return '600-canada';
                 case 700: return '700-canada';
                 case 900: return '900-canada';
+                default: return '100-canada';
             }
-        } else if (font == 'Montserrat') return '200-Montserrat';
-        else if (font == 'Open Sans') return 'Open-Sans';
-        else if (font == 'Roboto') {
+        } else if (font === 'Montserrat') return '200-Montserrat';
+        else if (font === 'Open Sans') return 'Open-Sans';
+        else if (font === 'Roboto') {
             switch(weight) {
                 case 100: return '100-Roboto';
                 case 300: return '300-Roboto';
@@ -143,6 +144,7 @@ class AInfographic
                 case 500: return '500-Roboto';
                 case 700: return '700-Roboto';
                 case 900: return '900-Roboto';
+                default: return '100-Roboto';
             }
         }
     }

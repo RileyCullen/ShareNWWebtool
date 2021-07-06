@@ -58,32 +58,26 @@ class CanvasContainer extends React.Component
     _DrawInfographic()
     {
         document.fonts.ready.then(() => {
-            // if (infogObj !== undefined) infogObj.Remove();
+            var handlerObj = {
+                editorHandler: (editor) => { this.props.editorHandler(editor); },
+                textHandler: (textElem) => { this.props.textHandler(textElem); }
+            };
 
             switch(this.props.infographic) {
                 case 'HIVTemplateOne': 
-                    this._infogObj = new HIVTemplateOne({
-                        editorHandler: (editor) => { this.props.editorHandler(editor); },
-                        textHandler: (textElem) => { this.props.textHandler(textElem); }
-                    });
+                    this._infogObj = new HIVTemplateOne(handlerObj);
                     break;
                 case 'ObesityTemplateOne': 
-                    this._infogObj = new ObesityTemplateOne({
-                        editorHandler: (editor) => { this.props.editorHandler(editor); },
-                        textHandler: (textElem) => { this.props.textHandler(textElem); }
-                    });
+                    this._infogObj = new ObesityTemplateOne(handlerObj);
                     break;
                 case 'ViolenceTemplateOne': 
-                    this._infogObj = new ViolenceTemplateOne({
-                        editorHandler: (editor) => { this.props.editorHandler(editor); },
-                        textHandler: (textElem) => { this.props.textHandler(textElem); }
-                    });
+                    this._infogObj = new ViolenceTemplateOne(handlerObj);
                     break;
                 case 'DiabetesTemplateOne':
-                    this._infogObj = new DiabetesTemplateOne({
-                        editorHandler: (editor) => { this.props.editorHandler(editor); },
-                        textHandler: (textElem) => { this.props.textHandler(textElem); }
-                    });
+                    this._infogObj = new DiabetesTemplateOne(handlerObj);
+                    break;
+                default:
+                    this._infogObj = new HIVTemplateOne(handlerObj);
                     break;
             }
             this._infogObj.CreateInfographic();

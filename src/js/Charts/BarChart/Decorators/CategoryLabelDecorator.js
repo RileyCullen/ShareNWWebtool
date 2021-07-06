@@ -79,8 +79,8 @@ class CategoryLabelDecorator extends ABarChartDecorator
         //       placement of the labels are based on how the chart is rendered,
         //       we need to call a separate helper function.
         if (this._chartType === 'Icon') {
-            if (this._icon === 'none') throw 'No icon provided';
-            if (this._iconSize === 0) throw 'No icon size provided';
+            if (this._icon === 'none') throw Error('No icon provided');
+            if (this._iconSize === 0) throw Error('No icon size provided');
             this._CreateIconLabels();
         } else {
             this._CreateLabels();

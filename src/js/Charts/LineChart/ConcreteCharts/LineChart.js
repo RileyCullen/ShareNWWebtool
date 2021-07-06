@@ -60,7 +60,7 @@ class LineChart extends ALineChart
      */
     _BindData(custom)
     {
-        var selection = custom.selectAll('custom.point')
+        custom.selectAll('custom.point')
             .data(this._data)
             .enter()
             .append('custom')

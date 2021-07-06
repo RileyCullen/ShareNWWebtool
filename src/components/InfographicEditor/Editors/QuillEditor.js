@@ -43,7 +43,7 @@ function QuillEditor(props)
 
     const { quill, quillRef, Quill } = useQuill({ theme, modules, formats, placeholder });
 
-    var font = {font: 0}, fontArr = [], fontSize = -1;
+    var font = {font: 0}, fontArr = [];
 
     // Initialize text editor
     if (Quill && quill) {
@@ -143,7 +143,7 @@ function RegisterFontSizes(Quill, sizeList)
  * @param {QuillEditor} quill The quill editor.
  * @param {Array} sizeList The array of default font sizes.
  */
-function InitEditor({textElem, cssList, quillObj, quillClass, sizeList, font, fontList})
+function InitEditor({textElem, quillObj, quillClass, sizeList, font, fontList})
 {    
     if (textElem === 0) return;
     var cssList = textElem.spanCSS;
@@ -152,7 +152,7 @@ function InitEditor({textElem, cssList, quillObj, quillClass, sizeList, font, fo
      * Registers font sizes if they are not already registered.
      */
     cssList.forEach(d => {
-        if (!sizeList.find(elem => elem == d.fontSize)) {
+        if (!sizeList.find(elem => elem === d.fontSize)) {
             sizeList.push(d.fontSize);
             RegisterFontSizes(quillClass, sizeList);
         }
@@ -176,7 +176,7 @@ function InitEditor({textElem, cssList, quillObj, quillClass, sizeList, font, fo
      */
     UpdateQuillFont(quillObj, true, font.font, fontList);
 
-    var alignment = (cssList.length != 0) ? cssList[0].align : 'left';
+    var alignment = (cssList.length !== 0) ? cssList[0].align : 'left';
     AlignText(quillObj, alignment);
 }
 
@@ -355,7 +355,7 @@ function AddFontListener(quill, font)
 function AddFontColorListener(quill, font)
 {
     quill.getModule('toolbar').addHandler('color', (value) => {
-        if (value == 'custom-color') {
+        if (value === 'custom-color') {
             value = prompt('Enter Hex/RGB/RGBA');
         }
         font.font = quill.getFormat(quill.getSelection()).font;
@@ -371,7 +371,7 @@ function AddFontColorListener(quill, font)
 function AddFontSizeListener(quill, font, sizeList, quillClass)
 {
     quill.getModule('toolbar').addHandler('size', (value) => {
-        if (value == 'custom-size') {
+        if (value === 'custom-size') {
             value = prompt('Enter font size');
             value += 'px';
             sizeList.push(value);
@@ -509,7 +509,7 @@ function DeltaToSpanCSS(quill, textElem)
  */
 function IsEditorEmpty(quill)
 {
-    return (quill.getContents().ops[0].insert == '\n')
+    return (quill.getContents().ops[0].insert === '\n')
 }
 
 export { QuillEditor };

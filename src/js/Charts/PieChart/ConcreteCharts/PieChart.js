@@ -52,7 +52,7 @@ class PieChart extends APieChart
     _BindData(custom)
     {
         var startAngle = 0, prevAngle = 0;
-        var tmp = custom.selectAll('custom.circle')
+        custom.selectAll('custom.circle')
             .data(this._data)
             .enter()
             .append('custom')

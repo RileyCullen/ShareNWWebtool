@@ -69,9 +69,11 @@ class LineDataValueDecorator extends ALineChartDecorator
                 case 'right':
                     xPos += (textWidth / 2) + this._pointRadius;
                     break;
+                default: 
+                    break;
             }
 
-            var text = new Konva.Text({
+            var textObj = new Konva.Text({
                 x: xPos,
                 y: yPos,
                 text: text,
@@ -79,7 +81,7 @@ class LineDataValueDecorator extends ALineChartDecorator
                 fontfamily: this._font.fontFamily,
                 fill: this._font.fontColor,
             });
-            this._group.add(text);
+            this._group.add(textObj);
         });
     }
 }

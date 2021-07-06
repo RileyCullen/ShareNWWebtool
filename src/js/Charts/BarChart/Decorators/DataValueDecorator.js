@@ -80,8 +80,8 @@ class DataValueDecorator extends ABarChartDecorator
         //       placement of the labels are based on how the chart is rendered,
         //       we need to call a separate helper function.
         if (this._chartType === 'Icon') {
-            if (this._icon === 'none') throw 'No icon provided';
-            if (this._iconSize === 0) throw 'No icon size provided';
+            if (this._icon === 'none') throw Error('No icon provided');
+            if (this._iconSize === 0) throw Error('No icon size provided');
             this._AddIconLabels();
         }
         else this._AddLabels();
@@ -159,7 +159,7 @@ class DataValueDecorator extends ABarChartDecorator
              */
             var labelWidth = this._GetTextWidth(label, this._font),
                 labelHeight = this._GetTextHeight(label, this._font),
-                offset = (i == 0) ? 0 : this._padding,
+                offset = (i === 0) ? 0 : this._padding,
                 iconWidth = this._GetIconWidth(this._icon, this._iconSize),
                 iconHeight = this._GetIconHeight(this._icon, this._iconSize),
                 xIcon = (this._xScale(d.category) - this._xScale(minCategory) + offset),

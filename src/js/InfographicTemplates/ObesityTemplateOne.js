@@ -290,8 +290,6 @@ class ObesityTemplateOne extends AInfographic
 
         var sectionThreeTextDiv = document.createElement('div');
         sectionThreeTextDiv.style.color = '#7b706a';
-        var sectionThreeText = '<p style="font-family: Open Sans, sans-serif; font-size: 18.5px; font-weight: bold">' + 
-            'of elementary schools <br>offer no physical<br>education classes</p>';
         var sectionThreeText = '' + 
             '<p style="margin: 0px;"><span style="font-family: Open Sans, sans-serif; font-size: 18.5px; font-weight: bold; line-height: 1.5;">of elementary schools</span></p>' +
             '<p style="margin: 0px;"><span style="font-family: Open Sans, sans-serif; font-size: 18.5px; font-weight: bold; line-height: 1.5;">offer no physical</span></p>' + 
@@ -342,8 +340,6 @@ class ObesityTemplateOne extends AInfographic
 
         var sectionFourTextDiv = document.createElement('div');
         sectionFourTextDiv.style.color = '#5f9400';
-        var sectionFourText = '<p style="font-family: Open Sans, sans-serif; font-size: 16px; font-weight: bold">' + 
-            'is the amount of time kids<br>spend in front of TV or<br>computer screens daily</p>';
         var sectionFourText = '' + 
             '<p style="margin: 0px;"><span style="font-family: Open Sans, sans-serif; font-size: 16px; font-weight: bold; line-height: 1.5;">is the amount of time kids</span></p>' +
             '<p style="margin: 0px;"><span style="font-family: Open Sans, sans-serif; font-size: 16px; font-weight: bold; line-height: 1.5;">spend in front of TV or</span></p>' + 
