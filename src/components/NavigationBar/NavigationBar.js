@@ -28,7 +28,8 @@ class NavigationBar extends React.Component
                 {
                     this._infographicLabelList.map((d, i) => {
                         var name = this._infographicList[i];
-                        return <BarElement 
+                        return <BarElement
+                                    key={i} 
                                     displayText={d} 
                                     infogName={name}
                                     setInfographic={(infog) => { this.props.setInfographic(infog)} }
