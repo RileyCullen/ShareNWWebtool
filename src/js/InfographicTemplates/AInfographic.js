@@ -238,6 +238,7 @@ class AInfographic
         var element = document.querySelector(query);
         // var comp = window.getComputedStyle(element, null);
         html2canvas(element, {
+            logging: false,
             backgroundColor: null,
             scrollY: -(window.scrollY),
             // width: comp.width.replace('px', ''),
@@ -245,6 +246,15 @@ class AInfographic
             // console.log('image width: ' + image.width)
             this._textHandler.GetImage(index).image(image);
             this._main.batchDraw();
+        }).catch(() => {
+            var helperElem = document.createElement('div');
+            helperElem.style.position = 'absolute';
+            document.getElementById('renderHelper').appendChild(helperElem);
+
+            helperElem.appendChild(this._textHandler.GetTextElem(index));
+            this._HTMLToCanvas('.EditableText', index);
+            this._textHandler.GetTextElem(index).remove();
+            helperElem.remove();
         });
         /*console.log('width: ' + comp.width);
         console.log('height: ' + comp.height);
