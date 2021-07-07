@@ -340,7 +340,7 @@ class AInfographic
 
     UpdateChartData(chartData)
     {
-        if (chartData === 0) return;
+        if (chartData === 0 || this._selectedChartIndex === -1) return;
         var elem = this._chartHandler.GetHandlerElem(this._selectedChartIndex),
             name = elem.group.getAttr('name');
         if (name === 'Selectable Chart Waffle') {
@@ -408,6 +408,7 @@ class AInfographic
 
                 var HandleOutsideClick = (e) => {
                     if (e.target !== chart) {
+                        this._selectedChartIndex = -1;
                         this._editorHandler('none');
                         this._tr.nodes([]);
                         chart.setAttr('draggable', false);
