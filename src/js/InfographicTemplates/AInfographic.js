@@ -23,7 +23,7 @@ class AInfographic
      * @param {double} height The height of the canvas element
      * @param {double} width  The width of the canvas element
      */
-    constructor(height, width, editorHandler, textCallback, dataCallback)
+    constructor(height, width, editorHandler, textCallback, chartCallback)
     {
         if (AInfographic === this.constructor) {
             throw new TypeError('Abstract class "AInfographic" cannot be instantiated');
@@ -67,7 +67,7 @@ class AInfographic
 
         this._editorHandler = editorHandler;
         this._textCallback = textCallback;
-        this._dataCallback = dataCallback;
+        this._chartCallback = chartCallback;
 
         this._selectedTextIndex = -1;
         this._selectedChartIndex = -1;
@@ -165,11 +165,11 @@ class AInfographic
         }
     }
 
+    /**
+     * @summary     Adds a black border around the edges of the canvas element.
+     */
     _AddStageBorder()
     {
-        /**
-         * @summary     Adds a black border around the edges of the canvas element.
-         */
         var bkg = new Konva.Rect({
             x: 0,
             y: 0,
@@ -182,17 +182,17 @@ class AInfographic
         bkg.moveToBottom();
     }
 
+    /**
+     * @summary     Returns the width of a text element given the text's font.
+     * @description Using canvas' measureText function, _GetTextWidth returns the
+     *              width in pixels of a given piece of text.
+     * 
+     * @param {string} text       The text we want to determine the width of.
+     * @param {double} fontSize   The font size of the text we want to find the width of.
+     * @param {string} fontFamily The font family of the text we want to analyze.
+     */
     _GetTextWidth(text, fontSize, fontFamily)
     {
-        /**
-         * @summary     Returns the width of a text element given the text's font.
-         * @description Using canvas' measureText function, _GetTextWidth returns the
-         *              width in pixels of a given piece of text.
-         * 
-         * @param {string} text       The text we want to determine the width of.
-         * @param {double} fontSize   The font size of the text we want to find the width of.
-         * @param {string} fontFamily The font family of the text we want to analyze.
-         */
         var canvas = document.createElement('canvas');
         var ctx = canvas.getContext('2d');
 
@@ -202,13 +202,12 @@ class AInfographic
 
         return helper;
     }
-
+    /**
+     * @param {double} width  The width of the element we are centering.
+     * @param {double} center The x-coordinate we want to center about.
+     */
     _CenterXAbout(width, center)
     {
-        /**
-         * @param {double} width  The width of the element we are centering.
-         * @param {double} center The x-coordinate we want to center about.
-         */
         return center - (width / 2);
     }
 
@@ -322,6 +321,13 @@ class AInfographic
         });
     }
 
+    /**
+     * @summary     Updates current handler element.
+     * @description Updates the text handler element located at _selectedTextIndex
+     *              with data from the parameterized textElem variable.
+     * 
+     * @param {JSON} textElem A JSON object containing the updated textElem information.
+     */
     UpdateTextHandler(textElem)
     {
         if (textElem.image === undefined || textElem.textElem === undefined || 
@@ -338,6 +344,13 @@ class AInfographic
         });
     }
 
+    /**
+     * @summary     Updates the selected chart.
+     * @description Updates the chart (and its associated data) at index 
+     *              _selectedChartIndex.
+     * @param {misc} chartData The structure of this variable depends on the 
+     *                         type of chart we are dealing with.
+     */
     UpdateChartData(chartData)
     {
         if (chartData === 0 || this._selectedChartIndex === -1) return;
@@ -356,6 +369,13 @@ class AInfographic
         this._UpdateDecorators(elem);
     }
 
+    /**
+     * @summary     Updates decorators.
+     * @description Iterates though all the decorators in handlerElem and updates
+     *              them.
+     * 
+     * @param {JSON} handlerElem 
+     */
     _UpdateDecorators(handlerElem)
     {
         var prev = handlerElem.chart;
@@ -389,10 +409,9 @@ class AInfographic
                 chart.setAttr('draggable', true);
 
                 var selectedChart = this._chartHandler.GetHandlerElem(this._selectedChartIndex).chart;
-                this._dataCallback(selectedChart.GetData());
+                this._chartCallback(selectedChart.GetData());
 
                 if (chart.getAttr('name') === 'Selectable Chart Waffle') {
-                    // this._UIAdder.CreateWaffleEditor(this._chartHandler.GetHandlerElem(index), this._main, this._tr);
                     this._editorHandler('waffle-editor');
                 } else if (chart.getAttr('name') === 'Selectable Chart Pie') {
                     // this._UIAdder.CreatePieEditor(this._chartHandler.GetHandlerElem(index), this._main, this._tr);
