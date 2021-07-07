@@ -360,7 +360,7 @@ class DiabetesTemplateOne extends AInfographic
             iconSize: iconSize
         });
 
-        dataValues.CreateBarChart();
+        dataValues.CreateChart();
 
         this._chartHandler.AddChart(barChart, barChartGroup, 'Bar');
         this._chartHandler.AddDecorator(labels, this._chartHandler.GetCurrChartID());

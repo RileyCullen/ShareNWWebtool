@@ -39,9 +39,9 @@ class YAxisDecorator extends ABarChartDecorator
      * @description This function calls _chart's CreateBarChart function
      *              as well as the _CreateYAxis function.
      */
-    CreateBarChart()
+    CreateChart()
     {
-        this._chart.CreateBarChart();
+        this._chart.CreateChart();
         this._CreateYAxis();
     }
 

@@ -69,9 +69,9 @@ class DataValueDecorator extends ABarChartDecorator
      * @description See summary. This is done by calling _chart's CreateBarChart
      *              function and by calling _AddLabels.
      */
-    CreateBarChart()
+    CreateChart()
     {
-        this._chart.CreateBarChart();
+        this._chart.CreateChart();
 
         // NOTE: We essentially need two different methods for creating the 
         //       category labels based on what the chart type is. Essentially,

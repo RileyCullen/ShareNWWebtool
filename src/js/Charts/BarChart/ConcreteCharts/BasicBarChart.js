@@ -29,7 +29,7 @@ class BasicBarChart extends ABarChart
      * @description This function calls _CreationHelper, which is 
      *              responsible for adding the bars to the Konva.Group.
      */
-    CreateBarChart()
+    CreateChart()
     {
         this._CreationHelper();
     }

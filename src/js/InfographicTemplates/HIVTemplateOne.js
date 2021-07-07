@@ -220,7 +220,7 @@ class HIVTemplateOne extends AInfographic
         this._chartHandler.AddDecorator(remainder, this._chartHandler.GetCurrChartID());
         this._chartHandler.AddDecorator(dataValue, this._chartHandler.GetCurrChartID());
         this._chartHandler.GetDecorator(this._chartHandler.GetCurrChartID(), this._chartHandler.GetCurrDecSize())
-            .CreateBarChart();
+            .CreateChart();
 
         const LIGHT_BLUE = '#a0b8d2', BLUE = '#1670ac';
         var blueBackground = new ArrowHeader(0, 0, 400, 125, sectionThree, BLUE, 'white');

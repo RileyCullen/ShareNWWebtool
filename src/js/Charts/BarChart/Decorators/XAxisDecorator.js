@@ -40,9 +40,9 @@ class XAxisDecorator extends ABarChartDecorator
      * @description This function calls _chart's CreateBarChart method as well
      *              as _CreateXAxis.
      */
-    CreateBarChart()
+    CreateChart()
     {
-        this._chart.CreateBarChart();
+        this._chart.CreateChart();
         this._CreateXAxis();
     }
 

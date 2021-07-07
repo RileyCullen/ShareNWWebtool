@@ -47,9 +47,9 @@ class ChartDescriptorDecorator extends ABarChartDecorator
      * @description See summary. This function does so by calling _chart's 
      *              CreateBarChart function and _CreateDescriptor.
      */
-    CreateBarChart()
+    CreateChart()
     {
-        this._chart.CreateBarChart();
+        this._chart.CreateChart();
         this._CreateDescriptor();
     }
 

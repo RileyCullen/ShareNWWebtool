@@ -27,7 +27,7 @@ class StackedBarChart extends ABarChart
      *              same with the exception that this class defines its own
      *              _BindData and _DrawBars functions.
      */
-    CreateBarChart()
+    CreateChart()
     {
         var virtualDOM = document.createElement('custom');
         var custom = d3.select(virtualDOM);

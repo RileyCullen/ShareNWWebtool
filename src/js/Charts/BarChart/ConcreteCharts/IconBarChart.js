@@ -47,7 +47,7 @@ class IconBarChart extends ABarChart
      *              the data within _data to custom DOM elements and the using 
      *              that data to draw canvas elements using Konva.js
      */
-    CreateBarChart()
+    CreateChart()
     {
         if (this._dynamicFont) this._DetermineFontSize();
         var upperBound = this._UpdateUpperBound();

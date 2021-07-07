@@ -35,9 +35,9 @@ class PercentageBarChart extends ABarChart
      * @description Creates the percentage bar chart by calling _basicBar's CreateBarChart
      *              method.
      */
-    CreateBarChart()
+    CreateChart()
     {
-        this._basicBar.CreateBarChart();
+        this._basicBar.CreateChart();
     }
 
     /**

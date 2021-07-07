@@ -35,9 +35,9 @@ class RemainderDecorator extends ABarChartDecorator
      *              chart by calling the _chart's CreateBarChart function 
      *              as well as _DrawBars.
      */
-    CreateBarChart()
+    CreateChart()
     {
-        this._chart.CreateBarChart();
+        this._chart.CreateChart();
         this._DrawBars();
     }
 

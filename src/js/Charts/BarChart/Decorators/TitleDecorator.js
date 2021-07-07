@@ -38,9 +38,9 @@ class TitleDecorator extends ABarChartDecorator
      * @description Call's _chart's CreateBarChart method and then adds the title
      *              in addition to whatever is previously decorated.
      */
-    CreateBarChart()
+    CreateChart()
     {
-        this._chart.CreateBarChart();
+        this._chart.CreateChart();
         this._CreateTitle();
     }
 

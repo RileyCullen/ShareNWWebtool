@@ -39,7 +39,7 @@ class ABarChart
             throw new TypeError('Abstract class "ABarChart" cannot be instantiated');
         }
 
-        if (this.CreateBarChart === undefined) {
+        if (this.CreateChart === undefined) {
             throw new TypeError('Classes extending ABarChart must implement "CreateBarChart"');
         }
 

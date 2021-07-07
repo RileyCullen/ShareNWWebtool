@@ -257,8 +257,7 @@ class ViolenceTemplateOne extends AInfographic
         this._chartHandler.AddDecorator(categoryLabel, this._chartHandler.GetCurrChartID());
         this._chartHandler.AddDecorator(descriptor, this._chartHandler.GetCurrChartID());
         this._chartHandler.GetDecorator(this._chartHandler.GetCurrChartID(), this._chartHandler.GetCurrDecSize())
-            .CreateBarChart();
-        descriptor.CreateBarChart();
+            .CreateChart();
 
         /* PIE CHART ONE CODE */
         var pieChartOneGroup = new Konva.Group({
@@ -388,7 +387,7 @@ class ViolenceTemplateOne extends AInfographic
         this._chartHandler.AddDecorator(xAxisOne, this._chartHandler.GetCurrChartID());
         this._chartHandler.AddDecorator(valueDecoratorOne, this._chartHandler.GetCurrChartID());
         this._chartHandler.GetDecorator(this._chartHandler.GetCurrChartID(), this._chartHandler.GetCurrDecSize())
-            .CreateBarChart();
+            .CreateChart();
 
         /* TOOL TIP */
         var toolTip = new MessageBubble(sectionOne, 225, 150, '#1e2243');

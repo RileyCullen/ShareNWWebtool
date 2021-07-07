@@ -68,9 +68,9 @@ class CategoryLabelDecorator extends ABarChartDecorator
      * @description Calls _chart's CreateBarChart method and then creates
      *              the labels by calling _CreateLabels.
      */
-    CreateBarChart()
+    CreateChart()
     {
-        this._chart.CreateBarChart();
+        this._chart.CreateChart();
 
         // NOTE: We essentially need two different methods for creating the 
         //       category labels based on what the chart type is. Essentially,
