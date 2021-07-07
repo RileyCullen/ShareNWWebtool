@@ -51,6 +51,7 @@ class CanvasContainer extends React.Component
             this._DrawInfographic();
         } else {
             this._infogObj.UpdateTextHandler(this.props.textElem);
+            this._infogObj.UpdateChartData(this.props.chartData);
         }
         this._previousInfographic = this.props.infographic;
     }
@@ -60,7 +61,8 @@ class CanvasContainer extends React.Component
         document.fonts.ready.then(() => {
             var handlerObj = {
                 editorHandler: (editor) => { this.props.editorHandler(editor); },
-                textHandler: (textElem) => { this.props.textHandler(textElem); }
+                textHandler: (textElem) => { this.props.textHandler(textElem); },
+                dataHandler: (data) => { this.props.chartDataHandler(data); }
             };
 
             switch(this.props.infographic) {

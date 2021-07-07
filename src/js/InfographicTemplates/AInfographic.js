@@ -23,7 +23,7 @@ class AInfographic
      * @param {double} height The height of the canvas element
      * @param {double} width  The width of the canvas element
      */
-    constructor(height, width, editorHandler, textCallback)
+    constructor(height, width, editorHandler, textCallback, dataCallback)
     {
         if (AInfographic === this.constructor) {
             throw new TypeError('Abstract class "AInfographic" cannot be instantiated');
@@ -67,8 +67,10 @@ class AInfographic
 
         this._editorHandler = editorHandler;
         this._textCallback = textCallback;
+        this._dataCallback = dataCallback;
 
         this._selectedTextIndex = -1;
+        this._selectedChartIndex = -1;
 
         this._stage.add(this._main);
 
@@ -336,6 +338,38 @@ class AInfographic
         });
     }
 
+    UpdateChartData(chartData)
+    {
+        if (chartData === 0) return;
+        var elem = this._chartHandler.GetHandlerElem(this._selectedChartIndex),
+            name = elem.group.getAttr('name');
+        if (name === 'Selectable Chart Waffle') {
+            // We assume that the data will be formatted as follows
+            // data = {
+            //    numerator: {num}, denominator: {num}
+            // }
+            if (chartData.numerator === 0 || chartData.denominator === 0) return;
+            var numerator = chartData.numerator, denominator = chartData.denominator;
+            elem.chart.UpdateData(parseInt(numerator), parseInt(denominator));
+        }
+
+        this._UpdateDecorators(elem);
+    }
+
+    _UpdateDecorators(handlerElem)
+    {
+        var prev = handlerElem.chart;
+        for (var i = 0; i <= handlerElem.decoratorSize; i++) {
+            handlerElem.decorators[i].UpdateDecorator(prev);
+            prev = handlerElem.decorators[i];
+        }
+
+        if (handlerElem.decoratorSize === -1) handlerElem.chart.CreateChart();
+        else handlerElem.decorators[handlerElem.decoratorSize].CreateChart();
+        this._tr.forceUpdate();
+        this._main.batchDraw();
+    }
+
     /**
      * @summary     Adds the capability to select and edit graphs.
      * @description Iterates through all of the elements in the graph handler and
@@ -348,20 +382,24 @@ class AInfographic
         });
         selection.forEach((chart) => {
             chart.on('dblclick', () => {
-                var index = parseInt(chart.getAttr('id'));
+                this._selectedChartIndex = parseInt(chart.getAttr('id'));
                 this._tr.nodes([chart]);
                 this._tr.moveToTop();
                 this._main.batchDraw();
                 chart.setAttr('draggable', true);
 
+                var selectedChart = this._chartHandler.GetHandlerElem(this._selectedChartIndex).chart;
+                this._dataCallback(selectedChart.GetData());
+
                 if (chart.getAttr('name') === 'Selectable Chart Waffle') {
-                    this._UIAdder.CreateWaffleEditor(this._chartHandler.GetHandlerElem(index), this._main, this._tr);
+                    // this._UIAdder.CreateWaffleEditor(this._chartHandler.GetHandlerElem(index), this._main, this._tr);
+                    this._editorHandler('waffle-editor');
                 } else if (chart.getAttr('name') === 'Selectable Chart Pie') {
-                    this._UIAdder.CreatePieEditor(this._chartHandler.GetHandlerElem(index), this._main, this._tr);
+                    // this._UIAdder.CreatePieEditor(this._chartHandler.GetHandlerElem(index), this._main, this._tr);
                 } else if (chart.getAttr('name') === 'Selectable Chart Bar') {
-                    this._UIAdder.CreateBarEditor(this._chartHandler.GetHandlerElem(index), this._main, this._tr);
+                     // this._UIAdder.CreateBarEditor(this._chartHandler.GetHandlerElem(index), this._main, this._tr);
                 } else if (chart.getAttr('name') === 'Selectable Chart Stacked') {
-                    this._UIAdder.CreateStackedBarEditor(this._chartHandler.GetHandlerElem(index), this._main, this._tr);
+                    // this._UIAdder.CreateStackedBarEditor(this._chartHandler.GetHandlerElem(index), this._main, this._tr);
                 }
 
                 setTimeout(() => {
@@ -370,11 +408,10 @@ class AInfographic
 
                 var HandleOutsideClick = (e) => {
                     if (e.target !== chart) {
-                        this._UIAdder.RemoveCurrentEditor();
+                        this._editorHandler('none');
                         this._tr.nodes([]);
                         chart.setAttr('draggable', false);
                         this._main.batchDraw();
-                        console.log('off');
                         this._stage.off('click', HandleOutsideClick);
                     }
                 };

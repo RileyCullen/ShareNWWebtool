@@ -4,7 +4,7 @@
 
 import React from 'react';
 import {CanvasContainer} from './CanvasContainer';
-import { QuillEditor } from './Editors/index';
+import { QuillEditor, WaffleEditor } from './Editors/index';
 
 /**
  * Container for all of the react components related to editing infographics.
@@ -16,6 +16,7 @@ class InfographicEditor extends React.Component
         super(props);
         this.state = {
             currentEditor: 'none',
+            chartData: 0,
         };
         this._infogTextElem = 0;
         this._editorTextElem = 0;
@@ -36,8 +37,10 @@ class InfographicEditor extends React.Component
                     infographic={this.props.currentInfographic}
                     editorHandler={(editor) => { this._SetCurrentEditor(editor); }}
                     textHandler={(textElem) => { this._SetInfogTextElem(textElem); }}
+                    chartDataHandler={(data) => { this._SetChartData(data); }}
                     dimensionHandler={(dims) => { this._SetInfogDimensions(dims); }}
                     textElem={this._editorTextElem}
+                    chartData={this.state.chartData}
                     style={{flex: 1}}
                 />
                 <div className='editor'
@@ -76,6 +79,13 @@ class InfographicEditor extends React.Component
         };
     }
 
+    _SetChartData(chartData)
+    {
+        this.setState({
+            chartData: chartData,
+        });
+    }
+
     _SelectEditor()
     {
         if (this.state.currentEditor === 'text-editor') {
@@ -83,6 +93,10 @@ class InfographicEditor extends React.Component
                 textElem={this._infogTextElem}
                 setTextElem={(textElem) => { this._SetEditorTextElem(textElem); }}
             />;
+        } else if (this.state.currentEditor === 'waffle-editor') {
+            return <WaffleEditor 
+                chartData={this.state.chartData}
+                setChartData={(data) => { this._SetChartData(data); }}/>
         }
         return false;
     }
