@@ -54,6 +54,14 @@ class AWaffleChart
         this._denominator = denominator;
     }
 
+    GetData()
+    {
+        return {
+            numerator: this._numerator,
+            denominator: this._denominator,
+        }
+    }
+
     /**
      * @summary     Removes group and its children from canvas.
      * @description A wrapper function that call's _group's destroy function. 
