@@ -78,15 +78,6 @@ class AInfographic
 
         this._AddStageBorder();
     }
-    /**
-     * @summary     Removes the current editor from DOM.
-     * @description A wrapper function that call's _UIAdder's RemoveCurrentEditor
-     *              function, which removes the editor if it exists.
-     */
-    Remove()
-    {
-        if (this._UIAdder.GetState()) this._UIAdder.RemoveCurrentEditor();
-    }
 
     /**
      * @summary     Returns chart's dimensions to caller.
@@ -310,6 +301,7 @@ class AInfographic
 
                 var HandleOutsideClick = (e) => {
                     if (e.target !== textElem) {
+                        this._selectedTextIndex = -1;
                         this._editorHandler('none');
                         this._tr.nodes([]);
                         textElem.setAttr('draggable', false);
@@ -342,6 +334,20 @@ class AInfographic
             image: textElem.image,
             spanCSS: textElem.spanCSS,
         });
+    }
+
+    Remove()
+    {
+        // TODO remove entries from handler
+        if (this._selectedChartIndex !== -1) {
+            var chartElem = this._chartHandler.GetHandlerElem(this._selectedChartIndex);
+            chartElem.chart.Remove();
+            this._main.batchDraw();
+        } else if (this._selectedTextIndex !== -1) {
+            var handlerElem = this._textHandler.GetHandlerElem(this._selectedTextIndex);
+            handlerElem.image.destroy();
+            this._main.batchDraw();
+        }
     }
 
     /**
