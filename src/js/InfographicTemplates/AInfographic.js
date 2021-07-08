@@ -70,6 +70,7 @@ class AInfographic
         this._chartCallback = chartCallback;
 
         this._selectedTextIndex = -1;
+        this._selectedTextHelper = -1;
         this._selectedChartIndex = -1;
 
         this._stage.add(this._main);
@@ -284,6 +285,7 @@ class AInfographic
 
         selection.forEach((textElem) => {
             textElem.on('dblclick', () => {
+                console.log(textElem)
                 textElem.setAttr('draggable', true);
 
                 this._tr.nodes([textElem]);
@@ -291,6 +293,7 @@ class AInfographic
                 this._main.batchDraw();
 
                 this._selectedTextIndex = textElem.getAttr('id');
+                this._selectedTextHelper = this._selectedTextIndex;
   
                 this._textCallback(this._textHandler.GetHandlerElem(this._selectedTextIndex))
                 this._editorHandler('text-editor');
@@ -327,13 +330,16 @@ class AInfographic
             textElem === 0) {
             return;
         } 
+        console.log('index: ' + this._selectedTextHelper);
         this._textHandler.UpdateTextElem({
-            index: this._selectedTextIndex,
+            index: this._selectedTextHelper,
             textElem: textElem.textElem,
             group: textElem.group,
             image: textElem.image,
             spanCSS: textElem.spanCSS,
         });
+        console.log(this._textHandler);
+        this._selectedTextHelper = -1;
     }
 
     Remove()
