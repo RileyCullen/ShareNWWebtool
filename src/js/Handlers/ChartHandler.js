@@ -84,6 +84,14 @@ class ChartHandler
     GetGroup(id) { return this._handler[id].group; }
 
     GetHandlerElem(id) { return this._handler[id]; }
+
+    RemoveHandlerElem(id) 
+    {
+        this._handler.splice(id, 1);
+        this._curr--;
+        console.log(this._handler);
+        console.log(this._curr);
+    }
 }
 
 export { ChartHandler }; 

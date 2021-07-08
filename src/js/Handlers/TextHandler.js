@@ -120,7 +120,6 @@ class TextHandler
             'image': this._handler[id].image,
             'spanCSS': this._handler[id].spanCSS
         };
-        // return this._handler[id]; 
     }
 
     _CreateKonvaImage(index, x, y)
@@ -133,6 +132,12 @@ class TextHandler
             name: 'Selectable EditableText',
             id: index
         });
+    }
+
+    RemoveHandlerElem(id)
+    {
+        this._handler.splice(id, 1);
+        this._curr--;
     }
 }
 
