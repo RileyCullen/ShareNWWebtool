@@ -89,8 +89,14 @@ class ChartHandler
     {
         this._handler.splice(id, 1);
         this._curr--;
-        console.log(this._handler);
-        console.log(this._curr);
+        this._UpdateHandlerId(); 
+    }
+
+    _UpdateHandlerId()
+    {
+        this._handler.forEach((d, i) => {
+            d.group.setAttr('id', i);
+        });
     }
 }
 

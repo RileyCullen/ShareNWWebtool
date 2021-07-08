@@ -49,12 +49,15 @@ class TextHandler
 
     UpdateTextElem({index, textElem, group, image, spanCSS})
     {
+        console.log(this._handler);
         this._handler[index] = {
             textElem: textElem,
             group: group,
             image: image,
             spanCSS: spanCSS,
         };
+        console.log('after')
+        console.log(this._handler);
     }
 
     SetTextInfo(id, font, size, color)
@@ -138,6 +141,15 @@ class TextHandler
     {
         this._handler.splice(id, 1);
         this._curr--;
+        this._UpdateHandlerId();
+    }
+
+    _UpdateHandlerId()
+    {
+        this._handler.forEach((d, i) => {
+            d.image.setAttr('id', i);
+            
+        });
     }
 }
 
