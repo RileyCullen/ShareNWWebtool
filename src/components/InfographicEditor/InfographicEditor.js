@@ -4,7 +4,7 @@
 
 import React from 'react';
 import {CanvasContainer} from './CanvasContainer';
-import { QuillEditor, WaffleEditor } from './Editors/index';
+import { QuillEditor, WaffleEditor, Remover } from './Editors/index';
 
 /**
  * Container for all of the react components related to editing infographics.
@@ -17,12 +17,13 @@ class InfographicEditor extends React.Component
         this.state = {
             currentEditor: 'none',
             chartData: 0,
+            isRemoving: false,
         };
         this._infogTextElem = 0;
         this._editorTextElem = 0;
         this._infogDimensions = {
-            width: -1,
-            height: -1,
+            width: 582,
+            height: 582,
         };
     }
 
@@ -41,15 +42,22 @@ class InfographicEditor extends React.Component
                     dimensionHandler={(dims) => { this._SetInfogDimensions(dims); }}
                     textElem={this._editorTextElem}
                     chartData={this.state.chartData}
+                    isRemoving={this.state.isRemoving}
                     style={{flex: 1}}
                 />
                 <div className='editor'
                     style={{marginLeft: 30, position: 'fixed', left: width + 55 + 'px', top: 70 + 'px'}}
                 >
                     {currentEditor}
+                    {this._Remover()}
                 </div>
             </div>
         );
+    }
+
+    componentDidUpdate()
+    { 
+        if (this.state.isRemoving) this.setState({isRemoving: false});
     }
 
     /**
@@ -123,6 +131,26 @@ class InfographicEditor extends React.Component
                 setChartData={(data) => { this._SetChartData(data); }}/>
         }
         return false;
+    }
+
+    /**
+     * @summary Creates the a button in react with a trash icon.
+     * @returns A react component
+     */
+    _Remover()
+    {
+        if (this.state.currentEditor !== 'none') {
+            return <Remover 
+                toggleRemove={() => { this._ToggleRemove(); }}/>;
+        }
+        return false;
+    }
+
+    _ToggleRemove()
+    {
+        this.setState({
+            isRemoving: true,
+        }); 
     }
 }
 
