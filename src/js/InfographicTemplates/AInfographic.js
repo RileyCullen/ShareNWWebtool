@@ -343,10 +343,12 @@ class AInfographic
             var chartElem = this._chartHandler.GetHandlerElem(this._selectedChartIndex);
             chartElem.chart.Remove();
             this._main.batchDraw();
+            this._chartHandler.RemoveHandlerElem(this._selectedChartIndex);
         } else if (this._selectedTextIndex !== -1) {
             var handlerElem = this._textHandler.GetHandlerElem(this._selectedTextIndex);
             handlerElem.image.destroy();
             this._main.batchDraw();
+            this._textHandler.RemoveHandlerElem(this._selectedTextIndex);
         }
     }
 
