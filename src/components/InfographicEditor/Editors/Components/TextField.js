@@ -34,6 +34,12 @@ class TextField extends React.Component
         </div>);
     }
 
+    /**
+     * @summary     Event handler that is called when textarea content is change.
+     * @description This function updates this component's state and then passes 
+     *              the component's id and value to the caller component.
+     * @param {Event} event The textarea event.
+     */
     _HandleChange(event)
     {
         this.setState({

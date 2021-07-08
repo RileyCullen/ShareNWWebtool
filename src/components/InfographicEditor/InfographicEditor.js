@@ -52,6 +52,10 @@ class InfographicEditor extends React.Component
         );
     }
 
+    /**
+     * @summary     Updates the current editor.
+     * @param {string} editor The new editor.
+     */
     _SetCurrentEditor(editor)
     {
         this.setState({
@@ -61,16 +65,28 @@ class InfographicEditor extends React.Component
         this._editorTextElem = 0;
     }
 
+    /**
+     * @summary     Updates the current text element.
+     * @param {JSON} textElem The new text element.
+     */
     _SetInfogTextElem(textElem) 
     {
         this._infogTextElem = textElem;
     }
 
+    /**
+     * @summary     Updates the current text element.
+     * @param {JSON} textElem The new text element.
+     */
     _SetEditorTextElem(textElem)
     {
         this._editorTextElem = textElem;
     }
 
+    /**
+     * @summary Updates _infogDimensions.
+     * @param {JSON} dimensions JSON object containing a width and height attribute.
+     */
     _SetInfogDimensions(dimensions) 
     {
         this._infogDimensions = {
@@ -79,6 +95,10 @@ class InfographicEditor extends React.Component
         };
     }
 
+    /**
+     * @summary Updates chartData.
+     * @param {misc} chartData Layout of data depends on which chart we are dealing with.
+     */
     _SetChartData(chartData)
     {
         this.setState({
@@ -86,6 +106,10 @@ class InfographicEditor extends React.Component
         });
     }
 
+    /**
+     * @summary Selects the current editor being displayed.
+     * @returns A react component
+     */
     _SelectEditor()
     {
         if (this.state.currentEditor === 'text-editor') {

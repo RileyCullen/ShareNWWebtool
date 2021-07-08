@@ -56,6 +56,9 @@ class CanvasContainer extends React.Component
         this._previousInfographic = this.props.infographic;
     }
 
+    /**
+     * @summary Draws the infographic on the canvas using Konva. 
+     */
     _DrawInfographic()
     {
         document.fonts.ready.then(() => {

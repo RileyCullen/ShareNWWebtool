@@ -41,6 +41,13 @@ class WaffleEditor extends React.Component
         );
     }
 
+    /**
+     * @summary     Updates _data.
+     * @description Updates _data and passes a copy of _data to InfographicEditor.
+     * 
+     * @param {int} id  The id of the textfield. 
+     * @param {*} value The value of the textfield.
+     */
     _SetChartData(id, value)
     {
         if (id === 0) {
