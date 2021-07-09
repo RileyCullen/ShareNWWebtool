@@ -129,6 +129,12 @@ class InfographicEditor extends React.Component
             return <WaffleEditor 
                 chartData={this.state.chartData}
                 setChartData={(data) => { this._SetChartData(data); }}/>
+        } else if (this.state.currentEditor === 'bar-editor') {
+            return <div></div>;
+        } else if (this.state.currentEditor === 'stacked-bar-editor') {
+            return <div></div>;
+        } else if (this.state.currentEditor === 'pie-editor') {
+            return <div></div>;
         }
         return false;
     }
