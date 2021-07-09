@@ -95,6 +95,44 @@ class AInfographic
     }
 
     /**
+     * @summary     Manages memory for infographic type.
+     * @description A function that is responsible for freeing memory that would 
+     *              otherwise cause memory leaks. 
+     */
+    Clean()
+    {
+        // Remove chart/text listeners
+        this._RemoveTextListeners();
+        this._RemoveChartListeners();
+
+        // Remove all the elements from this._stage
+        this._stage.destroy();
+        this._stage = 0;
+    }
+
+    /**
+     * @summary Removes the event listeners from each text node.
+     */
+    _RemoveTextListeners()
+    {
+        var selection = this._stage.find((node) => {
+            return node.hasName('Selectable') && node.hasName('EditableText');
+        });
+        selection.forEach(textElem => { textElem.off('dblclick'); })
+    }
+
+    /**
+     * @summary Removes the event listeners from each chart node.
+     */
+    _RemoveChartListeners()
+    {
+        var selection = this._stage.find((node) => {
+            return node.hasName('Selectable') && node.hasName('Chart');
+        });
+        selection.forEach(chartElem => { chartElem.off('dblclick'); })
+    }
+
+    /**
      * @summary     Draws SVG on the canvas.
      * @description A function that uses native canvas to draw an SVG and then
      *              add it using a Konva.JS image object. NOTE that canvas does
