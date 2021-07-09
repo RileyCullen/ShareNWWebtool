@@ -66,6 +66,9 @@ class CanvasContainer extends React.Component
     _DrawInfographic()
     {
         document.fonts.ready.then(() => {
+
+            if (this._infogObj) this._infogObj.Clean();
+            
             var handlerObj = {
                 editorHandler: (editor) => { this.props.editorHandler(editor); },
                 textHandler: (textElem) => { this.props.textHandler(textElem); },
