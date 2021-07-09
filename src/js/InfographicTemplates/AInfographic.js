@@ -350,11 +350,13 @@ class AInfographic
             chartElem.chart.Remove();
             this._main.batchDraw();
             this._chartHandler.RemoveHandlerElem(this._selectedChartIndex);
+            this._selectedChartIndex = -1;
         } else if (this._selectedTextIndex !== -1) {
             var handlerElem = this._textHandler.GetHandlerElem(this._selectedTextIndex);
             handlerElem.image.destroy();
             this._main.batchDraw();
             this._textHandler.RemoveHandlerElem(this._selectedTextIndex);
+            this._selectedChartIndex = -1;
         }
     }
 
@@ -428,11 +430,11 @@ class AInfographic
                 if (chart.getAttr('name') === 'Selectable Chart Waffle') {
                     this._editorHandler('waffle-editor');
                 } else if (chart.getAttr('name') === 'Selectable Chart Pie') {
-                    // this._UIAdder.CreatePieEditor(this._chartHandler.GetHandlerElem(index), this._main, this._tr);
+                    this._editorHandler('pie-editor');
                 } else if (chart.getAttr('name') === 'Selectable Chart Bar') {
-                     // this._UIAdder.CreateBarEditor(this._chartHandler.GetHandlerElem(index), this._main, this._tr);
+                    this._editorHandler('bar-editor')
                 } else if (chart.getAttr('name') === 'Selectable Chart Stacked') {
-                    // this._UIAdder.CreateStackedBarEditor(this._chartHandler.GetHandlerElem(index), this._main, this._tr);
+                    this._editorHandler('stacked-bar-editor');
                 }
 
                 setTimeout(() => {
