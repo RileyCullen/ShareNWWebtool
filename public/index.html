@@ -37,10 +37,17 @@
     <div id='renderHelper'></div>
     <div id="root"></div>
     <p style='position: fixed; left: 30px; top: 0px; z-index: -1;'>
+      <!--
+        Note that paragraph should contain all the fonts required for creating 
+        an infographic. In the infographic code, we use "document.fonts.ready.then" 
+        which will basically hold off running any of the code in the promise 
+        until all of the document's fonts are loaded. 
+      -->
       <span style='font-family: "museo", serif'>.</span>
       <span style='font-family: "Montserrat", sans-serif'>.</span>
       <span style='font-family: "Roboto", sans-serif'>.</span>
       <span style='font-family: "Open Sans", sans-serif'>.</span>
+      <i class="fas fa-arrow-left"></i>
     </p>
   </body>
 </html>
