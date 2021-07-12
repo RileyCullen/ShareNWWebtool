@@ -420,6 +420,8 @@ class AInfographic
             if (chartData.numerator === 0 || chartData.denominator === 0) return;
             var numerator = chartData.numerator, denominator = chartData.denominator;
             elem.chart.UpdateData(parseInt(numerator), parseInt(denominator));
+        } else if (name === 'Selectable Chart Bar') {
+            elem.chart.UpdateData(chartData);
         }
 
         this._UpdateDecorators(elem);
