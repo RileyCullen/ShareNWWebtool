@@ -4,7 +4,7 @@
 
 import React from 'react';
 import {CanvasContainer} from './CanvasContainer';
-import { QuillEditor, WaffleEditor, Remover } from './Editors/index';
+import { QuillEditor, WaffleEditor, Remover, BarEditor } from './Editors/index';
 
 /**
  * Container for all of the react components related to editing infographics.
@@ -130,7 +130,9 @@ class InfographicEditor extends React.Component
                 chartData={this.state.chartData}
                 setChartData={(data) => { this._SetChartData(data); }}/>
         } else if (this.state.currentEditor === 'bar-editor') {
-            return <div></div>;
+            return <BarEditor 
+                chartData={this.state.chartData}
+                setChartData={(data) => { this._SetChartData(data); }}/>;
         } else if (this.state.currentEditor === 'stacked-bar-editor') {
             return <div></div>;
         } else if (this.state.currentEditor === 'pie-editor') {
