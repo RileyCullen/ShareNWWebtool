@@ -52,7 +52,7 @@ class BarEditor extends React.Component
             value: d.value,
             color: d.color,
         }});
-        data[i].value = d;
+        data[i].value = parseFloat(d);
         this.props.setChartData(data);
     }
 }
