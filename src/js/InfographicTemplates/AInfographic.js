@@ -421,6 +421,10 @@ class AInfographic
             var numerator = chartData.numerator, denominator = chartData.denominator;
             elem.chart.UpdateData(parseInt(numerator), parseInt(denominator));
         } else if (name === 'Selectable Chart Bar') {
+            // We assume that the data will be formated as follows
+            // data = [
+            //    { category: {string}, value: {float}, color: {string}}, ...   
+            // ]
             elem.chart.UpdateData(chartData);
         }
 
@@ -441,8 +445,7 @@ class AInfographic
             handlerElem.decorators[i].UpdateDecorator(prev);
             prev = handlerElem.decorators[i];
         }
-        if (handlerElem.decoratorSize === -1) handlerElem.chart.CreateChart();
-        else handlerElem.decorators[handlerElem.decoratorSize].CreateChart();
+        prev.CreateChart();
         this._tr.forceUpdate();
         this._main.batchDraw();
     }
