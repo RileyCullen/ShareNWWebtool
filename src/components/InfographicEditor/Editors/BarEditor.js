@@ -47,6 +47,7 @@ class BarEditor extends React.Component
 
     _SetChartData(d, i)
     {
+        if (d === '') return;
         var data = this.props.chartData.map(d => { return {
             category: d.category,
             value: d.value,
