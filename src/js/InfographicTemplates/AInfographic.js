@@ -386,12 +386,14 @@ class AInfographic
         if (this._selectedChartIndex !== -1) {
             var chartElem = this._chartHandler.GetHandlerElem(this._selectedChartIndex);
             chartElem.chart.Remove();
+            this._tr.nodes([]);
             this._main.batchDraw();
             this._chartHandler.RemoveHandlerElem(this._selectedChartIndex);
             this._selectedChartIndex = -1;
         } else if (this._selectedTextIndex !== -1) {
             var handlerElem = this._textHandler.GetHandlerElem(this._selectedTextIndex);
             handlerElem.image.destroy();
+            this._tr.nodes([]);
             this._main.batchDraw();
             this._textHandler.RemoveHandlerElem(this._selectedTextIndex);
             this._selectedChartIndex = -1;
@@ -437,7 +439,6 @@ class AInfographic
             handlerElem.decorators[i].UpdateDecorator(prev);
             prev = handlerElem.decorators[i];
         }
-
         if (handlerElem.decoratorSize === -1) handlerElem.chart.CreateChart();
         else handlerElem.decorators[handlerElem.decoratorSize].CreateChart();
         this._tr.forceUpdate();
