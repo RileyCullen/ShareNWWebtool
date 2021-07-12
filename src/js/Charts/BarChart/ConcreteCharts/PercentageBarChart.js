@@ -37,6 +37,8 @@ class PercentageBarChart extends ABarChart
      */
     CreateChart()
     {
+        this._basicBar.UpdateData(this._data);
+        this._UpdateYScale();
         this._basicBar.CreateChart();
     }
 
