@@ -3,6 +3,7 @@
 // June 28, 2021
 
 import React from 'react';
+import Konva from 'konva';
 import ReactDOM from 'react-dom';
 import { InfographicEditor } from './components/InfographicEditor/InfographicEditor';
 import { NavigationBar } from './components/NavigationBar/NavigationBar';
@@ -51,3 +52,4 @@ class App extends React.Component
 }
 
 ReactDOM.render(<App />, document.getElementById('root'));
+Konva.showWarnings = false;
