@@ -4,7 +4,7 @@
 
 import Konva from 'konva';
 import html2canvas from 'html2canvas';
-import { ChartHandler, TextHandler } from '../Handlers/index';
+import { ChartHandler, GraphicsHandler, TextHandler } from '../Handlers/index';
 
 class AInfographic 
 {
@@ -39,6 +39,8 @@ class AInfographic
 
         this._chartHandler = new ChartHandler();
         this._textHandler = new TextHandler();
+        this._graphicsHandler = new GraphicsHandler();
+
         this._tr = new Konva.Transformer({
             nodes: [],
             resizeEnabled: false,
@@ -72,6 +74,7 @@ class AInfographic
         this._selectedTextIndex = -1;
         this._selectedTextHelper = -1;
         this._selectedChartIndex = -1;
+        this._selectedGraphicIndex = -1;
 
         this._stage.add(this._main);
 
@@ -132,6 +135,14 @@ class AInfographic
         selection.forEach(chartElem => { chartElem.off('dblclick'); })
     }
 
+    _RemoveGraphicListeners()
+    {
+        var selection = this._stage.find((node) => {
+            return node.hasName('Graphic');
+        });
+        selection.forEach(group => { group.off('dblclick'); });
+    }
+
     /**
      * @summary     Draws SVG on the canvas.
      * @description A function that uses native canvas to draw an SVG and then
@@ -156,6 +167,38 @@ class AInfographic
                 width: width,
                 height: height,
             });
+        });
+    }
+
+    _CreateImage({x, y, width, height, src, group})
+    {
+        let image = new Image(), imageHelper = new Konva.Image(),
+            imageGroup = new Konva.Group(), id = this._graphicsHandler.GetId() + 1;
+
+        image.onload = () => {
+            imageHelper.setAttrs({
+                offsetX: x, 
+                offsetY: y,
+                height: height,
+                width: width,
+                image: image,
+            });
+            this._main.batchDraw();
+            
+            this._graphicsHandler.UpdateGraphic({
+                id: id,
+                type: 'image',
+                graphic: imageHelper,
+                group: imageGroup,
+            });
+        };
+        image.src = src;
+        imageGroup.add(imageHelper);
+        group.add(imageGroup);
+        this._graphicsHandler.AddGraphic({
+            type: 'image',
+            graphic: imageHelper,
+            group: imageGroup,
         });
     }
 
@@ -251,6 +294,7 @@ class AInfographic
         this._RenderText();
         this._AddGraphSelection();
         this._AddTextSelection();
+        this._AddGraphicSelection();
         // this._AddMultipleElementSelector();
     }
 
@@ -487,6 +531,41 @@ class AInfographic
                         this._editorHandler('none');
                         this._tr.nodes([]);
                         chart.setAttr('draggable', false);
+                        this._main.batchDraw();
+                        this._stage.off('click', HandleOutsideClick);
+                    }
+                };
+            });
+        });
+    }
+
+    _AddGraphicSelection()
+    {
+        var selection = this._stage.find((node) => {
+            return node.hasName('Graphic');
+        });
+        console.log(this._stage)
+        console.log('selection')
+        console.log(selection);
+        debugger;
+
+        selection.forEach((group) => {
+            group.on('dblclick', () => {
+                this._selectedGraphicIndex = group.getAttr('id');
+                this._tr.nodes([group]);
+                this._tr.moveToTop();
+                this._main.batchDraw();
+                group.setAttr('draggable', true);
+
+                setTimeout(() => {
+                    this._stage.on('click', HandleOutsideClick);
+                });
+
+                var HandleOutsideClick = (e) => {
+                    if (e.target !== group) {
+                        this._selectedGraphicIndex = -1;
+                        this._tr.nodes([]);
+                        group.setAttr('draggable', false);
                         this._main.batchDraw();
                         this._stage.off('click', HandleOutsideClick);
                     }
