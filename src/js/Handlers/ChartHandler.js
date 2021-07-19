@@ -87,6 +87,7 @@ class ChartHandler
 
     RemoveHandlerElem(id) 
     {
+        this._handler[id].chart.Remove();
         this._handler.splice(id, 1);
         this._curr--;
         this._UpdateHandlerId(); 

@@ -139,6 +139,7 @@ class TextHandler
 
     RemoveHandlerElem(id)
     {
+        this._handler[id].image.destroy();
         this._handler.splice(id, 1);
         this._curr--;
         this._UpdateHandlerId();
