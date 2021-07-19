@@ -60,6 +60,11 @@ class MessageBubble
             closed: true
         }));
     }
+
+    Remove()
+    {
+        this._group.destroy();
+    }
 }
 
 export { MessageBubble };

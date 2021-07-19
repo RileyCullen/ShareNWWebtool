@@ -40,6 +40,11 @@ class RibbonHeader
         this._CreateSideRects();
     }
 
+    Remove()
+    {
+        this._group.destroy();
+    }
+
     /**
      * @summary     Creates the main, central rectangle in the ribbon.
      * @description Adds a Konva.Rect to the group. The position of the Rect is

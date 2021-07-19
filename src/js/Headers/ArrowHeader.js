@@ -30,9 +30,11 @@ class ArrowHeader
         this._y = y;
         this._width = width;
         this._height = height;
-        this._group = group;
+        this._group = new Konva.Group();
         this._borderColor = borderColor;
         this._backgroundColor = backgroundColor;
+        
+        group.add(this._group);
     }
 
     /**
@@ -67,6 +69,16 @@ class ArrowHeader
 
         this._group.add(border);
         this._group.add(miniBorder);
+    }
+
+    GetGroup()
+    {
+        return this._group;
+    }
+
+    Remove()
+    {
+        this._group.destroy();
     }
 }
 
