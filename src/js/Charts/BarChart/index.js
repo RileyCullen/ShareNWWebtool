@@ -1,6 +1,5 @@
 export { ABarChart } from './ConcreteCharts/ABarChart';
 export { BasicBarChart } from './ConcreteCharts/BasicBarChart';
-export { IconBarChart } from './ConcreteCharts/IconBarChart';
 export { PercentageBarChart } from './ConcreteCharts/PercentageBarChart';
 export { StackedBarChart } from './ConcreteCharts/StackedBarChart';
 
