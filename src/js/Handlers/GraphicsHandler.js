@@ -18,13 +18,27 @@ class GraphicsHandler
 
     RemoveHandlerElem(id)
     {
-        if (this._handler[id].type === 'header' || 
-            this._handler[id].type === 'tooltip') {
-            this._handler[id].graphics.Remove();
+        switch(this._handler[id].type) {
+            case 'header':
+                this._handler[id].graphic.Remove();
+                break;
+            case 'image':
+                this._handler[id].graphic.destroy();
+                break;
+            case 'icon':
+                this._handler[id].group.destroy();
+                break;
+            default: 
+                break;
         }
+
+        this._handler.splice(id, 1);
+        this._curr--;
+        this._UpdateHandlerId();
     }
     
     GetId() { return this._curr; }
+    GetType(id) { return this._handler[id].type; }
 
     UpdateGraphic({id, type, graphic, group})
     {
@@ -49,6 +63,13 @@ class GraphicsHandler
             default:
                 break;
         }; 
+    }
+
+    _UpdateHandlerId()
+    {
+        this._handler.forEach((d, i) => {
+            d.group.setAttr('id', i);
+        });
     }
 }
 
