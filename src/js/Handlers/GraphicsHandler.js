@@ -1,3 +1,7 @@
+// Cullen, Riley
+// GraphicsHandler.js
+// July 19, 2021
+
 class GraphicsHandler
 {
     constructor()
@@ -6,6 +10,19 @@ class GraphicsHandler
         this._curr = -1;
     }
 
+    /**
+     * @summary     Adds a graphic element to the handler.
+     * @description Creates a JSON object connecting the type, graphic, and group
+     *              in one location and adds that JSON object to the handler.
+     * 
+     * @param {string}      type    The type of graphic element. This can either
+     *                              be 'image', 'icon', or 'header.'
+     * @param {misc}        graphic The graphic element that is added to the 
+     *                              infographic. Note that this can either be a
+     *                              Konva.Image (for images and SVGs), a Konva.
+     *                              Text (for icons), or a Header object.
+     * @param {Konva.Group} group   The group that the element will be added to.
+     */
     AddGraphic({type, graphic, group})
     {
         this.UpdateGraphic({
@@ -16,8 +33,16 @@ class GraphicsHandler
         });
     }
 
+    /**
+     * @summary     Removes the element at id from the handler.
+     * @summary     Calls the graphic object's remove (or destroy) function, which
+     *              removes the instance from the infographic. Then, the instance
+     *              is removed from the handler.
+     * @param {int} id The index of the handler we want to access.
+     */
     RemoveHandlerElem(id)
     {
+        if (id > this._curr || id < 0) return;
         switch(this._handler[id].type) {
             case 'header':
                 this._handler[id].graphic.Remove();
@@ -37,9 +62,25 @@ class GraphicsHandler
         this._UpdateHandlerId();
     }
     
+    /**
+     * @summary Return the current index of the handler to the user.
+     * @returns An integer representing the current index of the handler.
+     */
     GetId() { return this._curr; }
+
+    /**
+     * @summary Returns the type of the element at id to the user.
+     * 
+     * @param {int} id The index of the handler we want to access.
+     * 
+     * @returns A string representing the type of graphic element at index id.
+     */
     GetType(id) { return this._handler[id].type; }
 
+    /**
+     * @summary     Updates the handler at index id.
+     * @description Replaces the handler at index id with the parameterized values.
+     */
     UpdateGraphic({id, type, graphic, group})
     {
         this._handler[id] = {
@@ -65,6 +106,13 @@ class GraphicsHandler
         }; 
     }
 
+    /**
+     * @summary     Updates the ids of each object in the handler.
+     * @description See summary. This function is typically called when an object
+     *              is removed from the handler. In this case, when the array elements
+     *              are restructured, the groups (which are used to access them on
+     *              the infog) must be explicitly updated.
+     */
     _UpdateHandlerId()
     {
         this._handler.forEach((d, i) => {
