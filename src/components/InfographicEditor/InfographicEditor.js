@@ -137,6 +137,12 @@ class InfographicEditor extends React.Component
             return <div></div>;
         } else if (this.state.currentEditor === 'pie-editor') {
             return <div></div>;
+        } else if (this.state.currentEditor === 'image-editor') {
+            return <div></div>;
+        } else if (this.state.currentEditor === 'icon-editor') {
+            return <div></div>;
+        } else if (this.state.currentEditor === 'header-editor') {
+            return <div></div>;
         }
         return false;
     }
