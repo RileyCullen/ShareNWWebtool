@@ -1,7 +1,7 @@
 import { AInfographic } from './AInfographic';
 import { RibbonHeader, RectangleHeader } from '../Headers/index';
 import { LineChart, LineXAxisDecorator, LineYAxisDecorator, LineDataValueDecorator } from '../Charts/LineChart/index';
-import { IconBarChart, CategoryLabelDecorator, DataValueDecorator } from '../Charts/BarChart';
+import { IconBarChart, IconCategoryDecorator, IconDataValueDecorator } from '../Charts/IconBarChart';
 import California from '../../Media/States/california.svg';
 import Florida from '../../Media/States/florida.svg';
 import Texas from '../../Media/States/texas.svg';
@@ -347,22 +347,18 @@ class DiabetesTemplateOne extends AInfographic
             fontFamily: "'Open Sans', sans-serif",
             textColor: textColor,
         };
-        var labels = new CategoryLabelDecorator({
+        var labels = new IconCategoryDecorator({
             chart: barChart, 
             isWithinBars: false, 
             isTop: true, 
             font: font,
-            icon: icon,
-            iconSize: iconSize,
         });
-        var dataValues = new DataValueDecorator({
+        var dataValues = new IconDataValueDecorator({
             chart: labels, 
             isPercentage: false, 
             isCategory: false, 
             isMiddle: false, 
             font: font,
-            icon: icon,
-            iconSize: iconSize
         });
 
         dataValues.CreateChart();
