@@ -25,6 +25,11 @@ class RectangleHeader
         });
         this._group.add(rect); 
     }
+
+    Remove()
+    {
+        this._group.destroy();
+    }
 }
 
 export { RectangleHeader };
