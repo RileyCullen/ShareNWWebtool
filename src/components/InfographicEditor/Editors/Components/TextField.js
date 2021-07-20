@@ -13,7 +13,6 @@ class TextField extends React.Component
 
     render()
     {
-        console.log('value: ' + this.state.value)
         return (<div 
             className='input-container'
             style={{

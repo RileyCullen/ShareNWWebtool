@@ -6,8 +6,6 @@ class WaffleEditor extends React.Component
     constructor(props)
     {
         super(props);
-        console.log('props constructor')
-        console.log(this.props)
         this._data = {
             numerator: (props.chartData === 0) ? 0 : props.chartData.numerator,
             denominator: (props.chartData === 0) ? 0 : props.chartData.denominator,
