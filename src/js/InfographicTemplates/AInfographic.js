@@ -511,9 +511,6 @@ class AInfographic
         var selection = this._stage.find((node) => {
             return node.hasName('Graphic');
         });
-        console.log(this._stage)
-        console.log('selection')
-        console.log(selection);
 
         selection.forEach((group) => {
             group.on('dblclick', () => {
