@@ -78,7 +78,11 @@ class HIVTemplateOne extends AInfographic
         const MAN = '\uf183', WOMAN = '\uf182', LIGHT_ORANGE = '#f9ab7d', ORANGE = '#ee5d26',
             DEFAULT_OFFSET = 30;
         var orangeBackground = new ArrowHeader(0, 0, 400, 125, sectionOne, ORANGE, 'white');
-        orangeBackground.CreateHeader();
+        this._graphicsHandler.AddGraphic({
+            type: 'header',
+            graphic: orangeBackground,
+            group: orangeBackground.GetGroup(),
+        });
         
         var textGroupOne = new Konva.Group({
             offsetX: -5,
@@ -134,7 +138,11 @@ class HIVTemplateOne extends AInfographic
         this._chartHandler.GetChart(this._chartHandler.GetCurrChartID()).CreateChart();
         
         var redBackground = new ArrowHeader(0, 0, 400, 125, sectionTwo, '#e71b32', 'white');
-        redBackground.CreateHeader();
+        this._graphicsHandler.AddGraphic({
+            type: 'header',
+            graphic: redBackground,
+            group: redBackground.GetGroup(),
+        });
 
         var textGroupTwo = new Konva.Group();
         sectionTwo.add(textGroupTwo);
@@ -224,7 +232,11 @@ class HIVTemplateOne extends AInfographic
 
         const LIGHT_BLUE = '#a0b8d2', BLUE = '#1670ac';
         var blueBackground = new ArrowHeader(0, 0, 400, 125, sectionThree, BLUE, 'white');
-        blueBackground.CreateHeader();
+        this._graphicsHandler.AddGraphic({
+            type: 'header',
+            graphic: blueBackground,
+            group: blueBackground.GetGroup(),
+        });
 
         var helper = new Konva.Group();
         barChartGroup.add(helper);
@@ -311,21 +323,19 @@ class HIVTemplateOne extends AInfographic
             align: 'center'
         });
 
-        var logoHelper = new Image();
-        logoHelper.onload = () => {
-            var logo = new Konva.Image({
-                offsetX: -500,
-                offsetY: -20,
-                image: logoHelper,
-                height: 50,
-                width: 75,
-            });
-            footer.add(logo);
-            this._main.batchDraw();
-        };
-        logoHelper.src = CDCLogo;
+        this._CreateImage({
+            x: -500,
+            y: -20,
+            width: 75,
+            height: 50,
+            src: CDCLogo,
+            group: footer,
+        });
         footer.moveToTop();
         this._FinalizeInfog();
+
+        console.log('hiv')
+        console.log(this._graphicsHandler);
     }
 
     Draw()

@@ -4,7 +4,7 @@
 
 import { AInfographic } from "./AInfographic";
 import Konva from 'konva';
-import { RibbonHeader } from '../Headers/index';
+import { RectangleHeader, RibbonHeader } from '../Headers/index';
 import { GenerateWafflePreset, WaffleChart, StatisticDecorator } from '../Charts/WaffleChart/index';
 import { PieChart, DonutDecorator, ChartOutlineDecorator,FirstStatisticDecorator } from '../Charts/PieChart/index';
 
@@ -29,17 +29,22 @@ class ObesityTemplateOne extends AInfographic
         });
         header.add(ribbonGroup);
 
-        var ribbonHeight = 35, ribbonWidth = 500;
+        var ribbonHeight = 35, ribbonWidth = 500, helperGroup = new Konva.Group();
+        ribbonGroup.add(helperGroup);
         var ribbon = new RibbonHeader({
             colorOne: '#94bd31', 
             colorTwo: '#5f9400', 
-            group: ribbonGroup, 
+            group: helperGroup, 
             hWidth: ribbonWidth,
             hHeight: ribbonHeight, 
             iWidth: this._chartWidth,
             iHeight: this._chartHeight
         });
-        ribbon.CreateHeader();
+        this._graphicsHandler.AddGraphic({
+            type: 'header',
+            graphic: ribbon,
+            group: helperGroup
+        });
 
         var montserrat200 = this._quillMap('Montserrat', 200);
         var ribbonFontFamily = '"Montserrat", sans-serif';
@@ -125,19 +130,27 @@ class ObesityTemplateOne extends AInfographic
         var textGroupArr = [];
         var statisticFontSize = 47.5;
 
-        for (var i = 0; i < 4; i++) {
+        for (let i = 0; i < 4; i++) {
             sectionArr[i] = (i === 0) ? new Konva.Group() : new Konva.Group({
                 y: sectionArr[i - 1].getAttr('y') + rectHeight + rectOffset
             });
             content.add(sectionArr[i]);
-            sectionArr[i].add(new Konva.Rect({
+            let backgroundGroup = new Konva.Group();
+            let rectangle = new RectangleHeader({
                 x: rectX,
                 y: 0,
                 fill: sectionColorArr[i],
                 width: rectWidth,
                 height: rectHeight,
                 cornerRadius: rectCornerRadius,
-            }));
+                group: backgroundGroup,
+            });
+            this._graphicsHandler.AddGraphic({
+                type: 'header',
+                graphic: rectangle,
+                group: backgroundGroup
+            });
+            sectionArr[i].add(backgroundGroup);
 
             textGroupArr[i] = new Konva.Group({
                 x: rectX + 225,
@@ -316,7 +329,7 @@ class ObesityTemplateOne extends AInfographic
         });
 
         // Section 4 content
-        var TV = '\uf26c';
+        var TV = '\uf26c', iconGroup = new Konva.Group();
         var tvHelper = new Konva.Text({
             text: TV,
             fontFamily: ICON_FONT,
@@ -326,7 +339,12 @@ class ObesityTemplateOne extends AInfographic
             fill: 'white',
             fontSize: 110,
         });
-        sectionArr[3].add(tvHelper);
+        this._graphicsHandler.AddGraphic({
+            type: 'icon',
+            graphic: tvHelper,
+            group: iconGroup,
+        });
+        sectionArr[3].add(iconGroup);
 
         textGroupArr[3].setAttr('y', textGroupArr[3].getAttr('y') + 10);
 

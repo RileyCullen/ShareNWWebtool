@@ -7,6 +7,7 @@ import { PieChart, DonutDecorator, FirstStatisticDecorator, ChartOutlineDecorato
     from '../Charts/PieChart/index';
 import { MessageBubble } from '../ToolTips/index';
 import { WaffleChart, GenerateWafflePreset } from '../Charts/WaffleChart/index';
+import Virgina from '../../Media/States/virginia.png';
 
 class ViolenceTemplateOne extends AInfographic
 {
@@ -90,20 +91,14 @@ class ViolenceTemplateOne extends AInfographic
         });
         header.add(yellowStrip);
 
-        var virginiaImage = new Image();
-        virginiaImage.onload = () => {
-            var virginia = new Konva.Image({
-                x: this._chartWidth - 275, 
-                y: 65, 
-                width: 265,
-                height: 120,
-                image: virginiaImage,
-            });
-            header.add(virginia);
-            virginia.moveToTop();
-            this._main.batchDraw();
-        };
-        virginiaImage.src = 'JS/InfographicTemplates/src/virginia.png';
+        this._CreateImage({
+            x: this._chartWidth - 275, 
+            y: 65,
+            width: 265,
+            height: 120,
+            src: Virgina,
+            group: header,
+        });
 
         var introHelper = new Konva.Group({
             x: 1,
@@ -390,8 +385,13 @@ class ViolenceTemplateOne extends AInfographic
             .CreateChart();
 
         /* TOOL TIP */
-        var toolTip = new MessageBubble(sectionOne, 225, 150, '#1e2243');
-        toolTip.CreateMessageBubble(300, 350);
+        var toolTipGroup = new Konva.Group(), toolTip = new MessageBubble(toolTipGroup, 225, 150, '#1e2243', 300, 350);
+        this._graphicsHandler.AddGraphic({
+            type: 'header',
+            graphic: toolTip,
+            group: toolTipGroup
+        });
+        sectionOne.add(toolTipGroup)
 
         var toolTipDiv = document.createElement('div');
         toolTipDiv.style.color = 'white';

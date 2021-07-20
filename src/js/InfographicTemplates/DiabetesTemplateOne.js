@@ -1,5 +1,5 @@
 import { AInfographic } from './AInfographic';
-import { RibbonHeader } from '../Headers/index';
+import { RibbonHeader, RectangleHeader } from '../Headers/index';
 import { LineChart, LineXAxisDecorator, LineYAxisDecorator, LineDataValueDecorator } from '../Charts/LineChart/index';
 import { IconBarChart, CategoryLabelDecorator, DataValueDecorator } from '../Charts/BarChart';
 import California from '../../Media/States/california.svg';
@@ -42,17 +42,22 @@ class DiabetesTemplateOne extends AInfographic
         header.add(ribbonGroup);
 
         // Creating Ribbon
-        var ribbonWidth = 550, ribbonHeight = 35;
+        var ribbonWidth = 550, ribbonHeight = 35, helper = new Konva.Group();
+        ribbonGroup.add(helper);
         var ribbon = new RibbonHeader({
             colorOne: '#94bd31', 
             colorTwo: '#5f9400', 
-            group: ribbonGroup, 
+            group: helper, 
             hWidth: ribbonWidth,
             hHeight: ribbonHeight, 
             iWidth: this._chartWidth,
             iHeight: this._chartHeight
         });
-        ribbon.CreateHeader();
+        this._graphicsHandler.AddGraphic({
+            type: 'header',
+            graphic: ribbon,
+            group: helper,
+        });
 
         // Creating Ribbon Text
         var montserrat200 = this._quillMap('Montserrat', 200);
@@ -434,13 +439,13 @@ class DiabetesTemplateOne extends AInfographic
             align: 'center', 
         });
 
-        this._DrawSVG({
-            source: California,
-            layer: sectionThree,
+        this._CreateImage({ 
+            src: California,
+            group: sectionThree,
             width: 100,
             height: 120,
             x: startingX,
-            y: 15,
+            y: 15,  
         });
 
         var twoDiv = document.createElement('div');
@@ -456,14 +461,14 @@ class DiabetesTemplateOne extends AInfographic
             align: 'center', 
         });
 
-        this._DrawSVG({
-            source: Florida,
-            layer: sectionThree,
+        this._CreateImage({ 
+            src: Florida,
+            group: sectionThree,
             width: 140,
             height: 140,
             x: startingX + 150,
-            y: 15, 
-        })
+            y: 15,  
+        });
 
         var threeDiv = document.createElement('div');
         threeDiv.style.color = 'white';
@@ -478,28 +483,34 @@ class DiabetesTemplateOne extends AInfographic
             align: 'center', 
         });
 
-
-        this._DrawSVG({
-            source: Texas,
-            layer: sectionThree,
+        this._CreateImage({ 
+            src: Texas,
+            group: sectionThree,
             width: 140,
             height: 140,
             x: startingX + 340,
-            y: 15, 
-        })
+            y: 15,  
+        });
     }
 
     _CreateBackgroundRect({width, height, group})
     {
-        var rect = new Konva.Rect({
+        var helperGroup = new Konva.Group();
+        var rect = new RectangleHeader({
             cornerRadius: 10, 
             x: 0, 
             y: 0,
             width: width,
             height: height,
             fill: '#94bd31',
+            group: helperGroup
         });
-        group.add(rect);
+        this._graphicsHandler.AddGraphic({
+            type: 'header',
+            graphic: rect,
+            group: helperGroup,
+        });
+        group.add(helperGroup);
     }
 }
 
