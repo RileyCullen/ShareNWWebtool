@@ -324,8 +324,8 @@ class HIVTemplateOne extends AInfographic
         });
 
         this._CreateImage({
-            x: -500,
-            y: -20,
+            x: 500,
+            y: 20,
             width: 75,
             height: 50,
             src: CDCLogo,
