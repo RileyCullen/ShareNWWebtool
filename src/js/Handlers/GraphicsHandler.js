@@ -33,14 +33,6 @@ class GraphicsHandler
             graphic: graphic,
             group: group,
         }
-        
-        /*if (type !== 'image') {
-            group.setAttr('id', id);
-            group.setAttr('name', 'Graphic ' + type);
-        } else {
-            graphic.setAttr('id', id);
-            graphic.setAttr('name', 'Graphic ' + type)
-        }*/
         group.setAttr('id', id);
         group.setAttr('name', 'Graphic ' + type)
 
@@ -50,6 +42,9 @@ class GraphicsHandler
                 break;
             case 'tooltip':
                 graphic.CreateToolTip();
+                break;
+            case 'icon': 
+                group.add(graphic);
                 break;
             default:
                 break;
