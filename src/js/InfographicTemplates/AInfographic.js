@@ -158,6 +158,7 @@ class AInfographic
                 image: image,
             });
             this._main.batchDraw();
+            image.onload = null;
         };
 
         image.src = src;
