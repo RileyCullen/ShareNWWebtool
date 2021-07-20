@@ -107,6 +107,7 @@ class AInfographic
         // Remove chart/text listeners
         this._RemoveTextListeners();
         this._RemoveChartListeners();
+        this._RemoveGraphicListeners();
 
         // Remove all the elements from this._stage
         this._stage.destroy();
