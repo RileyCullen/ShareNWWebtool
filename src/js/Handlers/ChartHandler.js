@@ -81,10 +81,31 @@ class ChartHandler
      */
     GetCurrentGroup() { return this.GetGroup(this._curr); }
 
+    /**
+     * @summary Returns the group of the element at id.
+     * 
+     * @param {int} id The index of the handler element we want to access. 
+     * 
+     * @returns A Konva.Group object. 
+     */
     GetGroup(id) { return this._handler[id].group; }
 
+    /**
+     * @summary Returns the entire handler element at id to the caller.
+     * 
+     * @param {int} id The index of the handler element we want to access.
+     * 
+     * @returns A JSON object consisting of the handler at index id. 
+     */
     GetHandlerElem(id) { return this._handler[id]; }
 
+    /**
+     * @summary     Removes the handler element at index id.
+     * @description Calls chart's Remove function then removes the handler element
+     *              from the handler.
+     * 
+     * @param {int} id The index of the handler element that will be removed.
+     */
     RemoveHandlerElem(id) 
     {
         this._handler[id].chart.Remove();
@@ -93,6 +114,10 @@ class ChartHandler
         this._UpdateHandlerId(); 
     }
 
+    /**
+     * @summary     Updates the id assigned to the different chart elements in 
+     *              the handler.
+     */
     _UpdateHandlerId()
     {
         this._handler.forEach((d, i) => {

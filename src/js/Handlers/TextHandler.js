@@ -116,6 +116,13 @@ class TextHandler
      */
     GetImage(id)    { return this._handler[id].image; }
 
+    /**
+     * @summary Returns a copy of the handler element at id.
+     * 
+     * @param {int} id The index of the handler element we want to access.
+     * 
+     * @returns JSON object.
+     */
     GetHandlerElem(id) { 
         return {
             'textElem': this._handler[id].textElem,
@@ -125,6 +132,30 @@ class TextHandler
         };
     }
 
+    /**
+     * @summary     Removes the handler element at index id.
+     * @description Calls image's destroy function then removes the handler element
+     *              from the handler.
+     * 
+     * @param {int} id The index of the handler element that will be removed.
+     */
+    RemoveHandlerElem(id)
+    {
+        this._handler[id].image.destroy();
+        this._handler.splice(id, 1);
+        this._curr--;
+        this._UpdateHandlerId();
+    }
+
+    /**
+     * 
+     * @param {int}    index The index of the handler element we are adding this
+     *                       image to.
+     * @param {double} x     The x position of the image.
+     * @param {double} y     The y position of the image.
+     * 
+     * @returns Konva.Image object
+     */
     _CreateKonvaImage(index, x, y)
     {
         return new Konva.Image({
@@ -137,14 +168,10 @@ class TextHandler
         });
     }
 
-    RemoveHandlerElem(id)
-    {
-        this._handler[id].image.destroy();
-        this._handler.splice(id, 1);
-        this._curr--;
-        this._UpdateHandlerId();
-    }
-
+    /**
+     * @summary     Updates the id assigned to the different chart elements in 
+     *              the handler.
+     */
     _UpdateHandlerId()
     {
         this._handler.forEach((d, i) => {
