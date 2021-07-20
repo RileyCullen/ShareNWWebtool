@@ -404,6 +404,11 @@ class AInfographic
             this._main.batchDraw();
             this._textHandler.RemoveHandlerElem(this._selectedTextIndex);
             this._selectedChartIndex = -1;
+        } else if (this._selectedGraphicIndex !== -1) {
+            this._tr.nodes([]);
+            this._main.batchDraw();
+            this._graphicsHandler.RemoveHandlerElem(this._selectedGraphicIndex);
+            this._selectedGraphicIndex = -1;
         }
     }
 
@@ -515,10 +520,13 @@ class AInfographic
         selection.forEach((group) => {
             group.on('dblclick', () => {
                 this._selectedGraphicIndex = group.getAttr('id');
+                let type = this._graphicsHandler.GetType(this._selectedGraphicIndex);
                 this._tr.nodes([group]);
                 this._tr.moveToTop();
                 this._main.batchDraw();
                 group.setAttr('draggable', true);
+
+                this._editorHandler(type + '-editor');
 
                 setTimeout(() => {
                     this._stage.on('click', HandleOutsideClick);
@@ -530,6 +538,7 @@ class AInfographic
                         this._tr.nodes([]);
                         group.setAttr('draggable', false);
                         this._main.batchDraw();
+                        this._editorHandler('none');
                         this._stage.off('click', HandleOutsideClick);
                     }
                 };
