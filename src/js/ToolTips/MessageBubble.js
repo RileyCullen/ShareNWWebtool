@@ -18,12 +18,14 @@ class MessageBubble
      * @param {double}      height The height of the message bubble.
      * @param {string}      color  The color of the message bubble.
      */
-    constructor(group, width, height, color)
+    constructor(group, width, height, color, x, y)
     {
         this._group = group;
         this._width = width;
         this._height = height;
         this._color = color;
+        this._x = x;
+        this._y = y;
     }
 
     /**
@@ -36,9 +38,9 @@ class MessageBubble
      * @param {double} x The x coordinate we want to place our message bubble at.
      * @param {double} y The y coordinate we want to place our message bubble at.
      */
-    CreateMessageBubble(x, y)
+    CreateHeader()
     {
-        var helper = new Konva.Group();
+        var helper = new Konva.Group(), x = this._x, y = this._y;
         this._group.add(helper);
 
         helper.add(new Konva.Rect({
