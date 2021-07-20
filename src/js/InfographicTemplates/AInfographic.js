@@ -514,7 +514,6 @@ class AInfographic
         console.log(this._stage)
         console.log('selection')
         console.log(selection);
-        debugger;
 
         selection.forEach((group) => {
             group.on('dblclick', () => {
