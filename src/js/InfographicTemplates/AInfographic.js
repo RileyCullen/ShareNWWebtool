@@ -143,55 +143,22 @@ class AInfographic
         selection.forEach(group => { group.off('dblclick'); });
     }
 
-    /**
-     * @summary     Draws SVG on the canvas.
-     * @description A function that uses native canvas to draw an SVG and then
-     *              add it using a Konva.JS image object. NOTE that canvas does
-     *              not support displaying SVGs so this is the only work around 
-     *              (not including using external libraries).
-     * 
-     * @param {string}      source The SVG we want to draw on the canvas.
-     * @param {Konva.Layer} layer  The layer we want to add the SVG to.
-     * @param {double}      width  Desired width of the SVG image.
-     * @param {double}      height Desired height of the SVG image.
-     */
-    _DrawSVG({
-        source, layer, width, height, x, y,
-    })
-    {
-        Konva.Image.fromURL(source, (imageNode) => {
-            layer.add(imageNode);
-            imageNode.setAttrs({
-                x: x,
-                y: y,
-                width: width,
-                height: height,
-            });
-        });
-    }
-
     _CreateImage({x, y, width, height, src, group})
     {
         let image = new Image(), imageHelper = new Konva.Image(),
-            imageGroup = new Konva.Group(), id = this._graphicsHandler.GetId() + 1;
+            imageGroup = new Konva.Group();
 
         image.onload = () => {
             imageHelper.setAttrs({
-                offsetX: x, 
-                offsetY: y,
+                x: x, 
+                y: y,
                 height: height,
                 width: width,
                 image: image,
             });
             this._main.batchDraw();
-            
-            this._graphicsHandler.UpdateGraphic({
-                id: id,
-                type: 'image',
-                graphic: imageHelper,
-                group: imageGroup,
-            });
         };
+
         image.src = src;
         imageGroup.add(imageHelper);
         group.add(imageGroup);
