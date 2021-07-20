@@ -40,6 +40,9 @@ class RibbonHeader
         this._CreateSideRects();
     }
 
+    /**
+     * @see ArrowHeader.js for summary and description.
+     */    
     Remove()
     {
         this._group.destroy();
