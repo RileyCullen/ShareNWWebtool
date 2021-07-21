@@ -470,8 +470,15 @@ class ViolenceTemplateOne extends AInfographic
         var helperGroup = new Konva.Group();
         waffleChartGroup.add(helperGroup);
         var waffleNum = 65, waffleDenom = 80;
-        var waffleChart = new WaffleChart(waffleNum, waffleDenom, helperGroup, 
-            orangePersonPreset, bluePersonPreset, 20, false);
+        var waffleChart = new WaffleChart({
+            numerator: waffleNum, 
+            denominator: waffleDenom, 
+            group: helperGroup, 
+            presetA: orangePersonPreset, 
+            presetB: bluePersonPreset, 
+            fontSize: 20, 
+            isDynamicResize: false
+        });
         this._chartHandler.AddChart(waffleChart, helperGroup, 'Waffle');
         this._chartHandler.GetChart(this._chartHandler.GetCurrChartID()).CreateChart();
 

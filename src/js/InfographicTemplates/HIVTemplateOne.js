@@ -133,7 +133,14 @@ class HIVTemplateOne extends AInfographic
         var manPreset = GenerateWafflePreset(MAN, LIGHT_ORANGE, DEFAULT_OFFSET, ICON_FONT),
             orangeWomanPreset = GenerateWafflePreset(WOMAN, ORANGE, DEFAULT_OFFSET - 1, ICON_FONT);
 
-        var waffleOne = new WaffleChart(3, 4, waffleOneGroup, manPreset, orangeWomanPreset, 33);
+        var waffleOne = new WaffleChart({
+            numerator: 3, 
+            denominator: 4, 
+            group: waffleOneGroup, 
+            presetA: manPreset, 
+            presetB: orangeWomanPreset, 
+            fontSize: 33
+        });
         this._chartHandler.AddChart(waffleOne, waffleOneGroup, 'Waffle');
         this._chartHandler.GetChart(this._chartHandler.GetCurrChartID()).CreateChart();
         
@@ -298,7 +305,14 @@ class HIVTemplateOne extends AInfographic
         });
         sectionThree.add(waffleTwoGroup);
 
-        var waffleTwo = new WaffleChart(2, 4, waffleTwoGroup, lightBlueWomanPreset, blueWomanPreset, 10);
+        var waffleTwo = new WaffleChart({
+            numerator: 2, 
+            denominator: 4, 
+            group: waffleTwoGroup, 
+            presetA: lightBlueWomanPreset, 
+            presetB: blueWomanPreset, 
+            fontSize: 10
+        });
         this._chartHandler.AddChart(waffleTwo, waffleTwoGroup, 'Waffle');
         this._chartHandler.GetChart(this._chartHandler.GetCurrChartID()).CreateChart();
         

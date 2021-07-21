@@ -174,13 +174,24 @@ class ObesityTemplateOne extends AInfographic
         sectionOneWaffleContainer.moveToTop();
 
         var waffleOneNum = 1, waffleOneDenom = 3;
-        var waffleOne = new WaffleChart(waffleOneNum, waffleOneDenom, sectionOneWaffleContainer,
-            whiteChildPreset, redChildPreset, 50);
-        var waffleOneStat = new StatisticDecorator(waffleOne, 'in', textGroupArr[0], {
-            'fontSize': statisticFontSize,
-            'fontFamily': titleFont,
-            'fontStyle': 400,
-            'textColor': 'white',
+        var waffleOne = new WaffleChart({
+            numerator: waffleOneNum, 
+            denominator: waffleOneDenom, 
+            group: sectionOneWaffleContainer,
+            presetA: whiteChildPreset, 
+            presetB: redChildPreset, 
+            fontSize: 50
+        });
+        var waffleOneStat = new StatisticDecorator({
+            chart: waffleOne, 
+            middleText: 'in', 
+            group: textGroupArr[0], 
+            font: {
+                'fontSize': statisticFontSize,
+                'fontFamily': titleFont,
+                'fontStyle': 400,
+                'textColor': 'white',
+            }
         });
 
         this._chartHandler.AddChart(waffleOne, sectionOneWaffleContainer, 'Waffle');
@@ -229,13 +240,24 @@ class ObesityTemplateOne extends AInfographic
         sectionArr[1].add(sectionTwoWaffleContainer);
 
         var waffleTwoNum = 2, waffleTwoDenom = 3;
-        var waffleTwo = new WaffleChart(waffleTwoNum, waffleTwoDenom, sectionTwoWaffleContainer,
-            whiteRunnerPreset, blueRunnerPreset, 50);
-        var waffleTwoStat = new StatisticDecorator(waffleTwo, 'out of', textGroupArr[1], {
-            'fontSize': statisticFontSize,
-            'fontFamily': titleFont,
-            'fontStyle': 400,
-            'textColor': 'white',
+        var waffleTwo = new WaffleChart({
+            numerator: waffleTwoNum, 
+            denominator: waffleTwoDenom, 
+            group: sectionTwoWaffleContainer,
+            presetA: whiteRunnerPreset, 
+            presetB: blueRunnerPreset, 
+            fontSize: 50
+        });
+        var waffleTwoStat = new StatisticDecorator({
+            chart: waffleTwo, 
+            middleText: 'out of', 
+            group: textGroupArr[1], 
+            font: {
+                'fontSize': statisticFontSize,
+                'fontFamily': titleFont,
+                'fontStyle': 400,
+                'textColor': 'white',
+            }
         });
 
         this._chartHandler.AddChart(waffleTwo, sectionTwoWaffleContainer, 'Waffle');
