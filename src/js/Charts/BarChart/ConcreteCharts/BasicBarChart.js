@@ -18,7 +18,7 @@ class BasicBarChart extends ABarChart
      * 
      * @see ABarChart.js for constructor parameters.
      */
-    constructor(data, group, width, height, padding, rotateBy = 0)
+    constructor({data, group, width, height, padding, rotateBy = 0})
     {
         super(data, group, width, height, padding, rotateBy);
     }

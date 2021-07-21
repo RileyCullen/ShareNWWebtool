@@ -39,8 +39,8 @@ class DataValueDecorator extends ABarChartDecorator
      */
     constructor({
         chart, 
-        isPercentage = true, 
-        isCategory = false, 
+        displayPercentage = true, 
+        displayCategory = false, 
         isMiddle = true, 
         font = {
             fontSize: 8, 
@@ -51,8 +51,8 @@ class DataValueDecorator extends ABarChartDecorator
     {
         super(chart);
         this._font = font;
-        this._isPercentage = isPercentage;
-        this._isCategory = isCategory;
+        this._isPercentage = displayPercentage;
+        this._isCategory = displayCategory;
         this._isMiddle = isMiddle;
     }
 

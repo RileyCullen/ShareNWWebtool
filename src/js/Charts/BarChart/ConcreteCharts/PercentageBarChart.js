@@ -22,10 +22,17 @@ class PercentageBarChart extends ABarChart
      * 
      * @see ABarChart.js for constructor parameters
      */
-    constructor(data, group, width, height, padding, rotateBy = 0)
+    constructor({data, group, width, height, padding, rotateBy = 0})
     {
         super(data, group, width, height, padding, rotateBy);
-        this._basicBar = new StackedBarChart(data, group, width, height, padding, rotateBy);
+        this._basicBar = new StackedBarChart({
+            data: data, 
+            group: group, 
+            width: width, 
+            height: height, 
+            padding: padding, 
+            rotateBy: rotateBy
+        });
         this._UpdateYScale();
         this._CheckData();
     }

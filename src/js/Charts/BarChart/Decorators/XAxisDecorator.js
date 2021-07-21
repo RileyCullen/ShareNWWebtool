@@ -25,8 +25,8 @@ class XAxisDecorator extends ABarChartDecorator
      * @param {int}        tickStrokeWidth Width of the x-axis ticks
      * @param {JSON Array} font            Determines font size and font family
      */
-    constructor(chart, lineColor = 'black', lineStrokeWidth = 1, tickStrokeWidth = 0.5,
-        font = {fontSize : 10, fontFamily : 'Times New Roman, Times, serif', textColor : 'black'})
+    constructor({chart, lineColor = 'black', lineStrokeWidth = 1, tickStrokeWidth = 0.5,
+        font = {fontSize : 10, fontFamily : 'Times New Roman, Times, serif', textColor : 'black'}})
     {
         super(chart);
         this._lineColor = lineColor;

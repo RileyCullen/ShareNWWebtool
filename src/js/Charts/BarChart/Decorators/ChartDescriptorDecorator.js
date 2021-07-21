@@ -27,9 +27,9 @@ class ChartDescriptorDecorator extends ABarChartDecorator
      * @param {int}        iconSize Width/height of descriptor rectangles
      * 
      */
-    constructor(chart, isTop = true, font =  {fontSize : 8, 
+    constructor({chart, isTop = true, font =  {fontSize : 8, 
         fontFamily : 'Times New Roman, Times, serif', 
-        textColor : 'black'}, maxPerRow = 3) 
+        textColor : 'black'}, maxPerRow = 3}) 
     {
         // TODO: vertical vs horizontal descriptor
         super(chart);

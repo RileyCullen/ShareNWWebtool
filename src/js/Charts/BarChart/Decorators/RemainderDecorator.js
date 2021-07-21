@@ -22,7 +22,7 @@ class RemainderDecorator extends ABarChartDecorator
      * @param {string}   barColor Color of 'remainder' bars
      */
 
-    constructor(chart, barColor = 'gray') 
+    constructor({chart, barColor = 'gray'}) 
     {
         super(chart);
         this._barColor = barColor;
