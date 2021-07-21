@@ -286,12 +286,39 @@ class ObesityTemplateOne extends AInfographic
 
         textGroupArr[2].setAttr('y', textGroupArr[2].getAttr('y') + 5);
 
-        var pieChart = new PieChart(pieChartData, pieChartGroup, 70);
-        var donutDecorator = new DonutDecorator(pieChart, 40, sectionColorArr[2]);
-        var outerOutline = new ChartOutlineDecorator(donutDecorator, pieChart.GetRadius(), 5, '#7b706a');
-        var innerOutline = new ChartOutlineDecorator(outerOutline, donutDecorator.GetRadius(), 3, '#7b706a');
-        var majorStatistic = new FirstStatisticDecorator(innerOutline, {'fontSize': statisticFontSize,
-            'fontFamily': titleFont, 'textColor': 'white',}, 5, 0, textGroupArr[2]);
+        var pieChart = new PieChart({
+            data: pieChartData, 
+            group: pieChartGroup, 
+            radius: 70
+        });
+        var donutDecorator = new DonutDecorator({
+            chart: pieChart, 
+            innerRadius: 40, 
+            color: sectionColorArr[2]
+        });
+        var outerOutline = new ChartOutlineDecorator({
+            chart: donutDecorator, 
+            radius: pieChart.GetRadius(), 
+            outlineWidth: 5, 
+            outlineColor: '#7b706a'
+        });
+        var innerOutline = new ChartOutlineDecorator({
+            chart: outerOutline, 
+            radius: donutDecorator.GetRadius(), 
+            outlineWidth: 3, 
+            outlineColor: '#7b706a'
+        });
+        var majorStatistic = new FirstStatisticDecorator({
+            chart: innerOutline, 
+            font: {
+                'fontSize': statisticFontSize,
+                'fontFamily': titleFont, 
+                'textColor': 'white',
+            }, 
+            x: 5, 
+            y: 0, 
+            group: textGroupArr[2]
+        });
 
         this._chartHandler.AddChart(pieChart, pieChartGroup, 'Pie');
         this._chartHandler.AddDecorator(donutDecorator, this._chartHandler.GetCurrChartID());

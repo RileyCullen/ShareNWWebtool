@@ -281,13 +281,23 @@ class ViolenceTemplateOne extends AInfographic
             'color': blueishGray,
         };
         var pieChartOneRadius = 80;
-        var pieChartOne = new PieChart(pieChartOneData, pieChartOneGroup, pieChartOneRadius);
-        var donutDecorator = new DonutDecorator(pieChartOne, pieChartOneRadius / 2);   
-        var minorStatistic = new FirstStatisticDecorator(donutDecorator, {
-            'fontSize': 30,
-            'fontFamily': roboto,
-            'fontStyle': 900,
-            'textColor': orange,
+        var pieChartOne = new PieChart({
+            data: pieChartOneData, 
+            group: pieChartOneGroup, 
+            radius: pieChartOneRadius
+        });
+        var donutDecorator = new DonutDecorator({
+            chart: pieChartOne, 
+            innerRadius: pieChartOneRadius / 2
+        });   
+        var minorStatistic = new FirstStatisticDecorator({
+            chart: donutDecorator, 
+            font: {
+                'fontSize': 30,
+                'fontFamily': roboto,
+                'fontStyle': 900,
+                'textColor': orange,
+            }
         });
         this._chartHandler.AddChart(pieChartOne, pieChartOneGroup, 'Pie');
         this._chartHandler.AddDecorator(donutDecorator, this._chartHandler.GetCurrChartID());
@@ -471,13 +481,25 @@ class ViolenceTemplateOne extends AInfographic
         });
         waffleChartGroup.add(circleGroup);
 
-        var circle = new PieChart([{'category': 'test', 'value': 74, 'color': yellow}], circleGroup, 55)
-        var circleOutline = new ChartOutlineDecorator(circle, 60, 2.5, 'black');
-        var circleMinorStatistic = new FirstStatisticDecorator(circleOutline, {
-            'fontSize': 40,
-            'fontFamily': roboto,
-            'textColor': 'black',
-            'fontStyle': 400,
+        var circle = new PieChart({
+            data: [{'category': 'test', 'value': 74, 'color': yellow}], 
+            group: circleGroup, 
+            radius: 55
+        });
+        var circleOutline = new ChartOutlineDecorator({
+            chart: circle, 
+            radius: 60, 
+            outlineWidth: 2.5, 
+            outlineColor: 'black'
+        });
+        var circleMinorStatistic = new FirstStatisticDecorator({
+            chart: circleOutline, 
+            font: {
+                'fontSize': 40,
+                'fontFamily': roboto,
+                'textColor': 'black',
+                'fontStyle': 400,
+            }
         });
         this._chartHandler.AddChart(circle, circleGroup, 'Pie');
         this._chartHandler.AddDecorator(circleOutline, this._chartHandler.GetCurrChartID());
