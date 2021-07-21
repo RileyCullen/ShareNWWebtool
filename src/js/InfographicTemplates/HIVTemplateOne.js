@@ -210,12 +210,21 @@ class HIVTemplateOne extends AInfographic
             'color': '#e71b32',
         };
 
-        var barChart = new PercentageBarChart(barChartData, barChartGroup, 90, 115, 0.2, 90);
-        var remainder = new RemainderDecorator(barChart);
+        var barChart = new PercentageBarChart({
+            data: barChartData, 
+            group: barChartGroup, 
+            width: 90, 
+            height: 115, 
+            padding: 0.2, 
+            rotateBy: 90}
+        );
+        var remainder = new RemainderDecorator({
+            chart: barChart
+        });
         var dataValue = new DataValueDecorator({
             chart: remainder, 
-            isPercentage: true, 
-            isCategory: true, 
+            displayPercentage: true, 
+            displayCategory: true, 
             isMiddle: true, 
             font: {
                 'fontSize': 12,
