@@ -214,8 +214,13 @@ class ViolenceTemplateOne extends AInfographic
             y: 30
         });
         sectionOne.add(stackedBarChartGroup);
-        var stackedBarChart = new StackedBarChart(stackedBarChartData, stackedBarChartGroup,
-            225, 300, 0.15);
+        var stackedBarChart = new StackedBarChart({
+            data: stackedBarChartData, 
+            group: stackedBarChartGroup,
+            width: 225, 
+            height: 300, 
+            padding: 0.15
+        });
         var valueFont = {
             'fontSize': 12, 
             'fontFamily': roboto, 
@@ -228,8 +233,8 @@ class ViolenceTemplateOne extends AInfographic
         };
         var valueLabel = new DataValueDecorator({
             chart: stackedBarChart, 
-            isPercentage: true, 
-            isCategory: false, 
+            displayPercentage: true, 
+            displayCategory: false, 
             isMiddle: true, 
             font: valueFont
         });
@@ -239,10 +244,14 @@ class ViolenceTemplateOne extends AInfographic
             isTop: true, 
             font: categoryFont
         });
-        var descriptor = new ChartDescriptorDecorator(categoryLabel, false, {
+        var descriptor = new ChartDescriptorDecorator({
+            chart: categoryLabel, 
+            isTop: false, 
+            font: {
             'fontSize': 10,
             'fontFamily': roboto,
             'fontColor': 'black',
+            }
         });
         descriptor.SetPadding(20);
         descriptor.SetOffsetX(7);
@@ -363,9 +372,19 @@ class ViolenceTemplateOne extends AInfographic
             'fontFamily': roboto, 
             'fontColor': 'black'
         };
-        var barChartOne = new BasicBarChart(barChartOneData, barChartOneGroup,
-            200, 200, 0.4, 0);
-        var xAxisOne = new XAxisDecorator(barChartOne, 'black', 1, 0.5, xAxisFont);
+        var barChartOne = new BasicBarChart({
+            data: barChartOneData, 
+            group: barChartOneGroup,
+            width: 200, 
+            height: 200, 
+            padding: 0.4
+        });
+        var xAxisOne = new XAxisDecorator({
+            chart: barChartOne,  
+            lineStrokeWidth: 1, 
+            tickStrokeWidth: 0.5, 
+            font: xAxisFont
+        });
         var valueDecoratorOne = new DataValueDecorator({
             chart: xAxisOne, 
             isPercentage: true, 
