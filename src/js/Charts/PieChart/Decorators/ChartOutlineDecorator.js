@@ -20,7 +20,7 @@ class ChartOutlineDecorator extends APieChartDecorator
      * @param {double}    outlineWidth The width of the outline
      * @param {string}    outlineColor The color of the outline
      */
-    constructor(chart, radius, outlineWidth, outlineColor)
+    constructor({chart, radius, outlineWidth, outlineColor})
     {
         super(chart);
         this._outlineWidth = outlineWidth;

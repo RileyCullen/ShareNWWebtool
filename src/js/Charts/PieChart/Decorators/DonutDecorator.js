@@ -20,7 +20,7 @@ class DonutDecorator extends APieChartDecorator
      * @param {float}     innerRadius : Radius of smaller circle
      * @param {string}    color       : The color of the smaller circle
      */
-    constructor(chart, innerRadius, color = 'white')
+    constructor({chart, innerRadius, color = 'white'})
     {
         super(chart);
         this._innerRadius = (innerRadius > this._radius - 10) ? this._radius - 30 : innerRadius;

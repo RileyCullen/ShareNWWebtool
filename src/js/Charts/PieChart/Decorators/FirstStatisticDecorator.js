@@ -22,8 +22,8 @@ class FirstStatisticDecorator extends APieChartDecorator
      * @param {double} y          The y position of the statistic.
      * @param {Konva.Group} group The group we want to add the statistic to.
      */
-    constructor(chart, font =  {'fontSize' : 8, 'fontFamily' : 'Times New Roman, Times, serif', 'fontStyle' : 400,
-        'textColor' : 'black'}, x = 0, y = 0, group = 0)
+    constructor({chart, font =  {'fontSize' : 8, 'fontFamily' : 'Times New Roman, Times, serif', 'fontStyle' : 400,
+        'textColor' : 'black'}, x = 0, y = 0, group = 0})
     {
         super(chart);
         this._top = new Konva.Group();

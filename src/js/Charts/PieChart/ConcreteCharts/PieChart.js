@@ -21,7 +21,7 @@ class PieChart extends APieChart
      * @param {Konva.Group} group 
      * @param {float}       radius 
      */
-    constructor(data, group, radius = 100)
+    constructor({data, group, radius = 100})
     {
         super(data, group, radius);
     }
