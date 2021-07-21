@@ -51,11 +51,15 @@ class HIVTemplateOne extends AInfographic
         var titleDiv = document.createElement('div');
         var title = '<p><span style="font-size: 20px; font-family: museo, serif; font-style: 500; color: #3c4c59;">Women and HIV</span></p>';
         titleDiv.innerHTML = title;
-        this._textHandler.AddTextElem(titleDiv, header, 
-            (this._stage.width() / 2) 
-            - (this._GetTextWidth('Women and HIV', 20, "museo, serif") / 2), 
-            10, 0);
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+        this._textHandler.AddTextElem({
+            textElem: titleDiv,
+            group: header, 
+            x: (this._stage.width() / 2) - (this._GetTextWidth('Women and HIV', 20, "museo, serif") / 2), 
+            y: 10, 
+            rotateBy: 0
+        });
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
             fontFamily: museo900,
             fontSize: '20px',
             textColor: '#3c4c59',
@@ -66,8 +70,14 @@ class HIVTemplateOne extends AInfographic
         var questionDiv = document.createElement('div');
         var question = '<p><span style="font-size: 36px; font-family: museo, serif; color: #3c4c59;">Did you know?</span></p>';
         questionDiv.innerHTML = question;
-        this._textHandler.AddTextElem(questionDiv, header, (this._stage.width() / 2) - (this._GetTextWidth('Did you know?', 36, 'museo, serif') / 2), 27);
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+        this._textHandler.AddTextElem({
+            textElem: questionDiv, 
+            group: header, 
+            x: (this._stage.width() / 2) - (this._GetTextWidth('Did you know?', 36, 'museo, serif') / 2), 
+            y: 27
+        });
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
             fontFamily: museo900,
             fontSize: '36px',
             textColor: '#3c4c59',
@@ -96,21 +106,29 @@ class HIVTemplateOne extends AInfographic
             '<p style="margin: 0px;"><span style="font-family: canada-type-gibson, sans-serif; font-size: 17px; font-weight: 400; line-height: 1.2;">PEOPLE LIVING WITH HIV</span></p>' +
             '<p style="margin: 0px;"><span style="font-family: canada-type-gibson, sans-serif; font-size: 30px; font-weight: 700; line-height: 1.2;">IS A WOMAN</span></p>';
         textOneDiv.innerHTML = textOne
-        this._textHandler.AddTextElem(textOneDiv, textGroupOne, 152.5, 17.5);
+        this._textHandler.AddTextElem({
+            textElem: textOneDiv, 
+            group: textGroupOne, 
+            x: 152.5, 
+            y: 17.5
+        });
        
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
             fontFamily: canada700,
             fontSize: '30px',
             textColor: '#f58928',
             lineHeight: '1.2',
         });
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
             fontFamily: canada400,
             fontSize: '17px',
             textColor: '#f58928',
             lineHeight: '1.2',
         });
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
             fontFamily: canada700,
             fontSize: '30px',
             textColor: '#f58928',
@@ -141,7 +159,11 @@ class HIVTemplateOne extends AInfographic
             presetB: orangeWomanPreset, 
             fontSize: 33
         });
-        this._chartHandler.AddChart(waffleOne, waffleOneGroup, 'Waffle');
+        this._chartHandler.AddChart({
+            chart: waffleOne, 
+            group: waffleOneGroup, 
+            type:'Waffle'
+        });
         this._chartHandler.GetChart(this._chartHandler.GetCurrChartID()).CreateChart();
         
         var redBackground = new ArrowHeader(0, 0, 400, 125, sectionTwo, '#e71b32', 'white');
@@ -160,20 +182,28 @@ class HIVTemplateOne extends AInfographic
             '<p style="margin: 0px;"><span style="font-family: canada-type-gibson, sans-serif; font-weight: 200; font-size: 32px; line-height: 1.2">ARE EQUALLY</span></p>' +
             '<p style="margin: 0px;"><span style="font-family: canada-type-gibson, sans-serif; font-weight: 600; font-size: 23px; line-height: 1.2">AFFECTED BY HIV</span></p>';
         textTwoDiv.innerHTML = textTwo; 
-        this._textHandler.AddTextElem(textTwoDiv, textGroupTwo, 160, 17.5);
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+        this._textHandler.AddTextElem({
+            textElem: textTwoDiv, 
+            group: textGroupTwo, 
+            x: 160, 
+            y: 17.5
+        });
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
             fontFamily: canada600,
             fontSize: '23px',
             textColor: textTwoDiv.style.color,
             lineHeight: '1.2',
         });
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
             fontFamily: canada200,
             fontSize: '32px',
             textColor: textTwoDiv.style.color,
             lineHeight: '1.2',
         });
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
             fontFamily: canada600,
             fontSize: '23px',
             textColor: textTwoDiv.style.color,
@@ -190,8 +220,15 @@ class HIVTemplateOne extends AInfographic
         var labelText = '<p><span style="font-family: canada-type-gibson, sans-serif; font-size: 12px">'
             + 'New Infections</span></p>';
         barChartLabelDiv.innerHTML = labelText;
-        this._textHandler.AddTextElem(barChartLabelDiv, sectionTwo, 30, 24, 90);
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+        this._textHandler.AddTextElem({
+            textElem: barChartLabelDiv, 
+            group: sectionTwo, 
+            x: 30, 
+            y: 24, 
+            rotateby: 90
+        });
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
             fontFamily: canada400,
             fontSize: '12px',
             textColor: barChartLabelDiv.style.color,
@@ -240,11 +277,23 @@ class HIVTemplateOne extends AInfographic
             }
         });
 
-        this._chartHandler.AddChart(barChart, barChartGroup, 'Bar');
-        this._chartHandler.AddDecorator(remainder, this._chartHandler.GetCurrChartID());
-        this._chartHandler.AddDecorator(dataValue, this._chartHandler.GetCurrChartID());
-        this._chartHandler.GetDecorator(this._chartHandler.GetCurrChartID(), this._chartHandler.GetCurrDecSize())
-            .CreateChart();
+        this._chartHandler.AddChart({
+            chart: barChart, 
+            group: barChartGroup, 
+            type: 'Bar'
+        });
+        this._chartHandler.AddDecorator({
+            decorator: remainder, 
+            id: this._chartHandler.GetCurrChartID()
+        });
+        this._chartHandler.AddDecorator({
+            decorator: dataValue, 
+            id: this._chartHandler.GetCurrChartID()
+        });
+        this._chartHandler.GetDecorator({
+            chartID: this._chartHandler.GetCurrChartID(), 
+            decoratorID: this._chartHandler.GetCurrDecSize()
+        }).CreateChart();
 
         const LIGHT_BLUE = '#a0b8d2', BLUE = '#1670ac';
         var blueBackground = new ArrowHeader(0, 0, 400, 125, sectionThree, BLUE, 'white');
@@ -266,26 +315,35 @@ class HIVTemplateOne extends AInfographic
             '<p style="margin: 0px;"><span style="font-family: canada-type-gibson, sans-serif; font-weight: 100; font-size: 28.5px; line-height: 1.0">ARE RECEIVING</span></p>' +
             '<p style="margin: 0px;"><span style="font-family: canada-type-gibson, sans-serif; font-weight: 600; font-size: 28.5Px; line-height: 1.0">CARE FOR HIV</span<</p>';
         textThreeDiv.innerHTML = textThree;
-        this._textHandler.AddTextElem(textThreeDiv, textGroupThree, 160, 18);
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+        this._textHandler.AddTextElem({
+            textElem: textThreeDiv, 
+            group: textGroupThree, 
+            x: 160, 
+            y: 18
+        });
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
             fontFamily: canada600,
             fontSize: '17px',
             textColor: textThreeDiv.style.color,
             lineHeight: '1.0',
         });
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
             fontFamily: canada400,
             fontSize: '18.5px',
             textColor: textThreeDiv.style.color,
             lineHeight: '1.0',
         });
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
             fontFamily: canada100,
             fontSize: '28.5px',
             textColor: textThreeDiv.style.color,
             lineHeight: '1.0',
         });
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+        this._textHandler.SetCSSInfo({ 
+            id: this._textHandler.GetCurrID(),
             fontFamily: canada600,
             fontSize: '28.5px',
             textColor: textThreeDiv.style.color,
@@ -313,18 +371,25 @@ class HIVTemplateOne extends AInfographic
             presetB: blueWomanPreset, 
             fontSize: 10
         });
-        this._chartHandler.AddChart(waffleTwo, waffleTwoGroup, 'Waffle');
+        this._chartHandler.AddChart({
+            chart: waffleTwo, 
+            group: waffleTwoGroup, 
+            type: 'Waffle'
+        });
         this._chartHandler.GetChart(this._chartHandler.GetCurrChartID()).CreateChart();
         
         /* FOOTER */ 
         var bottomTextDiv = document.createElement('div');
         var bottomText = '<p><span style="font-size: 16px; font-family: museo, serif;">Get the facts. Get tested. Get treatment</span></p>';
         bottomTextDiv.innerHTML = bottomText;
-        this._textHandler.AddTextElem(bottomTextDiv, footer, 
-            ((this._stage.width() / 2) - 
-            this._GetTextWidth('Get the facts. Get tested. Get treatment.', 16, 'museo, serif') / 2), 
-            20);
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+        this._textHandler.AddTextElem({
+            textElem: bottomTextDiv, 
+            group: footer, 
+            x: ((this._stage.width() / 2) - this._GetTextWidth('Get the facts. Get tested. Get treatment.', 16, 'museo, serif') / 2), 
+            y: 20
+        });
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
             fontFamily: museo900,
             fontSize: '16px',
             textColor: 'black',
@@ -335,10 +400,14 @@ class HIVTemplateOne extends AInfographic
         var moreInfoTextDiv = document.createElement('div');
         var moreInfoText = '<p><span style="font-size: 14px; font-family: museo, serif;">For more info, go to www.cdc.gov/hiv</span></p>';
         moreInfoTextDiv.innerHTML = moreInfoText;
-        this._textHandler.AddTextElem(moreInfoTextDiv, footer, 
-            (this._stage.width() / 2) - 
-            this._GetTextWidth('For more info, go to www.cdc.gov/hiv', 14, 'museo, serif') / 2, 40);
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+        this._textHandler.AddTextElem({
+            textElem: moreInfoTextDiv, 
+            group: footer, 
+            x: (this._stage.width() / 2) - this._GetTextWidth('For more info, go to www.cdc.gov/hiv', 14, 'museo, serif') / 2, 
+            y: 40
+        });
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(), 
             fontFamily: museo900,
             fontSize: '14px',
             textColor: 'black',
@@ -356,9 +425,6 @@ class HIVTemplateOne extends AInfographic
         });
         footer.moveToTop();
         this._FinalizeInfog();
-
-        console.log('hiv')
-        console.log(this._graphicsHandler);
     }
 
     Draw()

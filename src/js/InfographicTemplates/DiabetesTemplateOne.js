@@ -67,10 +67,14 @@ class DiabetesTemplateOne extends AInfographic
         var ribbonText = '<p><span style="font-family: Montserrat, sans-serif; font-size: 20px; ">' +
             'AN EVERYDAY HEALTH INFOGRAM</span></p>';
         ribbonTextDiv.innerHTML = ribbonText;
-        this._textHandler.AddTextElem(ribbonTextDiv, ribbonGroup, 
-            (this._chartWidth / 2) - 170 , 
-            (ribbonHeight / 2) - this._GetTextWidth('M', 20, ribbonFontFamily) / 2 - 2);
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+        this._textHandler.AddTextElem({
+            textElem: ribbonTextDiv, 
+            group: ribbonGroup, 
+            x: (this._chartWidth / 2) - 170 , 
+            y: (ribbonHeight / 2) - this._GetTextWidth('M', 20, ribbonFontFamily) / 2 - 2
+        });
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(), 
             fontFamily: montserrat200,
             fontSize: '20px',
             textColor: ribbonTextDiv.style.color,
@@ -97,15 +101,21 @@ class DiabetesTemplateOne extends AInfographic
             '<p style="margin: 0px;"><span style="font-family: Roboto, sans-serif; font-size: 60px; line-height: 1.0;">THE RISING PRICE</span></p>' +
             '<p style="margin: 0px;"><span style="font-family: Roboto, sans-serif; font-size: 82px; line-height: 1.0;">OF DIABETES</span></p>';
         titleTextDiv.innerHTML = titleText;
-        this._textHandler.AddTextElem(titleTextDiv, group, this._CenterXAbout(titleWidth, 115),
-            30);
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(), {
+        this._textHandler.AddTextElem({
+            textElem: titleTextDiv, 
+            group: group, 
+            x: this._CenterXAbout(titleWidth, 115),
+            y: 30
+        });
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
             fontFamily: roboto400,
             fontSize: '60px',
             textColor: 'black',
             lineHeight: '1.0',
         });
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
             fontFamily: roboto400,
             fontSize: '82px',
             textColor: 'black',
@@ -123,16 +133,22 @@ class DiabetesTemplateOne extends AInfographic
             '<p style="text-align: center; margin: 0px;"><span style="font-family: Open Sans, sans-serif; font-size: 20px; line-height: 1.5;">Diabetes costs in the United States climbed</span></p>' + 
             '<p style="text-align: center; margin: 0px;"><span style="font-family: Open Sans, sans-serif; font-size: 20px; line-height: 1.5;">to $245 billion last year.</span></p>';
         subTitleDiv.innerHTML = subTitleText;
-        this._textHandler.AddTextElem(subTitleDiv, group, this._CenterXAbout(subTitleWidth, (this._chartWidth / 2)),
-            185);
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(), {
+        this._textHandler.AddTextElem({
+            textElem: subTitleDiv, 
+            group: group, 
+            x: this._CenterXAbout(subTitleWidth, (this._chartWidth / 2)),
+            y: 185
+        });
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
             fontFamily: openSans,
             fontSize: subTitleFontSize + 'px',
             textColor: 'black',
             lineHeight: '1.5',
             align: 'center'
         });
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(), {
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
             fontFamily: openSans,
             fontSize: subTitleFontSize + 'px',
             textColor: 'black',
@@ -182,15 +198,23 @@ class DiabetesTemplateOne extends AInfographic
             '<p style="margin: 0px; text-align: center;"><span style="font-family: Open Sans, sans-serif; font-size: 18px; line-height: 1.5">What the U.S. pays for</span></p>' +
             '<p style="margin: 0px; text-align: center;"><span style="font-family: Open Sans, sans-serif; font-size: 18px; line-height: 1.5">diagnosed diabetes.</span></p>'
         sectionTitleDiv.innerHTML = text;
-        this._textHandler.AddTextElem(sectionTitleDiv, sectionOne, 45, 15, 0);
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(), {
+        this._textHandler.AddTextElem({
+            textElem: sectionTitleDiv, 
+            group: sectionOne, 
+            x: 45, 
+            y: 15, 
+            rotateby: 0
+        });
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
             fontFamily: openSans,
             fontSize: textFontSize + 'px',
             textColor: textColor,
             lineHeight: 1.5,
             align: 'center', 
         });
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(), {
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
             fontFamily: openSans,
             fontSize: textFontSize + 'px',
             textColor: textColor,
@@ -260,10 +284,23 @@ class DiabetesTemplateOne extends AInfographic
 
         dataValueDecorator.CreateChart();
 
-        this._chartHandler.AddChart(chart, chartGroup, 'Line')
-        this._chartHandler.AddDecorator(xAxisDecorator, this._chartHandler.GetCurrChartID());
-        this._chartHandler.AddDecorator(yAxisDecorator, this._chartHandler.GetCurrChartID());
-        this._chartHandler.AddDecorator(dataValueDecorator, this._chartHandler.GetCurrChartID());
+        this._chartHandler.AddChart({
+            chart: chart, 
+            group: chartGroup, 
+            type: 'Line'
+        });
+        this._chartHandler.AddDecorator({
+            decorator: xAxisDecorator, 
+            id: this._chartHandler.GetCurrChartID()
+        });
+        this._chartHandler.AddDecorator({
+            decorator: yAxisDecorator, 
+            id: this._chartHandler.GetCurrChartID()
+        });
+        this._chartHandler.AddDecorator({
+            decorator: dataValueDecorator, 
+            id: this._chartHandler.GetCurrChartID()
+        });
     }
 
     _CreateSectionTwo({textColor})
@@ -289,22 +326,31 @@ class DiabetesTemplateOne extends AInfographic
             '<p style="margin: 0px; text-align: center;"><span style="font-family: Open Sans, sans-serif; font-size: 18px; line-height: 1.5">with diabetes are 2.3</span></p>' + 
             '<p style="margin: 0px; text-align: center;"><span style="font-family: Open Sans, sans-serif; font-size: 18px; line-height: 1.5">times higher</span></p>'
         sectionTitleDiv.innerHTML = text;
-        this._textHandler.AddTextElem(sectionTitleDiv, sectionTwo, 40, 190, 0);
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(), {
+        this._textHandler.AddTextElem({
+            textElem: sectionTitleDiv, 
+            group: sectionTwo, 
+            x: 40, 
+            y: 190, 
+            rotateby: 0
+        });
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
             fontFamily: openSans,
             fontSize: textFontSize + 'px',
             textColor: textColor,
             lineHeight: 1.5,
             align: 'center', 
         });
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(), {
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
             fontFamily: openSans,
             fontSize: textFontSize + 'px',
             textColor: textColor,
             lineHeight: 1.5,
             align: 'center', 
         });
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(), {
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
             fontFamily: openSans,
             fontSize: textFontSize + 'px',
             textColor: textColor,
@@ -363,9 +409,19 @@ class DiabetesTemplateOne extends AInfographic
 
         dataValues.CreateChart();
 
-        this._chartHandler.AddChart(barChart, barChartGroup, 'Bar');
-        this._chartHandler.AddDecorator(labels, this._chartHandler.GetCurrChartID());
-        this._chartHandler.AddDecorator(dataValues, this._chartHandler.GetCurrChartID());
+        this._chartHandler.AddChart({
+            chart: barChart, 
+            group: barChartGroup, 
+            type: 'Bar'
+        });
+        this._chartHandler.AddDecorator({
+            decorator: labels, 
+            id: this._chartHandler.GetCurrChartID()
+        });
+        this._chartHandler.AddDecorator({
+            decorator: dataValues, 
+            id: this._chartHandler.GetCurrChartID()
+        });
     }
 
     _CreateSectionThree({textColor})
@@ -390,15 +446,22 @@ class DiabetesTemplateOne extends AInfographic
             '<p style="margin: 0px; text-align: center;"><span style="font-family: Open Sans, sans-serif; font-size: 18px; line-height: 1.5">California spent the most on diabetes in 2012.</span></p>' +
             '<p style="margin: 0px; text-align: center;"><span style="font-family: Open Sans, sans-serif; font-size: 18px; line-height: 1.5">Florida came in second at $18.9 million, followed by Texas.</span></p>';
         sectionTitleDiv.innerHTML = text;
-        this._textHandler.AddTextElem(sectionTitleDiv, sectionThree, 50, 175, 0);
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(), {
+        this._textHandler.AddTextElem({
+            textElem: sectionTitleDiv, 
+            group: sectionThree, 
+            x: 50, 
+            y: 175
+        });
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
             fontFamily: openSans,
             fontSize: textFontSize + 'px',
             textColor: textColor,
             lineHeight: 1.5,
             align: 'center', 
         });
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(), {
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
             fontFamily: openSans,
             fontSize: textFontSize + 'px',
             textColor: textColor,
@@ -413,8 +476,14 @@ class DiabetesTemplateOne extends AInfographic
         oneDiv.style.color = 'white';
         var oneText = '<p style="margin: 0px; text-align: center;"><span style="font-family: Open Sans, sans-serif; font-size: 22px; line-height: 1.5">1.</span></p>'
         oneDiv.innerHTML = oneText;
-        this._textHandler.AddTextElem(oneDiv, sectionThree, 25, 15, 0);
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(), {
+        this._textHandler.AddTextElem({
+            textElem: oneDiv, 
+            group: sectionThree, 
+            x: 25, 
+            y: 15
+        });
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
             fontFamily: openSans,
             fontSize:  22 + 'px',
             textColor: 'white',
@@ -426,8 +495,14 @@ class DiabetesTemplateOne extends AInfographic
         statisticDiv.style.color = 'white';
         var statisticText = '<p style="margin: 0px; text-align: center;"><span style="font-family: Open Sans, sans-serif; font-size: 18px; line-height: 1.5">$27.6 Billion</span></p>'
         statisticDiv.innerHTML = statisticText;
-        this._textHandler.AddTextElem(statisticDiv, sectionThree, 70, 140, 0);
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(), {
+        this._textHandler.AddTextElem({
+            textElem: statisticDiv, 
+            group: sectionThree, 
+            x: 70, 
+            y: 140
+        });
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
             fontFamily: openSans,
             fontSize:  18 + 'px',
             textColor: 'white',
@@ -448,8 +523,14 @@ class DiabetesTemplateOne extends AInfographic
         twoDiv.style.color = 'white';
         var twoText = '<p style="margin: 0px; text-align: center;"><span style="font-family: Open Sans, sans-serif; font-size: 22px; line-height: 1.5">2.</span></p>'
         twoDiv.innerHTML = twoText;
-        this._textHandler.AddTextElem(twoDiv, sectionThree, startingX + 125, 15, 0);
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(), {
+        this._textHandler.AddTextElem({
+            textElem: twoDiv, 
+            group: sectionThree, 
+            x: startingX + 125, 
+            y: 15
+        });
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
             fontFamily: openSans,
             fontSize:  22 + 'px',
             textColor: 'white',
@@ -470,8 +551,14 @@ class DiabetesTemplateOne extends AInfographic
         threeDiv.style.color = 'white';
         var threeText = '<p style="margin: 0px; text-align: center;"><span style="font-family: Open Sans, sans-serif; font-size: 22px; line-height: 1.5">3.</span></p>'
         threeDiv.innerHTML = threeText;
-        this._textHandler.AddTextElem(threeDiv, sectionThree, startingX + 335, 15, 0);
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(), {
+        this._textHandler.AddTextElem({
+            textElem: threeDiv, 
+            group: sectionThree, 
+            x: startingX + 335, 
+            y: 15
+        });
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
             fontFamily: openSans,
             fontSize:  22 + 'px',
             textColor: 'white',

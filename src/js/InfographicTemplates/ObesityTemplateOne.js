@@ -53,10 +53,14 @@ class ObesityTemplateOne extends AInfographic
         var ribbonText = '<p><span style="font-family: Montserrat, sans-serif; font-size: 20px; ">' +
             'AN EVERYDAY HEALTH INFOGRAM</span></p>';
         ribbonTextDiv.innerHTML = ribbonText;
-        this._textHandler.AddTextElem(ribbonTextDiv, ribbonGroup, 
-            (this._chartWidth / 2) - 170 , 
-            (ribbonHeight / 2) - this._GetTextWidth('M', 20, ribbonFontFamily) / 2);
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+        this._textHandler.AddTextElem({
+            textElem: ribbonTextDiv, 
+            group: ribbonGroup, 
+            x: (this._chartWidth / 2) - 170 , 
+            y: (ribbonHeight / 2) - this._GetTextWidth('M', 20, ribbonFontFamily) / 2
+        });
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
             fontFamily: montserrat200,
             fontSize: '20px',
             textColor: ribbonTextDiv.style.color,
@@ -74,22 +78,29 @@ class ObesityTemplateOne extends AInfographic
             '<p style="margin: 0px;"><span style="font-family: Roboto, sans-serif; font-size: 75px; line-height: 1.0;">OBESITY BY</span></p>' +
             '<p style="margin: 0px;"><span style="font-family: Roboto, sans-serif; font-size: 60px; line-height: 1.0;">THE NUMBERS</span></p>';
         titleTextDiv.innerHTML = titleText;
-        this._textHandler.AddTextElem(titleTextDiv, header, this._CenterXAbout(titleWidth, (this._chartWidth / 2) + 5),
-            60);
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+        this._textHandler.AddTextElem({
+            textElem: titleTextDiv, 
+            group: header, 
+            x: this._CenterXAbout(titleWidth, (this._chartWidth / 2) + 5),
+            y: 60
+        });
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
             fontFamily: roboto400,
             fontSize: '75px',
             textColor: 'black',
             lineHeight: '1.0',
             align: 'center'
         });
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
             fontFamily: roboto400,
             fontSize: '75px',
             textColor: 'black',
             lineHeight: '1.0',
         });
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
             fontFamily: roboto400,
             fontSize: '60px',
             textColor: 'black',
@@ -105,9 +116,14 @@ class ObesityTemplateOne extends AInfographic
         var descText = '<p><span style="font-family: Open Sans, sans-serif; font-size: 15px">' + 
             'Many U.S. kids are overweight or obese and most don\'t exercise</span></p>';
         descTextDiv.innerHTML = descText;
-        this._textHandler.AddTextElem(descTextDiv, header, this._CenterXAbout(descWidth, (this._chartWidth / 2)),
-            275);
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+        this._textHandler.AddTextElem({
+            textElem: descTextDiv, 
+            group: header, 
+            x: this._CenterXAbout(descWidth, (this._chartWidth / 2)),
+            y: 275
+        });
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(), 
             fontFamily: openSans,
             fontSize: '15px',
             textColor: 'black',
@@ -194,10 +210,20 @@ class ObesityTemplateOne extends AInfographic
             }
         });
 
-        this._chartHandler.AddChart(waffleOne, sectionOneWaffleContainer, 'Waffle');
-        this._chartHandler.AddDecorator(waffleOneStat, this._chartHandler.GetCurrChartID());
-        this._chartHandler.GetDecorator(this._chartHandler.GetCurrChartID(), this._chartHandler.GetCurrDecSize())
-            .CreateChart();
+        this._chartHandler.AddChart({
+            chart: waffleOne, 
+            group: sectionOneWaffleContainer, 
+            type: 'Waffle'
+        });
+        this._chartHandler.AddDecorator({
+            decorator: waffleOneStat, 
+            id: this._chartHandler.GetCurrChartID()
+        });
+        this._chartHandler.GetDecorator({
+            chartID: this._chartHandler.GetCurrChartID(), 
+            decoratorID: this._chartHandler.GetCurrDecSize()
+        })
+        .CreateChart();
 
         var sectionOneTextDiv = document.createElement('div');
         sectionOneTextDiv.style.color = '#9a2418';
@@ -206,20 +232,28 @@ class ObesityTemplateOne extends AInfographic
             '<p style="margin: 0px;"><span style="font-family: Open Sans, sans-serif; font-size: 18.5px; font-weight: bold; line-height: 1.5;">2 to 19 are considered</span></p>' +
             '<p style="margin: 0px;"><span style="font-family: Open Sans, sans-serif; font-size: 18.5px; font-weight: bold; line-height: 1.5;">overweight or obese</span></p>';
         sectionOneTextDiv.innerHTML = sectionOneText;
-        this._textHandler.AddTextElem(sectionOneTextDiv, textGroupArr[0], 0, this._GetTextWidth('M', 50, titleFont) + 5);
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+        this._textHandler.AddTextElem({
+            textElem: sectionOneTextDiv, 
+            group: textGroupArr[0], 
+            x: 0, 
+            y: this._GetTextWidth('M', 50, titleFont) + 5
+        });
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
             fontFamily: openSans,
             fontSize: '18.5px',
             textColor: sectionOneTextDiv.style.color,
             lineHeight: '1.5',
         });
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
             fontFamily: openSans,
             fontSize: '18.5px',
             textColor: sectionOneTextDiv.style.color,
             lineHeight: '1.5',
         });
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
             fontFamily: openSans,
             fontSize: '18.5px',
             textColor: sectionOneTextDiv.style.color,
@@ -260,10 +294,20 @@ class ObesityTemplateOne extends AInfographic
             }
         });
 
-        this._chartHandler.AddChart(waffleTwo, sectionTwoWaffleContainer, 'Waffle');
-        this._chartHandler.AddDecorator(waffleTwoStat, this._chartHandler.GetCurrChartID());
-        this._chartHandler.GetDecorator(this._chartHandler.GetCurrChartID(), this._chartHandler.GetCurrDecSize())
-            .CreateChart();
+        this._chartHandler.AddChart({
+            chart: waffleTwo, 
+            group: sectionTwoWaffleContainer, 
+            type: 'Waffle'
+        });
+        this._chartHandler.AddDecorator({
+            decorator: waffleTwoStat, 
+            id: this._chartHandler.GetCurrChartID()
+        });
+        this._chartHandler.GetDecorator({
+            chartID: this._chartHandler.GetCurrChartID(), 
+            decoratorID: this._chartHandler.GetCurrDecSize()
+        })
+        .CreateChart();
 
         textGroupArr[1].setAttr('y', textGroupArr[1].getAttr('y') + 10);
         
@@ -273,14 +317,21 @@ class ObesityTemplateOne extends AInfographic
             '<p style="margin: 0px;"><span style="font-family: Open Sans, sans-serif; font-size: 18.5px; font-weight: bold; line-height: 1.5;">don\'t get any daily</span></p>' + 
             '<p style="margin: 0px;"><span style="font-family: Open Sans, sans-serif; font-size: 18.5px; font-weight: bold; line-height: 1.5;">physical activity</span></p>';
         sectionTwoTextDiv.innerHTML = sectionTwoText;
-        this._textHandler.AddTextElem(sectionTwoTextDiv, textGroupArr[1], 0, this._GetTextWidth('M', 50, titleFont) + 5);
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+        this._textHandler.AddTextElem({
+            textElem: sectionTwoTextDiv, 
+            group: textGroupArr[1], 
+            x: 0, 
+            y: this._GetTextWidth('M', 50, titleFont) + 5
+        });
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
             fontFamily: openSans,
             fontSize: '18.5px',
             textColor: sectionTwoTextDiv.style.color,
             lineHeight: '1.5',
         });
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
             fontFamily: openSans,
             fontSize: '18.5px',
             textColor: sectionTwoTextDiv.style.color,
@@ -342,13 +393,32 @@ class ObesityTemplateOne extends AInfographic
             group: textGroupArr[2]
         });
 
-        this._chartHandler.AddChart(pieChart, pieChartGroup, 'Pie');
-        this._chartHandler.AddDecorator(donutDecorator, this._chartHandler.GetCurrChartID());
-        this._chartHandler.AddDecorator(outerOutline, this._chartHandler.GetCurrChartID());
-        this._chartHandler.AddDecorator(innerOutline, this._chartHandler.GetCurrChartID());
-        this._chartHandler.AddDecorator(majorStatistic, this._chartHandler.GetCurrChartID());
-        this._chartHandler.GetDecorator(this._chartHandler.GetCurrChartID(), this._chartHandler.GetCurrDecSize())
-            .CreateChart();
+        this._chartHandler.AddChart({
+            chart: pieChart, 
+            group: pieChartGroup, 
+            type: 'Pie'
+        });
+        this._chartHandler.AddDecorator({
+            decorator: donutDecorator, 
+            id: this._chartHandler.GetCurrChartID()
+        });
+        this._chartHandler.AddDecorator({
+            decorator: outerOutline, 
+            id: this._chartHandler.GetCurrChartID()
+        });
+        this._chartHandler.AddDecorator({
+            decorator: innerOutline, 
+            id: this._chartHandler.GetCurrChartID()
+        });
+        this._chartHandler.AddDecorator({
+            decorator: majorStatistic, 
+            id: this._chartHandler.GetCurrChartID()
+        });
+        this._chartHandler.GetDecorator({
+            chartID: this._chartHandler.GetCurrChartID(), 
+            decoratorID: this._chartHandler.GetCurrDecSize()
+        })
+        .CreateChart();
 
         var sectionThreeTextDiv = document.createElement('div');
         sectionThreeTextDiv.style.color = '#7b706a';
@@ -357,20 +427,28 @@ class ObesityTemplateOne extends AInfographic
             '<p style="margin: 0px;"><span style="font-family: Open Sans, sans-serif; font-size: 18.5px; font-weight: bold; line-height: 1.5;">offer no physical</span></p>' + 
             '<p style="margin: 0px;"><span style="font-family: Open Sans, sans-serif; font-size: 18.5px; font-weight: bold; line-height: 1.5;">education classes</span></p>';
         sectionThreeTextDiv.innerHTML = sectionThreeText;
-        this._textHandler.AddTextElem(sectionThreeTextDiv, textGroupArr[2], 0, this._GetTextWidth('M', 50, titleFont) + 5);
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+        this._textHandler.AddTextElem({
+            textElem: sectionThreeTextDiv, 
+            group: textGroupArr[2], 
+            x: 0, 
+            y: this._GetTextWidth('M', 50, titleFont) + 5
+        });
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
             fontFamily: openSans,
             fontSize: '18.5px',
             textColor: sectionThreeTextDiv.style.color,
             lineHeight: '1.5',
         });
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
             fontFamily: openSans,
             fontSize: '18.5px',
             textColor: sectionThreeTextDiv.style.color,
             lineHeight: '1.5',
         });
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
             fontFamily: openSans,
             fontSize: '18.5px',
             textColor: sectionThreeTextDiv.style.color,
@@ -412,20 +490,28 @@ class ObesityTemplateOne extends AInfographic
             '<p style="margin: 0px;"><span style="font-family: Open Sans, sans-serif; font-size: 16px; font-weight: bold; line-height: 1.5;">spend in front of TV or</span></p>' + 
             '<p style="margin: 0px;"><span style="font-family: Open Sans, sans-serif; font-size: 16px; font-weight: bold; line-height: 1.5;">computer screens daily</span></p>';
         sectionFourTextDiv.innerHTML = sectionFourText;
-        this._textHandler.AddTextElem(sectionFourTextDiv, textGroupArr[3], 0, this._GetTextWidth('M', 50, titleFont) + 5);
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+        this._textHandler.AddTextElem({
+            textElem: sectionFourTextDiv, 
+            group: textGroupArr[3], 
+            x: 0, 
+            y: this._GetTextWidth('M', 50, titleFont) + 5
+        });
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
             fontFamily: openSans,
             fontSize: '16px',
             textColor: sectionFourTextDiv.style.color,
             lineHeight: '1.5',
         });
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(), 
             fontFamily: openSans,
             fontSize: '16px',
             textColor: sectionFourTextDiv.style.color,
             lineHeight: '1.5',
         });
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(), 
             fontFamily: openSans,
             fontSize: '16px',
             textColor: sectionFourTextDiv.style.color,
@@ -445,8 +531,14 @@ class ObesityTemplateOne extends AInfographic
         sourceTextDiv.style.color = 'gray';
         var sourceText = '<p><span style="font-family: Montserrat, sans-serif; font-size: 10px;">Source: CDC</span></p>';
         sourceTextDiv.innerHTML = sourceText;
-        this._textHandler.AddTextElem(sourceTextDiv, footer, this._CenterXAbout(sourceTextWidth, this._chartWidth / 2), -10);
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+        this._textHandler.AddTextElem({
+            textElem: sourceTextDiv, 
+            group: footer, 
+            x: this._CenterXAbout(sourceTextWidth, this._chartWidth / 2), 
+            y: -10
+        });
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(), 
             fontFamily: montserrat200,
             fontSize: '10px',
             textColor: sourceTextDiv.style.color,

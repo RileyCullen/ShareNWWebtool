@@ -43,8 +43,14 @@ class ViolenceTemplateOne extends AInfographic
         var title = '<p><span style="font-size: 50px; font-family: Roboto, sans-serif; font-weight: 700">'
             + 'VIRGINIA</span></p>';
         titleDiv.innerHTML = title;
-        this._textHandler.AddTextElem(titleDiv, header, 40, 30);
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+        this._textHandler.AddTextElem({
+            textElem: titleDiv, 
+            group: header, 
+            x: 40, 
+            y: 30
+        });
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
             fontFamily: roboto700,
             fontSize: '50px',
             textColor: 'black',
@@ -67,15 +73,21 @@ class ViolenceTemplateOne extends AInfographic
             + '<p style="margin: 0px;"><span style="font-family: Roboto, sans-serif; font-weight: 300; font-size: 20px; line-height: 1.2;">discrimination against LGBT people</span></p>';
         descDiv.innerHTML = desc;
         descDiv.style.color = 'white';
-        this._textHandler.AddTextElem(descDiv, header, 40, descBackground.getAttr('y') 
-            + descBackground.getAttr('height') / 2 - 1.5 * this._GetTextWidth('M', descFontSize, roboto));
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+        this._textHandler.AddTextElem({
+            textElem: descDiv, 
+            group: header, 
+            x: 40, 
+            y: descBackground.getAttr('y') + descBackground.getAttr('height') / 2 - 1.5 * this._GetTextWidth('M', descFontSize, roboto)
+        });
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
             fontFamily: roboto300,
             fontSize: '20px',
             textColor: descDiv.style.color,
             lineHeight: '1.2',
         });
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(), 
             fontFamily: roboto300,
             fontSize: '20px',
             textColor: descDiv.style.color,
@@ -114,20 +126,28 @@ class ViolenceTemplateOne extends AInfographic
             + '<span style="font-family: Roboto, sans-serif; font-size: 33px; font-weight: 900; color: orange;"> 257,000 </span>'
             + '<span style="font-family: Roboto, sans-serif; font-size: 22px; font-weight: 400;">LGBT adults</span></p>';
         introDiv.innerHTML = intro;
-        this._textHandler.AddTextElem(introDiv, introHelper, 25, introY - 1.5 * this._GetTextWidth('M', introFontSize, roboto));
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+        this._textHandler.AddTextElem({
+            textElem: introDiv, 
+            group: introHelper, 
+            x: 25, 
+            y: introY - 1.5 * this._GetTextWidth('M', introFontSize, roboto)
+        });
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
             fontFamily: roboto400,
             fontSize: '22px',
             textColor: 'black',
             lineHeight: '1.0',
         });
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
             fontFamily: this._quillMap('Roboto', 900),
             fontSize: '33px',
             textColor: 'orange',
             lineHeight: '1.0',
         });
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
             fontFamily: roboto400,
             fontSize: '22px',
             textColor: 'black',
@@ -256,12 +276,28 @@ class ViolenceTemplateOne extends AInfographic
         descriptor.SetPadding(20);
         descriptor.SetOffsetX(7);
         descriptor.SetOffsetY(-10);
-        this._chartHandler.AddChart(stackedBarChart, stackedBarChartGroup, 'Stacked');
-        this._chartHandler.AddDecorator(valueLabel, this._chartHandler.GetCurrChartID());
-        this._chartHandler.AddDecorator(categoryLabel, this._chartHandler.GetCurrChartID());
-        this._chartHandler.AddDecorator(descriptor, this._chartHandler.GetCurrChartID());
-        this._chartHandler.GetDecorator(this._chartHandler.GetCurrChartID(), this._chartHandler.GetCurrDecSize())
-            .CreateChart();
+        this._chartHandler.AddChart({
+            chart: stackedBarChart, 
+            group: stackedBarChartGroup, 
+            type: 'Stacked'
+        });
+        this._chartHandler.AddDecorator({
+            decorator: valueLabel, 
+            id: this._chartHandler.GetCurrChartID()
+        });
+        this._chartHandler.AddDecorator({
+            decorator: categoryLabel, 
+            id: this._chartHandler.GetCurrChartID()
+        });
+        this._chartHandler.AddDecorator({
+            decorator: descriptor, 
+            id: this._chartHandler.GetCurrChartID()
+        });
+        this._chartHandler.GetDecorator({
+            chartID: this._chartHandler.GetCurrChartID(), 
+            decoratorID: this._chartHandler.GetCurrDecSize()
+        })
+        .CreateChart();
 
         /* PIE CHART ONE CODE */
         var pieChartOneGroup = new Konva.Group({
@@ -299,11 +335,24 @@ class ViolenceTemplateOne extends AInfographic
                 'textColor': orange,
             }
         });
-        this._chartHandler.AddChart(pieChartOne, pieChartOneGroup, 'Pie');
-        this._chartHandler.AddDecorator(donutDecorator, this._chartHandler.GetCurrChartID());
-        this._chartHandler.AddDecorator(minorStatistic, this._chartHandler.GetCurrChartID());
-        this._chartHandler.GetDecorator(this._chartHandler.GetCurrChartID(), this._chartHandler.GetCurrDecSize())
-            .CreateChart();
+        this._chartHandler.AddChart({
+            chart: pieChartOne, 
+            group: pieChartOneGroup, 
+            type: 'Pie'
+        });
+        this._chartHandler.AddDecorator({
+            decorator: donutDecorator, 
+            id: this._chartHandler.GetCurrChartID()
+        });
+        this._chartHandler.AddDecorator({
+            decorator: minorStatistic, 
+            id: this._chartHandler.GetCurrChartID()
+        });
+        this._chartHandler.GetDecorator({
+            chartID: this._chartHandler.GetCurrChartID(), 
+            decoratorID: this._chartHandler.GetCurrDecSize()
+        })
+        .CreateChart();
 
         var pieChartOneHelper = new Konva.Group({
             x: this._chartWidth / 2 + 15, 
@@ -316,15 +365,21 @@ class ViolenceTemplateOne extends AInfographic
             + 'are raising</span></p>'
             + '<p style="margin: 0px; text-align: center;"><span style="font-family: Roboto, sans-serif; font-size: 15px; font-weight: 400; line-height: 1.2;">children</span></p>';
         pieChartOneTextDiv.innerHTML = pieChartOneText;
-        this._textHandler.AddTextElem(pieChartOneTextDiv, pieChartOneHelper, 
-            -1 * this._GetTextWidth('are raising', 15, roboto) / 2, pieChartOneRadius + this._GetTextWidth('M', 15, roboto));
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+        this._textHandler.AddTextElem({
+            textElem: pieChartOneTextDiv, 
+            group: pieChartOneHelper, 
+            x: -1 * this._GetTextWidth('are raising', 15, roboto) / 2, 
+            y: pieChartOneRadius + this._GetTextWidth('M', 15, roboto)
+        });
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(), 
             fontFamily: roboto400,
             fontSize: '15px',
             textColor: 'black',
             lineHeight: '1.2',
         });
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
             fontFamily: roboto400,
             fontSize: '15px',
             textColor: 'black',
@@ -343,8 +398,14 @@ class ViolenceTemplateOne extends AInfographic
         var barOneTitle = '<p><span style="font-family: Roboto, sans-serif; font-size: 15px; font-weight: 400;">' 
             + 'LGBT Age Distribution</span></p>';
         barOneTitleDiv.innerHTML = barOneTitle;
-        this._textHandler.AddTextElem(barOneTitleDiv, sectionOne, pieChartOneGroup.getAttr('x') + 135, (-10 + 2 * this._GetTextWidth('M', bcOneFontSize, roboto)));
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+        this._textHandler.AddTextElem({
+            textElem: barOneTitleDiv, 
+            group: sectionOne, 
+            x: pieChartOneGroup.getAttr('x') + 135, 
+            y: (-10 + 2 * this._GetTextWidth('M', bcOneFontSize, roboto))
+        });
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
             fontFamily: roboto400,
             fontSize: '15px',
             textColor: 'black',
@@ -407,11 +468,24 @@ class ViolenceTemplateOne extends AInfographic
             }
         });
 
-        this._chartHandler.AddChart(barChartOne, barChartOneGroup, 'Bar');
-        this._chartHandler.AddDecorator(xAxisOne, this._chartHandler.GetCurrChartID());
-        this._chartHandler.AddDecorator(valueDecoratorOne, this._chartHandler.GetCurrChartID());
-        this._chartHandler.GetDecorator(this._chartHandler.GetCurrChartID(), this._chartHandler.GetCurrDecSize())
-            .CreateChart();
+        this._chartHandler.AddChart({
+            chart: barChartOne, 
+            group: barChartOneGroup, 
+            type: 'Bar'
+        });
+        this._chartHandler.AddDecorator({
+            decorator: xAxisOne, 
+            id: this._chartHandler.GetCurrChartID()
+        });
+        this._chartHandler.AddDecorator({
+            decorator: valueDecoratorOne, 
+            id: this._chartHandler.GetCurrChartID()
+        });
+        this._chartHandler.GetDecorator({
+            chartID: this._chartHandler.GetCurrChartID(), 
+            decoratorID: this._chartHandler.GetCurrDecSize()
+        })
+        .CreateChart();
 
         /* TOOL TIP */
         var toolTipGroup = new Konva.Group(), toolTip = new MessageBubble(toolTipGroup, 225, 150, '#1e2243', 300, 350);
@@ -429,26 +503,35 @@ class ViolenceTemplateOne extends AInfographic
             + '<p style="margin: 0px;"><span style="font-family: Roboto, sans-serif; font-size: 17px; font-weight: 300; line-height: 2.0;">experience discrimination</span></p>'
             + '<p style="margin: 0px;"><span style="font-family: Roboto, sans-serif; font-size: 17px; font-weight: 300; line-height: 2.0;">in the state.</span></p>';
         toolTipDiv.innerHTML = toolTipText;
-        this._textHandler.AddTextElem(toolTipDiv, sectionOne, 315, 357);
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+        this._textHandler.AddTextElem({
+            textElem: toolTipDiv, 
+            group: sectionOne, 
+            x: 315, 
+            y: 357
+        });
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
             fontFamily: roboto300,
             fontSize: '17px',
             textColor: 'white',
             lineHeight: '2.0',
         });
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
             fontFamily: roboto300,
             fontSize: '17px',
             textColor: 'white',
             lineHeight: '2.0',
         });
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(), 
             fontFamily: roboto300,
             fontSize: '17px',
             textColor: 'white',
             lineHeight: '2.0',
         });
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(), 
             fontFamily: roboto300,
             fontSize: '17px',
             textColor: 'white',
@@ -479,7 +562,11 @@ class ViolenceTemplateOne extends AInfographic
             fontSize: 20, 
             isDynamicResize: false
         });
-        this._chartHandler.AddChart(waffleChart, helperGroup, 'Waffle');
+        this._chartHandler.AddChart({
+            chart: waffleChart, 
+            group: helperGroup, 
+            type: 'Waffle'
+        });
         this._chartHandler.GetChart(this._chartHandler.GetCurrChartID()).CreateChart();
 
         var circleGroup = new Konva.Group({
@@ -508,11 +595,24 @@ class ViolenceTemplateOne extends AInfographic
                 'fontStyle': 400,
             }
         });
-        this._chartHandler.AddChart(circle, circleGroup, 'Pie');
-        this._chartHandler.AddDecorator(circleOutline, this._chartHandler.GetCurrChartID());
-        this._chartHandler.AddDecorator(circleMinorStatistic, this._chartHandler.GetCurrChartID());
-        this._chartHandler.GetDecorator(this._chartHandler.GetCurrChartID(), this._chartHandler.GetCurrDecSize())
-            .CreateChart();
+        this._chartHandler.AddChart({
+            chart: circle, 
+            group: circleGroup, 
+            type: 'Pie'
+        });
+        this._chartHandler.AddDecorator({
+            decorator: circleOutline, 
+            id: this._chartHandler.GetCurrChartID()
+        });
+        this._chartHandler.AddDecorator({
+            decorator: circleMinorStatistic, 
+            id: this._chartHandler.GetCurrChartID()
+        });
+        this._chartHandler.GetDecorator({
+            chartID: this._chartHandler.GetCurrChartID(), 
+            decoratorID: this._chartHandler.GetCurrDecSize()
+        })
+        .CreateChart();
 
 
         var waffleDescDiv = document.createElement('div');
@@ -521,26 +621,35 @@ class ViolenceTemplateOne extends AInfographic
             + '<p style="margin: 0px;"><span style="font-family: Roboto, sans-serif; font-size: 13px; font-weight: 400; line-height: 1.0;">harassment based on their sexual</span></p>'
             + '<p style="margin: 0px;"><span style="font-family: Roboto, sans-serif; font-size: 13px; font-weight: 400; line-height: 1.0;">orientation at school.</span></p>'
         waffleDescDiv.innerHTML = waffleDesc;
-        this._textHandler.AddTextElem(waffleDescDiv, waffleChartGroup, 400, 100);
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+        this._textHandler.AddTextElem({
+            textElem: waffleDescDiv, 
+            group: waffleChartGroup, 
+            x: 400, 
+            y: 100
+        });
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
             fontFamily: roboto400,
             fontSize: '13px',
             textColor: 'black',
             lineHeight: '1.0',
         });
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
             fontFamily: roboto400,
             fontSize: '13px',
             textColor: 'black',
             lineHeight: '1.0',
         });
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
             fontFamily: roboto400,
             fontSize: '13px',
             textColor: 'black',
             lineHeight: '1.0',
         });
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(), 
             fontFamily: roboto400,
             fontSize: '13px',
             textColor: 'black',
@@ -552,8 +661,14 @@ class ViolenceTemplateOne extends AInfographic
         var citationOne = '<p><span style="font-family: Roboto, sans-serif; font-size: 9px; font-weight: 300;">'
             + '2017 GLSEN National Scholl Climate Survey</span></p>';
         citationOneDiv.innerHTML = citationOne;
-        this._textHandler.AddTextElem(citationOneDiv, waffleChartGroup, 400, 180);
-        this._textHandler.SetCSSInfo(this._textHandler.GetCurrID(),{ 
+        this._textHandler.AddTextElem({
+            textElem: citationOneDiv, 
+            group: waffleChartGroup, 
+            x: 400, 
+            y: 180
+        });
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
             fontFamily: roboto300,
             fontSize: '9px',
             textColor: 'black',
