@@ -33,7 +33,7 @@ class ABarChart
      *                               (note that this value can only be 0 or 90
      *                               and goes in the clockwise direction).
     */
-    constructor(data, group, width, height, padding, rotateBy, chartType)
+    constructor(data, group, width, height, padding, rotateBy)
     {
         if (this.constructor === ABarChart) {
             throw new TypeError('Abstract class "ABarChart" cannot be instantiated');
@@ -54,8 +54,6 @@ class ABarChart
             .padding(this._padding);
         this._yScale = d3.scaleLinear()
             .range([this._chartHeight, 0]);
-
-        this._chartType = chartType;
 
         this._SetUpXDomain();
         this._SetUpYDomain();

@@ -20,7 +20,7 @@ class BasicBarChart extends ABarChart
      */
     constructor(data, group, width, height, padding, rotateBy = 0)
     {
-        super(data, group, width, height, padding, rotateBy, 'Basic');
+        super(data, group, width, height, padding, rotateBy);
     }
 
     /**
