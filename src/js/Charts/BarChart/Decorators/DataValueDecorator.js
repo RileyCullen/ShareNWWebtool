@@ -47,10 +47,6 @@ class DataValueDecorator extends ABarChartDecorator
             fontFamily: 'Times New Roman, Times, serif', 
             fontColor: 'black'
         },
-        icon = 'none',
-        iconSize = 0,
-        backgroundStroke = 'black',
-        backgroundFill = 'white',
     }) 
     {
         super(chart);
@@ -58,10 +54,6 @@ class DataValueDecorator extends ABarChartDecorator
         this._isPercentage = isPercentage;
         this._isCategory = isCategory;
         this._isMiddle = isMiddle;
-        this._icon = icon;
-        this._iconSize = iconSize;
-        this._backgroundStroke = backgroundStroke;
-        this._backgroundFill = backgroundFill;
     }
 
     /**
@@ -72,19 +64,7 @@ class DataValueDecorator extends ABarChartDecorator
     CreateChart()
     {
         this._chart.CreateChart();
-
-        // NOTE: We essentially need two different methods for creating the 
-        //       category labels based on what the chart type is. Essentially,
-        //       the IconBarChart class has separate rendering code from the 
-        //       Basic, Percentage, and Stacked bar chart classes. Since the 
-        //       placement of the labels are based on how the chart is rendered,
-        //       we need to call a separate helper function.
-        if (this._chartType === 'Icon') {
-            if (this._icon === 'none') throw Error('No icon provided');
-            if (this._iconSize === 0) throw Error('No icon size provided');
-            this._AddIconLabels();
-        }
-        else this._AddLabels();
+        this._AddLabels();
     }
 
     /**
@@ -136,49 +116,6 @@ class DataValueDecorator extends ABarChartDecorator
         });
         this._group.add(helper);
         helper.rotate(this._rotateBy);
-    }
-
-    /**
-     * @summary     Creates the data value labels for the IconBar type.
-     * @description A function that iterates through all of the data in _data 
-     *              and creates a label for each value. 
-     */
-    _AddIconLabels()
-    {
-        var helper = new Konva.Group();
-        var minCategory = this._FindMinCategory();
-        this._data.forEach((d,i) => {
-            var label = d.value;
-
-            if (this._isPercentage) label += '%';
-            if (this._isCategory) label += ' ' + d.category;
-
-            /**
-             * Setting up initial values. See CategoryLabelDecorator for description
-             * on what xIcon, xMiddle, and x represent.
-             */
-            var labelWidth = this._GetTextWidth(label, this._font),
-                labelHeight = this._GetTextHeight(label, this._font),
-                offset = (i === 0) ? 0 : this._padding,
-                iconWidth = this._GetIconWidth(this._icon, this._iconSize),
-                iconHeight = this._GetIconHeight(this._icon, this._iconSize),
-                xIcon = (this._xScale(d.category) - this._xScale(minCategory) + offset),
-                xMiddle = xIcon + (iconWidth / 2),
-                x = xMiddle - (labelWidth / 2),
-                y = 2.5 * iconHeight / 2;
-
-            var text = new Konva.Text({
-                x: x,
-                y: y - 1,
-                text: label,
-                fontSize: this._font.fontSize,
-                fontFamily: this._font.fontFamily,
-                fill: this._font.fontColor,
-            }); 
-            helper.add(this._CreateBackgroundRegion(x, y, labelWidth, labelHeight));
-            helper.add(text);
-        });
-        this._group.add(helper);
     }
 
     /**

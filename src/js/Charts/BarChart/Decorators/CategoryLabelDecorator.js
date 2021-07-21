@@ -49,8 +49,7 @@ class CategoryLabelDecorator extends ABarChartDecorator
             fontFamily : 'Times New Roman, Times, serif', 
             textColor : 'black'
         },
-        icon = 'none',
-        iconSize = 0,
+
     })
     {
         super(chart);
@@ -59,8 +58,6 @@ class CategoryLabelDecorator extends ABarChartDecorator
         this._isTop = isTop;
         this._keys = this.GetGroups();
         this._font = font;
-        this._icon = icon;
-        this._iconSize = iconSize;
     }
 
     /**
@@ -71,20 +68,7 @@ class CategoryLabelDecorator extends ABarChartDecorator
     CreateChart()
     {
         this._chart.CreateChart();
-
-        // NOTE: We essentially need two different methods for creating the 
-        //       category labels based on what the chart type is. Essentially,
-        //       the IconBarChart class has separate rendering code from the 
-        //       Basic, Percentage, and Stacked bar chart classes. Since the 
-        //       placement of the labels are based on how the chart is rendered,
-        //       we need to call a separate helper function.
-        if (this._chartType === 'Icon') {
-            if (this._icon === 'none') throw Error('No icon provided');
-            if (this._iconSize === 0) throw Error('No icon size provided');
-            this._CreateIconLabels();
-        } else {
-            this._CreateLabels();
-        }
+        this._CreateLabels();
     }
 
     /**
@@ -127,54 +111,6 @@ class CategoryLabelDecorator extends ABarChartDecorator
         }
         helper.rotate(this._rotateBy);
         this._group.add(helper);
-    }
-
-    /**
-     * @summary     Creates labels for the IconBarChart type.
-     * @description Dynamically places labels onto an IconBarChart either above
-     *              or below the icon chart.
-     */
-    _CreateIconLabels()
-    {
-        var iter = this._keys.values();
-        var helper = new Konva.Group();
-        var minCategory = this._FindMinCategory();
-        var counter = 0;
-
-        for (var i = iter.next().value; i != null; i = iter.next().value) {
-
-            /**
-             * Setting up the position of the category labels.
-             * 
-             * Note that:
-             *  1. xIcon represents the starting x position for the icon
-             *  2. xMiddle represents the middle of the icon
-             *  3. x is the final position of the category label.
-             *  4. For some reason, we have to multiple the icon height by 2.1.
-             *     Not sure why, but it holds for all icons.
-             */
-            var offset = (counter === 0) ? 0 : this._padding;
-            var width = this._GetFontSize(i, this._font);
-            var iconWidth = this._GetIconWidth(this._icon, this._iconSize);
-            var iconHeight = this._GetIconHeight(this._icon, this._iconSize);
-            var xIcon = (this._xScale(i) - this._xScale(minCategory) + offset),
-                xMiddle = xIcon + iconWidth / 2,
-                x = xMiddle - width / 2;
-            var y = (this._isTop) ? 25 : 2.1 * iconHeight;
-
-            var text = new Konva.Text({
-                text: i,
-                x: x,
-                y: y,
-                fontSize: this._font.fontSize,
-                fontFamily: this._font.fontFamily,
-                fill: this._font.textColor,
-            });
-
-            helper.add(text);
-            counter++;
-        }
-        this._group.add(helper); 
     }
 
     /**
