@@ -26,7 +26,7 @@ class ChartHandler
      * @param {Konva.Group} group The group associated with the chart we added.
      * @param {string}      type  The type of chart we are adding.
      */
-    AddChart(chart, group, type)
+    AddChart({chart, group, type})
     {
         this._curr++;
         this._handler[this._curr] = {
@@ -46,7 +46,7 @@ class ChartHandler
      * @param {Chart Decorator} decorator The decorator we want to add.
      * @param {int}             id        The id of the chart we want to add the decorator to.
      */
-    AddDecorator(decorator, id)
+    AddDecorator({decorator, id})
     {
         this._handler[id].decorators[++this._handler[id].decoratorSize] = decorator;
     }
@@ -74,7 +74,7 @@ class ChartHandler
      * @param {int} chartID     The chart of the decorator we want to return.
      * @param {int} decoratorID The decorator we want to return.
      */
-    GetDecorator(chartID, decoratorID) { return this._handler[chartID].decorators[decoratorID]; }
+    GetDecorator({chartID, decoratorID}) { return this._handler[chartID].decorators[decoratorID]; }
 
     /**
      * @summary Returns the group of the current handler entry.

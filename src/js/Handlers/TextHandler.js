@@ -31,7 +31,7 @@ class TextHandler
      * @param {double}       x        The x position of the image within the group.
      * @param {double}       y        The y position of the image within the group.
      */
-    AddTextElem(textElem, group, x = 0, y = 0, rotateby = 0)
+    AddTextElem({textElem, group, x = 0, y = 0, rotateby = 0})
     {
         this._curr++;
         this._handler[this._curr] = {
@@ -60,7 +60,7 @@ class TextHandler
         console.log(this._handler);
     }
 
-    SetTextInfo(id, font, size, color)
+    SetTextInfo({id, font, size, color})
     {
         this._handler[id].textInfo.initialFont = font;
         this._handler[id].textInfo.initialSize = size;
@@ -76,7 +76,7 @@ class TextHandler
      * @param {Integer} id  The id of the handler element we want to access. 
      * @param {JSON} param1 A JSON object that holds the necessary CSS attributes.
      */
-    SetCSSInfo(id, {fontFamily = '900-museo', fontSize = '10px', 
+    SetCSSInfo({id, fontFamily = '900-museo', fontSize = '10px', 
         textColor = 'black', lineHeight = '1.0', align='left'})
     {
         this._handler[id].spanCSS.push({
