@@ -2,6 +2,12 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+To run this project, you need to download two things: (1) this project and (2) 
+NodeJS, which comes with NPM. Once both this project and NPM are installed, open the 
+command line (or terminal) and type in 'npm install' which will install all of the 
+dependencies needed to run this tool. Once this is done, type in 'npm start' to 
+run the application in development mode. 
+
 ## Available Scripts
 
 In the project directory, you can run:
