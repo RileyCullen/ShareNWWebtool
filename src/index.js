@@ -5,8 +5,7 @@
 import React from 'react';
 import Konva from 'konva';
 import ReactDOM from 'react-dom';
-import { InfographicEditor } from './components/InfographicEditor/InfographicEditor';
-import { NavigationBar } from './components/NavigationBar/NavigationBar';
+import { Home } from './components/Home/Home';
 
 import './css/React/NavigationBar.css';
 
@@ -27,12 +26,7 @@ class App extends React.Component
     {
         var currentInfographic = this.state.currentInfographic;
         return (
-            <div className='AppContainer'>
-                <NavigationBar setInfographic={(infog) => { this._SetCurrentInfographic(infog); }}/>
-                <div className='tabcontent'>
-                    <InfographicEditor currentInfographic={currentInfographic}/>
-                </div>
-            </div>
+            <Home />
         );
     }
 
