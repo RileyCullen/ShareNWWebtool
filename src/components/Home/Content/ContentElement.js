@@ -8,13 +8,17 @@ class ContentElement extends React.Component
         return ( 
             <div className='content-element'>
                 <div className='content-image'>
-                    <img src={this.props.image} alt='An infographic about HIV'/>
+                    <img className='content-translate' src={this.props.image} alt='An infographic about HIV'/>
+                    <input type='button' value='Use Template'></input>
                 </div>
-                <div className='content-options'>
+                <hr className='content-divider content-shift-up' />
+                <div className='content-options content-shift-up'>
                     <div className='content-name'>
                         <p>{this.props.elementName}</p>
                     </div>
-                    <div className='content-buttons'></div>
+                    <div className='content-buttons'>
+                        <input type='button' value='Preview'></input>
+                    </div>
                 </div>
             </div>
         );
