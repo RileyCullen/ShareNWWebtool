@@ -1,0 +1,15 @@
+.content-element {
+    width: inherit;
+    height: inherit;
+}
+
+.content-image {
+    width: inherit;
+    height: inherit;
+}
+
+.content-image img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}

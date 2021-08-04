@@ -1,0 +1,9 @@
+.toolbar-home {
+    background-color: #B6472A;
+    padding: 10px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 70px;
+}
