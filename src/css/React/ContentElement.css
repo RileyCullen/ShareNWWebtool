@@ -1,15 +1,85 @@
 .content-element {
-    width: inherit;
+    width: 100%;
     height: inherit;
 }
 
 .content-image {
-    width: inherit;
+    width: 100%;
     height: inherit;
+    overflow: hidden;
 }
 
 .content-image img {
+    max-width: 100%;
     width: 100%;
     height: 300px;
     object-fit: cover;
+    object-position: 50% 0%;
+    transition: 0.5s ease;
+    backface-visibility: hidden;
+}
+
+.content-image:hover img{
+    opacity: 0.1;
+}
+
+.content-image:hover input {
+    opacity: 3;
+    border: 1px solid #B6472A;
+    background-color: white;
+    color: #b6472a;
+}
+
+.content-image input {
+    transition: 0.5s ease;
+    width: 50%;
+    height: 35px;
+    position: relative;
+    left: 25%;
+    top: -175px;
+    opacity: 0;
+}
+
+.content-image input:hover {
+    background-color: rgb(238, 238, 238);
+}
+
+.content-divider {
+    border: 1px solid black;
+    position: relative;
+    top: -12px;
+}
+
+.content-name {
+    text-align: center;
+    position: relative;
+    top: -12px;
+}
+
+.content-name > p {
+    font-size: 18px;
+}
+
+.content-buttons {
+    position: relative;
+    top: 10%;
+}
+
+.content-buttons > input{
+    border: 2px solid #B6472A;
+    background-color: white;
+    color: #b6472a;
+    width: 50%;
+    height: 35px;
+    position: relative;
+    left: 25%;
+    top: -12px;
+}
+
+.content-buttons > input:hover {
+    background-color: rgb(238, 238, 238);
+}
+
+.content-shift-up {
+    transform: translate(0, -35px);
 }

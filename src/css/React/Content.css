@@ -7,12 +7,14 @@
 
     padding: 100px 200px 200px 200px;
     display: grid;
-    grid-template-columns: 250px 250px 250px 250px;
-    grid-auto-rows: 400px;
+    grid-template-columns: minmax(150px, 250px) minmax(150px, 250px) minmax(150px, 250px) minmax(150px, 250px);
+    grid-auto-rows: 415px;
     grid-gap: 50px 100px;
 }
 
 .item {
-    border: 5px solid red;
+    border: 2px solid black;
+    border-radius: 10px;
     align-content: center;
+    overflow: hidden;
 }
