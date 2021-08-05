@@ -34,7 +34,8 @@ class Content extends React.Component
                                     elementName={d.name}
                                     image={d.url}
                                     showPopup={this.state.showPopup}
-                                    togglePopup={(index) => { this._TogglePopup(index); }}/>
+                                    togglePopup={(index) => { this._TogglePopup(index); }}
+                                    displayEditor={(infogNum) => { this.props.displayEditor(infogNum); }}/>
                             </div>
                             );
                         })
@@ -65,7 +66,8 @@ class Content extends React.Component
                         id='popup-template-button'
                         className='use-template' 
                         type='button' 
-                        value='Use Template'></input>
+                        value='Use Template'
+                        onClick={() => { this.props.displayEditor(this._infogIndex); }}></input>
                     <button className='exit-button' onClick={() => { this._ClosePopup(); }}>
                         <FontAwesomeIcon 
                             className='exit-icon'

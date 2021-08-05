@@ -5,11 +5,16 @@ class ContentElement extends React.Component
 {
     render()
     {
+        let index = this.props.index;
         return ( 
             <div className='content-element'>
                 <div className='content-image'>
                     <img className='content-translate' src={this.props.image} alt='An infographic about HIV'/>
-                    <input type='button' value='Use Template'></input>
+                    <input 
+                        type='button' 
+                        value='Use Template'
+                        onClick={() => { this.props.displayEditor(index); }}>    
+                    </input>
                 </div>
                 <hr className='content-divider content-shift-up' />
                 <div className='content-options content-shift-up'>
@@ -21,7 +26,7 @@ class ContentElement extends React.Component
                             className='use-template'
                             type='button' 
                             value='Preview' 
-                            onClick={() => { this._TogglePopup(this.props.index) }}>    
+                            onClick={() => { this._TogglePopup(index) }}>    
                         </input>
                     </div>
                 </div>
