@@ -24,7 +24,7 @@ class Content extends React.Component
         return (
             <div className='content-container'>
                 {popup}
-                <div className='content'>
+                <div id='content' className='content'>
                     {
                         this.props.currentQuery.map((d, i) => {
                             return (
@@ -56,6 +56,7 @@ class Content extends React.Component
     _CreatePopup()
     {
         if (this.state.showPopup) {
+            this._Blur();
             return (
             <div className='preview'>
                 <div className='preview-header'>
@@ -65,7 +66,7 @@ class Content extends React.Component
                         className='use-template' 
                         type='button' 
                         value='Use Template'></input>
-                    <button className='exit-button' onClick={() => { this._TogglePopup(); }}>
+                    <button className='exit-button' onClick={() => { this._ClosePopup(); }}>
                         <FontAwesomeIcon 
                             className='exit-icon'
                             icon={faTimes}/>
@@ -78,6 +79,32 @@ class Content extends React.Component
             </div>);
         }
         return false;
+    }
+    
+    _ClosePopup()
+    {
+        this._RemoveBlur();
+        this._TogglePopup();
+    }
+
+    _Blur()
+    {
+        // blur content
+        let content = document.getElementById('content');
+        content.classList.add('blur');
+
+        // blur search bar
+        let toolbar = document.getElementById('toolbar-home');
+        toolbar.classList.add('blur');
+    }
+
+    _RemoveBlur()
+    {
+        let content = document.getElementById('content');
+        content.classList.remove('blur');
+
+        let toolbar = document.getElementById('toolbar-home');
+        toolbar.classList.remove('blur');
     }
 }
 
