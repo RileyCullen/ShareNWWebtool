@@ -1,6 +1,7 @@
 import React from 'react';
 import { Toolbar } from './Toolbar/Toolbar';
 import { Content } from './Content/Content';
+import { InfographicEditor } from '../InfographicEditor/InfographicEditor';
 
 import HIVInfog from '../../Media/InfographicThumbnails/HIVInfog.png';
 import ObesityInfog from '../../Media/InfographicThumbnails/ObesityInfog.png';
@@ -13,37 +14,87 @@ class Home extends React.Component
     {
         super(props);
         this._infogContent = [
+            /**
+             * name:       The name of the infographic that will be displayed to 
+             *             the user (note, this can be changed with no impact on 
+             *             the program).
+             * editorCode: A name assigned to the infographic that is passed to
+             *             the infographic editor. NOTE this attribute determines
+             *             which infographic is rendered and should not be updated.
+             *             If it is, make sure you update the _DrawInfographic
+             *             method in CanvasContainer to reflect the changes.
+             * url:        File path to the an image of the infographic.
+             */
             {
                 name: 'HIV Infographic',
+                editorCode: 'HIVTemplateOne',
                 url: HIVInfog,
             },
             {
                 name: 'Obesity Infographic',
+                editorCode: 'ObesityTemplateOne',
                 url: ObesityInfog,
             },
             {
                 name: 'Violence Infographic',
+                editorCode: 'ViolenceTemplateOne',
                 url: LGBTInfog,
             },
             {
                 name: 'Diabetes Infographic',
+                editorCode: 'DiabetesTemplateOne',
                 url: DiabetesInfog,
             },
         ];
         this.state = {
             currentQuery: this._infogContent,
+            displayEditor: false,
+            currentInfog: -1,
         }
     }
 
     render()
     {
+        var content = this._GetContent();
         return (
             <div className='home'>
-                <Content 
-                    currentQuery={this.state.currentQuery}/> 
-                <Toolbar />
+                {content}
             </div>
         );
+    }
+
+    _GetContent()
+    {
+        let currentQuery = this.state.currentQuery,
+            index = this.state.currentInfog;
+
+        if (!this.state.displayEditor) {
+            return (
+                <div className='infographic-selector'>
+                    <Content 
+                        currentQuery={currentQuery} 
+                        displayEditor={(infog) => { this._DisplayEditor(infog); }}/>
+                    <Toolbar />
+                </div>
+            );
+        }
+
+        let editorCode = currentQuery[index].editorCode;
+
+        return (
+            <div className='editor-container'>
+                <InfographicEditor 
+                    currentInfographic={editorCode}/>
+            </div>
+        );
+    }
+
+    _DisplayEditor(infog)
+    {
+        this.setState({
+            displayEditor: true,
+            currentInfog: infog,
+        });
     }
 }
 
