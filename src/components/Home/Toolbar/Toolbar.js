@@ -7,7 +7,7 @@ class Toolbar extends React.Component
     render()
     {
         return (
-            <div className='toolbar-home'>
+            <div id='toolbar-home' className='toolbar-home'>
                 <SearchBar />
             </div>
         );
