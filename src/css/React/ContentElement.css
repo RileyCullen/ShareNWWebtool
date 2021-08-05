@@ -65,7 +65,7 @@
     top: 10%;
 }
 
-.content-buttons > input{
+.use-template{
     border: 2px solid #B6472A;
     background-color: white;
     color: #b6472a;
@@ -76,7 +76,7 @@
     top: -12px;
 }
 
-.content-buttons > input:hover {
+.use-template:hover {
     background-color: rgb(238, 238, 238);
 }
 

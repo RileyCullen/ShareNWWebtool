@@ -17,11 +17,22 @@ class ContentElement extends React.Component
                         <p>{this.props.elementName}</p>
                     </div>
                     <div className='content-buttons'>
-                        <input type='button' value='Preview'></input>
+                        <input 
+                            className='use-template'
+                            type='button' 
+                            value='Preview' 
+                            onClick={() => { this._TogglePopup(this.props.index) }}>    
+                        </input>
                     </div>
                 </div>
             </div>
         );
+    }
+
+    _TogglePopup(index)
+    {
+        if (this.props.showPopup) return;
+        this.props.togglePopup(index);
     }
 }
 
