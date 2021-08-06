@@ -82,10 +82,9 @@ class Home extends React.Component
         let editorCode = currentQuery[index].editorCode;
 
         return (
-            <div className='editor-container'>
-                <InfographicEditor 
-                    currentInfographic={editorCode}/>
-            </div>
+            <InfographicEditor 
+                currentInfographic={editorCode}
+                displayHome={() => { this._DisplayHome(); }}/>
         );
     }
 
@@ -94,6 +93,14 @@ class Home extends React.Component
         this.setState({
             displayEditor: true,
             currentInfog: infog,
+        });
+    }
+
+    _DisplayHome()
+    {
+        this.setState({
+            displayEditor: false,
+            currentInfog: -1,
         });
     }
 }
