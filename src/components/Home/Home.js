@@ -94,6 +94,7 @@ class Home extends React.Component
             displayEditor: true,
             currentInfog: infog,
         });
+        document.getElementById('body').classList.add('no-scroll');
     }
 
     _DisplayHome()
@@ -102,6 +103,7 @@ class Home extends React.Component
             displayEditor: false,
             currentInfog: -1,
         });
+        document.getElementById('body').classList.remove('no-scroll');
     }
 }
 
