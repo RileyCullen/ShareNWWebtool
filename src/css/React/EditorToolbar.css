@@ -1,0 +1,68 @@
+.editor-toolbar {
+    grid-column: 1 / span 3;
+    width: 100%;
+    position: fixed;
+}
+
+.toolbar-divider {
+    margin: 0px;
+    border: 1px solid #CCCBCC;
+}
+
+.toolbar-options {
+    background-color: #B6472A;
+    height: 40px;
+}
+
+
+.toolbar-content {
+    background-color: #F4F3F3;
+    height: 95px;
+}
+
+.toolbar-home-button {
+    position: relative;
+    top: 7px;
+    left: 10px;
+    background-color: #B6472A;
+    border: none;
+}
+
+.toolbar-home-button:hover {
+    background-color: #9b3c24; 
+}
+
+.toolbar-home-icon {
+    color: white;
+    font-size: 22px;
+}
+
+.toolbar-text {
+    color: white;
+    position: relative;
+    top: 7px;
+    margin: 0px 0px 0px 5px;
+
+    font-size: 18px;
+
+    border: none;
+    background-color: #B6472A;
+}
+
+.vertical-divider {
+    border-left: 2px solid white;
+    height: 25px;
+    margin-left: 10px;
+    position: relative;
+    top: 7.5px;
+    left: 15px;
+}
+
+.toolbar-insert, .toolbar-home-button, .vertical-divider {
+    float: left;
+}
+
+.selected {
+    border-bottom: 1px solid white;
+}
+
