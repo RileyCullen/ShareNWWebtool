@@ -66,3 +66,36 @@
     border-bottom: 1px solid white;
 }
 
+/**
+    ToolbarContent styles
+*/
+
+.insert-container {
+    position: absolute;
+    left: 30px;
+    display: grid;
+    grid-template-columns: 60px 60px 60px 60px 100px;
+    grid-column-gap: 20px;
+    align-content: center;
+    padding-top: 10px;
+}
+
+.insert-button {
+    width: 60px;
+    height: 70px;
+    border: none;
+    background-color: #F4F3F3;
+}
+
+.insert-icon {
+    font-size: 24px;
+}
+
+.insert-text {
+    font-size: 14px;
+}
+
+#insert-bkg-button {
+    width: 100px;
+    height: 80px
+}
