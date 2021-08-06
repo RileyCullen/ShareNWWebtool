@@ -5,6 +5,7 @@
 import React from 'react';
 import { HIVTemplateOne, ObesityTemplateOne, ViolenceTemplateOne, 
     DiabetesTemplateOne } from '../../js/InfographicTemplates/index';
+import '../../css/React/CanvasContainer.css';
 
 /**
  * Container class that holds the canvas (and related rendering functions) used 
