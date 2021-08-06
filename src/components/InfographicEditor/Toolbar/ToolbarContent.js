@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChartBar, faIcons, faFont, faImage, faStop } from '@fortawesome/free-solid-svg-icons';
+import { faChartBar, faIcons, faFont, faImage, faStop, faPalette, faFileImage} from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
 
 import '../../../css/React/EditorToolbar.css';
@@ -16,6 +16,13 @@ class ToolbarContent extends React.Component
         );
     }
 
+    /**
+     * @summary     Determines the contents of the lower toolbar.
+     * @description A private function that determines which set of icons are 
+     *              displayed in the lower toolbar.
+     * 
+     * @returns     A <div> containing each option's respective icons.
+     */
     _SelectIcons()
     {
         if (this.props.display === 'insert') {
@@ -49,7 +56,7 @@ class ToolbarContent extends React.Component
                         <button className='insert-button'>
                             <FontAwesomeIcon 
                                 className='insert-icon'
-                                icon={faImage}/>
+                                icon={faFileImage}/>
                             <p className='insert-text'>Image</p>
                         </button>
                     </div>
@@ -66,7 +73,24 @@ class ToolbarContent extends React.Component
         } else if (this.props.display === 'edit') {
             return (
                 <div className='edit-container'>
-
+                    <div className='edit-color-scheme'>
+                        <button className='insert-button'>
+                            <FontAwesomeIcon 
+                                className='insert-icon'
+                                icon={faPalette}/>
+                            <p className='insert-text'>Color Scheme</p>
+                        </button>
+                    </div>
+                    <div className='edit-background'>
+                        <button 
+                            id='edit-background-button' 
+                            className='insert-button'>
+                            <FontAwesomeIcon 
+                                className='insert-icon'
+                                icon={faImage}/>
+                            <p className='insert-text'>Background</p>
+                        </button>
+                    </div>
                 </div>
             );
         }

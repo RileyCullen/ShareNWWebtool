@@ -99,3 +99,17 @@
     width: 100px;
     height: 80px
 }
+
+.edit-container {
+    position: absolute;
+    left: 30px;
+    display: grid;
+    grid-template-columns: 60px 60px;
+    grid-column-gap: 20px;
+    align-content: center;
+    padding-top: 10px;
+}
+
+#edit-background-button {
+    width: 100px;
+}
