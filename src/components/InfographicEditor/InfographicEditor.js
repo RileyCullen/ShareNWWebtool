@@ -19,6 +19,7 @@ class InfographicEditor extends React.Component
         super(props);
         this.state = {
             currentEditor: 'none',
+            toolbarContent: 'insert',
             chartData: 0,
             isRemoving: false,
         };
@@ -48,6 +49,8 @@ class InfographicEditor extends React.Component
                     style={{flex: 1}}
                 />
                 <Toolbar 
+                    toolbarContent={this.state.toolbarContent}
+                    setToolbarContent={(content) => { this._SetToolbarContent(content); }}
                     displayHome={() => { this.props.displayHome(); }}/>
                 <div className='editor'
                     style={{marginLeft: 30, position: 'fixed', left: width + 55 + 'px', top: 70 + 'px'}}
@@ -169,6 +172,33 @@ class InfographicEditor extends React.Component
         this.setState({
             isRemoving: true,
         }); 
+    }
+
+    /**
+     * @summary     Sets up the toolbar's contents.
+     * @description A private function that removes the underline from the currently
+     *              selected option in the upper toolbar and adds an underline 
+     *              to the newly selected item. This function also updates the 
+     *              state of the toolbarContent variable.
+     * 
+     * @param {string} content 
+     * @returns 
+     */
+    _SetToolbarContent(content)
+    {
+        if (content === this.state.toolbarContent) return;    
+
+        // Remove underline 
+        let selectedElem = document.getElementById('toolbar-' + this.state.toolbarContent);
+        selectedElem.classList.remove('selected');
+
+        // Add underline
+        let newElem = document.getElementById('toolbar-' + content);
+        newElem.classList.add('selected');
+
+        this.setState({
+            toolbarContent: content,
+        });
     }
 }
 
