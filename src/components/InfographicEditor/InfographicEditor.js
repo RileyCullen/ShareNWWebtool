@@ -5,6 +5,9 @@
 import React from 'react';
 import {CanvasContainer} from './CanvasContainer';
 import { QuillEditor, WaffleEditor, Remover, BarEditor } from './Editors/index';
+import { Toolbar } from './Toolbar/Toolbar';
+
+import '../../css/React/InfographicEditor.css';
 
 /**
  * Container for all of the react components related to editing infographics.
@@ -32,8 +35,7 @@ class InfographicEditor extends React.Component
         var currentEditor = this._SelectEditor(),
             width = this._infogDimensions.width;
         return (
-            <div className='infographiceditor'
-                style={{display: 'flex'}}>
+            <div className='editor-container'>
                 <CanvasContainer 
                     infographic={this.props.currentInfographic}
                     editorHandler={(editor) => { this._SetCurrentEditor(editor); }}
@@ -45,6 +47,8 @@ class InfographicEditor extends React.Component
                     isRemoving={this.state.isRemoving}
                     style={{flex: 1}}
                 />
+                <Toolbar 
+                    displayHome={() => { this.props.displayHome(); }}/>
                 <div className='editor'
                     style={{marginLeft: 30, position: 'fixed', left: width + 55 + 'px', top: 70 + 'px'}}
                 >
