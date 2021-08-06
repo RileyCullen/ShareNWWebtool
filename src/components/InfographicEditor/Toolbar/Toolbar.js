@@ -28,6 +28,16 @@ class Toolbar extends React.Component
         );
     }
 
+    /**
+     * @summary     Sets up the toolbar's contents.
+     * @description A private function that removes the underline from the currently
+     *              selected option in the upper toolbar and adds an underline 
+     *              to the newly selected item. This function also updates the 
+     *              state of the toolbarContent variable.
+     * 
+     * @param {string} content 
+     * @returns 
+     */
     _SetToolbarContent(content)
     {
         if (content === this.state.toolbarContent) return;    
