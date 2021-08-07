@@ -33,6 +33,14 @@ class ToolbarContent extends React.Component
         } else if (this.props.display === 'bar-editor' || this.props.display === 'waffle-editor'
             || this.props.display === 'pie-editor' || this.props.display === 'stacked-bar-editor') {
             return this._CreateChartIcons();
+        } else if (this.props.display === 'text-editor') {
+            return this._CreateTextIcons();
+        } else if (this.props.display === 'header-editor') {
+            return this._CreateHeaderIcons();
+        } else if (this.props.display === 'image-editor') {
+            return this._CreateImageIcons();
+        } else if (this.props.display === 'icon-editor') {
+            return this._CreateIconIcons();
         }
     }
 
@@ -201,6 +209,102 @@ class ToolbarContent extends React.Component
                         icon={faChartBar}/>
                     <p id='replace-chart-text' className='insert-text'>Replace Chart</p>
                 </button>
+            </div>
+        );
+    }
+
+    _CreateTextIcons() 
+    {
+        return (
+            <div className='chart-container'>
+                {this._CreateCanvasSettings()}
+            </div>
+        )
+    }
+
+    _CreateHeaderIcons()
+    {
+        return (
+            <div className='chart-container'>
+                {this._CreateCanvasSettings()}
+                <div className='editor-settings'>
+                    <button 
+                        id='editor-button' 
+                        className='insert-button selected-editor'
+                        onClick={() => { }}>
+                        <FontAwesomeIcon 
+                            className='insert-icon'
+                            icon={faList}/>
+                        <p id='editor-button-text' className='insert-text'>Editor</p>
+                    </button>
+                    <button 
+                        id='replace-header-button' 
+                        className='insert-button'
+                        onClick={() => { }}>
+                        <FontAwesomeIcon 
+                            className='insert-icon'
+                            icon={faStop}/>
+                        <p id='replace-chart-text' className='insert-text'>Replace Header</p>
+                    </button>
+                </div>
+            </div>
+        );
+    }
+
+    _CreateImageIcons()
+    {
+        return (
+            <div className='chart-container'>
+                {this._CreateCanvasSettings()}
+                <div className='editor-settings'>
+                    <button 
+                        id='editor-button' 
+                        className='insert-button selected-editor'
+                        onClick={() => { }}>
+                        <FontAwesomeIcon 
+                            className='insert-icon'
+                            icon={faList}/>
+                        <p id='editor-button-text' className='insert-text'>Editor</p>
+                    </button>
+                    <button 
+                        id='replace-image-button' 
+                        className='insert-button'
+                        onClick={() => { }}>
+                        <FontAwesomeIcon 
+                            className='insert-icon'
+                            icon={faFileImage}/>
+                        <p id='replace-image-text' className='insert-text'>Replace Header</p>
+                    </button>
+                </div>
+            </div>
+        );
+    }
+
+    _CreateIconIcons()
+    {
+        return (
+            <div className='chart-container'>
+                {this._CreateCanvasSettings()}
+                <div className='editor-settings'>
+                    <button 
+                        id='editor-button' 
+                        className='insert-button selected-editor'
+                        onClick={() => { }}>
+                        <FontAwesomeIcon 
+                            className='insert-icon'
+                            icon={faList}/>
+                        <p id='editor-button-text' className='insert-text'>Editor</p>
+                    </button>
+                    <button 
+                        id='replace-icon-button' 
+                        className='insert-button'
+                        onClick={() => { }}>
+                        <FontAwesomeIcon 
+                            className='insert-icon'
+                            icon={faIcons}/>
+                        <p id='replace-icon-text' className='insert-text'>Replace Header</p>
+                    </button>
+                </div>
             </div>
         );
     }
