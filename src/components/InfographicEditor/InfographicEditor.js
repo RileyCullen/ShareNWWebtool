@@ -52,12 +52,12 @@ class InfographicEditor extends React.Component
                     currentEditor={this.state.currentEditor}
                     toolbarContent={this.state.toolbarContent}
                     setToolbarContent={(content) => { this._SetToolbarContent(content); }}
-                    displayHome={() => { this.props.displayHome(); }}/>
+                    displayHome={() => { this.props.displayHome(); }}
+                    canvasToggle={(setting) => { this._CanvasToggle(setting); }} />
                 <div className='editor'
                     style={{marginLeft: 30, position: 'fixed', left: width + 55 + 'px', top: 70 + 'px'}}
                 >
                     {currentEditor}
-                    {this._Remover()}
                 </div>
             </div>
         );
@@ -158,17 +158,11 @@ class InfographicEditor extends React.Component
         return false;
     }
 
-    /**
-     * @summary Creates the a button in react with a trash icon.
-     * @returns A react component
-     */
-    _Remover()
+    _CanvasToggle(setting)
     {
-        if (this.state.currentEditor !== 'none') {
-            return <Remover 
-                toggleRemove={() => { this._ToggleRemove(); }}/>;
+        if (setting === 'remove') {
+            this._ToggleRemove();
         }
-        return false;
     }
 
     _ToggleRemove()

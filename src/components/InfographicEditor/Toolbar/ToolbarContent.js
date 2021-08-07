@@ -168,7 +168,8 @@ class ToolbarContent extends React.Component
 
                 <button 
                     id='remove-button' 
-                    className='insert-button'>
+                    className='insert-button'
+                    onClick={() => { this.props.canvasToggle('remove'); }}>
                     <FontAwesomeIcon 
                         className='insert-icon'
                         icon={faTrash}/>
