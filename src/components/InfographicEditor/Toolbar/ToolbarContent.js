@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChartBar, faIcons, faFont, faImage, faStop, faPalette, faFileImage, 
-    faTrash} from '@fortawesome/free-solid-svg-icons';
+    faTrash, faList} from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
 
 import '../../../css/React/EditorToolbar.css';
@@ -181,7 +181,28 @@ class ToolbarContent extends React.Component
 
     _CreateEditorWindowSettings()
     {
-
+        return (
+            <div className='editor-settings'>
+                <button 
+                    id='editor-button' 
+                    className='insert-button selected-editor'
+                    onClick={() => { }}>
+                    <FontAwesomeIcon 
+                        className='insert-icon'
+                        icon={faList}/>
+                    <p id='editor-button-text' className='insert-text'>Editor</p>
+                </button>
+                <button 
+                    id='replace-chart-button' 
+                    className='insert-button'
+                    onClick={() => { }}>
+                    <FontAwesomeIcon 
+                        className='insert-icon'
+                        icon={faChartBar}/>
+                    <p id='replace-chart-text' className='insert-text'>Replace Chart</p>
+                </button>
+            </div>
+        );
     }
 }
 

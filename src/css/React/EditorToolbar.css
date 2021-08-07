@@ -124,6 +124,7 @@
 
 .chart-container {
     position: absolute;
+    width: 100%;
     left: 30px;
     padding-top: 10px;
 }
@@ -133,6 +134,7 @@
     grid-template-columns: 100px 100px 100px 100px 60px;
     grid-column-gap: 10px;
     align-content: center;
+    float: left;
 }
 
 #bring-forward-button, #send-back-button {
@@ -155,4 +157,35 @@
 
 #remove-button {
     margin-top: 3px;
+}
+
+/*
+    Editor related styles in ToolbarContent
+*/
+
+.editor-settings {
+    display: grid;
+    grid-template-columns: 60px 60px;
+    grid-column-gap: 20px;
+    float: right;
+    margin-right: 80px;
+}
+
+.selected-editor {
+    border: 1px solid #B6472A;
+    border-radius: 10px;
+    background-color: #C8755F;
+}
+
+#editor-button {
+    height: 75px;
+}
+
+#replace-chart-button {
+    height: 75px;
+    padding: 5px;
+}
+
+#editor-button-text, #replace-chart-text {
+    margin-top: 5px;
 }
