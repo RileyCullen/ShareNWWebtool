@@ -220,3 +220,12 @@
 #editor-button-text, #replace-chart-text {
     margin-top: 5px;
 }
+
+#replace-header-button, #replace-image-button, #replace-icon-button {
+    position: relative;
+    top: 5px;
+}
+
+#replace-image-text, #replace-icon-text {
+    margin-top: 5px;
+}
