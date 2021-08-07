@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faDownload } from '@fortawesome/free-solid-svg-icons';
 
 import '../../../css/React/EditorToolbar.css';
 
@@ -35,6 +35,16 @@ class ToolbarOptions extends React.Component
                         Edit
                     </button>
                     {editorOption}
+                </div>
+                <div className='toolbar-options-right'>
+                    <div 
+                        id='toolbar-download'
+                        className='toolbar-text'>
+                        <FontAwesomeIcon 
+                            className='toolbar-download-icon'
+                            icon={faDownload} />
+                        <div id='toolbar-download-text'>Download</div>
+                    </div>
                 </div>
             </div>
         );
