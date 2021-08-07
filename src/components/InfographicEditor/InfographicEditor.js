@@ -49,6 +49,7 @@ class InfographicEditor extends React.Component
                     style={{flex: 1}}
                 />
                 <Toolbar 
+                    currentEditor={this.state.currentEditor}
                     toolbarContent={this.state.toolbarContent}
                     setToolbarContent={(content) => { this._SetToolbarContent(content); }}
                     displayHome={() => { this.props.displayHome(); }}/>
@@ -73,9 +74,12 @@ class InfographicEditor extends React.Component
      */
     _SetCurrentEditor(editor)
     {
+        this._RemoveUnderline(this.state.toolbarContent);
         this.setState({
             currentEditor: editor,
+            toolbarContent: (editor === 'none') ? 'insert' : editor,
         });
+
         this._infogTextElem = 0;
         this._editorTextElem = 0;
     }
@@ -188,17 +192,18 @@ class InfographicEditor extends React.Component
     {
         if (content === this.state.toolbarContent) return;    
 
-        // Remove underline 
-        let selectedElem = document.getElementById('toolbar-' + this.state.toolbarContent);
-        selectedElem.classList.remove('selected');
-
-        // Add underline
-        let newElem = document.getElementById('toolbar-' + content);
-        newElem.classList.add('selected');
+        this._RemoveUnderline(this.state.toolbarContent);
 
         this.setState({
             toolbarContent: content,
         });
+    }
+
+    _RemoveUnderline(name)
+    {
+        // Remove underline 
+        let selectedElem = document.getElementById('toolbar-' + name);
+        selectedElem.classList.remove('selected');
     }
 }
 

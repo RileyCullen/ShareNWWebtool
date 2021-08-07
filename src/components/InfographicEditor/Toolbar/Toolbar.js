@@ -11,6 +11,8 @@ class Toolbar extends React.Component
         return (
             <div className='editor-toolbar'>
                 <ToolbarOptions 
+                    currentEditor={this.props.currentEditor}
+                    toolbarContent={this.props.toolbarContent}
                     displayHome={() => { this.props.displayHome(); }}
                     setToolbarContent={(content) =>  { this.props.setToolbarContent(content); }}/>
                 <ToolbarContent 
