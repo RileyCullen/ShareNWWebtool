@@ -97,7 +97,7 @@
 
 #insert-bkg-button {
     width: 100px;
-    height: 80px
+    height: 80px;
 }
 
 .edit-container {
@@ -110,6 +110,49 @@
     padding-top: 10px;
 }
 
+#edit-color-button {
+    height: 80px;
+}
+
 #edit-background-button {
     width: 100px;
+}
+
+/*
+    Chart related styles in ToolbarContent
+*/
+
+.chart-container {
+    position: absolute;
+    left: 30px;
+    padding-top: 10px;
+}
+
+.canvas-settings {
+    display: grid;
+    grid-template-columns: 100px 100px 100px 100px 60px;
+    grid-column-gap: 10px;
+    align-content: center;
+}
+
+#bring-forward-button, #send-back-button {
+    width: 80px;
+    height: 80px;
+}
+
+#bring-forward-text, #send-back-text, #move-front-text, #move-bottom-text {
+    margin: 5px;
+}
+
+#move-front-button, #move-bottom-button {
+    height: 80px;
+    width: 85px;
+}
+
+#move-front-text, #move-bottom-text {
+    line-height: 1;
+}
+
+#remove-button {
+    margin-top: 3px;
 }
