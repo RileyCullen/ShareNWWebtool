@@ -8,6 +8,8 @@ import '../../../css/Quill/FontSize.css';
 import '../../../css/Quill/LineHeight.css';
 import '../../../css/Quill/Toolbar.css';
 
+import '../../../css/React/Editors/QuillEditor.css';
+
 function QuillEditor(props)
 {
     var sizeList = ['10px', '11px', '12px', '13px', '14px', '15px', '16px', 
@@ -82,8 +84,10 @@ function QuillEditor(props)
         }
     });
     return (
-        <div className='text-editor' style={{width: 500}}>
-            <div ref={quillRef}></div>
+        <div className='text-editor-container'>
+            <div className='text-editor'>
+                <div ref={quillRef}></div>
+            </div>
         </div>
     )
 }
