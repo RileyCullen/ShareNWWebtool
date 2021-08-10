@@ -493,6 +493,10 @@ class AInfographic
                     this._editorHandler('bar-editor')
                 } else if (chart.getAttr('name') === 'Selectable Chart Stacked') {
                     this._editorHandler('stacked-bar-editor');
+                } else if (chart.getAttr('name') === 'Selectable Chart Line') {
+                    this._editorHandler('line-editor');
+                } else if (chart.getAttr('name') === 'Selectable Chart Icon') {
+                    this._editorHandler('icon-bar-editor');
                 }
 
                 setTimeout(() => {
