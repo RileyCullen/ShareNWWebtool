@@ -37,26 +37,28 @@ class InfographicEditor extends React.Component
             width = this._infogDimensions.width;
         return (
             <div className='editor-container'>
-                <CanvasContainer 
-                    infographic={this.props.currentInfographic}
-                    editorHandler={(editor) => { this._SetCurrentEditor(editor); }}
-                    textHandler={(textElem) => { this._SetInfogTextElem(textElem); }}
-                    chartDataHandler={(data) => { this._SetChartData(data); }}
-                    dimensionHandler={(dims) => { this._SetInfogDimensions(dims); }}
-                    textElem={this._editorTextElem}
-                    chartData={this.state.chartData}
-                    isRemoving={this.state.isRemoving}
-                    style={{flex: 1}}
-                />
-                <Toolbar 
-                    currentEditor={this.state.currentEditor}
-                    toolbarContent={this.state.toolbarContent}
-                    setToolbarContent={(content) => { this._SetToolbarContent(content); }}
-                    displayHome={() => { this.props.displayHome(); }}
-                    canvasToggle={(setting) => { this._CanvasToggle(setting); }} />
-                <div className='editor'
-                    style={{marginLeft: 30, position: 'fixed', left: width + 55 + 'px', top: 70 + 'px'}}
-                >
+                <div className='upper-container'>
+                    <Toolbar 
+                        currentEditor={this.state.currentEditor}
+                        toolbarContent={this.state.toolbarContent}
+                        setToolbarContent={(content) => { this._SetToolbarContent(content); }}
+                        displayHome={() => { this.props.displayHome(); }}
+                        canvasToggle={(setting) => { this._CanvasToggle(setting); }} />
+                </div>
+                <div className='lower-container'>
+                    <CanvasContainer 
+                        infographic={this.props.currentInfographic}
+                        editorHandler={(editor) => { this._SetCurrentEditor(editor); }}
+                        textHandler={(textElem) => { this._SetInfogTextElem(textElem); }}
+                        chartDataHandler={(data) => { this._SetChartData(data); }}
+                        dimensionHandler={(dims) => { this._SetInfogDimensions(dims); }}
+                        textElem={this._editorTextElem}
+                        chartData={this.state.chartData}
+                        isRemoving={this.state.isRemoving}
+                        style={{flex: 1}}
+                    />
+                </div>
+                <div className='editor'>
                     {currentEditor}
                 </div>
             </div>
