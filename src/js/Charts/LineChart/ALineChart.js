@@ -64,7 +64,12 @@ class ALineChart
         this._SetUpXDomain();
         this._SetUpYDomain();
     }
-    
+   
+    GetData()
+    {
+        return this._data;
+    }
+
     /**
      * @summary     Formats data so it is compatible with D3.
      * @description Iterates through each element in data and parses the date 

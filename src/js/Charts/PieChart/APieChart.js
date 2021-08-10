@@ -76,7 +76,7 @@ class APieChart
     /**
      * @summary Returns the current data array bound to the pie chart.
      */
-    GetDataArr() { return this._data; }
+    GetData() { return this._data; }
 }
 
 export { APieChart };
