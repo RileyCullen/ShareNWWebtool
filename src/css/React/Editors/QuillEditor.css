@@ -1,0 +1,14 @@
+.text-editor-container {
+    position: relative;
+    top: -54px;
+    height: inherit;
+    border-top: 2px solid #CCCBCC;
+}
+
+.text-editor {
+    position: relative;
+    top: 30px;
+    left: 5%;
+    width: 500px;
+    height: minmax(auto, 200px);
+}
