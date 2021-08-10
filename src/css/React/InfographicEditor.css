@@ -1,7 +1,7 @@
 .editor-container {
     width: 100%;
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: auto 550px;
     grid-template-rows: auto auto;
     overflow: hidden;
 } 
@@ -17,5 +17,36 @@
 }
 
 .editor {
-    background-color: #ececec;
+    background-color: white;
+}
+
+.editor-menu {
+    position: relative;
+    top: -54px;
+    left: 2px;
+    padding: 20px;
+}
+
+.editor-vertical-divider {
+    position: absolute;
+    border-left: 2px solid #CCCBCC;
+    height: 100%;
+}
+
+.editor-close-button {
+    position: relative;
+    top: 45%;
+    left: -46px;
+    height: 54px;
+}
+
+.editor-placeholder-text {
+    line-height: 1.5;
+    text-align: center;
+    width: 300px;
+    position: relative;
+    top: 40%;
+    left: 22%;
+    font-size: 22px;
+    color: #B6472A;
 }
