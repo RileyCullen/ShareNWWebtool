@@ -4,6 +4,7 @@ import { faChartBar, faIcons, faFont, faImage, faStop, faPalette, faFileImage,
 import React from 'react';
 
 import '../../../css/React/EditorToolbar.css';
+import { axisRight } from 'd3';
 
 class ToolbarContent extends React.Component 
 {
@@ -31,7 +32,8 @@ class ToolbarContent extends React.Component
         } else if (this.props.display === 'edit') {
             return this._CreateEditIcons();
         } else if (this.props.display === 'bar-editor' || this.props.display === 'waffle-editor'
-            || this.props.display === 'pie-editor' || this.props.display === 'stacked-bar-editor') {
+            || this.props.display === 'pie-editor' || this.props.display === 'stacked-bar-editor' 
+            || this.props.display === 'line-editor') {
             return this._CreateChartIcons();
         } else if (this.props.display === 'text-editor') {
             return this._CreateTextIcons();
@@ -41,6 +43,8 @@ class ToolbarContent extends React.Component
             return this._CreateImageIcons();
         } else if (this.props.display === 'icon-editor') {
             return this._CreateIconIcons();
+        } else if (this.props.display === 'icon-bar-editor') {
+            return this._CreateIconBarIcons();
         }
     }
 
@@ -303,6 +307,50 @@ class ToolbarContent extends React.Component
                             className='insert-icon'
                             icon={faIcons}/>
                         <p id='replace-icon-text' className='insert-text'>Replace Header</p>
+                    </button>
+                </div>
+            </div>
+        );
+    }
+
+    _CreateIconBarIcons()
+    {
+        return (
+            <div className='chart-container'>
+                {this._CreateCanvasSettings()}
+                <div
+                    style={{
+                        display: 'grid',
+                        gridTemplateColumns: '60px 60px 60px',
+                        gridColumnGap: '20px',
+                        float: 'right',
+                        marginRight: '80px'}}>
+                    <button 
+                        id='editor-button' 
+                        className='insert-button selected-editor'
+                        onClick={() => { }}>
+                        <FontAwesomeIcon 
+                            className='insert-icon'
+                            icon={faList}/>
+                        <p id='editor-button-text' className='insert-text'>Editor</p>
+                    </button>
+                    <button 
+                        id='replace-chart-button' 
+                        className='insert-button'
+                        onClick={() => { }}>
+                        <FontAwesomeIcon 
+                            className='insert-icon'
+                            icon={faChartBar}/>
+                        <p id='replace-chart-text' className='insert-text'>Replace Chart</p>
+                    </button>
+                    <button 
+                        id='replace-chart-icon-button' 
+                        className='insert-button'
+                        onClick={() => { }}>
+                        <FontAwesomeIcon 
+                            className='insert-icon'
+                            icon={faIcons}/>
+                        <p id='replace-chart-icon-text' className='insert-text'>Replace Icons</p>
                     </button>
                 </div>
             </div>

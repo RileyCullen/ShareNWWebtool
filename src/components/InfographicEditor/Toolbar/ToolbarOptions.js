@@ -141,6 +141,26 @@ class ToolbarOptions extends React.Component
                         Icon Editor
                     </button>
                 );
+            case 'line-editor':
+                return (
+                    <button
+                        id='toolbar-line-editor'
+                        className='toolbar-text'
+                        style={{left: '80px'}}
+                        onClick={() => { this.props.setToolbarContent('line-editor')}}>
+                        Line Editor
+                    </button>
+                ); 
+            case 'icon-bar-editor':
+                return (
+                    <button
+                        id='toolbar-icon-bar-editor'
+                        className='toolbar-text'
+                        style={{left: '80px'}}
+                        onClick={() => { this.props.setToolbarContent('icon-bar-editor')}}>
+                        Bar Editor
+                    </button>
+                ); 
             default: 
                 return false;
         }
