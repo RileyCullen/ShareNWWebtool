@@ -4,7 +4,8 @@
 
 import React from 'react';
 import {CanvasContainer} from './CanvasContainer';
-import { QuillEditor, WaffleEditor, Remover, BarEditor } from './Editors/index';
+import { QuillEditor, WaffleEditor, BarEditor, IconBarEditor, 
+    PieEditor, StackedBarEditor, LineEditor} from './Editors/index';
 import { Toolbar } from './Toolbar/Toolbar';
 
 import '../../css/React/InfographicEditor.css';
@@ -166,15 +167,19 @@ class InfographicEditor extends React.Component
                 chartData={this.state.chartData}
                 setChartData={(data) => { this._SetChartData(data); }}/>;
         } else if (this.state.currentEditor === 'stacked-bar-editor') {
-            return <div></div>;
+            return <StackedBarEditor />;
         } else if (this.state.currentEditor === 'pie-editor') {
-            return <div></div>;
+            return <PieEditor />;
         } else if (this.state.currentEditor === 'image-editor') {
             return <div></div>;
         } else if (this.state.currentEditor === 'icon-editor') {
             return <div></div>;
         } else if (this.state.currentEditor === 'header-editor') {
             return <div></div>;
+        } else if (this.state.currentEditor === 'line-editor') {
+            return <LineEditor />;
+        } else if (this.state.currentEditor === 'icon-bar-editor') {
+            return <IconBarEditor />;
         }
         return false;
     }
