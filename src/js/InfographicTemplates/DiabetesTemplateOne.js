@@ -412,7 +412,7 @@ class DiabetesTemplateOne extends AInfographic
         this._chartHandler.AddChart({
             chart: barChart, 
             group: barChartGroup, 
-            type: 'Bar'
+            type: 'Icon'
         });
         this._chartHandler.AddDecorator({
             decorator: labels, 
