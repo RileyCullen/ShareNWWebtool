@@ -1,0 +1,16 @@
+.editor-tab {
+    background-color: #ECECEC;
+    border-bottom: 2px solid #cccbcc;
+}
+
+.editor-tab p {
+    font-size: 18px;
+    padding: 0px 0px 0px 20px;
+}
+
+.selected-tab {
+    background-color: white;
+    border-style: solid;
+    border-width: 2px; 
+    border-color: #CCCBCC #CCCBCC white #CCCBCC;
+}

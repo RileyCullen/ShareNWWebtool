@@ -1,0 +1,18 @@
+.chart-editor {
+    padding-left: 20px;
+
+    position: relative;
+    top: -54px;
+
+    border-top: 2px solid #CCCBCC;
+}
+
+.tab-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    align-content: center;
+
+    position: relative;
+    top: -61px;
+    left: -10px;
+}
