@@ -1,29 +1,59 @@
 import React from 'react';
-import { TextField } from './Components/index';
+import { TextField, TabContainer } from './Components/index';
+
+import '../../../css/React/Editors/ChartEditor.css';
 
 class BarEditor extends React.Component
 {
+    constructor(props) 
+    {
+        super(props);
+        this.state = {
+            currentTab: 0 // 0 - Settings and 1 - Design Options
+        };
+    }
+
     render()
     {
-        let barData = this.props.chartData, rows = 1, cols = 5, 
-            rightPaddingArray = this._CreateRightPaddingArray();
+        let tabContent = this._DisplayTabContent();
         return (
-            <div className='BarEditor'>
+            <div className='chart-editor'>
+                <TabContainer
+                    currentTab={this.state.currentTab} 
+                    onClick={(state) => { this._SetCurrentTab(state); }}/>
                 {
-                    barData.map((d, i) => {
-                        let category = d.category, value = d.value; 
-                        return <TextField
-                            id={i}
-                            labelName={category + ':'}
-                            initialValue={value} 
-                            rows={rows}
-                            cols={cols}
-                            labelPaddingRight={rightPaddingArray[i]}
-                            onchange={(d, i) => { this._SetChartData(d, i) }}/>;
-                    })
+                    tabContent
                 }
             </div>
         );
+    }
+
+    _SetCurrentTab(state)
+    {
+        this.setState({
+            currentTab: state,
+        });
+    }
+
+    _DisplayTabContent()
+    {
+        let barData = this.props.chartData, rows = 1, cols = 5, 
+            rightPaddingArray = this._CreateRightPaddingArray();
+        if (this.state.currentTab === 0) {
+             return barData.map((d, i) => {
+                let category = d.category, value = d.value; 
+                return <TextField
+                    id={i}
+                    labelName={category + ':'}
+                    initialValue={value} 
+                    rows={rows}
+                    cols={cols}
+                    labelPaddingRight={rightPaddingArray[i]}
+                    onchange={(d, i) => { this._SetChartData(d, i) }}/>;
+            });
+        } else {
+            return <p>hello</p>
+        }
     }
 
     _FindLongestLabel()
