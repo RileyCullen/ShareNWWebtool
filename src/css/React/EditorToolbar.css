@@ -1,7 +1,5 @@
 .editor-toolbar {
-    grid-column: 1 / span 3;
     width: 100%;
-    position: fixed;
 }
 
 .toolbar-divider {
