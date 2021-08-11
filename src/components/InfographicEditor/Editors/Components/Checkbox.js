@@ -6,7 +6,7 @@ class Checkbox extends React.Component
     {
         super(props);
         this.state = {
-            isSelected: false,
+            isSelected: this.props.initialValue,
         }
         this.handleChange = this._HandleChange.bind(this);
     }
@@ -20,7 +20,9 @@ class Checkbox extends React.Component
                     style={{
                         width: size,
                         height: size
-                    }}></input>
+                    }}
+                    onClick={() => { this._HandleChange(); }}
+                    checked={this.state.isSelected}></input>
             </div>
         );
     }
