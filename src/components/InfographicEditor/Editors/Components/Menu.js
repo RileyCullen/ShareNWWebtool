@@ -13,12 +13,13 @@ class Menu extends React.Component
         super(props);
         this.state = {
             isOpen: false,
+            isChecked: this.props.checkbox.isChecked,
         }
     }
 
     render()
     {
-        let checkBox = this._DisplayCheckBox(),
+        let checkBox = this._DisplayCheckbox(),
             name = (this.state.isOpen) ? 'dropdown-content open' : 'dropdown-content';
         return (
             <div className='dropdown-menu'>
@@ -47,16 +48,26 @@ class Menu extends React.Component
         });
     }
 
-    _DisplayCheckBox()
+    _DisplayCheckbox()
     {
-        if (this.props.isCheckBox) {
+        if (this.props.checkbox.displayCheckbox) {
             return (
                 <div className='check-box-container'>
-                    <Checkbox />
+                    <Checkbox 
+                        initialValue={this.state.isChecked}
+                        onClick={() => { this._ToggleCheckBox(); }} />
                 </div>
             );
         }
         return false;
+    }
+
+    _ToggleCheckBox()
+    {
+        this.setState({
+            isChecked: !this.state.isChecked,
+        });
+        this.props.checkbox.checkboxHandler();
     }
 }
 
