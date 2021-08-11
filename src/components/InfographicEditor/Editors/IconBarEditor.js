@@ -5,14 +5,6 @@ import '../../../css/React/Editors/ChartEditor.css';
 
 class IconBarEditor extends React.Component 
 {
-    constructor(props) 
-    {
-        super(props);
-        this.state = {
-            currentTab: 0 // 0 - Settings and 1 - Design Options
-        };
-    }
-
     render()
     {
         let chartDataContent = [
@@ -25,21 +17,33 @@ class IconBarEditor extends React.Component
                 <Menu 
                     name='Chart Data'
                     content={chartDataContent}
-                    isCheckBox={false} />,
+                    checkbox={{
+                        isChecked: false
+                    }}/>,
                 <Menu 
                     name='Icon Settings'
                     content={[]}
-                    isCheckBox={false} />
+                    checkbox={{
+                        isChecked: false
+                    }} />
             ],
             designOptions: [
                 <Menu 
                     name='Data Labels'
                     content={[]}
-                    isCheckBox={true} />,
+                    checkbox={{
+                        displayCheckbox: true,
+                        isChecked: false,
+                        checkboxHandler: () => { }
+                    }} />,
                 <Menu 
                     name='Category Labels'
                     content={[]} 
-                    isCheckBox={true} />
+                    checkbox={{
+                        displayCheckbox: true,
+                        isChecked: false,
+                        checkboxHandler: () => { }
+                    }} />
             ]
         }
 
@@ -49,14 +53,6 @@ class IconBarEditor extends React.Component
             </div>
         )
     }
-
-    _SetCurrentTab(state)
-    {
-        this.setState({
-            currentTab: state,
-        });
-    }
-
 }
 
 export { IconBarEditor };
