@@ -179,7 +179,9 @@ class InfographicEditor extends React.Component
         } else if (this.state.currentEditor === 'line-editor') {
             return <LineEditor />;
         } else if (this.state.currentEditor === 'icon-bar-editor') {
-            return <IconBarEditor />;
+            return <IconBarEditor 
+                chartData={this.state.chartData}
+                setChartData={(data) => { this._SetChartData(data); }}/>;
         }
         return false;
     }
