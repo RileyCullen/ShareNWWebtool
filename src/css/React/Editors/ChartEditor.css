@@ -13,6 +13,11 @@
     align-content: center;
 
     position: relative;
-    top: -61px;
+    top: -67px;
     left: -10px;
+}
+
+.editor-settings-content {
+    display: grid;
+    grid-template-columns: auto;
 }
