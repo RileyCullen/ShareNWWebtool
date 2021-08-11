@@ -1,0 +1,53 @@
+.dropdown-menu {
+    position: relative;
+    top: -40px;
+    left: -10px;
+}
+
+.dropdown-toggle {
+    display: grid;
+    grid-template-columns: 40px auto auto;
+    grid-column-gap: 0px;
+    align-content: center;
+    height: 50px;
+}
+
+.dropdown-name {
+    font-size: 20px;
+    position: relative;
+    top: 0px;
+}
+
+.dropdown-icon {
+    font-size: 26px;
+    position: relative;
+    top: 20px;
+    left: 10px;
+}
+
+.dropdown-content {
+    display: none;
+    position: relative;
+    left: 20px;
+    width: max-content;
+}
+
+.open {
+    display: grid;
+    grid-template-columns: auto;
+}
+
+.menu-element-divider {
+    stroke: 2px solid #CCCBCC;
+    width: 95%;
+}
+
+.check-box-container {
+    position: relative;
+    left: 100%;
+    top: 100%;
+
+    width: max-content;
+    height: max-content;
+    transform: translate(-50px, -50px);
+}
