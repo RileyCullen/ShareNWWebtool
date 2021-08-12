@@ -6,3 +6,6 @@ export { IconBarEditor } from './IconBarEditor';
 export { PieEditor } from './PieEditor';
 export { StackedBarEditor } from './StackedBarEditor';
 export { LineEditor } from './LineEditor';
+export { BackgroundElementEditor } from './BackgroundElementEditor';
+export { ImageEditor } from './ImageEditor';
+export { IconEditor } from './IconEditor';
