@@ -1,46 +1,55 @@
 import React from 'react';
 
-import { TextField } from './index';
+import { TextField, ColorPicker } from './index';
+
+import '../../../../css/React/Editors/BarChartInputFields.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 
 class BarChartInputFields extends React.Component 
 {
     render()
     {
-        let barData = this.props.chartData, rows = 1, cols = 5, 
-            rightPaddingArray = this._CreateRightPaddingArray();
-        return barData.map((d, i) => {
-            let category = d.category, value = d.value; 
-            return (
+        let barData = this.props.chartData, rows = 1, cols = 7;
+        return (
+            <div className='bar-input-container'>
                 <div className='data-input-container'>
-                    <TextField
-                        id={i}
-                        labelName={category + ':'}
-                        initialValue={value} 
-                        rows={rows}
-                        cols={cols}
-                        labelPaddingRight={rightPaddingArray[i]}
-                        onchange={(d, i) => { this._SetChartData(d, i) }}/>
-                </div>);
-        }); 
-    }
-
-    _FindLongestLabel()
-    {
-        let length = 0;
-        this.props.chartData.forEach(d => {
-            if (d.category.length > length) length = d.category.length;
-        });
-        return length;
-    }
-
-    _CreateRightPaddingArray()
-    {
-        let longestLabel = this._FindLongestLabel(), tmp = [];
-        this.props.chartData.forEach((d, i) => {
-            let offset = (longestLabel === d.category.length) ? 0 : d.category.length * 3;
-            tmp.splice(i, 0, longestLabel - d.category.length + 10 + offset);
-        });
-        return tmp;
+                    <p className='bar-input-text'>Color</p>
+                    <p id='bar-category-label' className='bar-input-text'>Category</p>
+                    <p id='bar-value-label' className='bar-input-text'>Value</p>
+                </div>
+            {
+                barData.map((d, i) => {
+                let category = d.category, value = d.value; 
+                return (
+                    <div className='data-input-container'>
+                        <ColorPicker 
+                            color='red'
+                            onChange={(color) => { }}/>
+                        <TextField 
+                            id={i + '-category'}
+                            index={i}
+                            initialValue={category}
+                            rows={rows}
+                            cols={cols}
+                            onchange={(d, i) => { }}
+                            />
+                        <TextField
+                            id={i + '-value'}
+                            index={i}
+                            initialValue={value} 
+                            rows={rows}
+                            cols={cols}
+                            onchange={(d, i) => { this._SetChartData(d, i) }}/>
+                        <FontAwesomeIcon className='remove-row-icon' icon={faTimesCircle}/>
+                    </div>);
+                })
+            }
+            <div className='data-input-container'>
+                <FontAwesomeIcon className='add-row-icon' icon={faPlus} />
+            </div>
+            </div>
+        ); 
     }
 
     _SetChartData(d, i)
