@@ -5,7 +5,9 @@
 import React from 'react';
 import {CanvasContainer} from './CanvasContainer';
 import { QuillEditor, WaffleEditor, BarEditor, IconBarEditor, 
-    PieEditor, StackedBarEditor, LineEditor} from './Editors/index';
+    PieEditor, StackedBarEditor, LineEditor, BackgroundElementEditor, ImageEditor,
+    IconEditor}
+    from './Editors/index';
 import { Toolbar } from './Toolbar/Toolbar';
 
 import '../../css/React/InfographicEditor.css';
@@ -171,11 +173,11 @@ class InfographicEditor extends React.Component
         } else if (this.state.currentEditor === 'pie-editor') {
             return <PieEditor />;
         } else if (this.state.currentEditor === 'image-editor') {
-            return <div></div>;
+            return <ImageEditor />;
         } else if (this.state.currentEditor === 'icon-editor') {
-            return <div></div>;
+            return <IconEditor />;
         } else if (this.state.currentEditor === 'header-editor') {
-            return <div></div>;
+            return <BackgroundElementEditor />;
         } else if (this.state.currentEditor === 'line-editor') {
             return <LineEditor />;
         } else if (this.state.currentEditor === 'icon-bar-editor') {
