@@ -15,12 +15,6 @@ class TextField extends React.Component
     {
         return (<div 
             className='input-container'
-            style={{
-                display: 'flex', 
-                alignItems: 'center',
-                paddingBottom: 20,
-                paddingTop: 20,
-            }}
             >
             <textarea 
                 rows={this.props.rows} 
@@ -43,7 +37,7 @@ class TextField extends React.Component
         this.setState({
             value: event.target.value
         });
-        this.props.onchange(event.target.value, this.props.id);
+        this.props.onchange(event.target.value, this.props.index);
     }
 }
 
