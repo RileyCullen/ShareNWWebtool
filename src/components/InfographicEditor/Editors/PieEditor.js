@@ -1,5 +1,5 @@
 import React from 'react';
-import { TabContainer } from './Components/index';
+import { Editor, Menu } from './Components/index';
 
 import '../../../css/React/Editors/ChartEditor.css';
 
@@ -15,11 +15,50 @@ class PieEditor extends React.Component
 
     render()
     {
+        let content = {
+            chartSettings: [
+                <Menu 
+                    name='Chart Data'
+                    content={[]}
+                    checkbox={{
+                        displayCheckbox: false
+                    }}/>,
+                <Menu 
+                    name='Color Settings'
+                    content={[]}
+                    checkbox={{
+                        displayCheckbox: false
+                    }}/>,
+                <Menu 
+                    name='Size Settings'
+                    content={[]}
+                    checkbox={{
+                        displayCheckbox: false
+                    }}/>,
+            ],
+            designOptions: [
+                <Menu 
+                    name='Data Labels'
+                    content={[]}
+                    checkbox={{
+                        displayCheckbox: true,
+                        isChecked: false,
+                        checkboxHandler: () => { }
+                    }} />,
+                <Menu 
+                    name='Chart Outline'
+                    content={[]} 
+                    checkbox={{
+                        displayCheckbox: true,
+                        isChecked: false,
+                        checkboxHandler: () => { }
+                    }} />
+            ]
+        }
+
         return (
-            <div className='chart-editor'>
-                <TabContainer
-                    currentTab={this.state.currentTab} 
-                    onClick={(state) => { this._SetCurrentTab(state); }}/>
+            <div>
+                <Editor content={content}/>
             </div>
         )
     }

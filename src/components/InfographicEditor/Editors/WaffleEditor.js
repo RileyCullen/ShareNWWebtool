@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextField, TabContainer } from './Components/index';
+import { TextField, Menu, Editor } from './Components/index';
 
 import '../../../css/React/Editors/ChartEditor.css';
 
@@ -8,9 +8,6 @@ class WaffleEditor extends React.Component
     constructor(props)
     {
         super(props);
-        this.state = {
-            currentTab: 0,
-        };
         this._data = {
             numerator: (props.chartData === 0) ? 0 : props.chartData.numerator,
             denominator: (props.chartData === 0) ? 0 : props.chartData.denominator,
@@ -19,30 +16,74 @@ class WaffleEditor extends React.Component
 
     render()
     {
-        var rows = 1, cols = 5;
+        let rows = 1, cols = 5;
+
+        let chartDataContent = [
+            {
+                contentElement: 
+                    <TextField 
+                        id={0}
+                        labelName='Numerator:'
+                        initialValue={this._data.numerator}
+                        rows={rows}
+                        cols={cols}
+                        labelPaddingRight={25}
+                        onchange={(d, i) => { this._SetChartData(i, d); }}
+                    />
+            },
+            {
+                contentElement: 
+                    <TextField 
+                        id={1}
+                        labelName='Denominator:'
+                        initialValue={this._data.denominator}
+                        rows={rows}
+                        cols={cols}
+                        labelPaddingRight={10}
+                        onchange={(d, i) => { this._SetChartData(i, d); }}
+                    />
+            }
+        ]
+
+        let content = {
+            chartSettings: [
+                <Menu 
+                    name='Chart Data'
+                    content={chartDataContent}
+                    checkbox={{
+                        displayCheckbox: false
+                    }}
+                />,
+                <Menu 
+                    name='Icon Settings'
+                    content={[]}
+                    checkbox={{
+                        displayCheckbox: false
+                    }} />,
+                <Menu 
+                    name='Automatic Resizing'
+                    content={[]} 
+                    checkbox={{
+                        displayCheckbox: true,
+                        isChecked: false,
+                        checkboxHandler: () => { }
+                    }}/>
+            ],
+            designOptions: [
+                <Menu 
+                    name='Data Label'
+                    content={[]} 
+                    checkbox={{
+                        displayCheckbox: true,
+                        isChecked: false,
+                        checkboxHandler: () => { }
+                    }}/>
+            ]
+        }
+
         return (
-            <div className='chart-editor'>
-                <TabContainer
-                    currentTab={this.state.currentTab} 
-                    onClick={(state) => { this._SetCurrentTab(state); }}/>
-                <TextField 
-                    id={0}
-                    labelName='Numerator:'
-                    initialValue={this._data.numerator}
-                    rows={rows}
-                    cols={cols}
-                    labelPaddingRight={25}
-                    onchange={(d, i) => { this._SetChartData(i, d); }}
-                />
-                <TextField 
-                    id={1}
-                    labelName='Denominator:'
-                    initialValue={this._data.denominator}
-                    rows={rows}
-                    cols={cols}
-                    labelPaddingRight={10}
-                    onchange={(d, i) => { this._SetChartData(i, d); }}
-                />
+            <div>
+                <Editor content={content}/>
             </div>
         );
     }
@@ -68,13 +109,6 @@ class WaffleEditor extends React.Component
             denominator: this._data.denominator,
         };
         this.props.setChartData(tmp);
-    }
-
-    _SetCurrentTab(state)
-    {
-        this.setState({
-            currentTab: state,
-        });
     }
 }
 

@@ -18,13 +18,13 @@ class IconBarEditor extends React.Component
                     name='Chart Data'
                     content={chartDataContent}
                     checkbox={{
-                        isChecked: false
+                        displayCheckbox: false
                     }}/>,
                 <Menu 
                     name='Icon Settings'
                     content={[]}
                     checkbox={{
-                        isChecked: false
+                        displayCheckbox: false
                     }} />
             ],
             designOptions: [
