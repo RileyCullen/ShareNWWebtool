@@ -1,0 +1,45 @@
+.bar-input-container {
+    position: relative;
+    left: 10%;
+    margin: 10px 40px 40px 40px;
+}
+
+.data-input-container {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-column-gap: 30px;
+    margin: 10px;
+
+    align-content: center;
+}
+
+.remove-row-icon{
+    font-size: 25px;
+    color: #B6472A;
+}
+
+.add-row-icon {
+    position: relative;
+    left: 47px;
+
+    font-size: 20px;
+    grid-column: 4 / span 1;
+    color: #B6472A;
+}
+
+.bar-input-text {
+    font-size: 18px;
+    width: max-content;
+}
+
+#bar-category-label, #bar-value-label {
+    position: relative;
+}
+
+#bar-category-label {
+    left: -13px;
+}
+
+#bar-value-label {
+    left: -10px;
+}
