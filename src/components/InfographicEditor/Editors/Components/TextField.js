@@ -22,7 +22,6 @@ class TextField extends React.Component
                 paddingTop: 20,
             }}
             >
-            <label style={{paddingRight: this.props.labelPaddingRight}}>{this.props.labelName}</label>
             <textarea 
                 rows={this.props.rows} 
                 cols={this.props.cols} 
