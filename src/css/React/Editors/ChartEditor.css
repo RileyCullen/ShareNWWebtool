@@ -21,3 +21,9 @@
     display: grid;
     grid-template-columns: auto;
 }
+
+.editor-content {
+    position: relative;
+    top: -40px;
+    left: -10px;
+}
