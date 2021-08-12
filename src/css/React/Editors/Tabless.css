@@ -1,0 +1,11 @@
+.tabless-container {
+    position: relative;
+    top: -54px;
+    border-top: 2px solid #CCCBCC;
+}
+
+.tabless-editor {
+    position: relative;
+    top: 30px;
+    left: 5px;
+}
