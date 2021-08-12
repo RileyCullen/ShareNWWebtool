@@ -10,7 +10,7 @@ class TabContainer extends React.Component
         return (
             <div className='tab-container'>
                 <Tab 
-                    tabName='Settings' 
+                    tabName='Chart Options' 
                     isSelected={(this.props.currentTab === 0)}
                     onClick={() => { this._StateHandler(0) }}/>
                 <Tab 
