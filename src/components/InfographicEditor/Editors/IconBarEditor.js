@@ -16,12 +16,14 @@ class IconBarEditor extends React.Component
             chartSettings: [
                 <Menu 
                     name='Chart Data'
+                    isOpen={true}
                     content={chartDataContent}
                     checkbox={{
                         displayCheckbox: false
                     }}/>,
                 <Menu 
                     name='Icon Settings'
+                    isOpen={false}
                     content={[]}
                     checkbox={{
                         displayCheckbox: false
@@ -30,6 +32,7 @@ class IconBarEditor extends React.Component
             designOptions: [
                 <Menu 
                     name='Data Labels'
+                    isOpen={false}
                     content={[]}
                     checkbox={{
                         displayCheckbox: true,
@@ -38,6 +41,7 @@ class IconBarEditor extends React.Component
                     }} />,
                 <Menu 
                     name='Category Labels'
+                    isOpen={false}
                     content={[]} 
                     checkbox={{
                         displayCheckbox: true,

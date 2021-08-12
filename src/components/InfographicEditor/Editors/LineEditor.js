@@ -11,24 +11,28 @@ class LineEditor extends React.Component
             chartSettings: [
                 <Menu 
                     name='Chart Data'
+                    isOpen={true}
                     content={[]}
                     checkbox={{
                         displayCheckbox: false
                     }}/>,
                 <Menu 
                     name='Size Settings'
+                    isOpen={false}
                     content={[]}
                     checkbox={{
                         displayCheckbox: false
                     }} />,
                 <Menu 
                     name='Color Settings'
+                    isOpen={false}
                     content={[]}
                     checkbox={{
                         displayCheckbox: false
                     }} />,
                 <Menu 
                     name='Spacing Settings'
+                    isOpen={false}
                     content={[]}
                     checkbox={{
                         displayCheckbox: false
@@ -37,6 +41,7 @@ class LineEditor extends React.Component
             designOptions: [
                 <Menu 
                     name='X-Axis'
+                    isOpen={false}
                     content={[]}
                     checkbox={{
                         displayCheckbox: true,
@@ -45,6 +50,7 @@ class LineEditor extends React.Component
                     }} />,
                 <Menu 
                     name='Y-Axis'
+                    isOpen={false}
                     content={[]} 
                     checkbox={{
                         displayCheckbox: true,
@@ -53,6 +59,7 @@ class LineEditor extends React.Component
                     }} />,
                 <Menu 
                     name='Data Labels'
+                    isOpen={false}
                     content={[]} 
                     checkbox={{
                         displayCheckbox: true,

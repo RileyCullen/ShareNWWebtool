@@ -12,7 +12,7 @@ class Menu extends React.Component
     {
         super(props);
         this.state = {
-            isOpen: false,
+            isOpen: this.props.isOpen,
             isChecked: this.props.checkbox.isChecked,
         }
     }

@@ -12,6 +12,7 @@ class ImageEditor extends React.Component
                 <div className='tabless-editor'>
                     <Menu 
                         name='Size Settings'
+                        isOpen={false}
                         content={[]}
                         checkbox={{
                             displayCheckbox: false
@@ -19,6 +20,7 @@ class ImageEditor extends React.Component
                     />
                     <Menu 
                         name='Display Settings'
+                        isOpen={false}
                         content={[]}
                         checkbox={{
                             displayCheckbox: false
@@ -26,6 +28,7 @@ class ImageEditor extends React.Component
                     />
                     <Menu 
                         name='Image Corrections'
+                        isOpen={false}
                         content={[]}
                         checkbox={{
                             displayCheckbox: false

@@ -25,20 +25,24 @@ class BarEditor extends React.Component
             chartSettings: [
                 <Menu 
                     name='Chart Data'
+                    isOpen={true}
                     content={chartDataContent}
                     checkbox={{ displayCheckbox: false }}/>,
                 <Menu 
                     name='Orientation'
+                    isOpen={false}
                     content={[]} 
                     checkbox={{ displayCheckbox: false }}/>,
                 <Menu 
                     name='Background Color'
+                    isOpen={false}
                     content={[]}
                     checkbox={{ displayCheckbox: false }}/>
             ],
             designOptions: [
                 <Menu 
                     name='X-Axis'
+                    isOpen={false}
                     content={[]}
                     checkbox={{
                         displayCheckbox: true,
@@ -48,6 +52,7 @@ class BarEditor extends React.Component
                 />,
                 <Menu 
                     name='Y-Axis'
+                    isOpen={false}
                     content={[]}
                     checkbox={{
                         displayCheckbox: true,
@@ -57,6 +62,7 @@ class BarEditor extends React.Component
                 />,
                 <Menu 
                     name='Data Labels'
+                    isOpen={false}
                     content={[]}
                     checkbox={{
                         displayCheckbox: true,
@@ -66,6 +72,7 @@ class BarEditor extends React.Component
                 />,
                 <Menu 
                     name='Category Labels'
+                    isOpen={false}
                     content={[]}
                     checkbox={{
                         displayCheckbox: true,
@@ -75,6 +82,7 @@ class BarEditor extends React.Component
                 />,
                 <Menu 
                     name='Category Legend'
+                    isOpen={false}
                     content={[]}
                     checkbox={{
                         displayCheckbox: true,

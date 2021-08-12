@@ -19,18 +19,21 @@ class PieEditor extends React.Component
             chartSettings: [
                 <Menu 
                     name='Chart Data'
+                    isOpen={true}
                     content={[]}
                     checkbox={{
                         displayCheckbox: false
                     }}/>,
                 <Menu 
                     name='Color Settings'
+                    isOpen={false}
                     content={[]}
                     checkbox={{
                         displayCheckbox: false
                     }}/>,
                 <Menu 
                     name='Size Settings'
+                    isOpen={false}
                     content={[]}
                     checkbox={{
                         displayCheckbox: false
@@ -39,6 +42,7 @@ class PieEditor extends React.Component
             designOptions: [
                 <Menu 
                     name='Data Labels'
+                    isOpen={false}
                     content={[]}
                     checkbox={{
                         displayCheckbox: true,
@@ -47,6 +51,7 @@ class PieEditor extends React.Component
                     }} />,
                 <Menu 
                     name='Chart Outline'
+                    isOpen={false}
                     content={[]} 
                     checkbox={{
                         displayCheckbox: true,

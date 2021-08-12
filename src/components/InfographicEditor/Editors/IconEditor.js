@@ -12,6 +12,7 @@ class IconEditor extends React.Component
                 <div className='tabless-editor'>
                     <Menu 
                         name='Size Settings'
+                        isOpen={false}
                         content={[]}
                         checkbox={{
                             displayCheckbox: false
@@ -19,6 +20,7 @@ class IconEditor extends React.Component
                     />
                     <Menu 
                         name='Display Settings'
+                        isOpen={false}
                         content={[]}
                         checkbox={{
                             displayCheckbox: false
