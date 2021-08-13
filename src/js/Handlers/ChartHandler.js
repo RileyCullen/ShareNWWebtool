@@ -99,6 +99,11 @@ class ChartHandler
      */
     GetHandlerElem(id) { return this._handler[id]; }
 
+    GetSettingsArray(id)
+    {
+        return this._handler[id].chart.GetChartSettings();
+    }
+
     /**
      * @summary     Removes the handler element at index id.
      * @description Calls chart's Remove function then removes the handler element
