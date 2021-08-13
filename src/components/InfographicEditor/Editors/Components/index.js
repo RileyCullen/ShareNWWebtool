@@ -7,3 +7,5 @@ export { Checkbox } from './Checkbox';
 export { BarChartInputFields } from './BarChartInputFields';
 export { ColorPicker } from './ColorPicker';
 export { LabeledTextField } from './LabeledTextField';
+export { LabeledCheckbox } from './LabeledCheckbox';
+export { LabeledColorPicker } from './LabeledColorPicker';
