@@ -1,0 +1,15 @@
+.labeled-text-field-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-column-gap: 40px;
+    align-items: center;
+
+    margin: 20px 0px 20px 0px;
+}
+
+.labeled-text-field {
+    position: relative;
+    left: 100%;
+    transform: translateX(-100%);
+    width: max-content;
+}
