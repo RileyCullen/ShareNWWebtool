@@ -1,5 +1,5 @@
 import React from 'react';
-import { Editor, BarChartInputFields, Menu } from './Components/index';
+import { Editor, BarChartInputFields, Menu, LabeledTextField } from './Components/index';
 
 class BarEditor extends React.Component
 {
@@ -13,13 +13,11 @@ class BarEditor extends React.Component
 
     render()
     {
-        let chartDataContent = [
-            {
-                contentElement: <BarChartInputFields 
+        let chartDataContent = [ 
+             <BarChartInputFields 
                     chartData={this.props.chartData}
                     setChartData={(d, i) => { this.props.setChartData(d, i); }} />
-            }
-        ]
+        ];
 
         let content = {
             chartSettings: [
@@ -34,10 +32,15 @@ class BarEditor extends React.Component
                     content={[]} 
                     checkbox={{ displayCheckbox: false }}/>,
                 <Menu 
+                    name='Size'
+                    isOpen={false}
+                    content={this._GetSizeContent()}
+                    checkbox={{ displayCheckbox: false }}/>,
+                <Menu 
                     name='Background Color'
                     isOpen={false}
                     content={[]}
-                    checkbox={{ displayCheckbox: false }}/>
+                    checkbox={{ displayCheckbox: true }}/>
             ],
             designOptions: [
                 <Menu 
@@ -97,6 +100,21 @@ class BarEditor extends React.Component
                 <Editor content={content} />
             </div>
         );
+    }
+
+    _GetSizeContent()
+    {
+        let cSettings = this.props.cSettings;
+        return [
+            <LabeledTextField 
+                label='Width:'
+                index={'c-width'}
+                initialValue={cSettings.size.chartWidth}
+                rows={1}
+                cols={5}
+                onchange={(d, i) => { }}
+                />
+        ];
     }
 }
 

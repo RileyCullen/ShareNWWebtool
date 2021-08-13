@@ -32,7 +32,7 @@ class Menu extends React.Component
                 <div className={name}>
                     {
                         this.props.content.map((d) => {
-                            return d.contentElement;
+                            return d;
                         })
                     }
                 </div>
