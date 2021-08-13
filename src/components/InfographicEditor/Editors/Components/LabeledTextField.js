@@ -2,20 +2,24 @@ import React from 'react';
 
 import { TextField } from './TextField';
 
+import '../../../../css/React/Editors/LabeledTextField.css';
+
 class LabeledTextField extends React.Component
 {
     render()
     {
         return (
-            <div style={{display: 'flex'}}>
+            <div className='labeled-text-field-container'>
                 <label>{this.props.label}</label>
-                <TextField 
-                    id={this.props.index}
-                    index={this.props.index}
-                    initialValue={this.props.initialValue}
-                    rows={this.props.rows}
-                    cols={this.props.cols}
-                    onchange={(d, i) => { this.props.onchange(d, i); }}/>
+                <div className='labeled-text-field'>
+                    <TextField 
+                        id={this.props.index}
+                        index={this.props.index}
+                        initialValue={this.props.initialValue}
+                        rows={this.props.rows}
+                        cols={this.props.cols}
+                        onchange={(d, i) => { this.props.onchange(d, i); }}/>
+                </div>
             </div>
         );
     }
