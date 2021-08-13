@@ -18,6 +18,10 @@
 
 .editor {
     background-color: white;
+
+    position: relative;
+    top: 54px;
+    left: -2px;
 }
 
 .editor-menu {
@@ -31,6 +35,7 @@
     position: absolute;
     border-left: 2px solid #CCCBCC;
     height: 100%;
+    top: -54px;
 }
 
 .editor-close-button {
