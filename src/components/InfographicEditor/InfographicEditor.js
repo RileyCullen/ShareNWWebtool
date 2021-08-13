@@ -171,6 +171,7 @@ class InfographicEditor extends React.Component
         } else if (this.state.currentEditor === 'waffle-editor') {
             return <WaffleEditor 
                 chartData={this.state.chartData}
+                cSettings={this.state.cSettings}
                 setChartData={(data) => { this._SetChartData(data); }}/>
         } else if (this.state.currentEditor === 'bar-editor') {
             return <BarEditor 
@@ -178,9 +179,13 @@ class InfographicEditor extends React.Component
                 cSettings={this.state.cSettings}
                 setChartData={(data) => { this._SetChartData(data); }}/>;
         } else if (this.state.currentEditor === 'stacked-bar-editor') {
-            return <StackedBarEditor />;
+            return <StackedBarEditor 
+                chartData={this.state.chartData}
+                cSettings={this.state.cSettings}/>;
         } else if (this.state.currentEditor === 'pie-editor') {
-            return <PieEditor />;
+            return <PieEditor 
+                chartData={this.state.chartData}
+                cSettings={this.state.cSettings}/>;
         } else if (this.state.currentEditor === 'image-editor') {
             return <ImageEditor />;
         } else if (this.state.currentEditor === 'icon-editor') {
@@ -188,10 +193,13 @@ class InfographicEditor extends React.Component
         } else if (this.state.currentEditor === 'header-editor') {
             return <BackgroundElementEditor />;
         } else if (this.state.currentEditor === 'line-editor') {
-            return <LineEditor />;
+            return <LineEditor 
+                chartData={this.state.chartData}
+                cSettings={this.state.cSettings}/>;
         } else if (this.state.currentEditor === 'icon-bar-editor') {
             return <IconBarEditor 
                 chartData={this.state.chartData}
+                cSettings={this.state.cSettings}
                 setChartData={(data) => { this._SetChartData(data); }}/>;
         }
         return false;
