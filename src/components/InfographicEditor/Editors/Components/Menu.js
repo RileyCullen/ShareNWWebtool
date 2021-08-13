@@ -20,12 +20,16 @@ class Menu extends React.Component
     render()
     {
         let checkBox = this._DisplayCheckbox(),
-            name = (this.state.isOpen) ? 'dropdown-content open' : 'dropdown-content';
+            name = (this.state.isOpen) ? 'dropdown-content open' : 'dropdown-content',
+            rotation = (this.state.isOpen) ? '90deg' : '0deg';
         return (
             <div className='dropdown-menu'>
                 <div className='dropdown-toggle'
                     onClick={() => { this._ToggleOpen(); }}>
-                    <FontAwesomeIcon className='dropdown-icon' icon={faAngleRight}/>
+                    <FontAwesomeIcon 
+                        className='dropdown-icon' 
+                        icon={faAngleRight}
+                        style={{transform: 'rotate(' + rotation + ')'}}/>
                     <p className='dropdown-name'>{this.props.name}</p>
                     {checkBox}
                 </div>
