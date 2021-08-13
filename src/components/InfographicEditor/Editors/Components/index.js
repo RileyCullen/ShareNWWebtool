@@ -6,3 +6,4 @@ export { Editor } from './Editor';
 export { Checkbox } from './Checkbox';
 export { BarChartInputFields } from './BarChartInputFields';
 export { ColorPicker } from './ColorPicker';
+export { LabeledTextField } from './LabeledTextField';
