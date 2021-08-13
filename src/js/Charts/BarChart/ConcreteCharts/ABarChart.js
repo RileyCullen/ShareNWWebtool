@@ -106,6 +106,24 @@ class ABarChart
         this._group.destroy();
     }
 
+    GetChartSettings()
+    {
+        return {
+            orientation: {
+                landscape: (this._rotateBy === 0)
+            },
+            size: {
+                chartWidth: this._chartWidth,
+                chartHeight: this._chartHeight,
+                padding: this._padding,
+            },
+            backgroundColor: {
+                isChecked: false,
+                fill: '#fff'
+            }
+        }
+    }
+
     /**
      * @summary     Removes all child nodes in this group.
      * @description A wrapper function that calls the Konva.js method 
