@@ -70,12 +70,6 @@ class InfographicEditor extends React.Component
                 </div>
                 <div className='editor'>
                     <div className='editor-vertical-divider'></div>
-                    <div className='editor-close-button'>
-                        <svg width="32" height="58" viewBox="0 0 32 58" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect width="32" height="50.9091" fill="#C4C4C4"/>
-                            <path d="M23.125 25.7461C23.6523 25.2188 23.6523 24.3398 23.125 23.7539L15.1562 15.7852C14.5703 15.2578 13.6914 15.2578 13.1641 15.7852L11.8164 17.1328C11.2891 17.7188 11.2891 18.5977 11.8164 19.125L17.5 24.8086L11.8164 30.4336C11.2891 30.9609 11.2891 31.8398 11.8164 32.4258L13.1641 33.7148C13.6914 34.3008 14.5703 34.3008 15.1562 33.7148L23.125 25.7461Z" fill="black"/>
-                        </svg>
-                    </div>
                     <div className='editor-menu'
                         style={{
                             height: editorWindowHeight, 
