@@ -18,7 +18,8 @@ class AWaffleChart
      * @param {bool} isDynamicResize Determines if the waffle chart will dynamically 
      *                               resize the chart when data is updated.
      */
-    constructor(numerator, denominator, group, presetA, presetB, fontSize, isDynamicResize)
+    constructor(numerator, denominator, group, presetA, presetB, fontSize, 
+        isDynamicResize, maxIconsPerRow)
     {
         if (AWaffleChart === this.constructor) {
             throw new TypeError('Abstract class "AWaffleChart" cannot be instantiated');
@@ -34,6 +35,7 @@ class AWaffleChart
         this._presetB = presetB;
         this._fontSize = fontSize;
         this._isDynamicResize = isDynamicResize;
+        this._maxIconsPerRow = maxIconsPerRow;
     }
 
     /**
@@ -59,6 +61,21 @@ class AWaffleChart
         return {
             numerator: this._numerator,
             denominator: this._denominator,
+        }
+    }
+
+    GetChartSettings()
+    {
+        return {
+            icon: {
+                aColor: this._presetA.color,
+                bColor: this._presetB.color,
+                maxIconsPerRow: this._maxIconsPerRow
+            },
+            dynamicResize: {
+                width: this._group.getAttr('width'),
+                height: this._group.getAttr('height'),
+            }
         }
     }
 

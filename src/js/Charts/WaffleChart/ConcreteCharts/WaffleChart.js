@@ -20,10 +20,11 @@ class WaffleChart extends AWaffleChart
      *
      * @see AWaffleChart.js for constructor variable documentation. 
      */
-    constructor({numerator, denominator, group, presetA, presetB, fontSize, isDynamicResize = true}
-        )
+    constructor({numerator, denominator, group, presetA, presetB, fontSize, 
+        isDynamicResize = true, maxIconsPerRow = 10,})
     {
-        super(numerator, denominator, group, presetA, presetB, fontSize, isDynamicResize);
+        super(numerator, denominator, group, presetA, presetB, fontSize, 
+            isDynamicResize, maxIconsPerRow);
         this._startingX = 0;
         this._startingY = 0;
     }
@@ -128,7 +129,7 @@ class WaffleChart extends AWaffleChart
             .append("custom")
             .attr("class", "rect")
             .attr("x", (d, i) => {
-                var tmp = this._startingX + ((i % 10) * prevOffset), 
+                var tmp = this._startingX + ((i % this._maxIconsPerRow) * prevOffset), 
                     multiplier = 0;
 
                 if (i === 0) initialOffset = d.offset;

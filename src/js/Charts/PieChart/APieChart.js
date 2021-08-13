@@ -77,6 +77,15 @@ class APieChart
      * @summary Returns the current data array bound to the pie chart.
      */
     GetData() { return this._data; }
+
+    GetChartSettings()
+    {
+        return {
+            size: {
+                chartRadius: this._radius
+            }
+        }
+    }
 }
 
 export { APieChart };

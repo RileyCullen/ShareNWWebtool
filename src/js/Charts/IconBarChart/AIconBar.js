@@ -43,6 +43,17 @@ class AIconBar
      {
          return this._data;
      }
+
+    GetChartSettings()
+    {
+        return {
+            iconSettings: {
+                iconColor: this._remainderColor,
+                iconSize: this._iconSize,
+                padding: this._padding, 
+            }
+        }
+    }
  
      /**
       * @summary     Updates data array.

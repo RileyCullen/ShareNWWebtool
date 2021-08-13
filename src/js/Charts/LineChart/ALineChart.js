@@ -70,6 +70,22 @@ class ALineChart
         return this._data;
     }
 
+    GetChartSettings()
+    {
+        return {
+            size: {
+                chartWidth: this._chartWidth,
+                chartHeight: this._chartHeight,
+                lineWidth: this._lineWidth,
+                pointRadius: this._pointRadius,
+            },
+            color: {
+                lineColor: this._lineColor,
+                pointColor: this._pointColor,
+            }
+        }
+    }
+
     /**
      * @summary     Formats data so it is compatible with D3.
      * @description Iterates through each element in data and parses the date 
