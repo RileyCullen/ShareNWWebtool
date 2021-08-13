@@ -73,7 +73,7 @@ class CanvasContainer extends React.Component
             var handlerObj = {
                 editorHandler: (editor) => { this.props.editorHandler(editor); },
                 textHandler: (textElem) => { this.props.textHandler(textElem); },
-                chartHandler: (data) => { this.props.chartDataHandler(data); }
+                chartHandler: (data, cSettings, dSettings) => { this.props.chartHandler(data, cSettings, dSettings); }
             };
 
             switch(this.props.infographic) {

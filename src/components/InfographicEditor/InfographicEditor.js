@@ -24,6 +24,7 @@ class InfographicEditor extends React.Component
             currentEditor: 'none',
             toolbarContent: 'insert',
             chartData: 0,
+            cSettings: 0,
             isRemoving: false,
         };
         this._infogTextElem = 0;
@@ -59,7 +60,7 @@ class InfographicEditor extends React.Component
                         infographic={this.props.currentInfographic}
                         editorHandler={(editor) => { this._SetCurrentEditor(editor); }}
                         textHandler={(textElem) => { this._SetInfogTextElem(textElem); }}
-                        chartDataHandler={(data) => { this._SetChartData(data); }}
+                        chartHandler={(data, cSettings, dSettings) => { this._ChartHandler(data, cSettings, dSettings); }}
                         dimensionHandler={(dims) => { this._SetInfogDimensions(dims); }}
                         textElem={this._editorTextElem}
                         chartData={this.state.chartData}
@@ -138,6 +139,14 @@ class InfographicEditor extends React.Component
         };
     }
 
+    _ChartHandler(data, cSettings, dSettings)
+    {
+        this.setState({
+            chartData: data,
+            cSettings: cSettings,
+        });
+    }
+
     /**
      * @summary Updates chartData.
      * @param {misc} chartData Layout of data depends on which chart we are dealing with.
@@ -147,6 +156,11 @@ class InfographicEditor extends React.Component
         this.setState({
             chartData: chartData,
         });
+    }
+
+    _SetChartSettings(settings)
+    {
+        
     }
 
     /**
@@ -167,6 +181,7 @@ class InfographicEditor extends React.Component
         } else if (this.state.currentEditor === 'bar-editor') {
             return <BarEditor 
                 chartData={this.state.chartData}
+                cSettings={this.state.cSettings}
                 setChartData={(data) => { this._SetChartData(data); }}/>;
         } else if (this.state.currentEditor === 'stacked-bar-editor') {
             return <StackedBarEditor />;
