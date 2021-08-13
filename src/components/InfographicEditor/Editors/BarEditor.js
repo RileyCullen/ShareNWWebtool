@@ -1,5 +1,6 @@
 import React from 'react';
 import { Editor, BarChartInputFields, Menu, LabeledTextField } from './Components/index';
+import { LabeledCheckbox } from './Components/LabeledCheckbox';
 
 class BarEditor extends React.Component
 {
@@ -29,7 +30,7 @@ class BarEditor extends React.Component
                 <Menu 
                     name='Orientation'
                     isOpen={false}
-                    content={[]} 
+                    content={this._GetOrientationContent()} 
                     checkbox={{ displayCheckbox: false }}/>,
                 <Menu 
                     name='Size'
@@ -106,14 +107,45 @@ class BarEditor extends React.Component
     {
         let cSettings = this.props.cSettings;
         return [
-            <LabeledTextField 
-                label='Width:'
-                index={'c-width'}
-                initialValue={cSettings.size.chartWidth}
-                rows={1}
-                cols={5}
-                onchange={(d, i) => { }}
+            <div style={{position: 'relative', left: '75%'}}>
+                <LabeledTextField 
+                    label='Width:'
+                    index={'c-width'}
+                    initialValue={cSettings.size.chartWidth}
+                    rows={1}
+                    cols={5}
+                    onchange={(d, i) => { }}
+                    />
+                <LabeledTextField
+                    label='Height:'
+                    index={'c-height'}
+                    initialValue={cSettings.size.chartHeight}
+                    rows={1}
+                    cols={5}
+                    onchange={(d, i) => { }} 
                 />
+                <LabeledTextField
+                    label='Bar Padding:'
+                    index={'c-padding'}
+                    initialValue={cSettings.size.padding}
+                    rows={1}
+                    cols={5}
+                    onchange={(d, i) => { }} 
+                />
+            </div>
+        ];
+    }
+
+    _GetOrientationContent()
+    {
+        let orientation = this.props.cSettings.orientation;
+        return [
+            <div style={{position: 'relative', left: '100%'}}>
+                <LabeledCheckbox 
+                    label='Landscape:'
+                    initialValue={orientation.landscape}
+                    onClick={() => { }}/>
+            </div> 
         ];
     }
 }

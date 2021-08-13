@@ -1,5 +1,5 @@
 import React from 'react';
-import { Editor, Menu, BarChartInputFields } from './Components/index';
+import { Editor, Menu, BarChartInputFields, LabeledColorPicker, LabeledTextField } from './Components/index';
 
 import '../../../css/React/Editors/ChartEditor.css';
 
@@ -8,9 +8,9 @@ class IconBarEditor extends React.Component
     render()
     {
         let chartDataContent = [
-            {contentElement: <BarChartInputFields 
+            <BarChartInputFields 
                 chartData={this.props.chartData} 
-                setChartData={(d, i) => { this.props.setChartData(d, i); }}/>},
+                setChartData={(d, i) => { this.props.setChartData(d, i); }}/>,
         ];
         let content = {
             chartSettings: [
@@ -24,7 +24,7 @@ class IconBarEditor extends React.Component
                 <Menu 
                     name='Icon Settings'
                     isOpen={false}
-                    content={[]}
+                    content={this._GetIconContent()}
                     checkbox={{
                         displayCheckbox: false
                     }} />
@@ -56,6 +56,36 @@ class IconBarEditor extends React.Component
                 <Editor content={content}/>
             </div>
         )
+    }
+
+    _GetIconContent()
+    {
+        let iconSettings = this.props.cSettings.iconSettings;
+        return [
+            <div>
+                <LabeledColorPicker
+                    label='Icon Color'
+                    color={iconSettings.iconColor}
+                    onChange={(value) => { }}
+                />
+                <LabeledTextField 
+                    label='Icon Size:'
+                    index='icon-size'
+                    initialValue={iconSettings.iconSize}
+                    rows={1}
+                    cols={5}
+                    onchange={(d, i) => { }}
+                />
+                <LabeledTextField 
+                    label='Padding'
+                    index='padding'
+                    initialValue={iconSettings.padding}
+                    rows={1}
+                    cols={5}
+                    onchange={(d, i) => { }}
+                />
+            </div>
+        ]
     }
 }
 

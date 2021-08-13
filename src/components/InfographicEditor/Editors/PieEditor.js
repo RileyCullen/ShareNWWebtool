@@ -1,5 +1,5 @@
 import React from 'react';
-import { Editor, Menu } from './Components/index';
+import { Editor, LabeledColorPicker, LabeledTextField, Menu } from './Components/index';
 
 import '../../../css/React/Editors/ChartEditor.css';
 
@@ -27,14 +27,14 @@ class PieEditor extends React.Component
                 <Menu 
                     name='Color Settings'
                     isOpen={false}
-                    content={[]}
+                    content={this._GetColorContents()}
                     checkbox={{
                         displayCheckbox: false
                     }}/>,
                 <Menu 
                     name='Size Settings'
                     isOpen={false}
-                    content={[]}
+                    content={this._GetSizeContents()}
                     checkbox={{
                         displayCheckbox: false
                     }}/>,
@@ -73,6 +73,42 @@ class PieEditor extends React.Component
         this.setState({
             currentTab: state,
         });
+    }
+
+    _GetColorContents()
+    {
+        let color = this.props.chartData;
+        return [
+            <div>
+                <LabeledColorPicker 
+                    label='Primary Color:'
+                    color={color[0].color}
+                    onChange={(value) => { }}
+                />
+                <LabeledColorPicker 
+                    label='Background Color:'
+                    color={color[1].color}
+                    onChange={(value) => { }}
+                />
+            </div>
+        ];
+    }
+
+    _GetSizeContents()
+    {
+        let size = this.props.cSettings.size;
+        return [
+            <div>
+                <LabeledTextField 
+                     label='Radius'
+                     index='chart-radius'
+                     initialValue={size.chartRadius}
+                     rows={1}
+                     cols={5}
+                     onchange={(d, i) => { }}
+                />
+            </div>
+        ]
     }
 }
 

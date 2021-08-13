@@ -1,5 +1,5 @@
 import React from 'react';
-import { Editor, Menu } from './Components/index';
+import { Editor, Menu, LabeledTextField, LabeledCheckbox } from './Components/index';
 
 import '../../../css/React/Editors/ChartEditor.css';
 
@@ -15,9 +15,14 @@ class StackedBarEditor extends React.Component
                     content={[]}
                     checkbox={{ displayCheckbox: false }}/>,
                 <Menu 
+                    name='Size'
+                    isOpen={false}
+                    content={this._GetSizeContent()} 
+                    checkbox={{ displayCheckbox: false }}/>,
+                <Menu 
                     name='Orientation'
                     isOpen={false}
-                    content={[]} 
+                    content={this._GetOrientationContent()} 
                     checkbox={{ displayCheckbox: false }}/>,
                 <Menu 
                     name='Background Color'
@@ -84,6 +89,53 @@ class StackedBarEditor extends React.Component
                 <Editor content={content}/>
             </div>
         )
+    }
+
+
+    _GetSizeContent()
+    {
+        let cSettings = this.props.cSettings;
+        return [
+            <div style={{position: 'relative', left: '75%'}}>
+                <LabeledTextField 
+                    label='Width:'
+                    index={'c-width'}
+                    initialValue={cSettings.size.chartWidth}
+                    rows={1}
+                    cols={5}
+                    onchange={(d, i) => { }}
+                    />
+                <LabeledTextField
+                    label='Height:'
+                    index={'c-height'}
+                    initialValue={cSettings.size.chartHeight}
+                    rows={1}
+                    cols={5}
+                    onchange={(d, i) => { }} 
+                />
+                <LabeledTextField
+                    label='Bar Padding:'
+                    index={'c-padding'}
+                    initialValue={cSettings.size.padding}
+                    rows={1}
+                    cols={5}
+                    onchange={(d, i) => { }} 
+                />
+            </div>
+        ];
+    }
+
+    _GetOrientationContent()
+    {
+        let orientation = this.props.cSettings.orientation;
+        return [
+            <div style={{position: 'relative', left: '100%'}}>
+                <LabeledCheckbox 
+                    label='Landscape:'
+                    initialValue={orientation.landscape}
+                    onClick={() => { }}/>
+            </div> 
+        ];
     }
 }
 
