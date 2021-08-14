@@ -485,8 +485,9 @@ class AInfographic
                 this._main.batchDraw();
                 chart.setAttr('draggable', true);
 
-                var selectedChart = this._chartHandler.GetHandlerElem(this._selectedChartIndex).chart;
-                this._chartCallback(selectedChart.GetData(), selectedChart.GetChartSettings(), 0);
+                let selectedChart = this._chartHandler.GetHandlerElem(this._selectedChartIndex).chart,
+                    dSettings = this._chartHandler.GetDecoratorSettingsArray(this._selectedChartIndex);
+                this._chartCallback(selectedChart.GetData(), selectedChart.GetChartSettings(), dSettings);
 
                 if (chart.getAttr('name') === 'Selectable Chart Waffle') {
                     this._editorHandler('waffle-editor');
