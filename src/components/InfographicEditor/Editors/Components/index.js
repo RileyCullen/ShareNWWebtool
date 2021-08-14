@@ -9,3 +9,6 @@ export { ColorPicker } from './ColorPicker';
 export { LabeledTextField } from './LabeledTextField';
 export { LabeledCheckbox } from './LabeledCheckbox';
 export { LabeledColorPicker } from './LabeledColorPicker';
+export { DropdownList } from './DropdownList';
+export { FontSelector } from './FontSelector';
+export { LabeledDropdown } from './LabeledDropdown';
