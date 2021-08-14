@@ -21,7 +21,7 @@ class Checkbox extends React.Component
                         width: size,
                         height: size
                     }}
-                    onClick={() => { this._HandleChange(); }}
+                    onChange={() => { this._HandleChange(); }}
                     checked={this.state.isSelected}></input>
             </div>
         );
