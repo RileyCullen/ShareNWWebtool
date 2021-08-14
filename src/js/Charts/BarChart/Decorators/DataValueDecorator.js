@@ -67,6 +67,22 @@ class DataValueDecorator extends ABarChartDecorator
         this._AddLabels();
     }
 
+    GetDecoratorSettings()
+    {
+        return {
+            dataValue: {
+                font: this._font,
+                location: {
+                    isMiddle: this._isMiddle,
+                },
+                display: {
+                    isPercentage: this._isPercentage,
+                    isCategory: this._isCategory,
+                }
+            }
+        };
+    }
+
     /**
      * @summary     This function adds the labels to the already drawn bar chart.
      * @description This function iterates through all of the values in _data

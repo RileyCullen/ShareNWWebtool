@@ -71,6 +71,19 @@ class CategoryLabelDecorator extends ABarChartDecorator
         this._CreateLabels();
     }
 
+    GetDecoratorSettings()
+    {
+        return {
+            categoryLabel: {
+                font: this._font,
+                location: {
+                    isTop: this._isTop,
+                    isWithinBars: this._isWithinBars,
+                }
+            }
+        }
+    }
+
     /**
      * @summary     Creates the category labels for the Basic, Percentage, and
      *              Stacked BarChart types.

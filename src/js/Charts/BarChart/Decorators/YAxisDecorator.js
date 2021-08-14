@@ -45,6 +45,22 @@ class YAxisDecorator extends ABarChartDecorator
         this._CreateYAxis();
     }
 
+    GetChartSettings()
+    {
+        return {
+            yAxis: {
+                font: this._font,
+                color: {
+                    lineColor: this._lineColor,
+                },
+                size: {
+                    lineStrokeWidth: this._lineStrokeWidth,
+                    tickStrokeWidth: this._tickStrokeWidth,
+                }
+            }
+        }
+    }
+
     /**
      * @summary     This function adds a y-axis to the given BarChart type.
      * @description This function creates a y-axis by calling _CreateAxis

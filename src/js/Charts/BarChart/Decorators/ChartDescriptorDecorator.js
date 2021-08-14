@@ -37,7 +37,7 @@ class ChartDescriptorDecorator extends ABarChartDecorator
         this._iconSize = this._chartWidth / 30;
         this._isTop = isTop;
         this._maxPerRow = maxPerRow;
-        this._padding = 10
+        this._padding = 10;
         this._offsetX = 0;
         this._offsetY = 0;
     }
@@ -51,6 +51,21 @@ class ChartDescriptorDecorator extends ABarChartDecorator
     {
         this._chart.CreateChart();
         this._CreateDescriptor();
+    }
+
+    GetDecoratorSettings() 
+    {
+        return {
+            chartDescriptor: {
+                font: this._font,
+                location: {
+                    isTop: this._isTop,
+                },
+                labelSettings : {
+                    maxPerRow: this._maxPerRow,
+                }
+            }
+        }
     }
 
     /**
