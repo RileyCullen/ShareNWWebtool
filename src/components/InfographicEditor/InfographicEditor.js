@@ -25,6 +25,7 @@ class InfographicEditor extends React.Component
             toolbarContent: 'insert',
             chartData: 0,
             cSettings: 0,
+            dSettings: 0,
             isRemoving: false,
         };
         this._infogTextElem = 0;
@@ -138,6 +139,7 @@ class InfographicEditor extends React.Component
         this.setState({
             chartData: data,
             cSettings: cSettings,
+            dSettings: dSettings,
         });
     }
 
@@ -177,6 +179,7 @@ class InfographicEditor extends React.Component
             return <BarEditor 
                 chartData={this.state.chartData}
                 cSettings={this.state.cSettings}
+                dSettings={this.state.dSettings}
                 setChartData={(data) => { this._SetChartData(data); }}/>;
         } else if (this.state.currentEditor === 'stacked-bar-editor') {
             return <StackedBarEditor 
