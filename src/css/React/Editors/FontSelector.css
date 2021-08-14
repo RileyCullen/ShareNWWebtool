@@ -1,0 +1,15 @@
+.font-selector-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-column-gap: 40px;
+    grid-row-gap: 10px;
+
+    align-items: center;
+}
+
+.element-right{
+    position: relative;
+    left: 100%;
+    transform: translateX(-100%);
+    width: max-content;
+}
