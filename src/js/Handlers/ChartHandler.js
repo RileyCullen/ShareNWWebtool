@@ -104,6 +104,17 @@ class ChartHandler
         return this._handler[id].chart.GetChartSettings();
     }
 
+    GetDecoratorSettingsArray(id)
+    {
+        let decoratorSettings = {};
+        this._handler[id].decorators.forEach((d) => {
+            let obj = d.GetDecoratorSettings();
+            Object.keys(obj)
+                .forEach(key => decoratorSettings[key] = obj[key])
+        });
+        return decoratorSettings;
+    }
+
     /**
      * @summary     Removes the handler element at index id.
      * @description Calls chart's Remove function then removes the handler element
