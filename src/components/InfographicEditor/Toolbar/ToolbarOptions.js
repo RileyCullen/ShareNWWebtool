@@ -160,6 +160,16 @@ class ToolbarOptions extends React.Component
                         onClick={() => { this.props.setToolbarContent('icon-bar-editor')}}>
                         Bar Editor
                     </button>
+                );
+            case 'donut-editor':
+                return (
+                    <button
+                        id='toolbar-donut-editor'
+                        className='toolbar-text'
+                        style={{left: '80px'}}
+                        onClick={() => { this.props.setToolbarContent('donut-editor')}}>
+                        Donut Editor
+                    </button>
                 ); 
             default: 
                 return false;

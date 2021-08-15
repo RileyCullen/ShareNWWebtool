@@ -33,7 +33,7 @@ class ToolbarContent extends React.Component
             return this._CreateEditIcons();
         } else if (this.props.display === 'bar-editor' || this.props.display === 'waffle-editor'
             || this.props.display === 'pie-editor' || this.props.display === 'stacked-bar-editor' 
-            || this.props.display === 'line-editor') {
+            || this.props.display === 'line-editor' || this.props.display === 'donut-editor') {
             return this._CreateChartIcons();
         } else if (this.props.display === 'text-editor') {
             return this._CreateTextIcons();
