@@ -1,10 +1,21 @@
 import React from 'react';
-import { Editor, Menu, BarChartInputFields, LabeledColorPicker, LabeledTextField } from './Components/index';
+import { Editor, Menu, BarChartInputFields, LabeledColorPicker, LabeledTextField,
+    LabeledCheckbox, FontSelector, LabeledDropdown } from './Components/index';
 
 import '../../../css/React/Editors/ChartEditor.css';
 
 class IconBarEditor extends React.Component 
 {
+    constructor(props)
+    {
+        super(props);
+        this._defaultFont = {
+            fontFamily: 'Times New Roman, Times, serif',
+            fontSize: 10,
+            textColor: '#000'
+        };
+    }
+
     render()
     {
         let chartDataContent = [
@@ -14,7 +25,8 @@ class IconBarEditor extends React.Component
         ];
         let content = {
             chartSettings: [
-                <Menu 
+                <Menu
+                    key='chart-data' 
                     name='Chart Data'
                     isOpen={true}
                     content={chartDataContent}
@@ -22,6 +34,7 @@ class IconBarEditor extends React.Component
                         displayCheckbox: false
                     }}/>,
                 <Menu 
+                    key='icon-settings'
                     name='Icon Settings'
                     isOpen={false}
                     content={this._GetIconContent()}
@@ -31,18 +44,20 @@ class IconBarEditor extends React.Component
             ],
             designOptions: [
                 <Menu 
+                    key='data-labels'
                     name='Data Labels'
                     isOpen={false}
-                    content={[]}
+                    content={this._GetDataLabelsContent()}
                     checkbox={{
                         displayCheckbox: true,
                         isChecked: false,
                         checkboxHandler: () => { }
                     }} />,
                 <Menu 
+                    key='category-labels'
                     name='Category Labels'
                     isOpen={false}
-                    content={[]} 
+                    content={this._GetCategoryLabelsContent()} 
                     checkbox={{
                         displayCheckbox: true,
                         isChecked: false,
@@ -86,6 +101,95 @@ class IconBarEditor extends React.Component
                 />
             </div>
         ]
+    }
+
+    _GetDataLabelsContent()
+    {
+        let settings = (this.props.dSettings.dataValue === undefined) ? {
+            font: this._defaultFont,
+            display: {
+                percentage: true,
+                category: false,
+                isMiddle: true
+            }, 
+            backgroundColor: {
+                stroke: '#000',
+                fill: '#fff',
+            }
+        } : this.props.dSettings.dataValue;
+        return [
+            <div>
+                <div>
+                    <h5>Display Settings:</h5>
+                    <LabeledCheckbox 
+                        label='Display Category:'
+                        initialValue={settings.display.percentage}
+                        onClick={() => { }}
+                    />
+                    <LabeledCheckbox 
+                        label='Display Percentage:'
+                        initialValue={settings.display.category}
+                        onClick={() => { }}
+                    />
+                    <LabeledDropdown 
+                        label='Location:'
+                        options={['Middle', 'Top']}
+                        selected={(settings.display.isMiddle ? 'Middle' : 'Top')}
+                        onChange={(value) => { }}
+                    />
+                </div>
+                <div>
+                    <h5>Background Box:</h5>
+                    <LabeledColorPicker 
+                        label='Border Color:'
+                        color={settings.backgroundColor.stroke}
+                        onChange={(value) => { }}
+                    />
+                    <LabeledColorPicker 
+                        label='Fill Color:'
+                        color={settings.backgroundColor.fill}
+                        onChange={(value) => { }}
+                    />
+                </div>
+                <div>
+                    <h5>Font Settings:</h5>
+                    <FontSelector initialFont='Times New Roman'/>
+                </div>
+            </div>
+        ];
+    }
+
+    _GetCategoryLabelsContent()
+    {
+        let settings = (this.props.dSettings.category === undefined) ? {
+            font: this._defaultFont,
+            location: {
+                isWithinBArs: this._isWithinBars,
+                isTop: this._isTop,
+            }
+        } : this.props.dSettings.category;
+        return [
+            <div>
+                <div>
+                    <h5>Location Settings:</h5>
+                    <LabeledDropdown 
+                        label='Location:'
+                        options={['Top', 'Bottom']}
+                        selected={(settings.location.isTop === true) ? 'Top' : 'Bottom'}
+                        onChange={(value) => { }}
+                    />
+                    <LabeledCheckbox 
+                        label='Display inside bars:'
+                        initialVale={settings.location.isWithinBars}
+                        onClick={() => { }}
+                    /> 
+                </div>
+                <div>
+                    <h5>Font Settings:</h5>
+                    <FontSelector initialFont='Times New Roman' />
+                </div>
+            </div>
+        ];
     }
 }
 

@@ -1,15 +1,26 @@
 import React from 'react';
-import { Editor, Menu, LabeledTextField, LabeledColorPicker } from './Components/index';
+import { Editor, Menu, LabeledTextField, LabeledColorPicker, FontSelector, LabeledDropdown } from './Components/index';
 
 import '../../../css/React/Editors/ChartEditor.css';
 
 class LineEditor extends React.Component 
 {
+    constructor(props)
+    {
+        super(props);
+        this._defaultFont = {
+            fontFamily: 'Times New Roman, Times, serif',
+            fontSize: 10,
+            textColor: '#000'
+        };
+    }
+
     render()
     {
         let content = {
             chartSettings: [
                 <Menu 
+                    key='chart-data'
                     name='Chart Data'
                     isOpen={true}
                     content={[]}
@@ -17,6 +28,7 @@ class LineEditor extends React.Component
                         displayCheckbox: false
                     }}/>,
                 <Menu 
+                    key='size-settings'
                     name='Size Settings'
                     isOpen={false}
                     content={this._GetSizeContent()}
@@ -24,6 +36,7 @@ class LineEditor extends React.Component
                         displayCheckbox: false
                     }} />,
                 <Menu 
+                    key='color-settings'
                     name='Color Settings'
                     isOpen={false}
                     content={this._GetColorContent()}
@@ -31,6 +44,7 @@ class LineEditor extends React.Component
                         displayCheckbox: false
                     }} />,
                 <Menu 
+                    key='spacing-settings'
                     name='Spacing Settings'
                     isOpen={false}
                     content={this._GetSpacingContent()}
@@ -40,27 +54,30 @@ class LineEditor extends React.Component
             ],
             designOptions: [
                 <Menu 
+                    key='x-axis'
                     name='X-Axis'
                     isOpen={false}
-                    content={[]}
+                    content={this._GetXAxisContent()}
                     checkbox={{
                         displayCheckbox: true,
                         isChecked: false,
                         checkboxHandler: () => { }
                     }} />,
                 <Menu 
+                    key='y-axis'
                     name='Y-Axis'
                     isOpen={false}
-                    content={[]} 
+                    content={this._GetYAxisContent()} 
                     checkbox={{
                         displayCheckbox: true,
                         isChecked: false,
                         checkboxHandler: () => { }
                     }} />,
                 <Menu 
+                    key='data-labels'
                     name='Data Labels'
                     isOpen={false}
-                    content={[]} 
+                    content={this._GetDataLabelContent()} 
                     checkbox={{
                         displayCheckbox: true,
                         isChecked: false,
@@ -157,6 +174,138 @@ class LineEditor extends React.Component
                     cols={5}
                     onchange={(d, i) => { }}
                 />
+            </div>
+        ];
+    }
+
+    _GetXAxisContent()
+    {
+        let settings = (this.props.dSettings.xAxis === undefined) ? {
+            font: this._defaultFont,
+            axis: {
+                label: '',
+                color: '#000',
+                axisStrokeWidth: 1,
+                axisTickWidth: 0.5
+            }
+        } : this.props.dSettings.xAxis;
+        return [
+            <div>
+                <div>
+                    <h5>Axis Settings</h5>
+                    <LabeledTextField 
+                        label='Label:'
+                        index={'x-label'}
+                        initialValue={settings.axis.label}
+                        rows={1}
+                        cols={5}
+                        onchange={(d, i) => { }}
+                    />
+                    <LabeledTextField 
+                        label='Axis Width:'
+                        index={'x-stroke'}
+                        initialValue={settings.axis.axisStrokeWidth}
+                        rows={1}
+                        cols={5}
+                        onchange={(d, i) => { }} 
+                    />
+                    <LabeledTextField 
+                        label='Tick Width:'
+                        index={'x-tick'}
+                        initialValue={settings.axis.axisTickWidth}
+                        rows={1}
+                        cols={5}
+                        onchange={(d, i) => { }} 
+                    />
+                    <LabeledColorPicker 
+                        label='Axis Color: '
+                        color={settings.axis.color}
+                        onChange={(value) => { }} 
+                    />
+                </div>
+                <div>
+                    <h5>Font Settings:</h5>
+                    <FontSelector initialFont='Times New Roman'/>
+                </div>
+            </div>
+        ];
+    }
+
+
+    _GetYAxisContent()
+    {
+        let settings = (this.props.dSettings.yAxis === undefined) ? {
+            font: this._defaultFont,
+            axis: {
+                label: '',
+                color: '#000',
+                axisStrokeWidth: 1,
+                axisTickWidth: 0.5
+            }
+        } : this.props.dSettings.yAxis;
+        return [
+            <div>
+                <div>
+                    <h5>Axis Settings</h5>
+                    <LabeledTextField 
+                        label='Label:'
+                        index={'y-label'}
+                        initialValue={settings.axis.label}
+                        rows={1}
+                        cols={5}
+                        onchange={(d, i) => { }}
+                    />
+                    <LabeledTextField 
+                        label='Axis Width:'
+                        index={'y-stroke'}
+                        initialValue={settings.axis.axisStrokeWidth}
+                        rows={1}
+                        cols={5}
+                        onchange={(d, i) => { }} 
+                    />
+                    <LabeledTextField 
+                        label='Tick Width:'
+                        index={'y-tick'}
+                        initialValue={settings.axis.axisTickWidth}
+                        rows={1}
+                        cols={5}
+                        onchange={(d, i) => { }} 
+                    />
+                    <LabeledColorPicker 
+                        label='Axis Color: '
+                        color={settings.axis.color}
+                        onChange={(value) => { }} 
+                    />
+                </div>
+                <div>
+                    <h5>Font Settings:</h5>
+                    <FontSelector initialFont='Times New Roman'/>
+                </div>
+            </div>
+        ];
+    }
+    _GetDataLabelContent()
+    {
+        let settings = (this.props.dSettings.dataValue === undefined) ? {
+            font: this._defaultFont,
+            location: 'Bottom',
+        } : this.props.dSettings.dataValue;
+
+        return [
+            <div>
+                <div>
+                    <h5>Location:</h5>
+                    <LabeledDropdown 
+                        label='Location:'
+                        options={['Bottom', 'Top', 'Left', 'Right']}
+                        selected={settings.location}
+                        onChange={(value) => { }}
+                    />
+                </div>
+                <div>
+                    <h5>Font Settings:</h5>
+                    <FontSelector initialFont='Times New Roman'/>
+                </div>
             </div>
         ];
     }

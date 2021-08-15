@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextField, Menu, Editor, LabeledColorPicker, LabeledTextField } from './Components/index';
+import { TextField, Menu, Editor, LabeledColorPicker, LabeledTextField, FontSelector, LabeledCheckbox } from './Components/index';
 
 import '../../../css/React/Editors/ChartEditor.css';
 
@@ -11,6 +11,12 @@ class WaffleEditor extends React.Component
         this._data = {
             numerator: (props.chartData === 0) ? 0 : props.chartData.numerator,
             denominator: (props.chartData === 0) ? 0 : props.chartData.denominator,
+        };
+
+        this._defaultFont = {
+            fontFamily: 'Times New Roman, Times, serif',
+            fontSize: 10,
+            textColor: '#000'
         };
     }
 
@@ -44,6 +50,7 @@ class WaffleEditor extends React.Component
         let content = {
             chartSettings: [
                 <Menu 
+                    key='chart-data'
                     name='Chart Data'
                     isOpen={true}
                     content={chartDataContent}
@@ -52,6 +59,7 @@ class WaffleEditor extends React.Component
                     }}
                 />,
                 <Menu 
+                    key='icon-settings'
                     name='Icon Settings'
                     isOpen={false}
                     content={this._GetIconContent()}
@@ -59,6 +67,7 @@ class WaffleEditor extends React.Component
                         displayCheckbox: false
                     }} />,
                 <Menu 
+                    key='automatic-resizing'
                     name='Automatic Resizing'
                     isOpen={false}
                     content={this._GetResizeContent()} 
@@ -70,9 +79,10 @@ class WaffleEditor extends React.Component
             ],
             designOptions: [
                 <Menu 
+                    key='data-labels'
                     name='Data Label'
                     isOpen={false}
-                    content={[]} 
+                    content={this._GetDataLabelsContent()} 
                     checkbox={{
                         displayCheckbox: true,
                         isChecked: false,
@@ -159,6 +169,39 @@ class WaffleEditor extends React.Component
                     cols={5}
                     onchange={(d, i) => { }} 
                 />
+            </div>
+        ];
+    }
+
+    _GetDataLabelsContent()
+    {
+        let statistic = (this.props.dSettings.statistic === undefined) ?  {
+            font: this._defaultFont,
+            middleText: '',
+            lockToChart: true
+        } : this.props.dSettings.statistic;
+        return [
+            <div>
+                <div>
+                    <h5>Display Settings:</h5>
+                    <LabeledTextField 
+                        label='Text:'
+                        index={'text'}
+                        initialValue={statistic.middleText}
+                        rows={1}
+                        cols={5}
+                        onchange={(d, i) => { }} 
+                    />
+                    <LabeledCheckbox 
+                        label='Lock to Chart'
+                        initialValue={statistic.lockToChart}
+                        onClick={() => { }}
+                    />
+                </div>
+                <div>
+                    <h5>Font Settings:</h5>
+                    <FontSelector initialFont='Times New Roman'/>
+                </div>
             </div>
         ];
     }
