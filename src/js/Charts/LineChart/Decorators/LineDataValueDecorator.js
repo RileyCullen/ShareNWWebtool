@@ -19,7 +19,7 @@ class LineDataValueDecorator extends ALineChartDecorator
      */
     constructor({
         chart, 
-        location = 'bottom', 
+        location = 'Bottom', 
         font = {
             fontSize: 8,
             fontFamily: 'Times New Roman, Times, serif',
@@ -42,6 +42,16 @@ class LineDataValueDecorator extends ALineChartDecorator
         this._AddValues();
     }
 
+    GetDecoratorSettings()
+    {
+        return {
+            dataValue: {
+                font: this._font,
+                location: 'Bottom',
+            }
+        }
+    }
+
     /**
      * @summary     Creates the data value decorators.
      * @description Iterates through all of the entries in _data and creates a
@@ -57,16 +67,16 @@ class LineDataValueDecorator extends ALineChartDecorator
                 fontHeight = this._GetFontSize('M', this._font);
 
             switch(this._location) {
-                case 'bottom':
+                case 'Bottom':
                     yPos += (fontHeight / 2) + this._pointRadius;
                     break;
-                case 'top':
+                case 'Top':
                     yPos -= (fontHeight / 2) + this._pointRadius;
                     break;
-                case 'left':
+                case 'Left':
                     xPos -= (textWidth / 2) + this._pointRadius;
                     break;
-                case 'right':
+                case 'Right':
                     xPos += (textWidth / 2) + this._pointRadius;
                     break;
                 default: 

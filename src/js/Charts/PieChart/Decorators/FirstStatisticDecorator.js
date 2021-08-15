@@ -45,6 +45,20 @@ class FirstStatisticDecorator extends APieChartDecorator
         this._AddMajorStatistic();
     }
 
+
+    GetDecoratorSettings()
+    {
+        return {
+            statistic: { 
+                font: this._font,
+                position: {
+                    x: this._x,
+                    y: this._y
+                }
+            }
+        };
+    }
+
     /**
      * @summary     Cleans the group named _top.
      * @description Removes all of the elements contained with the Konva.Group

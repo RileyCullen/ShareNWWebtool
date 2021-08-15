@@ -38,6 +38,14 @@ class DonutDecorator extends APieChartDecorator
         this._DrawInnerCircle();
     }
 
+    _GetDecoratorSettings()
+    {
+        return {
+            innerRadius: this._radius,
+            color: this._color
+        }
+    }
+
     /**
      * @summary     Draws inner circle.
      * @description See summary.

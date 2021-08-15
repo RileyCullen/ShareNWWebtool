@@ -53,6 +53,22 @@ class LineXAxisDecorator extends ALineChartDecorator
         this._CreateXAxis();
     }
 
+    GetDecoratorSettings()
+    {
+        return {
+            xAxis: {
+                font: this._font,
+                axis: {
+                    label: this._axisLabel,
+                    color: this._lineColor,
+                    axisStrokeWidth: this._lineStrokeWidth,
+                    axisTickWidth: this._tickStrokeWidth,
+                },
+                display: 'Year'
+            }
+        }
+    }
+
     /**
      * @summary     Helper function that calls _CreateAxis, _CreateTicks, _CreateAxisLabel.
      */

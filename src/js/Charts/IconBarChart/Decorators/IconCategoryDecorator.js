@@ -33,6 +33,19 @@ class IconCategoryDecorator extends AIconBarDecorator
         this._CreateIconLabels();
     }
 
+    GetDecoratorSettings()
+    {
+        return {
+            category: {
+                location: {
+                    isWithinBars: this._isWithinBars,
+                    isTop: this._isTop,
+                },
+                font: this._font
+            }
+        }
+    }
+
      /**
      * @summary     Creates labels for the IconBarChart type.
      * @description Dynamically places labels onto an IconBarChart either above

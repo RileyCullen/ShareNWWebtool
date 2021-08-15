@@ -37,6 +37,24 @@ class IconDataValueDecorator extends AIconBarDecorator
             this._AddIconLabels();
       }
   
+    GetDecoratorSettings()
+    {
+        return {
+            dataValue: {
+                font: this._font,
+                display: {
+                    percentage: this._isPercentage,
+                    category: this._isCategory,
+                    isMiddle: this._isMiddle,
+                },
+                backgroundColor: {
+                    stroke: this._backgroundStroke,
+                    fill: this._backgroundFill
+                }
+            }
+        }
+    }
+
       /**
        * @summary     Creates the data value labels for the IconBar type.
        * @description A function that iterates through all of the data in _data 

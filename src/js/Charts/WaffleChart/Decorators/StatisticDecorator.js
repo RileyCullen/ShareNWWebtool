@@ -44,6 +44,17 @@ class StatisticDecorator extends AWaffleChartDecorator
         this._AddStatistic();
     }
 
+    GetDecoratorSettings()
+    {
+        return {
+            statistic: {
+                font: this._font,
+                middleText: this._middleText,
+                lockToChart: true,
+            }
+        }
+    }
+
     /**
      * @summary     Removes child elements within _top.
      * @description Private function that cleans the _top group so that previous
@@ -61,7 +72,6 @@ class StatisticDecorator extends AWaffleChartDecorator
     _AddStatistic()
     {  
         var text = this._numerator + ' ' + this._middleText + ' ' + this._denominator;
-        console.log('num: ' + this._numerator);
         this._top.add(new Konva.Text({
             text: text,
             fontSize: this._font.fontSize,

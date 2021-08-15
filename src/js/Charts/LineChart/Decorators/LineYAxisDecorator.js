@@ -48,6 +48,23 @@ class LineYAxisDecorator extends ALineChartDecorator
         this._CreateYAxis();
     }
 
+    GetDecoratorSettings()
+    {
+        return {
+            yAxis: {
+                font: this._font,
+                axis: {
+                    label: this._axisLabel,
+                    color: this._lineColor,
+                    lineStrokeWidth: this._lineStrokeWidth,
+                    tickStrokeWidth: this._tickStrokeWidth,
+                    tickCount: this._tickCount,
+                    includeZero: this._includeZero,
+                }
+            }
+        }
+    }
+
     /**
      * @summary Helper function that calls _CreateAxis, _CreateTicks, _CreateAxisLabel.
      */
