@@ -165,6 +165,8 @@ class InfographicEditor extends React.Component
      */
     _SelectEditor()
     {
+        console.log('IE')
+        console.log(this.state.dSettings)
         if (this.state.currentEditor === 'text-editor') {
             return <QuillEditor 
                 textElem={this._infogTextElem}
@@ -174,21 +176,23 @@ class InfographicEditor extends React.Component
             return <WaffleEditor 
                 chartData={this.state.chartData}
                 cSettings={this.state.cSettings}
+                dSettings={this.state.dSettings}
                 setChartData={(data) => { this._SetChartData(data); }}/>
-        } else if (this.state.currentEditor === 'bar-editor') {
-            return <BarEditor 
+        } else if (this.state.currentEditor === 'bar-editor' || 
+            this.state.currentEditor === 'stacked-bar-editor') {
+            return <BarEditor
+                type={this.state.currentEditor}
                 chartData={this.state.chartData}
                 cSettings={this.state.cSettings}
                 dSettings={this.state.dSettings}
                 setChartData={(data) => { this._SetChartData(data); }}/>;
-        } else if (this.state.currentEditor === 'stacked-bar-editor') {
-            return <StackedBarEditor 
-                chartData={this.state.chartData}
-                cSettings={this.state.cSettings}/>;
-        } else if (this.state.currentEditor === 'pie-editor') {
+        } else if (this.state.currentEditor === 'pie-editor' || 
+            this.state.currentEditor === 'donut-editor') {
             return <PieEditor 
+                type={this.state.currentEditor}
                 chartData={this.state.chartData}
-                cSettings={this.state.cSettings}/>;
+                cSettings={this.state.cSettings}
+                dSettings={this.state.dSettings}/>;
         } else if (this.state.currentEditor === 'image-editor') {
             return <ImageEditor />;
         } else if (this.state.currentEditor === 'icon-editor') {
@@ -198,11 +202,13 @@ class InfographicEditor extends React.Component
         } else if (this.state.currentEditor === 'line-editor') {
             return <LineEditor 
                 chartData={this.state.chartData}
-                cSettings={this.state.cSettings}/>;
+                cSettings={this.state.cSettings}
+                dSettings={this.state.dSettings}/>;
         } else if (this.state.currentEditor === 'icon-bar-editor') {
             return <IconBarEditor 
                 chartData={this.state.chartData}
                 cSettings={this.state.cSettings}
+                dSettings={this.state.dSettings}
                 setChartData={(data) => { this._SetChartData(data); }}/>;
         }
         return false;
