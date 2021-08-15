@@ -501,6 +501,8 @@ class AInfographic
                     this._editorHandler('line-editor');
                 } else if (chart.getAttr('name') === 'Selectable Chart Icon') {
                     this._editorHandler('icon-bar-editor');
+                } else if (chart.getAttr('name') === 'Selectable Chart Donut') {
+                    this._editorHandler('donut-editor');
                 }
 
                 setTimeout(() => {

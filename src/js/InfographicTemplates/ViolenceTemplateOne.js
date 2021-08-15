@@ -8,6 +8,7 @@ import { PieChart, DonutDecorator, FirstStatisticDecorator, ChartOutlineDecorato
 import { MessageBubble } from '../ToolTips/index';
 import { WaffleChart, GenerateWafflePreset } from '../Charts/WaffleChart/index';
 import Virgina from '../../Media/States/virginia.png';
+import { DonutChart } from "../Charts/PieChart/ConcreteCharts/DonutChart";
 
 class ViolenceTemplateOne extends AInfographic
 {
@@ -325,9 +326,15 @@ class ViolenceTemplateOne extends AInfographic
         var donutDecorator = new DonutDecorator({
             chart: pieChartOne, 
             innerRadius: pieChartOneRadius / 2
-        });   
+        });  
+        var donut = new DonutChart({
+            data: pieChartOneData,
+            group: pieChartOneGroup,
+            radius: pieChartOneRadius,
+            innerRadius: pieChartOneRadius / 2
+        });
         var minorStatistic = new FirstStatisticDecorator({
-            chart: donutDecorator, 
+            chart: donut, 
             font: {
                 'fontSize': 30,
                 'fontFamily': roboto,
@@ -336,13 +343,9 @@ class ViolenceTemplateOne extends AInfographic
             }
         });
         this._chartHandler.AddChart({
-            chart: pieChartOne, 
+            chart: donut, 
             group: pieChartOneGroup, 
-            type: 'Pie'
-        });
-        this._chartHandler.AddDecorator({
-            decorator: donutDecorator, 
-            id: this._chartHandler.GetCurrChartID()
+            type: 'Donut'
         });
         this._chartHandler.AddDecorator({
             decorator: minorStatistic, 

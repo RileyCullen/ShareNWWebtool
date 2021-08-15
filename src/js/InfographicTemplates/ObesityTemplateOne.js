@@ -6,7 +6,7 @@ import { AInfographic } from "./AInfographic";
 import Konva from 'konva';
 import { RectangleHeader, RibbonHeader } from '../Headers/index';
 import { GenerateWafflePreset, WaffleChart, StatisticDecorator } from '../Charts/WaffleChart/index';
-import { PieChart, DonutDecorator, ChartOutlineDecorator,FirstStatisticDecorator } from '../Charts/PieChart/index';
+import { PieChart, DonutChart, ChartOutlineDecorator,FirstStatisticDecorator } from '../Charts/PieChart/index';
 
 class ObesityTemplateOne extends AInfographic
 {
@@ -359,25 +359,22 @@ class ObesityTemplateOne extends AInfographic
 
         textGroupArr[2].setAttr('y', textGroupArr[2].getAttr('y') + 5);
 
-        var pieChart = new PieChart({
-            data: pieChartData, 
-            group: pieChartGroup, 
-            radius: 70
-        });
-        var donutDecorator = new DonutDecorator({
-            chart: pieChart, 
-            innerRadius: 40, 
-            color: sectionColorArr[2]
+        var donut = new DonutChart({
+            data: pieChartData,
+            group: pieChartGroup,
+            radius: 70,
+            innerRadius: 40,
+            innerColor: sectionColorArr[2],
         });
         var outerOutline = new ChartOutlineDecorator({
-            chart: donutDecorator, 
-            radius: pieChart.GetRadius(), 
+            chart: donut, 
+            radius: 70, 
             outlineWidth: 5, 
             outlineColor: '#7b706a'
         });
         var innerOutline = new ChartOutlineDecorator({
             chart: outerOutline, 
-            radius: donutDecorator.GetRadius(), 
+            radius: 40, 
             outlineWidth: 3, 
             outlineColor: '#7b706a'
         });
@@ -394,13 +391,9 @@ class ObesityTemplateOne extends AInfographic
         });
 
         this._chartHandler.AddChart({
-            chart: pieChart, 
+            chart: donut, 
             group: pieChartGroup, 
-            type: 'Pie'
-        });
-        this._chartHandler.AddDecorator({
-            decorator: donutDecorator, 
-            id: this._chartHandler.GetCurrChartID()
+            type: 'Donut'
         });
         this._chartHandler.AddDecorator({
             decorator: outerOutline, 
