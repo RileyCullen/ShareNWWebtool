@@ -1,5 +1,5 @@
 import React from 'react';
-import { Editor, Menu, LabeledTextField, LabeledColorPicker, FontSelector, LabeledDropdown } from './Components/index';
+import { Editor, Menu, LabeledTextField, LabeledColorPicker, FontSelector, LabeledDropdown, LineChartInputFields } from './Components/index';
 
 import '../../../css/React/Editors/ChartEditor.css';
 
@@ -23,7 +23,11 @@ class LineEditor extends React.Component
                     key='chart-data'
                     name='Chart Data'
                     isOpen={true}
-                    content={[]}
+                    content={[
+                        <LineChartInputFields 
+                            chartData={this.props.chartData}
+                        />
+                    ]}
                     checkbox={{
                         displayCheckbox: false
                     }}/>,
