@@ -1,7 +1,6 @@
 import React from 'react';
 import { Editor, BarChartInputFields, Menu, LabeledTextField, LabeledColorPicker 
-    , FontSelector,
-    LabeledDropdown} from './Components/index';
+    , FontSelector, LabeledDropdown, StackedBarInputFields} from './Components/index';
 import { LabeledCheckbox } from './Components/LabeledCheckbox';
 
 class BarEditor extends React.Component
@@ -21,20 +20,14 @@ class BarEditor extends React.Component
     }
 
     render()
-    {
-        let chartDataContent = [ 
-             <BarChartInputFields 
-                    chartData={this.props.chartData}
-                    setChartData={(d, i) => { this.props.setChartData(d, i); }} />
-        ];
-        
+    {        
         let content = {
             chartSettings: [
                 <Menu 
                     key='chart-data'
                     name='Chart Data'
                     isOpen={true}
-                    content={chartDataContent}
+                    content={this._GetChartDataContent()}
                     checkbox={{ displayCheckbox: false }}/>,
                 <Menu 
                     key='orietation'
@@ -122,6 +115,21 @@ class BarEditor extends React.Component
                 <Editor content={content} />
             </div>
         );
+    }
+
+    _GetChartDataContent()
+    {
+        if (this.props.type === 'bar-editor') {
+            return [
+                <BarChartInputFields 
+                    chartData={this.props.chartData}
+                    setChartData={(d, i) => { this.props.setChartData(d, i); }} />
+            ];
+        } 
+        return [
+            <StackedBarInputFields 
+                chartData={this.props.chartData}/>
+        ];
     }
 
     _GetSizeContent()
