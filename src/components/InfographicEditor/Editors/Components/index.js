@@ -5,6 +5,7 @@ export { Menu } from './Menu';
 export { Editor } from './Editor';
 export { Checkbox } from './Checkbox';
 export { BarChartInputFields } from './BarChartInputFields';
+export { StackedBarInputFields } from './StackedBarInputFields';
 export { PieChartInputFields } from './PieChartInputFields'; 
 export { LineChartInputFields } from './LineChartInputFields';
 export { ColorPicker } from './ColorPicker';
