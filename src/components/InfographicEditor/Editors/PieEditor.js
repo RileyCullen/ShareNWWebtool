@@ -1,5 +1,6 @@
 import React from 'react';
-import { Editor, FontSelector, LabeledColorPicker, LabeledTextField, Menu } from './Components/index';
+import { Editor, FontSelector, LabeledColorPicker, LabeledTextField, Menu, 
+    PieChartInputFields } from './Components/index';
 
 import '../../../css/React/Editors/ChartEditor.css';
 
@@ -26,7 +27,7 @@ class PieEditor extends React.Component
                     key='chart-data'
                     name='Chart Data'
                     isOpen={true}
-                    content={[]}
+                    content={this._GetChartData()}
                     checkbox={{
                         displayCheckbox: false
                     }}/>,
@@ -83,6 +84,18 @@ class PieEditor extends React.Component
         this.setState({
             currentTab: state,
         });
+    }
+
+    _GetChartData()
+    {
+        console.log(this.props.chartData)
+        return [
+            <PieChartInputFields 
+                value={this.props.chartData[0].value}
+                rows={1}
+                cols={4}
+            />
+        ];
     }
 
     _GetColorContents()
