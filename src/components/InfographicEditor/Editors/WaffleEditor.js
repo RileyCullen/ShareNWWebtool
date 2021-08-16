@@ -22,26 +22,24 @@ class WaffleEditor extends React.Component
 
     render()
     {
-        let rows = 1, cols = 5;
+        let rows = 1, cols = 10;
 
         let chartDataContent = [
                 <div>
-                    <TextField 
-                        id={0}
-                        labelName='Numerator:'
+                    <LabeledTextField 
+                        label='Numerator:'
+                        index={0}
                         initialValue={this._data.numerator}
                         rows={rows}
                         cols={cols}
-                        labelPaddingRight={25}
                         onchange={(d, i) => { this._SetChartData(i, d); }}
                     />
-                    <TextField 
-                        id={1}
-                        labelName='Denominator:'
+                    <LabeledTextField 
+                        label='Denominator:'
+                        index={1}
                         initialValue={this._data.denominator}
                         rows={rows}
                         cols={cols}
-                        labelPaddingRight={10}
                         onchange={(d, i) => { this._SetChartData(i, d); }}
                     />
                 </div>
