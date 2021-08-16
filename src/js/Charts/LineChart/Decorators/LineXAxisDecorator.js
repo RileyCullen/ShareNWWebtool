@@ -115,7 +115,7 @@ class LineXAxisDecorator extends ALineChartDecorator
             }));
 
             // clean text 
-            var label = this._GetTextLabel(d);
+            var label = d;
             console.log(label)
             var textWidth = this._GetFontSize(label, this._font);
             var text = new Konva.Text({
@@ -151,15 +151,6 @@ class LineXAxisDecorator extends ALineChartDecorator
             fill: this._font.textColor,
         });
         this._group.add(textLabel);
-    }
-
-    /**
-     * @summary Gets the text label based on _option.
-     */
-    _GetTextLabel(date)
-    {
-        if (this._option === 'Year') return d3.timeFormat('%Y')(date);
-        return date;
     }
 }
 
