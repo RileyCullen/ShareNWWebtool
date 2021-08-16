@@ -1,0 +1,26 @@
+.pie-chart-input-container {
+    left: 100%;
+    transform: translateX(45%);
+    margin: 30px 0px 30px 0px;
+}
+
+.pie-chart-textfield-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-column-gap: 10px;
+    grid-row-gap: 20px;
+    width: max-content;
+
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 40px;
+}
+
+.pie-slider {
+    grid-column: 1 / span 3;
+}
+
+.pie-button {
+    width: 100px;
+}
