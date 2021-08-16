@@ -35,7 +35,7 @@ class ALineChart
      */
     constructor({data, group, chartWidth, chartHeight, lineWidth = 1, 
         pointRadius = 1, pointColor = 'none', lineColor = 'black', internalOffsetX = 0,
-        internalOffsetY = 0})
+        internalOffsetY = 0, paddingInner = 0.9})
     {
         if (ALineChart === this.constructor) {
             throw new TypeError('Abstract class "ALineChart" cannot be instantiated.')
@@ -44,7 +44,7 @@ class ALineChart
             throw new TypeError('Types extending "ALineChart" must implement CreateChart')
         }
 
-        this._data = this._FormatData(data);
+        this._data = data;
         this._group = group;
         this._chartWidth = chartWidth;
         this._chartHeight = chartHeight;
@@ -54,9 +54,11 @@ class ALineChart
         this._lineColor = lineColor;
         this._internalOffsetX = internalOffsetX;
         this._internalOffsetY = internalOffsetY;
+        this._paddingInner = paddingInner;
 
-        this._xScale = d3.scaleTime()
-            .range([0, this._chartWidth]);
+        this._xScale = d3.scaleBand()
+            .range([0, this._chartWidth])
+            .paddingInner(this._paddingInner);
         
         this._yScale = d3.scaleLinear()
             .range([this._chartHeight, 0])
@@ -91,46 +93,13 @@ class ALineChart
     }
 
     /**
-     * @summary     Formats data so it is compatible with D3.
-     * @description Iterates through each element in data and parses the date 
-     *              element so that it is compatible with D3's scaleTime() 
-     *              function.
-     * 
-     * @param {JSON array} data The data array we want to format. 
-     * 
-     * @returns A JSON array containing the newly formatted date data.
-     */
-    _FormatData(data)
-    {
-        console.log('formatting')
-        var tmp = [];
-        data.forEach((d,i) => {
-            var date = d.date;
-
-            if (d3.timeParse("%Y-%m-%d")(d.date)) {
-                date = d3.timeParse('%Y-%m-%d')(d.date);
-            } else if (d3.timeParse('%Y')(d.date)) {
-                date = d3.timeParse('%Y')(d.date);
-            } else if (d3.timeParse('%b')(d.date)) {
-                date = d3.timeParse('%b')(d.date);
-            }
-
-            tmp[i] = {
-                date: date,
-                value: +d.value
-            }
-        });
-        return tmp;
-    }
-
-    /**
      * @summary     Initializes the x scale's domain.
      * @description Inserts all of the date values from the data array into 
      *              xScale's domain.
      */
     _SetUpXDomain()
     {
-        this._xScale.domain(d3.extent(this._data, function(d) { return d.date; }));
+        this._xScale.domain(this._data.map(d => { return d.date; }));
     }
 
     /**
