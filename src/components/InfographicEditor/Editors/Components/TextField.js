@@ -19,7 +19,7 @@ class TextField extends React.Component
             <textarea 
                 rows={this.props.rows} 
                 cols={this.props.cols} 
-                style={{resize: 'none'}}
+                style={{resize: 'none', textAlign: 'center'}}
                 onChange={this._handleChange}
                 value={this.state.value}
             />
@@ -37,7 +37,7 @@ class TextField extends React.Component
         this.setState({
             value: event.target.value
         });
-        this.props.onchange(event.target.value, this.props.index);
+        this.props.onChange(event.target.value, this.props.index);
     }
 }
 
