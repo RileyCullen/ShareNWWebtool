@@ -77,6 +77,17 @@ class GraphicsHandler
      */
     GetType(id) { return this._handler[id].type; }
 
+    GetSettings(id)
+    {
+        let obj = this._handler[id];
+        switch(obj.type) {
+            case 'image':
+                return obj.graphic.getAttrs();
+            default:
+                break;
+        }
+    }
+
     /**
      * @summary     Updates the handler at index id.
      * @description Replaces the handler at index id with the parameterized values.
