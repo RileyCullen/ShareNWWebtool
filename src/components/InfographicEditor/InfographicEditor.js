@@ -26,6 +26,7 @@ class InfographicEditor extends React.Component
             chartData: 0,
             cSettings: 0,
             dSettings: 0,
+            graphicSettings: 0,
             isRemoving: false,
         };
         this._infogTextElem = 0;
@@ -62,6 +63,7 @@ class InfographicEditor extends React.Component
                         editorHandler={(editor) => { this._SetCurrentEditor(editor); }}
                         textHandler={(textElem) => { this._SetInfogTextElem(textElem); }}
                         chartHandler={(data, cSettings, dSettings) => { this._ChartHandler(data, cSettings, dSettings); }}
+                        graphicHandler={(settings) => { this._GraphicHandler(settings); }}
                         dimensionHandler={(dims) => { this._SetInfogDimensions(dims); }}
                         textElem={this._editorTextElem}
                         chartData={this.state.chartData}
@@ -122,6 +124,13 @@ class InfographicEditor extends React.Component
         this._editorTextElem = textElem;
     }
 
+    _GraphicHandler(settings)
+    {
+        this.setState({
+            graphicSettings: settings,
+        });
+    }
+
     /**
      * @summary Updates _infogDimensions.
      * @param {JSON} dimensions JSON object containing a width and height attribute.
@@ -165,8 +174,6 @@ class InfographicEditor extends React.Component
      */
     _SelectEditor()
     {
-        console.log('IE')
-        console.log(this.state.dSettings)
         if (this.state.currentEditor === 'text-editor') {
             return <QuillEditor 
                 textElem={this._infogTextElem}
@@ -194,7 +201,8 @@ class InfographicEditor extends React.Component
                 cSettings={this.state.cSettings}
                 dSettings={this.state.dSettings}/>;
         } else if (this.state.currentEditor === 'image-editor') {
-            return <ImageEditor />;
+            return <ImageEditor 
+                settings={this.state.graphicSettings}/>;
         } else if (this.state.currentEditor === 'icon-editor') {
             return <IconEditor />;
         } else if (this.state.currentEditor === 'header-editor') {
