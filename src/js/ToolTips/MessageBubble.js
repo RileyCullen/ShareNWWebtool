@@ -67,6 +67,27 @@ class MessageBubble
     {
         this._group.destroy();
     }
+
+    GetSettings()
+    {
+        return {
+            position: {
+                x: this._x,
+                y: this._y,
+            },
+            size: {
+                width: this._width,
+                height: this._height,
+            },
+            displaySettings: {
+                fill: {
+                    type: 'color-picker',
+                    name: 'Fill:',
+                    value: this._color,
+                },
+            }
+        }
+    }
 }
 
 export { MessageBubble };
