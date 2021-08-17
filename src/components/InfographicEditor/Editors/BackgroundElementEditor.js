@@ -8,6 +8,7 @@ class BackgroundElementEditor extends React.Component
     render()
     {
         if (this.props.settings === 0) return false;
+        console.log(this.props.settings)
         return (
             <div className='tabless-container'>
                 <div className='tabless-editor'>
@@ -100,6 +101,7 @@ class BackgroundElementEditor extends React.Component
                             case 'color-picker':
                                 return (
                                     <LabeledColorPicker 
+                                        key={'color-picker-' + tmp.value}
                                         label={tmp.name}
                                         color={tmp.value}
                                         onChange={(value) => { }}
@@ -108,6 +110,7 @@ class BackgroundElementEditor extends React.Component
                             case 'text-field':
                                 return (
                                     <LabeledTextField 
+                                        key={'text-field-' + tmp.value}
                                         label={tmp.name}
                                         index={tmp.type}
                                         initialValue={tmp.value}

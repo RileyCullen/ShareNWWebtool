@@ -46,7 +46,7 @@ class ImageEditor extends React.Component
         return [
             <div>
                 <LabeledTextField 
-                    key='image-size-width'
+                    key={'image-width-' + this.props.settings.width}
                     label='Width:'
                     index={'width'}
                     initialValue={this.props.settings.width}
@@ -55,7 +55,7 @@ class ImageEditor extends React.Component
                     onchange={(d, i) => { }}
                 />
                 <LabeledTextField 
-                    key='image-size-height'
+                    key={'image-height-' + this.props.settings.height}
                     label='Height:'
                     index={'height'}
                     initialValue={this.props.settings.height}
@@ -71,7 +71,8 @@ class ImageEditor extends React.Component
     {
         return [
             <div>
-                <LabeledSlider 
+                <LabeledSlider
+                    key={'opacity-' + this.props.settings.opacity} 
                     label='Opacity:'
                     value={this.props.settings.opacity}
                     min={0}
@@ -81,11 +82,13 @@ class ImageEditor extends React.Component
                     width='150px'
                 />
                 <LabeledColorPicker 
+                    key={'stroke-color-' + this.props.settings.stroke}
                     label='Stroke Color:'
                     color={this.props.settings.stroke}
                     onChange={(value) => { }}
                 />
                 <LabeledTextField 
+                    key={'stroke-width-' + this.props.settings.strokeWidth}
                     label='Stroke Width:'
                     index={'stroke'}
                     initialValue={this.props.settings.strokeWidth}
@@ -101,6 +104,7 @@ class ImageEditor extends React.Component
         return [
             <div>
                 <LabeledSlider 
+                    key={'contrast-' + this.props.settings.contrast}
                     label='Contrast:'
                     value={this.props.settings.contrast}
                     min={-100}
@@ -110,6 +114,7 @@ class ImageEditor extends React.Component
                     width='150px' 
                 />
                 <LabeledSlider 
+                    key={'brightness-' + this.props.settings.brightness}
                     label='Brightness:'
                     value={this.props.settings.brightness}
                     min={-1}
@@ -119,6 +124,7 @@ class ImageEditor extends React.Component
                     width='150px' 
                 />
                 <LabeledSlider 
+                    key={'blur-' + this.props}
                     label='Blur:'
                     value={this.props.settings.blurRadius}
                     min={0}

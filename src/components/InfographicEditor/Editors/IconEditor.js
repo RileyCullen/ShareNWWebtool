@@ -37,6 +37,7 @@ class IconEditor extends React.Component
         return [
             <div>
                 <LabeledTextField 
+                    key={'icon-size-' + this.props.settings.fontSize}
                     label='Size:'
                     index={'font-size'}
                     initialValue={this.props.settings.fontSize}
@@ -53,6 +54,7 @@ class IconEditor extends React.Component
         return [   
             <div>
                 <LabeledSlider 
+                    key={'icon-opacity-' + this.props.settings.opacity}
                     label='Opacity:'
                     value={this.props.settings.opacity}
                     min={0}
@@ -62,6 +64,7 @@ class IconEditor extends React.Component
                     width='150px'
                 />
                 <LabeledColorPicker 
+                    key={'icon-color-' + this.props.settings.fill}
                     label='Color:'
                     color={this.props.settings.fill}
                     onChange={(value) => { }}
