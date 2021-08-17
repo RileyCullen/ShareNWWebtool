@@ -81,8 +81,11 @@ class GraphicsHandler
     {
         let obj = this._handler[id];
         switch(obj.type) {
+            case 'icon':
             case 'image':
                 return obj.graphic.getAttrs();
+            case 'header':
+                return obj.graphic.GetSettings();
             default:
                 break;
         }
