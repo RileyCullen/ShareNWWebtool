@@ -1,4 +1,8 @@
+import { faPlusSquare, faTimesCircle, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
+
+import '../../../../css/React/Editors/StackedBarInputFields.css';
 
 import { ColorPicker, TextField } from './index';
 
@@ -8,20 +12,48 @@ class StackedBarInputFields extends React.Component
     {
         console.log(this.props.chartData)
         let data = this._ReformatData(), 
-            categories = Array.from(new Set(this.props.chartData.map(d => d.category)));
+            categories = Array.from(new Set(this.props.chartData.map(d => d.category))),
+            cols = 10;
         return (
             <div>
+                <div className='stacked-bar-grid-four'>
+                    <p>Color</p>
+                    <p style={{
+                        position: 'relative',
+                        left: '15px'
+                    }}>Subcategory</p>
+                    <div className='stacked-bar-grid-auto' style={{
+                        width: 'max-content',
+                        position: 'relative',
+                        left: '25px'
+                    }}>
+                        {
+                            categories.map((d, i)=> {
+                                return (
+                                    <TextField 
+                                        id={i + '-category'}
+                                        index={i}
+                                        initialValue={d}
+                                        rows={1}
+                                        cols={cols}
+                                        onchange={(d, i) => { }}
+                                    />
+                                );       
+                            })
+                        }
+                    </div>
+                    <FontAwesomeIcon style={{
+                        fontSize: '20px',
+                        position: 'relative',
+                        left: '10px',
+                        top: '2px'
+                    }}icon={faPlusSquare} />
+                </div>
                 {
                     data.map((d, i) => {
                         return (
                         <div>
-                            <div
-                                style={{
-                                    display: 'grid',
-                                    gridTemplateColumns: 'auto auto auto',
-                                    gridColumnGap: '10px'
-                                }}
-                            >
+                            <div className='stacked-bar-grid-four extra-margin'>
                                 <ColorPicker 
                                     color={d.data[0].color}
                                     onChange={(color) => { }}
@@ -31,20 +63,37 @@ class StackedBarInputFields extends React.Component
                                     index={i}
                                     initialValue={d.subcategory}
                                     rows={1}
-                                    cols={10}
+                                    cols={cols + 5}
                                     onchange={(d, i) => { }}
                                 />
-                                <div>
+                                <div className='stacked-bar-grid-auto'>
                                     {
                                         d.data.map((d, i) => {
-                                            return d.value;
+                                            let content = false;
+                                            categories.map((e, j) => {
+                                                if (e === d.category) {
+                                                    content = <TextField 
+                                                    id={j + '-category'}
+                                                    index={j}
+                                                    initialValue={d.value}
+                                                    rows={1}
+                                                    cols={cols}
+                                                    onchange={(d, i) => { }}
+                                                    />
+                                                }
+                                            });
+                                            return content;
                                         })
                                     }
                                 </div>
+                                <FontAwesomeIcon className='remove-row-icon' icon={faTimesCircle} />
                             </div>
                         </div>
                     )})
                 }
+                <div className='add-row-container'>
+                    <button>Add a Row</button>
+                </div>
             </div>
         )
     }
