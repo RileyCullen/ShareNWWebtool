@@ -16,3 +16,4 @@ export { DropdownList } from './DropdownList';
 export { FontSelector } from './FontSelector';
 export { LabeledDropdown } from './LabeledDropdown';
 export { Slider } from './Slider';
+export { LabeledSlider } from './LabeledSlider';
