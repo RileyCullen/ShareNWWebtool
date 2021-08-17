@@ -22,6 +22,8 @@ class RibbonHeader
      */
     constructor({colorOne, colorTwo, group, hWidth, hHeight, iWidth, iHeight})
     {
+        this._x = 0;
+        this._y = 0;
         this._colorOne = colorOne;
         this._colorTwo = colorTwo;
         this._group = group;
@@ -46,6 +48,32 @@ class RibbonHeader
     Remove()
     {
         this._group.destroy();
+    }
+
+    GetSettings()
+    {
+        return {
+            position: {
+                x: this._x,
+                y: this._y,
+            },
+            size: {
+                width: this._width,
+                height: this._height,
+            },
+            displaySettings: {
+                primaryColor: {
+                    type: 'color-picker',
+                    name: 'Primary Color:',
+                    value: this._colorOne,
+                },
+                secondaryColor: {
+                    type: 'color-picker',
+                    name: 'Secondary Color:',
+                    value: this._colorTwo
+                }
+            }
+        };
     }
 
     /**

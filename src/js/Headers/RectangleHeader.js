@@ -56,6 +56,32 @@ class RectangleHeader
     {
         this._group.destroy();
     }
+
+    GetSettings()
+    {
+        return {
+            position: {
+                x: this._x,
+                y: this._y,
+            },
+            size: {
+                width: this._width,
+                height: this._height,
+            },
+            display: {
+                fill: {
+                    type: 'color-picker',
+                    name: 'Fill:',
+                    value: this._fill
+                },
+                cornerRadius: {
+                    type: 'text-field',
+                    name: 'Corner Radius:',
+                    value: this._cornerRadius
+                }
+            }
+        }
+    }
 }
 
 export { RectangleHeader };

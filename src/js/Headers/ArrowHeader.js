@@ -90,6 +90,32 @@ class ArrowHeader
     {
         this._group.destroy();
     }
+
+    GetSettings()
+    {
+        return {
+            position: {
+                x: this._x,
+                y: this._y,
+            },
+            size: {
+                width: this._width,
+                height: this._height,
+            },
+            display: {
+                borderColor: {
+                    type: 'color-picker',
+                    name: 'Border Color:',
+                    value: this._borderColor,
+                },
+                backgroundColor: {
+                    type: 'color-picker',
+                    name: 'Background Color:',
+                    value: this._backgroundColor
+                },
+            }
+        }
+    }
 }
 
 export { ArrowHeader };
