@@ -1,0 +1,27 @@
+.stacked-bar-grid-four {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-column-gap: 10px;
+}
+
+.stacked-bar-grid-auto {
+    display: grid;
+    grid-auto-flow: column;
+    grid-column-gap: 10px;
+}
+
+.extra-margin {
+    margin: 10px 0px 10px 0px;
+}
+
+.add-row-container {
+    position: relative;
+    left: 35%;
+    margin: 30px;
+}
+
+.add-row-container button {
+    border: 1px solid #b6472a;
+    color: #b6472a;
+    background-color: white;
+}
