@@ -23,7 +23,7 @@ class AInfographic
      * @param {double} height The height of the canvas element
      * @param {double} width  The width of the canvas element
      */
-    constructor(height, width, editorHandler, textCallback, chartCallback)
+    constructor(height, width, editorHandler, textCallback, chartCallback, graphicCallback)
     {
         if (AInfographic === this.constructor) {
             throw new TypeError('Abstract class "AInfographic" cannot be instantiated');
@@ -70,6 +70,7 @@ class AInfographic
         this._editorHandler = editorHandler;
         this._textCallback = textCallback;
         this._chartCallback = chartCallback;
+        this._graphicCallback = graphicCallback;
 
         this._selectedTextIndex = -1;
         this._selectedTextHelper = -1;
@@ -156,7 +157,21 @@ class AInfographic
                 height: height,
                 width: width,
                 image: image,
+                opacity: 1,
+                stroke: 'black',
+                strokeWidth: 0
             });
+            imageHelper.cache();
+            imageHelper.filters([
+                Konva.Filters.Contrast,
+                Konva.Filters.Brighten,
+                Konva.Filters.Blur,
+            ]);
+
+            imageHelper.brightness(0);
+            imageHelper.blurRadius(0);
+            imageHelper.contrast(0);
+
             this._main.batchDraw();
             image.onload = null;
         };
@@ -539,6 +554,10 @@ class AInfographic
                 group.setAttr('draggable', true);
 
                 this._editorHandler(type + '-editor');
+
+                this._graphicCallback(
+                    this._graphicsHandler.GetSettings(this._selectedGraphicIndex)
+                );
 
                 setTimeout(() => {
                     this._stage.on('click', HandleOutsideClick);

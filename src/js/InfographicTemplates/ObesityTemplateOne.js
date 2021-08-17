@@ -10,9 +10,9 @@ import { PieChart, DonutChart, ChartOutlineDecorator,FirstStatisticDecorator } f
 
 class ObesityTemplateOne extends AInfographic
 {
-    constructor({editorHandler, textHandler, chartHandler})
+    constructor({editorHandler, textHandler, chartHandler, graphicHandler})
     {
-        super(1181, 564, editorHandler, textHandler, chartHandler);
+        super(1181, 564, editorHandler, textHandler, chartHandler, graphicHandler);
     }
 
     CreateInfographic()

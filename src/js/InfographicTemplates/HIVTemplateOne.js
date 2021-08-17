@@ -7,9 +7,9 @@ import CDCLogo from '../../Media/cdclogo.png';
 
 class HIVTemplateOne extends AInfographic
 {
-    constructor({editorHandler, textHandler, chartHandler})
+    constructor({editorHandler, textHandler, chartHandler, graphicHandler})
     {
-        super(582, 582, editorHandler, textHandler, chartHandler);
+        super(582, 582, editorHandler, textHandler, chartHandler, graphicHandler);
     }
 
     CreateInfographic()

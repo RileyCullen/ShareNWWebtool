@@ -12,9 +12,9 @@ import { DonutChart } from "../Charts/PieChart/ConcreteCharts/DonutChart";
 
 class ViolenceTemplateOne extends AInfographic
 {
-    constructor({editorHandler, textHandler, chartHandler})
+    constructor({editorHandler, textHandler, chartHandler, graphicHandler})
     {
-        super(3125 / 3 - 100, 2550 / 4, editorHandler, textHandler, chartHandler);
+        super(3125 / 3 - 100, 2550 / 4, editorHandler, textHandler, chartHandler, graphicHandler);
     }
 
     CreateInfographic()
