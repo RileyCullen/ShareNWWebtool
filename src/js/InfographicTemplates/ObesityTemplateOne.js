@@ -456,8 +456,9 @@ class ObesityTemplateOne extends AInfographic
             fontStyle: '900',
             x: 95,
             y: 40,
-            fill: 'white',
+            fill: '#ffffff',
             fontSize: 110,
+            opacity: 1,
         });
         this._graphicsHandler.AddGraphic({
             type: 'icon',
