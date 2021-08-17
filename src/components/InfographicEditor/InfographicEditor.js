@@ -204,9 +204,11 @@ class InfographicEditor extends React.Component
             return <ImageEditor 
                 settings={this.state.graphicSettings}/>;
         } else if (this.state.currentEditor === 'icon-editor') {
-            return <IconEditor />;
+            return <IconEditor 
+                settings={this.state.graphicSettings}/>;
         } else if (this.state.currentEditor === 'header-editor') {
-            return <BackgroundElementEditor />;
+            return <BackgroundElementEditor 
+                settings={this.state.graphicSettings}/>;
         } else if (this.state.currentEditor === 'line-editor') {
             return <LineEditor 
                 chartData={this.state.chartData}
