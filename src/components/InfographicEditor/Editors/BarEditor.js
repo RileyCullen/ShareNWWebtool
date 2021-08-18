@@ -134,15 +134,15 @@ class BarEditor extends React.Component
 
     _GetSizeContent()
     {
-        let cSettings = this.props.cSettings;
+        let cSettings = this.props.cSettings, cols = 15;
         return [
-            <div style={{position: 'relative', left: '75%'}}>
+            <div className='center'>
                 <LabeledTextField 
                     label='Width:'
                     index={'c-width'}
                     initialValue={cSettings.size.chartWidth}
                     rows={1}
-                    cols={5}
+                    cols={cols}
                     onchange={(d, i) => { }}
                     />
                 <LabeledTextField
@@ -150,7 +150,7 @@ class BarEditor extends React.Component
                     index={'c-height'}
                     initialValue={cSettings.size.chartHeight}
                     rows={1}
-                    cols={5}
+                    cols={cols}
                     onchange={(d, i) => { }} 
                 />
                 <LabeledTextField
@@ -158,7 +158,7 @@ class BarEditor extends React.Component
                     index={'c-padding'}
                     initialValue={cSettings.size.padding}
                     rows={1}
-                    cols={5}
+                    cols={cols}
                     onchange={(d, i) => { }} 
                 />
             </div>
@@ -169,7 +169,7 @@ class BarEditor extends React.Component
     {
         let orientation = this.props.cSettings.orientation;
         return [
-            <div style={{position: 'relative', left: '100%'}}>
+            <div className='center'>
                 <LabeledCheckbox 
                     label='Landscape:'
                     initialValue={orientation.landscape}
@@ -182,9 +182,8 @@ class BarEditor extends React.Component
     {
         let color = (this.props.dSettings.remainder === undefined) ? '#fff' 
             : this.props.dSettings.remainder.color.barColor;
-        console.log(color)
         return [
-            <div>
+            <div className='center'>
                 <LabeledColorPicker 
                     label='Bar Color:'
                     color={color}
@@ -211,7 +210,7 @@ class BarEditor extends React.Component
                 }
             } : this.props.dSettings.xAxis;
         return [
-            <div>
+            <div className='center'>
                 <div>
                     <h5>Axis Settings:</h5>
                     <LabeledTextField
@@ -266,7 +265,7 @@ class BarEditor extends React.Component
             }
         } : this.props.dSettings.yAxis;
         return [
-            <div>
+            <div className='center'>
                 <div>
                     <h5>Axis Settings:</h5>
                     <LabeledTextField
@@ -318,7 +317,7 @@ class BarEditor extends React.Component
             }
         } : this.props.dSettings.dataValue;
         return [
-            <div>
+            <div className='center'>
                 <div>
                     <h5>Display Settings</h5>
                     <LabeledCheckbox 
@@ -356,7 +355,7 @@ class BarEditor extends React.Component
             }
         } : this.props.dSettings.categoryLabel;
         return [
-            <div>
+            <div className='center'>
                 <div>
                     <h5>Location Settings:</h5>
                     <LabeledDropdown 
@@ -390,7 +389,7 @@ class BarEditor extends React.Component
         } : this.props.dSettings.chartDescriptor;
 
         return [
-            <div>
+            <div className='center'>
                 <div>
                     <h5>Display Settings:</h5>
                     <LabeledDropdown 

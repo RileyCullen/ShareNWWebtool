@@ -35,7 +35,7 @@ class IconEditor extends React.Component
     _GetSizeSettings()
     {
         return [
-            <div>
+            <div className='center'>
                 <LabeledTextField 
                     key={'icon-size-' + this.props.settings.fontSize}
                     label='Size:'
@@ -52,7 +52,7 @@ class IconEditor extends React.Component
     _GetDisplaySettings()
     {
         return [   
-            <div>
+            <div className='center'>
                 <LabeledSlider 
                     key={'icon-opacity-' + this.props.settings.opacity}
                     label='Opacity:'

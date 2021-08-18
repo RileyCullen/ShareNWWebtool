@@ -10,7 +10,7 @@ class BarChartInputFields extends React.Component
 {
     render()
     {
-        let barData = this.props.chartData, rows = 1, cols = 7;
+        let barData = this.props.chartData, rows = 1, cols = 15;
         return (
             <div className='bar-input-container'>
                 <div className='data-input-container'>

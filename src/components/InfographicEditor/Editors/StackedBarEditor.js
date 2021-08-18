@@ -96,7 +96,7 @@ class StackedBarEditor extends React.Component
     {
         let cSettings = this.props.cSettings;
         return [
-            <div style={{position: 'relative', left: '75%'}}>
+            <div className='center'>
                 <LabeledTextField 
                     label='Width:'
                     index={'c-width'}
@@ -129,7 +129,7 @@ class StackedBarEditor extends React.Component
     {
         let orientation = this.props.cSettings.orientation;
         return [
-            <div style={{position: 'relative', left: '100%'}}>
+            <div className='center'>
                 <LabeledCheckbox 
                     label='Landscape:'
                     initialValue={orientation.landscape}

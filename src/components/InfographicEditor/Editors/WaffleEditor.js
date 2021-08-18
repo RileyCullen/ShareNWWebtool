@@ -25,7 +25,7 @@ class WaffleEditor extends React.Component
         let rows = 1, cols = 10;
 
         let chartDataContent = [
-                <div>
+                <div className='center'>
                     <LabeledTextField 
                         label='Numerator:'
                         index={0}
@@ -123,7 +123,7 @@ class WaffleEditor extends React.Component
     {
         let iconSettings = this.props.cSettings.icon;
         return [
-            <div>
+            <div className='center'>
                 <LabeledColorPicker 
                     label='Icon A Color: '
                     color={iconSettings.aColor}
@@ -150,7 +150,7 @@ class WaffleEditor extends React.Component
     {
         let resize = this.props.cSettings.dynamicResize;
         return [
-            <div>
+            <div className='center'>
                 <LabeledTextField 
                     label='Width'
                     index='c-width'
@@ -179,7 +179,7 @@ class WaffleEditor extends React.Component
             lockToChart: true
         } : this.props.dSettings.statistic;
         return [
-            <div>
+            <div className='center'>
                 <div>
                     <h5>Display Settings:</h5>
                     <LabeledTextField 

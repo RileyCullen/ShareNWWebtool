@@ -44,7 +44,7 @@ class ImageEditor extends React.Component
     _GetSizeContent()
     {
         return [
-            <div>
+            <div className='center'>
                 <LabeledTextField 
                     key={'image-width-' + this.props.settings.width}
                     label='Width:'
@@ -70,7 +70,7 @@ class ImageEditor extends React.Component
     _GetDisplayContent()
     {
         return [
-            <div>
+            <div className='center'>
                 <LabeledSlider
                     key={'opacity-' + this.props.settings.opacity} 
                     label='Opacity:'
@@ -102,7 +102,7 @@ class ImageEditor extends React.Component
     _GetCorrectionsContent()
     {
         return [
-            <div>
+            <div className='center'>
                 <LabeledSlider 
                     key={'contrast-' + this.props.settings.contrast}
                     label='Contrast:'

@@ -88,7 +88,6 @@ class PieEditor extends React.Component
 
     _GetChartData()
     {
-        console.log(this.props.chartData)
         return [
             <PieChartInputFields 
                 value={this.props.chartData[0].value}
@@ -102,7 +101,7 @@ class PieEditor extends React.Component
     {
         let color = this.props.chartData;
         return [
-            <div>
+            <div className='center'>
                 <LabeledColorPicker 
                     label='Primary Color:'
                     color={color[0].color}
@@ -121,7 +120,7 @@ class PieEditor extends React.Component
     {
         let size = this.props.cSettings.size;
         return [
-            <div>
+            <div className='center'>
                 <LabeledTextField 
                      label='Radius'
                      index='chart-radius'
@@ -144,7 +143,7 @@ class PieEditor extends React.Component
             }
         } : this.props.dSettings.statistic;
         return [
-            <div>
+            <div className='center'>
                 <div>
                     <h5>Position Settings:</h5>
                     <LabeledTextField 
@@ -184,7 +183,7 @@ class PieEditor extends React.Component
             }
         } : this.props.dSettings.chartOutline;
         return [
-            <div>
+            <div className='center'>
                 <div>
                     <h5>Size Settings:</h5>
                     <LabeledTextField 

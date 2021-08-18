@@ -1,6 +1,5 @@
 .pie-chart-input-container {
-    left: 100%;
-    transform: translateX(45%);
+
     margin: 30px 0px 30px 0px;
 }
 
@@ -19,6 +18,10 @@
 
 .pie-slider {
     grid-column: 1 / span 3;
+    position: relative;
+    width: max-content;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .pie-button {

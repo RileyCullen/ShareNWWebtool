@@ -1,7 +1,5 @@
 .bar-input-container {
-    position: relative;
-    left: 10%;
-    margin: 10px 40px 40px 40px;
+    margin: 10px 40px 40px 6px;
 }
 
 .data-input-container {
@@ -20,7 +18,7 @@
 
 .add-row-icon {
     position: relative;
-    left: 47px;
+    left: 80px;
 
     font-size: 20px;
     grid-column: 4 / span 1;
@@ -41,5 +39,5 @@
 }
 
 #bar-value-label {
-    left: -10px;
+    left: 20px;
 }

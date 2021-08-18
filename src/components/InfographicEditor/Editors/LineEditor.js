@@ -101,7 +101,7 @@ class LineEditor extends React.Component
     {
         let sizeSettings = this.props.cSettings.size;
         return [
-            <div>
+            <div className='center'>
                 <LabeledTextField 
                     label='Chart Width:'
                     index='c-width'
@@ -142,7 +142,7 @@ class LineEditor extends React.Component
     {
         let colorSettings = this.props.cSettings.color;
         return [
-            <div>
+            <div className='center'>
                 <LabeledColorPicker 
                     label='Line Color:'
                     color={colorSettings.lineColor}
@@ -161,7 +161,7 @@ class LineEditor extends React.Component
     {
         let spacingSettings = this.props.cSettings.spacing;
         return [
-            <div>
+            <div className='center'>
                 <LabeledTextField 
                     label='Space between chart and x-axis:'
                     index='x-offset'
@@ -194,7 +194,7 @@ class LineEditor extends React.Component
             }
         } : this.props.dSettings.xAxis;
         return [
-            <div>
+            <div className='center'>
                 <div>
                     <h5>Axis Settings</h5>
                     <LabeledTextField 
@@ -248,7 +248,7 @@ class LineEditor extends React.Component
             }
         } : this.props.dSettings.yAxis;
         return [
-            <div>
+            <div className='center'>
                 <div>
                     <h5>Axis Settings</h5>
                     <LabeledTextField 
@@ -296,7 +296,7 @@ class LineEditor extends React.Component
         } : this.props.dSettings.dataValue;
 
         return [
-            <div>
+            <div className='center'>
                 <div>
                     <h5>Location:</h5>
                     <LabeledDropdown 

@@ -44,7 +44,7 @@ class BackgroundElementEditor extends React.Component
     _GetPositionContent()
     {
         return [
-            <div>
+            <div className='center'>
                 <LabeledTextField 
                     label='X:'
                     index={'x'}
@@ -68,7 +68,7 @@ class BackgroundElementEditor extends React.Component
     _GetSizeContent()
     {
         return [
-            <div>
+            <div className='center'>
                 <LabeledTextField 
                     label='Width:'
                     index={'width'}
@@ -93,7 +93,7 @@ class BackgroundElementEditor extends React.Component
     {
         let display = this.props.settings.display;
         return [
-            <div>
+            <div className='center'>
                 {
                     Object.keys(display).map(key => {
                         let tmp = display[key];

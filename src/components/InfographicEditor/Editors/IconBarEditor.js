@@ -77,7 +77,7 @@ class IconBarEditor extends React.Component
     {
         let iconSettings = this.props.cSettings.iconSettings;
         return [
-            <div>
+            <div className='center'>
                 <LabeledColorPicker
                     label='Icon Color'
                     color={iconSettings.iconColor}
@@ -118,7 +118,7 @@ class IconBarEditor extends React.Component
             }
         } : this.props.dSettings.dataValue;
         return [
-            <div>
+            <div className='center'>
                 <div>
                     <h5>Display Settings:</h5>
                     <LabeledCheckbox 
@@ -169,7 +169,7 @@ class IconBarEditor extends React.Component
             }
         } : this.props.dSettings.category;
         return [
-            <div>
+            <div className='center'>
                 <div>
                     <h5>Location Settings:</h5>
                     <LabeledDropdown 

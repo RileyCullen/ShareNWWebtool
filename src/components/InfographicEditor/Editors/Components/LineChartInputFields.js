@@ -15,9 +15,9 @@ class LineChartInputFields extends React.Component
                 {
                     this.props.chartData.map((d, i) => {
                         let category = (
-                            <p style={{position: 'relative', left: '32%'}}>Category</p>
+                            <p style={{position: 'relative', left: '26%'}}>Category</p>
                         );
-                        let value = (<p style={{position: 'relative', left: '27%'}}>Value</p>);
+                        let value = (<p style={{position: 'relative', left: '22%'}}>Value</p>);
                         return (
                             <div 
                                 style={{
