@@ -6,7 +6,7 @@ import React from 'react';
 import {CanvasContainer} from './CanvasContainer';
 import { QuillEditor, WaffleEditor, BarEditor, IconBarEditor, 
     PieEditor, LineEditor, BackgroundElementEditor, ImageEditor, IconEditor, 
-    Chart, Icon }
+    Chart, Icon, BackgroundElement, Image, Background }
     from './Editors/index';
 import { Toolbar } from './Toolbar/Toolbar';
 
@@ -102,7 +102,7 @@ class InfographicEditor extends React.Component
     {
         let expr = editor === 'insert-chart' || editor === 'insert-icon'
             || editor === 'insert-text' || editor === 'insert-image' 
-            || editor === 'insert-background-elem';
+            || editor === 'insert-background-elem' || editor === 'edit-background';
         this._RemoveUnderline(this.state.toolbarContent);
         this.setState({
             currentEditor: editor,
@@ -240,7 +240,13 @@ class InfographicEditor extends React.Component
         } else if (this.state.currentEditor === 'insert-chart') {
             return (<Chart />);
         } else if (this.state.currentEditor === 'insert-icon') {
-            return (<Icon />)
+            return (<Icon />);
+        } else if (this.state.currentEditor === 'insert-background-elem') {
+            return (<BackgroundElement />);
+        } else if (this.state.currentEditor === 'insert-image') {
+            return (<Image />);
+        } else if (this.state.currentEditor === 'edit-background') {
+            return (<Background />);
         }
         return false;
     }
