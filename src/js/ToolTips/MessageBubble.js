@@ -79,7 +79,7 @@ class MessageBubble
                 width: this._width,
                 height: this._height,
             },
-            displaySettings: {
+            display: {
                 fill: {
                     type: 'color-picker',
                     name: 'Fill:',
