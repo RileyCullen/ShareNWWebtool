@@ -17,7 +17,8 @@ class Toolbar extends React.Component
                     setToolbarContent={(content) =>  { this.props.setToolbarContent(content); }}/>
                 <ToolbarContent 
                     display={this.props.toolbarContent}
-                    canvasToggle={(setting) => { this.props.canvasToggle(setting); }}/>
+                    canvasToggle={(setting) => { this.props.canvasToggle(setting); }}
+                    editorHandler={(editor) => { this.props.editorHandler(editor); }}/>
                 <hr className='toolbar-divider'/>
             </div>
         );
