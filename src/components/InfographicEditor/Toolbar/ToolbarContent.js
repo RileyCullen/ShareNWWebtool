@@ -53,7 +53,8 @@ class ToolbarContent extends React.Component
         return (
             <div className='insert-container'>
                 <div className='insert-chart-container'>
-                    <button className='insert-button'>
+                    <button className='insert-button'
+                            onClick={() => { this.props.editorHandler('insert-chart'); }}>
                         <FontAwesomeIcon 
                             className='insert-icon'
                             icon={faChartBar}/>
@@ -61,7 +62,8 @@ class ToolbarContent extends React.Component
                     </button>
                 </div>
                 <div className='insert-icon-container'>
-                    <button className='insert-button'>
+                    <button className='insert-button'
+                            onClick={() => { this.props.editorHandler('insert-icon'); }}>
                         <FontAwesomeIcon
                             className='insert-icon'
                             icon={faIcons}/>
@@ -69,7 +71,8 @@ class ToolbarContent extends React.Component
                     </button>
                 </div>
                 <div className='insert-text-container'>
-                    <button className='insert-button'>
+                    <button className='insert-button'
+                            onClick={() => { this.props.editorHandler('insert-text'); }}>
                         <FontAwesomeIcon 
                             className='insert-icon'
                             icon={faFont} />
@@ -77,7 +80,8 @@ class ToolbarContent extends React.Component
                     </button>
                 </div>
                 <div className='insert-image-container'>
-                    <button className='insert-button'>
+                    <button className='insert-button'
+                            onClick={() => { this.props.editorHandler('insert-image'); }}>
                         <FontAwesomeIcon 
                             className='insert-icon'
                             icon={faFileImage}/>
@@ -85,7 +89,8 @@ class ToolbarContent extends React.Component
                     </button>
                 </div>
                 <div className='insert-bkg-container'>
-                    <button id='insert-bkg-button' className='insert-button'>
+                    <button id='insert-bkg-button' className='insert-button'
+                            onClick={() => { this.props.editorHandler('insert-background-elem'); }}>
                         <FontAwesomeIcon 
                             className='insert-icon'
                             icon={faStop}/>
