@@ -1,0 +1,21 @@
+#image-placeholder {
+    position: relative;
+    top: 200px;
+    z-index: -1;
+}
+
+#upper-image-upload-container {
+    position: relative;
+    height: 50px;
+    top: 50px;
+}
+
+#upload-image-button {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #B6472A;
+    background-color: white;
+    padding: 10px;
+    border: 2px solid #B6472A;
+}

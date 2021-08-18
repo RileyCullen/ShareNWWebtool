@@ -1,0 +1,35 @@
+.editor-bkg-elem-container {
+    display: grid;
+    grid-template-columns: auto;
+    grid-row-gap: 20px;
+
+    position: relative;
+    top: 20px;
+    left: 55px;
+}
+
+.editor-bkg-elem {
+    width: 80%;
+    border: 3px solid #CCCBCC;
+}
+
+.editor-bkg-elem-svg-container {
+    background-color: #ECECEC;
+    height: 150px;
+    border-bottom: 3px solid #cccbcc;
+}
+
+.editor-bkg-elem-svg {
+    width: max-content;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.editor-bkg-elem-name {
+    width: max-content;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 0%);
+}
