@@ -116,7 +116,8 @@ class ToolbarContent extends React.Component
                 <div className='edit-background'>
                     <button 
                         id='edit-background-button' 
-                        className='insert-button'>
+                        className='insert-button'
+                        onClick={() => { this.props.editorHandler('edit-background')}}>
                         <FontAwesomeIcon 
                             className='insert-icon'
                             icon={faImage}/>
