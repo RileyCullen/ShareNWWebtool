@@ -115,6 +115,14 @@ class AInfographic
         this._stage = 0;
     }
 
+    ClearSelection()
+    {
+        this._tr.nodes([]);
+        this._selectedChartIndex = -1;
+        this._selectedGraphicIndex = -1;
+        this._selectedTextIndex = this._selectedTextHelper = -1;
+    }
+
     /**
      * @summary Removes the event listeners from each text node.
      */
