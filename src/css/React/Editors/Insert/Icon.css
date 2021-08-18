@@ -1,0 +1,26 @@
+.editor-icon-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-row-gap: 30px;
+    margin: 30px;
+    
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.insert-fa-icon-button {
+    width: 75px;
+    height: 75px;
+
+    border: none;
+    background-color: #ececec;
+}
+
+.insert-fa-icon-button:hover {
+    background-color: #e2e2e2;
+}
+
+.insert-fa-icon {
+    font-size: 32px;
+}

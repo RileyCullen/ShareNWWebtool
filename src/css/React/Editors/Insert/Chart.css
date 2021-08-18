@@ -1,0 +1,29 @@
+.editor-insert-chart-container {
+    display: grid;
+    grid-template-columns: max-content max-content;
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+    margin: 30px;
+
+    align-content: center;
+}
+
+.insert-chart-button {
+    padding: 20px;
+    font-size: 18px;
+    background-color: #ECECEC;
+    border: none;
+    width: 150px;
+    height: 150px;
+
+    position: relative;
+    left:50%;
+}
+
+.insert-chart-button:hover {
+    background-color: #e2e2e2; 
+}
+
+.insert-chart-button p {
+    line-height: 1.2;
+}

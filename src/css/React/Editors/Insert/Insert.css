@@ -1,0 +1,10 @@
+.editor-insert-container {
+    position: relative;
+    top: -54px;
+    left: 2px;
+    border-top: 2px solid #CCCBCC;
+    width: inherit;
+
+    overflow-y: auto;
+    height: 565px;
+}
