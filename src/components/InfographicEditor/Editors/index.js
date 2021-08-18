@@ -10,3 +10,4 @@ export { BackgroundElementEditor } from './BackgroundElementEditor';
 export { ImageEditor } from './ImageEditor';
 export { IconEditor } from './IconEditor';
 export { Chart, Icon, Image, BackgroundElement } from './Insert/index';
+export { Background } from './Edit/index';
