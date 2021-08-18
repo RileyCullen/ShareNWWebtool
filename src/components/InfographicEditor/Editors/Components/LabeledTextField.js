@@ -18,7 +18,7 @@ class LabeledTextField extends React.Component
                         initialValue={this.props.initialValue}
                         rows={this.props.rows}
                         cols={this.props.cols}
-                        onchange={(d, i) => { this.props.onchange(d, i); }}/>
+                        onChange={(d, i) => { this.props.onChange(d, i); }}/>
                 </div>
             </div>
         );

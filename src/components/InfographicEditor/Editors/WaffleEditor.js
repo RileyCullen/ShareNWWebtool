@@ -32,7 +32,7 @@ class WaffleEditor extends React.Component
                         initialValue={this._data.numerator}
                         rows={rows}
                         cols={cols}
-                        onchange={(d, i) => { this._SetChartData(i, d); }}
+                        onChange={(d, i) => { this._SetChartData(i, d); }}
                     />
                     <LabeledTextField 
                         label='Denominator:'
@@ -40,7 +40,7 @@ class WaffleEditor extends React.Component
                         initialValue={this._data.denominator}
                         rows={rows}
                         cols={cols}
-                        onchange={(d, i) => { this._SetChartData(i, d); }}
+                        onChange={(d, i) => { this._SetChartData(i, d); }}
                     />
                 </div>
         ]
