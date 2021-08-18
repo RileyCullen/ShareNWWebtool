@@ -5,8 +5,8 @@
 import React from 'react';
 import {CanvasContainer} from './CanvasContainer';
 import { QuillEditor, WaffleEditor, BarEditor, IconBarEditor, 
-    PieEditor, StackedBarEditor, LineEditor, BackgroundElementEditor, ImageEditor,
-    IconEditor}
+    PieEditor, LineEditor, BackgroundElementEditor, ImageEditor, IconEditor, 
+    Chart, Icon }
     from './Editors/index';
 import { Toolbar } from './Toolbar/Toolbar';
 
@@ -35,6 +35,7 @@ class InfographicEditor extends React.Component
             width: 582,
             height: 582,
         };
+        this._clearSelection = false;
     }
 
     render()
@@ -55,7 +56,8 @@ class InfographicEditor extends React.Component
                         toolbarContent={this.state.toolbarContent}
                         setToolbarContent={(content) => { this._SetToolbarContent(content); }}
                         displayHome={() => { this.props.displayHome(); }}
-                        canvasToggle={(setting) => { this._CanvasToggle(setting); }} />
+                        canvasToggle={(setting) => { this._CanvasToggle(setting); }} 
+                        editorHandler={(editor) => { this._SetCurrentEditor(editor); }}/>
                 </div>
                 <div className='lower-container'>
                     <CanvasContainer 
@@ -68,6 +70,7 @@ class InfographicEditor extends React.Component
                         textElem={this._editorTextElem}
                         chartData={this.state.chartData}
                         isRemoving={this.state.isRemoving}
+                        clearSelection={this._clearSelection}
                         style={{flex: 1}}
                     />
                 </div>
@@ -88,6 +91,7 @@ class InfographicEditor extends React.Component
     componentDidUpdate()
     { 
         if (this.state.isRemoving) this.setState({isRemoving: false});
+        this._clearSelection = false;
     }
 
     /**
@@ -96,14 +100,27 @@ class InfographicEditor extends React.Component
      */
     _SetCurrentEditor(editor)
     {
+        let expr = editor === 'insert-chart' || editor === 'insert-icon'
+            || editor === 'insert-text' || editor === 'insert-image' 
+            || editor === 'insert-background-elem';
         this._RemoveUnderline(this.state.toolbarContent);
         this.setState({
             currentEditor: editor,
-            toolbarContent: (editor === 'none') ? 'insert' : editor,
+            toolbarContent: this._GetToolbarContent(expr, editor),
         });
+
+        if (expr) this._clearSelection = true;
 
         this._infogTextElem = 0;
         this._editorTextElem = 0;
+    }
+
+    _GetToolbarContent(expr, editor)
+    {
+        if (expr || editor === 'none') {
+            return 'insert';
+        }
+        return editor;
     }
 
     /**
@@ -220,6 +237,10 @@ class InfographicEditor extends React.Component
                 cSettings={this.state.cSettings}
                 dSettings={this.state.dSettings}
                 setChartData={(data) => { this._SetChartData(data); }}/>;
+        } else if (this.state.currentEditor === 'insert-chart') {
+            return (<Chart />);
+        } else if (this.state.currentEditor === 'insert-icon') {
+            return (<Icon />)
         }
         return false;
     }
