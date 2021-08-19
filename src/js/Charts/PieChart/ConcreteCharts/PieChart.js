@@ -92,11 +92,12 @@ class PieChart extends APieChart
         var wedgeArr = [], angleArr = [];
 
         elements.each(function(d,i) {
-            var node = d3.select(this);
+            var node = d3.select(this),
+                offset = (i === 0) ? 0.3 : 0;
             var wedge = new Konva.Wedge({
                 x: node.attr('x'), 
                 y: node.attr('y'),
-                radius: node.attr('radius'),
+                radius: parseFloat(node.attr('radius')) + offset,
                 angle: node.attr('sliceAngle'),
                 fill: node.attr('color'),
                 draggable: false,
