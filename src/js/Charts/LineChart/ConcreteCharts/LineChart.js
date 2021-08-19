@@ -69,7 +69,7 @@ class LineChart extends ALineChart
                 return this._internalOffsetX + this._xScale(d.date);
             })
             .attr('y', (d) => {
-                return this._internalOffsetY + this._yScale(d.value);
+                return -1 * this._internalOffsetY + this._yScale(d.value);
             })
             .attr('pointColor', this._pointColor)
             .attr('pointRadius', this._pointRadius)

@@ -63,7 +63,7 @@ class LineDataValueDecorator extends ALineChartDecorator
             var text       = d.value,
                 textWidth  = this._GetFontSize(text, this._font),
                 xPos       = this._xScale(d.date) + this._internalOffsetX - textWidth / 2,
-                yPos       = this._yScale(d.value) + this._internalOffsetY,
+                yPos       = this._yScale(d.value) - this._internalOffsetY,
                 fontHeight = this._GetFontSize('M', this._font);
 
             switch(this._location) {
