@@ -123,12 +123,13 @@ class BarEditor extends React.Component
             return [
                 <BarChartInputFields 
                     chartData={this.props.chartData}
-                    setChartData={(d, i) => { this.props.setChartData(d, i); }} />
+                    setChartData={(d) => { this.props.setChartData(d); }} />
             ];
         } 
         return [
             <StackedBarInputFields 
-                chartData={this.props.chartData}/>
+                chartData={this.props.chartData}
+                setChartData={(d) => { this.props.setChartData(d); }}/>
         ];
     }
 

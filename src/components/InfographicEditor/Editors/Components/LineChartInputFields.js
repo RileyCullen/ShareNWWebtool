@@ -37,7 +37,7 @@ class LineChartInputFields extends React.Component
                                     initialValue={d.date}
                                     rows={1}
                                     cols={20}
-                                    onchange={(d, i) => { }}
+                                    onChange={(d, i) => { this._SetChartData(d, i, 'date')}}
                                 />
                                 <TextField 
                                     key={i + '-data'}
@@ -46,7 +46,7 @@ class LineChartInputFields extends React.Component
                                     initialValue={d.value}
                                     rows={1}
                                     cols={10}
-                                    onchange={(d, i) => { }}
+                                    onChange={(d, i) => { this._SetChartData(d, i, 'value')}}
                                 />
                                 <FontAwesomeIcon className='remove-row-icon' icon={faTimesCircle}/>
                             </div>
@@ -65,7 +65,23 @@ class LineChartInputFields extends React.Component
                 </div>
             </div>
         );
-    }   
+    }  
+    
+    _SetChartData(d, i, type) 
+    {
+        if (d === '') return;
+        let data = this.props.chartData.map(d => {
+            return {
+                date: d.date,
+                value: d.value
+            };
+        });
+
+        if (type === 'value') data[i].value = parseFloat(d);
+        else if (type === 'date') data[i].date = d;
+
+        this.props.setChartData(data);
+    }
 }
 
 export { LineChartInputFields };

@@ -10,7 +10,6 @@ class StackedBarInputFields extends React.Component
 {
     render()
     {
-        console.log(this.props.chartData)
         let data = this._ReformatData(), 
             categories = Array.from(new Set(this.props.chartData.map(d => d.category))),
             cols = 10;
@@ -36,7 +35,9 @@ class StackedBarInputFields extends React.Component
                                         initialValue={d}
                                         rows={1}
                                         cols={cols}
-                                        onchange={(d, i) => { }}
+                                        onChange={(value, index) => { 
+                                            this._SetCategory(categories, value, index);
+                                        }}
                                     />
                                 );       
                             })
@@ -56,7 +57,10 @@ class StackedBarInputFields extends React.Component
                             <div className='stacked-bar-grid-four extra-margin'>
                                 <ColorPicker 
                                     color={d.data[0].color}
-                                    onChange={(color) => { }}
+                                    onChange={(color) => { 
+                                        let index = i;
+                                        this._SetColor(data, color, i);
+                                    }}
                                 />
                                 <TextField 
                                     id={i + '-subcategory'}
@@ -64,7 +68,7 @@ class StackedBarInputFields extends React.Component
                                     initialValue={d.subcategory}
                                     rows={1}
                                     cols={cols + 5}
-                                    onchange={(d, i) => { }}
+                                    onChange={(value, index) => { this._SetSubcategory(data, value, index); }}
                                 />
                                 <div className='stacked-bar-grid-auto'>
                                     {
@@ -74,11 +78,15 @@ class StackedBarInputFields extends React.Component
                                                 if (e === d.category) {
                                                     content = <TextField 
                                                     id={j + '-category'}
-                                                    index={j}
+                                                    index={d.originalIndex}
                                                     initialValue={d.value}
                                                     rows={1}
                                                     cols={cols}
-                                                    onchange={(d, i) => { }}
+                                                    onChange={(d, i) => { 
+                                                        this._SetChartData(
+                                                            d, i, 'value'
+                                                        )
+                                                    }}
                                                     />
                                                 }
                                             });
@@ -108,19 +116,77 @@ class StackedBarInputFields extends React.Component
         }
 
         helper.forEach((d) => {
-            this.props.chartData.forEach(e => {
+            this.props.chartData.forEach((e, i) => {
                 let subcategory = d.subcategory;
                 if (subcategory === e.subcategory) {
                     d.data.splice(d.data.length, 0, {
                         category: e.category, 
                         value: e.value,
                         color: e.color,
+                        originalIndex: i
                     });
                 }
             });
         });
 
         return helper;
+    }
+
+    _SetChartData(d, i, type)
+    {
+        if (d === '') return;
+        let data = this._CreateDataCopy();
+
+        if (type === 'value') data[i].value = parseFloat(d);
+
+        this.props.setChartData(data);
+    }
+
+    _SetSubcategory(data, d, i)
+    {
+        let tmp = this._CreateDataCopy();
+        data[i].data.forEach((content) => {
+            tmp[content.originalIndex].subcategory = d;
+        });
+        this.props.setChartData(tmp);
+    }
+
+    _SetColor(data, d, i) 
+    {
+        let tmp = this._CreateDataCopy();
+        data[i].data.forEach(content => {
+            tmp[content.originalIndex].color = d;
+        });
+        this.props.setChartData(tmp);
+    }
+
+    _SetCategory(categories, d, i)
+    {
+        let tmp = this._CreateDataCopy();
+        let final = tmp.map(elem => {
+            if (elem.category === categories[i]) {
+                return {
+                    category: d,
+                    subcategory: elem.subcategory,
+                    value: elem.value,
+                    color: elem.color,
+                }
+            }
+            return elem;
+        });
+        this.props.setChartData(final);
+    }
+
+    _CreateDataCopy()
+    {
+        return this.props.chartData.map(d => {
+            return {
+                category: d.category,
+                subcategory: d.subcategory,
+                value: d.value,
+                color: d.color
+            }
+        });
     }
 }
 

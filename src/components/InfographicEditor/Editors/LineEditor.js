@@ -26,6 +26,7 @@ class LineEditor extends React.Component
                     content={[
                         <LineChartInputFields 
                             chartData={this.props.chartData}
+                            setChartData={(data) => { this.props.setChartData(data); }}
                         />
                     ]}
                     checkbox={{
