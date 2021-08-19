@@ -20,32 +20,57 @@ class PieChartInputFields extends React.Component
         return (
             <div className='pie-chart-input-container'>
                 <div className='pie-chart-textfield-container'>
-                    <button>
+                    <button
+                        onClick={() => { this._DecrementValue(); }}
+                    >
                         <FontAwesomeIcon icon={faMinus} />
                     </button>
                     <TextField 
+                        id={this.state.value + '-pie-text-field'}
                         initialValue={this.state.value}
                         rows={this.props.rows}
                         cols={this.props.cols}
                         style={{resize: 'none'}}
-                        onChange={(d, i) => { }}
+                        onChange={(d, i) => { this._HandleChange(d); }}
                     />
-                    <button>
+                    <button
+                        onClick={() => { this._IncrementValue(); }}
+                    >
                         <FontAwesomeIcon icon={faPlus} />
                     </button>
                 </div>
                 <div className='pie-slider'>
                     <Slider 
+                        id={this.state.value + '-pie-slider'}
                         min={this.props.min}
                         max={this.props.max}
                         step={this.props.step}
                         value={this.state.value}
-                        onChange={(d) => { }}
+                        onChange={(d) => { this._HandleChange(d); }}
                         width={'220px'}
                     />
                 </div>
             </div>
         );
+    }
+
+    _HandleChange(value)
+    {
+        if (value > 100) value = 100;
+        else if (value < 0) value = 0;
+        this.setState({
+            value: value,
+        });
+    }
+
+    _IncrementValue()
+    {
+        this._HandleChange(this.state.value + 1);
+    }
+
+    _DecrementValue()
+    {
+        this._HandleChange(this.state.value - 1);
     }
 }
 
