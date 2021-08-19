@@ -466,6 +466,9 @@ class AInfographic
         } else if (name === 'Selectable Chart Icon') {
             // We assume that the data will be formatted like the bar chart 
             elem.chart.UpdateData(chartData);
+        } else if (name === 'Selectable Chart Pie' || name === 'Selectable Chart Donut') {
+            console.log(chartData);
+            elem.chart.UpdateData(chartData);
         }
 
         this._UpdateDecorators(elem);

@@ -216,7 +216,8 @@ class InfographicEditor extends React.Component
                 type={this.state.currentEditor}
                 chartData={this.state.chartData}
                 cSettings={this.state.cSettings}
-                dSettings={this.state.dSettings}/>;
+                dSettings={this.state.dSettings}
+                setChartData={(data) => { this._SetChartData(data); }}/>;
         } else if (this.state.currentEditor === 'image-editor') {
             return <ImageEditor 
                 settings={this.state.graphicSettings}/>;

@@ -93,8 +93,26 @@ class PieEditor extends React.Component
                 value={this.props.chartData[0].value}
                 rows={1}
                 cols={4}
+                setChartData={(value) => { this._SetChartData(value); }}
             />
         ];
+    }
+
+    _SetChartData(value)
+    {
+        let data = [
+            {
+                category: this.props.chartData[0].category,
+                value: parseFloat(value),
+                color: this.props.chartData[0].color,
+            },
+            {
+                category: this.props.chartData[1].category,
+                value: 100 - value,
+                color: this.props.chartData[1].color,
+            }
+        ];
+        this.props.setChartData(data);
     }
 
     _GetColorContents()

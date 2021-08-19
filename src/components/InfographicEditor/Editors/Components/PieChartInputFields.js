@@ -61,6 +61,7 @@ class PieChartInputFields extends React.Component
         this.setState({
             value: value,
         });
+        this.props.setChartData(value);
     }
 
     _IncrementValue()
