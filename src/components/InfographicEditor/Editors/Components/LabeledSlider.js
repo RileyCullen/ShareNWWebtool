@@ -23,7 +23,8 @@ class LabeledSlider extends React.Component
                         width: 'max-content',
                     }}
                 >
-                    <Slider 
+                    <Slider
+                        id='labeled-slider' 
                         min={this.props.min}
                         max={this.props.max}
                         step={this.props.step}
