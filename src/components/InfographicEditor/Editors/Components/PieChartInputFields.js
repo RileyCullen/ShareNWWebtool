@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextField, Slider } from './index';
+import { TextField } from './index';
 
 import '../../../../css/React/Editors/PieChartInputFields.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

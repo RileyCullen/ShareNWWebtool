@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextField, Menu, Editor, LabeledColorPicker, LabeledTextField, FontSelector, LabeledCheckbox } from './Components/index';
+import { Menu, Editor, LabeledColorPicker, LabeledTextField, FontSelector, LabeledCheckbox } from './Components/index';
 
 import '../../../css/React/Editors/ChartEditor.css';
 

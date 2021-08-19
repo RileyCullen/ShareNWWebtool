@@ -14,34 +14,11 @@ import './css/React/NavigationBar.css';
  */
 class App extends React.Component
 {
-    constructor(props)
-    {
-        super(props);
-        this.state = {
-            currentInfographic: 'HIVTemplateOne'
-        }
-    }
-
     render()
     {
-        var currentInfographic = this.state.currentInfographic;
         return (
             <Home />
         );
-    }
-
-    /**
-     * @summary     Sets currentInfographic to a new infographic.
-     * @description Calls setState and passes assigns infographic to 
-     *              currentInfographic to initiate rendering process.
-     * 
-     * @param {String} infographic The name of the infographic we want to display.
-     */
-    _SetCurrentInfographic(infographic)
-    {
-        this.setState({
-            currentInfographic: infographic,
-        });
     }
 }
 

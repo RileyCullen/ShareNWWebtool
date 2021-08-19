@@ -1,4 +1,4 @@
-import { faPlusSquare, faTimesCircle, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faPlusSquare, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 
@@ -58,7 +58,6 @@ class StackedBarInputFields extends React.Component
                                 <ColorPicker 
                                     color={d.data[0].color}
                                     onChange={(color) => { 
-                                        let index = i;
                                         this._SetColor(data, color, i);
                                     }}
                                 />
@@ -74,7 +73,7 @@ class StackedBarInputFields extends React.Component
                                     {
                                         d.data.map((d, i) => {
                                             let content = false;
-                                            categories.map((e, j) => {
+                                            categories.forEach((e, j) => {
                                                 if (e === d.category) {
                                                     content = <TextField 
                                                     id={j + '-category'}

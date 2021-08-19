@@ -3,7 +3,7 @@ import Konva from 'konva';
 import { BasicBarChart, StackedBarChart, DataValueDecorator, 
     CategoryLabelDecorator, ChartDescriptorDecorator, XAxisDecorator } 
     from '../Charts/BarChart/index';
-import { PieChart, DonutDecorator, FirstStatisticDecorator, ChartOutlineDecorator } 
+import { PieChart, FirstStatisticDecorator, ChartOutlineDecorator } 
     from '../Charts/PieChart/index';
 import { MessageBubble } from '../ToolTips/index';
 import { WaffleChart, GenerateWafflePreset } from '../Charts/WaffleChart/index';
@@ -318,15 +318,6 @@ class ViolenceTemplateOne extends AInfographic
             'color': blueishGray,
         };
         var pieChartOneRadius = 80;
-        var pieChartOne = new PieChart({
-            data: pieChartOneData, 
-            group: pieChartOneGroup, 
-            radius: pieChartOneRadius
-        });
-        var donutDecorator = new DonutDecorator({
-            chart: pieChartOne, 
-            innerRadius: pieChartOneRadius / 2
-        });  
         var donut = new DonutChart({
             data: pieChartOneData,
             group: pieChartOneGroup,

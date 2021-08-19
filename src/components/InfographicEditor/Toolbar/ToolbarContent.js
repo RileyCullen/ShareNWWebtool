@@ -4,7 +4,6 @@ import { faChartBar, faIcons, faFont, faImage, faStop, faPalette, faFileImage,
 import React from 'react';
 
 import '../../../css/React/EditorToolbar.css';
-import { axisRight } from 'd3';
 
 class ToolbarContent extends React.Component 
 {

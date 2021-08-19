@@ -6,7 +6,7 @@ import { AInfographic } from "./AInfographic";
 import Konva from 'konva';
 import { RectangleHeader, RibbonHeader } from '../Headers/index';
 import { GenerateWafflePreset, WaffleChart, StatisticDecorator } from '../Charts/WaffleChart/index';
-import { PieChart, DonutChart, ChartOutlineDecorator,FirstStatisticDecorator } from '../Charts/PieChart/index';
+import { DonutChart, ChartOutlineDecorator,FirstStatisticDecorator } from '../Charts/PieChart/index';
 
 class ObesityTemplateOne extends AInfographic
 {

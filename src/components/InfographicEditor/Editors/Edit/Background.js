@@ -4,7 +4,6 @@ import { LabeledColorPicker, Menu } from '../Components/index';
 
 import '../../../../css/React/Editors/Insert/Insert.css';
 import '../../../../css/React/Editors/Edit/Background.css';
-import { thisExpression } from '@babel/types';
 
 class Background extends React.Component
 {

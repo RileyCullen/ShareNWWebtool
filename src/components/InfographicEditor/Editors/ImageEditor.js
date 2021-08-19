@@ -1,5 +1,5 @@
 import React from 'react';
-import { Menu, LabeledTextField, LabeledSlider, LabeledColorPicker, LabeledCheckbox } from './Components/index';
+import { Menu, LabeledTextField, LabeledSlider, LabeledColorPicker } from './Components/index';
 
 import '../../../css/React/Editors/Tabless.css';
 
