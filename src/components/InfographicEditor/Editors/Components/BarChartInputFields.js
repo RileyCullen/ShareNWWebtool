@@ -24,15 +24,19 @@ class BarChartInputFields extends React.Component
                 return (
                     <div className='data-input-container'>
                         <ColorPicker 
-                            color='red'
-                            onChange={(color) => { }}/>
+                            color={d.color}
+                            onChange={(color) => {
+                                let index = i;
+                                this._SetChartData(color, index, 'color')
+                            }
+                        }/>
                         <TextField 
                             id={i + '-category'}
                             index={i}
                             initialValue={category}
                             rows={rows}
                             cols={cols}
-                            onchange={(d, i) => { }}
+                            onChange={(d, i) => { this._SetChartData(d, i, 'category')}}
                             />
                         <TextField
                             id={i + '-value'}
@@ -40,7 +44,7 @@ class BarChartInputFields extends React.Component
                             initialValue={value} 
                             rows={rows}
                             cols={cols}
-                            onchange={(d, i) => { this._SetChartData(d, i) }}/>
+                            onChange={(d, i) => { this._SetChartData(d, i, 'value') }}/>
                         <FontAwesomeIcon className='remove-row-icon' icon={faTimesCircle}/>
                     </div>);
                 })
@@ -52,7 +56,7 @@ class BarChartInputFields extends React.Component
         ); 
     }
 
-    _SetChartData(d, i)
+    _SetChartData(d, i, type)
     {
         if (d === '') return;
         var data = this.props.chartData.map(d => { return {
@@ -60,7 +64,10 @@ class BarChartInputFields extends React.Component
             value: d.value,
             color: d.color,
         }});
-        data[i].value = parseFloat(d);
+
+        if (type === 'value') data[i].value = parseFloat(d);
+        else if (type === 'category') data[i].category = d;
+        else if (type === 'color') data[i].color = d;
         this.props.setChartData(data);
     }
 }
