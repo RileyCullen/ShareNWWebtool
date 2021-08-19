@@ -37,6 +37,7 @@ class AIconBarDecorator extends AIconBar
          this._data = chart._data;
          this._chart = chart;
          this._yScale = chart._yScale;
+         this._xScale = chart._xScale;
      }
  
      /**
