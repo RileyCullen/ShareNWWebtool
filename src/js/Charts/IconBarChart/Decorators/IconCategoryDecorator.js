@@ -46,6 +46,12 @@ class IconCategoryDecorator extends AIconBarDecorator
         }
     }
 
+    UpdateDecorator(data)
+    {
+        super.UpdateDecorator(data);
+        this._keys = this.GetGroups();
+    }
+
      /**
      * @summary     Creates labels for the IconBarChart type.
      * @description Dynamically places labels onto an IconBarChart either above
@@ -59,7 +65,6 @@ class IconCategoryDecorator extends AIconBarDecorator
         var counter = 0;
 
         for (var i = iter.next().value; i != null; i = iter.next().value) {
-
             /**
              * Setting up the position of the category labels.
              * 
