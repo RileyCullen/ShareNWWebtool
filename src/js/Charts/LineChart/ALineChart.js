@@ -92,6 +92,14 @@ class ALineChart
         }
     }
 
+    UpdateData(data)
+    {
+        this._group.destroyChildren();
+        this._data = data;
+        this._SetUpXDomain();
+        this._SetUpYDomain();
+    }
+
     /**
      * @summary     Initializes the x scale's domain.
      * @description Inserts all of the date values from the data array into 
