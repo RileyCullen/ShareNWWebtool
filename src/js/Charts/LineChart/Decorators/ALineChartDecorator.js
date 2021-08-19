@@ -43,7 +43,13 @@ class ALineChartDecorator extends ALineChart
      * 
      * @param {ALineChart} chart The chart we want to base our update on.
      */
-    UpdateDecorator(chart) { }
+    UpdateDecorator(chart) 
+    { 
+        this._data = chart._data;
+        this._chart = chart;
+        this._yScale = chart._yScale;
+        this._xScale = chart._xScale
+    }
 
     /**
      * @summary     Returns the width of a given piece of text in pixels.
