@@ -79,6 +79,7 @@ class AIconBar
          this._Clean();
          this._data = data;
          this._SetUpYDomain();
+         this._SetUpXDomain();
      }
  
      /**
