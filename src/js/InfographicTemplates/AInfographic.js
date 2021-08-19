@@ -457,19 +457,13 @@ class AInfographic
             if (chartData.numerator === 0 || chartData.denominator === 0) return;
             var numerator = chartData.numerator, denominator = chartData.denominator;
             elem.chart.UpdateData(parseInt(numerator), parseInt(denominator));
-        } else if (name === 'Selectable Chart Bar') {
+        } else {
             // We assume that the data will be formated as follows
             // data = [
             //    { category: {string}, value: {float}, color: {string}}, ...   
             // ]
             elem.chart.UpdateData(chartData);
-        } else if (name === 'Selectable Chart Icon') {
-            // We assume that the data will be formatted like the bar chart 
-            elem.chart.UpdateData(chartData);
-        } else if (name === 'Selectable Chart Pie' || name === 'Selectable Chart Donut') {
-            console.log(chartData);
-            elem.chart.UpdateData(chartData);
-        }
+        } 
 
         this._UpdateDecorators(elem);
     }
