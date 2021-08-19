@@ -50,21 +50,6 @@ class PercentageBarChart extends ABarChart
     }
 
     /**
-     * @summary     Updates the data array and yScale
-     * @description Similar functionality to the UpdateData function in 
-     *              ABarChart with the exception that it calls _CheckData 
-     *              instead of calling _SetUpYDomain().
-     * 
-     * @param {JSON Array} data The new data array we want to use for our bar chart
-     */
-    UpdateData(data)
-    {
-        this._Clean();
-        this._data = data;
-        this._CheckData();
-    }
-
-    /**
      * @summary     Checks data array to ensure all values are within domain.
      * @description Iterate through all of the data elements in _data and ensures
      *              that they are within the bounds.
