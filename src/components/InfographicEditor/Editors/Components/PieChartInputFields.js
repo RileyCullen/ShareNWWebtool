@@ -40,15 +40,15 @@ class PieChartInputFields extends React.Component
                     </button>
                 </div>
                 <div className='pie-slider'>
-                    <Slider 
-                        id={this.state.value + '-pie-slider'}
+                    <input 
+                        type='range'
                         min={this.props.min}
                         max={this.props.max}
                         step={this.props.step}
                         value={this.state.value}
-                        onChange={(d) => { this._HandleChange(d); }}
-                        width={'220px'}
-                    />
+                        onChange={(event) => { this._HandleChange(event.target.value); }}
+                        style={{width: '220px'}}
+                    ></input>
                 </div>
             </div>
         );
@@ -58,6 +58,7 @@ class PieChartInputFields extends React.Component
     {
         if (value > 100) value = 100;
         else if (value < 0) value = 0;
+        else if (value === '') value = this.state.value;
         this.setState({
             value: value,
         });
