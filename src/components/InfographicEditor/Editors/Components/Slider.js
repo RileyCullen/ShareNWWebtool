@@ -7,6 +7,7 @@ class Slider extends React.Component
         super(props);
         this.state = {
             value: this.props.value,
+            id: this.props.id,
         }
 
         this._handleChange = this._HandleChange.bind(this);
@@ -28,6 +29,17 @@ class Slider extends React.Component
                 </input>
             </div>
         );
+    }
+
+    static getDerivedStateFromProps(props, state)
+    {
+        if (props.id !== state.id) {
+            return {
+                value: props.value,
+                id: props.id
+            };
+        }
+        return null;
     }
 
     _HandleChange(event)

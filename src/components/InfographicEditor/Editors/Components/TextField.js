@@ -7,6 +7,7 @@ class TextField extends React.Component
         super(props);
         this.state = {
             value: this.props.initialValue,
+            id: this.props.id
         };
         this._handleChange = this._HandleChange.bind(this);
     }
@@ -24,6 +25,17 @@ class TextField extends React.Component
                 value={this.state.value}
             />
         </div>);
+    }
+
+    static getDerivedStateFromProps(props, state)
+    {
+        if (props.id !== state.id) {
+            return {
+                value: props.initialValue,
+                id: props.id
+            };
+        }
+        return null;
     }
 
     /**
