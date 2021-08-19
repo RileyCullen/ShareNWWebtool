@@ -123,15 +123,33 @@ class PieEditor extends React.Component
                 <LabeledColorPicker 
                     label='Primary Color:'
                     color={color[0].color}
-                    onChange={(value) => { }}
+                    onChange={(value) => { this._SetColor(value, 0); }}
                 />
                 <LabeledColorPicker 
                     label='Background Color:'
                     color={color[1].color}
-                    onChange={(value) => { }}
+                    onChange={(value) => { this._SetColor(value, 1); }}
                 />
             </div>
         ];
+    }
+
+    _SetColor(color, i)
+    {
+        let data = [
+            {
+                category: this.props.chartData[0].category,
+                value: this.props.chartData[0].value,
+                color: this.props.chartData[0].color,
+            },
+            {
+                category: this.props.chartData[1].category,
+                value: this.props.chartData[1].value,
+                color: this.props.chartData[1].color,
+            }
+        ];
+        data[i].color = color;
+        this.props.setChartData(data);
     }
 
     _GetSizeContents()
