@@ -71,6 +71,12 @@ class CategoryLabelDecorator extends ABarChartDecorator
         this._CreateLabels();
     }
 
+    UpdateDecorator(chart)
+    {
+        super.UpdateDecorator(chart);
+        this._keys = this.GetGroups();
+    }
+
     GetDecoratorSettings()
     {
         return {
