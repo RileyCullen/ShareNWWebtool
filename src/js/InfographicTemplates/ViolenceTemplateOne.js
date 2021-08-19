@@ -579,7 +579,8 @@ class ViolenceTemplateOne extends AInfographic
         waffleChartGroup.add(circleGroup);
 
         var circle = new PieChart({
-            data: [{'category': 'test', 'value': 74, 'color': yellow}], 
+            data: [{'category': 'test', 'value': 74, 'color': yellow},
+                   {category: 'test2', value: 26, color: yellow}], 
             group: circleGroup, 
             radius: 55
         });
