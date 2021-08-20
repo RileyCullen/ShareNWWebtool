@@ -69,6 +69,7 @@ class InfographicEditor extends React.Component
                         dimensionHandler={(dims) => { this._SetInfogDimensions(dims); }}
                         textElem={this._editorTextElem}
                         chartData={this.state.chartData}
+                        cSettings={this.state.cSettings}
                         isRemoving={this.state.isRemoving}
                         clearSelection={this._clearSelection}
                         style={{flex: 1}}
@@ -182,7 +183,9 @@ class InfographicEditor extends React.Component
 
     _SetChartSettings(settings)
     {
-        
+        this.setState({
+            cSettings: settings,
+        });
     }
 
     /**
@@ -209,7 +212,8 @@ class InfographicEditor extends React.Component
                 chartData={this.state.chartData}
                 cSettings={this.state.cSettings}
                 dSettings={this.state.dSettings}
-                setChartData={(data) => { this._SetChartData(data); }}/>;
+                setChartData={(data) => { this._SetChartData(data); }}
+                setChartSettings={(settings) => { this._SetChartSettings(settings); }}/>;
         } else if (this.state.currentEditor === 'pie-editor' || 
             this.state.currentEditor === 'donut-editor') {
             return <PieEditor 
