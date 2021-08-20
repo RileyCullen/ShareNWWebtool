@@ -30,12 +30,6 @@ class BarEditor extends React.Component
                     content={this._GetChartDataContent()}
                     checkbox={{ displayCheckbox: false }}/>,
                 <Menu 
-                    key='orietation'
-                    name='Orientation'
-                    isOpen={false}
-                    content={this._GetOrientationContent()} 
-                    checkbox={{ displayCheckbox: false }}/>,
-                <Menu 
                     key='size'
                     name='Size'
                     isOpen={false}
@@ -50,7 +44,13 @@ class BarEditor extends React.Component
                         displayCheckbox: true,
                         isChecked: !(this.props.dSettings.remainder === undefined),
                         checkboxHandler: () => { }
-                    }}/>
+                    }}/>,
+                <Menu 
+                    key='orietation'
+                    name='Orientation'
+                    isOpen={false}
+                    content={this._GetOrientationContent()} 
+                    checkbox={{ displayCheckbox: false }}/>,
             ],
             designOptions: [
                 <Menu 
@@ -117,6 +117,15 @@ class BarEditor extends React.Component
         );
     }
 
+    _SetChartSettings(category, key, value)
+    {
+        // Deep copy cSettings? 
+        console.log(value);
+        let cSettings = this.props.cSettings;
+        cSettings[category][key] = value;
+        this.props.setChartSettings(cSettings);
+    }
+
     _GetChartDataContent()
     {
         if (this.props.type === 'bar-editor') {
@@ -144,7 +153,7 @@ class BarEditor extends React.Component
                     initialValue={cSettings.size.chartWidth}
                     rows={1}
                     cols={cols}
-                    onchange={(d, i) => { }}
+                    onChange={(d, i) => { this._SetChartSettings('size', 'chartWidth', d)}}
                     />
                 <LabeledTextField
                     label='Height:'
@@ -152,7 +161,7 @@ class BarEditor extends React.Component
                     initialValue={cSettings.size.chartHeight}
                     rows={1}
                     cols={cols}
-                    onchange={(d, i) => { }} 
+                    onChange={(d, i) => { this._SetChartSettings('size', 'chartHeight', d); }} 
                 />
                 <LabeledTextField
                     label='Bar Padding:'
@@ -160,7 +169,7 @@ class BarEditor extends React.Component
                     initialValue={cSettings.size.padding}
                     rows={1}
                     cols={cols}
-                    onchange={(d, i) => { }} 
+                    onChange={(d, i) => { this._SetChartSettings('size', 'padding', d); }} 
                 />
             </div>
         ];
@@ -174,7 +183,7 @@ class BarEditor extends React.Component
                 <LabeledCheckbox 
                     label='Landscape:'
                     initialValue={orientation.landscape}
-                    onClick={() => { }}/>
+                    onClick={(value) => { this._SetChartSettings('orientation', 'landscape', value)}}/>
             </div> 
         ];
     }
