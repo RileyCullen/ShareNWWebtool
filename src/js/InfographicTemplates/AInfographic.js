@@ -468,6 +468,14 @@ class AInfographic
         this._UpdateDecorators(elem);
     }
 
+    UpdateChartSettings(settings)
+    {
+        if (settings === 0 || this._selectedChartIndex === -1) return;
+        let elem = this._chartHandler.GetHandlerElem(this._selectedChartIndex);
+        elem.chart.UpdateChartSettings(settings);
+        this._UpdateDecorators(elem);
+    }
+
     /**
      * @summary     Updates decorators.
      * @description Iterates though all the decorators in handlerElem and updates
