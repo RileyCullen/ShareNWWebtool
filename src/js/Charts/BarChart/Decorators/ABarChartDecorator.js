@@ -44,6 +44,11 @@ class ABarChartDecorator extends ABarChart
         this._chart = chart;
         this._yScale = chart._yScale;
         this._xScale = chart._xScale;
+
+        this._chartWidth = chart._chartWidth;
+        this._chartHeight = chart._chartHeight;
+        this._padding = chart._padding;
+        this._rotateBy = chart._rotateBy;
     }
 
     /**
