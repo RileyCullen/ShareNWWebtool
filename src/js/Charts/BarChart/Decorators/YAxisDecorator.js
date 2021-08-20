@@ -45,7 +45,7 @@ class YAxisDecorator extends ABarChartDecorator
         this._CreateYAxis();
     }
 
-    GetChartSettings()
+    GetDecoratorSettings()
     {
         return {
             yAxis: {
