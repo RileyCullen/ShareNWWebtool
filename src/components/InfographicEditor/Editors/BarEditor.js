@@ -153,7 +153,7 @@ class BarEditor extends React.Component
                     initialValue={cSettings.size.chartWidth}
                     rows={1}
                     cols={cols}
-                    onChange={(d, i) => { this._SetChartSettings('size', 'chartWidth', d)}}
+                    onChange={(d, i) => { this._SetChartSettings('size', 'chartWidth', parseFloat(d)); }}
                     />
                 <LabeledTextField
                     label='Height:'
@@ -161,7 +161,7 @@ class BarEditor extends React.Component
                     initialValue={cSettings.size.chartHeight}
                     rows={1}
                     cols={cols}
-                    onChange={(d, i) => { this._SetChartSettings('size', 'chartHeight', d); }} 
+                    onChange={(d, i) => { this._SetChartSettings('size', 'chartHeight', parseFloat(d)); }} 
                 />
                 <LabeledTextField
                     label='Bar Padding:'
@@ -169,7 +169,7 @@ class BarEditor extends React.Component
                     initialValue={cSettings.size.padding}
                     rows={1}
                     cols={cols}
-                    onChange={(d, i) => { this._SetChartSettings('size', 'padding', d); }} 
+                    onChange={(d, i) => { this._SetChartSettings('size', 'padding', parseFloat(d)); }} 
                 />
             </div>
         ];
