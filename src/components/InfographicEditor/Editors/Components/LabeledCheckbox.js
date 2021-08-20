@@ -14,7 +14,7 @@ class LabeledCheckbox extends React.Component
                 <div className='labeled-checkbox'>
                     <Checkbox 
                         initialValue={this.props.initialValue}
-                        onClick={() => { this.props.onClick(); }}/>
+                        onClick={(value) => { this.props.onClick(value); }}/>
                 </div>
             </div>
         );

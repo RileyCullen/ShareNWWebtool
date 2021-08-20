@@ -32,7 +32,7 @@ class Checkbox extends React.Component
         this.setState({
             isSelected: !this.state.isSelected,
         });
-        this.props.onClick();
+        this.props.onClick(!this.state.isSelected);
     }
 }
 
