@@ -100,6 +100,11 @@ class ALineChart
         this._SetUpYDomain();
     }
 
+    UpdateChartSettings(settings)
+    {
+        
+    }
+
     /**
      * @summary     Initializes the x scale's domain.
      * @description Inserts all of the date values from the data array into 

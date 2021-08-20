@@ -49,6 +49,12 @@ class PercentageBarChart extends ABarChart
         this._basicBar.CreateChart();
     }
 
+    UpdateChartSettings(settings)
+    {
+        super.UpdateChartSettings(settings);
+        this._basicBar.UpdateChartSettings(settings);
+    }
+
     /**
      * @summary     Checks data array to ensure all values are within domain.
      * @description Iterate through all of the data elements in _data and ensures

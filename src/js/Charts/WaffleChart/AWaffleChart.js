@@ -56,6 +56,11 @@ class AWaffleChart
         this._denominator = denominator;
     }
 
+    UpdateChartSettings(settings)
+    {
+
+    }
+
     GetData()
     {
         return {

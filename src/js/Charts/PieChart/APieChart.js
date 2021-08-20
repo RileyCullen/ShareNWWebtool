@@ -60,6 +60,11 @@ class APieChart
      */
     UpdateData(data) { this._data = data; }
 
+    UpdateChartSettings(settings)
+    {
+        
+    }
+
     /**
      * @summary     Removes infographic from canvas.
      */

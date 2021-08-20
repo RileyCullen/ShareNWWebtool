@@ -81,7 +81,12 @@ class AIconBar
          this._SetUpYDomain();
          this._SetUpXDomain();
      }
- 
+
+    UpdateChartSettings(settings)
+    {
+        
+    }     
+
      /**
       * @summary     Removes the bar chart from the canvas. 
       * @description A wrapper function that calls the Konva.js method destroy(),

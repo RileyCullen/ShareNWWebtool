@@ -49,13 +49,12 @@ class ABarChart
         this._chartHeight = height;
         this._padding = padding;
         this._rotateBy = (rotateBy === 90 || rotateBy === 0) ? rotateBy : 0;
-        this._xScale = d3.scaleBand()
-            .range([0, this._chartWidth])
-            .padding(this._padding);
-        this._yScale = d3.scaleLinear()
-            .range([this._chartHeight, 0]);
+        this._xScale = d3.scaleBand();
+        this._yScale = d3.scaleLinear();
 
+        this._SetUpXRange();
         this._SetUpXDomain();
+        this._SetUpYRange();
         this._SetUpYDomain();
     }
 
@@ -97,6 +96,20 @@ class ABarChart
         this._SetUpXDomain();
     }
 
+    UpdateChartSettings(settings)
+    {
+        this._chartWidth = settings.size.chartWidth;
+        this._chartHeight = settings.size.chartHeight;
+        this._padding = settings.size.padding; 
+        this._rotateBy = (settings.orientation.landscape === true) ? 90 : 0;
+
+        this._Clean();
+        this._SetUpYRange();
+        this._SetUpYDomain();
+        this._SetUpXRange();
+        this._SetUpXDomain();
+    }
+
     /**
      * @summary     Removes the bar chart from the canvas. 
      * @description A wrapper function that calls the Konva.js method destroy(),
@@ -111,7 +124,7 @@ class ABarChart
     {
         return {
             orientation: {
-                landscape: (this._rotateBy === 0)
+                landscape: (this._rotateBy === 90)
             },
             size: {
                 chartWidth: this._chartWidth,
@@ -164,6 +177,17 @@ class ABarChart
         var max = this._FindMax(tmp, keys);
 
         this._yScale.domain([0, max]);
+    }
+
+    _SetUpXRange()
+    {
+        this._xScale.range([0, this._chartWidth])
+            .padding(this._padding);
+    }
+
+    _SetUpYRange()
+    {
+        this._yScale.range([this._chartHeight, 0]);
     }
 
     /**
