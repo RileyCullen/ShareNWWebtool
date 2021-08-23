@@ -119,6 +119,13 @@ class WaffleEditor extends React.Component
         this.props.setChartData(tmp);
     }
 
+    _SetChartSettings(category, key, value)
+    {
+        let settings = this.props.cSettings;
+        settings[category][key] = value;
+        this.props.setChartSettings(settings);
+    }
+
     _GetIconContent()
     {
         let iconSettings = this.props.cSettings.icon;
@@ -127,12 +134,12 @@ class WaffleEditor extends React.Component
                 <LabeledColorPicker 
                     label='Icon A Color: '
                     color={iconSettings.aColor}
-                    onChange={(value) => { }}
+                    onChange={(value) => { this._SetChartSettings('icon', 'aColor', value); }}
                 />
                 <LabeledColorPicker 
                     label='Icon B Color: '
                     color={iconSettings.bColor}
-                    onChange={(value) => { }}
+                    onChange={(value) => { this._SetChartSettings('icon', 'aColor', value); }}
                 />
                 <LabeledTextField 
                     label='Max icons per row: '
@@ -140,7 +147,7 @@ class WaffleEditor extends React.Component
                     initialValue={iconSettings.maxIconsPerRow}
                     rows={1}
                     cols={5}
-                    onchange={(d, i) => { }}
+                    onChange={(d, i) => { this._SetChartSettings('icon', 'maxIconsPerRow', d)}}
                 />
             </div>
         ]
@@ -157,7 +164,7 @@ class WaffleEditor extends React.Component
                     initialValue={resize.width}
                     rows={1}
                     cols={5}
-                    onchange={(d, i) => { }} 
+                    onChange={(d, i) => { }} 
                 />
                 <LabeledTextField 
                     label='Height'
@@ -165,7 +172,7 @@ class WaffleEditor extends React.Component
                     initialValue={resize.height}
                     rows={1}
                     cols={5}
-                    onchange={(d, i) => { }} 
+                    onChange={(d, i) => { }} 
                 />
             </div>
         ];
