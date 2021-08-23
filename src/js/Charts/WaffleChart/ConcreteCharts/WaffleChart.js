@@ -42,8 +42,6 @@ class WaffleChart extends AWaffleChart
     
             this._RemoveWaffleChart(custom);
     
-            console.log(document.fonts)
-    
             if (this._isDynamicResize) {
                 this._fontSize = this._DetermineFontSize();
             }
@@ -135,7 +133,6 @@ class WaffleChart extends AWaffleChart
                 if (i === 0) initialOffset = d.offset;
 
                 if (initialOffset !== d.offset && i > this._numerator) {
-                    console.log('entered');
                     if (i > (this._numerator)) {
                         multiplier = this._numerator;
                     } else { 
@@ -148,7 +145,8 @@ class WaffleChart extends AWaffleChart
                 return tmp;
             })
             .attr("y", (d, i) => {
-                return this._startingY + (Math.floor(i / 10) * d.offset)
+                let offset = (d.offset > d.fontSize) ? d.offset : 1.25 * d.fontSize;
+                return this._startingY + (Math.floor(i / this._maxIconsPerRow) * offset)
             })
             .attr('iconType', d => { return d.iconType; })
             .attr('fontSize', d => { return d.fontSize; })
