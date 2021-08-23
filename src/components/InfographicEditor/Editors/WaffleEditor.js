@@ -71,8 +71,8 @@ class WaffleEditor extends React.Component
                     content={this._GetResizeContent()} 
                     checkbox={{
                         displayCheckbox: true,
-                        isChecked: false,
-                        checkboxHandler: () => { }
+                        isChecked: this.props.cSettings.dynamicResize.isChecked,
+                        checkboxHandler: (d) => { this._SetChartSettings('dynamicResize', 'isChecked', d); }
                     }}/>
             ],
             designOptions: [
@@ -132,14 +132,30 @@ class WaffleEditor extends React.Component
         return [
             <div className='center'>
                 <LabeledColorPicker 
-                    label='Icon A Color: '
+                    label='Primary Color: '
                     color={iconSettings.aColor}
                     onChange={(value) => { this._SetChartSettings('icon', 'aColor', value); }}
                 />
                 <LabeledColorPicker 
-                    label='Icon B Color: '
+                    label='Secondary Color: '
                     color={iconSettings.bColor}
                     onChange={(value) => { this._SetChartSettings('icon', 'aColor', value); }}
+                />
+                <LabeledTextField 
+                    label='Icon Size: '
+                    index='max'
+                    initialValue={iconSettings.size}
+                    rows={1}
+                    cols={5}
+                    onChange={(d, i) => { this._SetChartSettings('icon', 'size', d)}}
+                />
+                <LabeledTextField 
+                    label='Padding: '
+                    index='max'
+                    initialValue={iconSettings.padding}
+                    rows={1}
+                    cols={5}
+                    onChange={(d, i) => { this._SetChartSettings('icon', 'padding', d)}}
                 />
                 <LabeledTextField 
                     label='Max icons per row: '
@@ -164,7 +180,7 @@ class WaffleEditor extends React.Component
                     initialValue={resize.width}
                     rows={1}
                     cols={5}
-                    onChange={(d, i) => { }} 
+                    onChange={(d, i) => { this._SetChartSettings('dynamicResize', 'width', d); }} 
                 />
                 <LabeledTextField 
                     label='Height'
@@ -172,7 +188,7 @@ class WaffleEditor extends React.Component
                     initialValue={resize.height}
                     rows={1}
                     cols={5}
-                    onChange={(d, i) => { }} 
+                    onChange={(d, i) => { this._SetChartSettings('dynamicResize', 'height', d); }} 
                 />
             </div>
         ];
