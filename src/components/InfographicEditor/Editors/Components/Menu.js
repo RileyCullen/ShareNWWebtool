@@ -59,19 +59,19 @@ class Menu extends React.Component
                 <div className='check-box-container'>
                     <Checkbox 
                         initialValue={this.state.isChecked}
-                        onClick={() => { this._ToggleCheckBox(); }} />
+                        onClick={(d) => { this._ToggleCheckBox(d); }} />
                 </div>
             );
         }
         return false;
     }
 
-    _ToggleCheckBox()
+    _ToggleCheckBox(d)
     {
         this.setState({
             isChecked: !this.state.isChecked,
         });
-        this.props.checkbox.checkboxHandler();
+        this.props.checkbox.checkboxHandler(d);
     }
 }
 
