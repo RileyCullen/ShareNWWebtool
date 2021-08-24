@@ -13,14 +13,6 @@ class BackgroundElementEditor extends React.Component
             <div className='tabless-container'>
                 <div className='tabless-editor'>
                     <Menu 
-                        name='Position'
-                        isOpen={false}
-                        content={this._GetPositionContent()}
-                        checkbox={{
-                            displayCheckbox: false
-                        }}
-                    />
-                    <Menu 
                         name='Size'
                         isOpen={false}
                         content={this._GetSizeContent()}
@@ -39,30 +31,6 @@ class BackgroundElementEditor extends React.Component
                 </div>
             </div>
         );
-    }
-
-    _GetPositionContent()
-    {
-        return [
-            <div className='center'>
-                <LabeledTextField 
-                    label='X:'
-                    index={'x'}
-                    initialValue={this.props.settings.position.x}
-                    rows={1}
-                    cols={5}
-                    onchange={(d, i) => { }}
-                />
-                <LabeledTextField 
-                    label='Y:'
-                    index={'y'}
-                    initialValue={this.props.settings.position.y}
-                    rows={1}
-                    cols={5}
-                    onchange={(d, i) => { }}
-                /> 
-            </div>
-        ];
     }
 
     _GetSizeContent()

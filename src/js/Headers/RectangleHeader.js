@@ -60,10 +60,6 @@ class RectangleHeader
     GetSettings()
     {
         return {
-            position: {
-                x: this._x,
-                y: this._y,
-            },
             size: {
                 width: this._width,
                 height: this._height,

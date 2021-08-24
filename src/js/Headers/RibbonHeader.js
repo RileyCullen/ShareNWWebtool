@@ -53,15 +53,11 @@ class RibbonHeader
     GetSettings()
     {
         return {
-            position: {
-                x: this._x,
-                y: this._y,
-            },
             size: {
                 width: this._width,
                 height: this._height,
             },
-            displaySettings: {
+            display: {
                 primaryColor: {
                     type: 'color-picker',
                     name: 'Primary Color:',
