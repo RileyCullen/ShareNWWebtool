@@ -55,16 +55,10 @@ class ALineChart
         this._internalOffsetX = internalOffsetX;
         this._internalOffsetY = internalOffsetY;
         this._paddingInner = paddingInner;
+        this._xScale = d3.scaleBand();
+        this._yScale = d3.scaleLinear();
 
-        this._xScale = d3.scaleBand()
-            .range([0, this._chartWidth])
-            .paddingInner(this._paddingInner);
-        
-        this._yScale = d3.scaleLinear()
-            .range([this._chartHeight, 0])
-
-        this._SetUpXDomain();
-        this._SetUpYDomain();
+        this._SetUpScales();
     }
    
     GetData()
@@ -87,7 +81,6 @@ class ALineChart
             },
             spacing: {
                 internalOffsetX: this._internalOffsetX,
-                internalOffsetY: this._internalOffsetY,
             }
         }
     }
@@ -96,13 +89,31 @@ class ALineChart
     {
         this._group.destroyChildren();
         this._data = data;
-        this._SetUpXDomain();
-        this._SetUpYDomain();
+        this._SetUpScales();
     }
 
     UpdateChartSettings(settings)
     {
-        
+        this._chartWidth = parseFloat(settings.size.chartWidth);
+        this._chartHeight = parseFloat(settings.size.chartHeight);
+        this._lineWidth = settings.size.lineWidth;
+        this._pointRadius = settings.size.pointRadius;
+
+        this._lineColor = settings.color.lineColor;
+        this._pointColor = settings.color.pointColor;
+
+        this._internalOffsetX = parseFloat(settings.spacing.internalOffsetX);
+
+        this._group.destroyChildren();
+        this._SetUpScales();
+    }
+
+    _SetUpScales()
+    {
+        this._SetUpXRange();
+        this._SetUpYRange();
+        this._SetUpXDomain();
+        this._SetUpYDomain();
     }
 
     /**
@@ -123,6 +134,17 @@ class ALineChart
     _SetUpYDomain()
     {
         this._yScale.domain([0, d3.max(this._data, function(d) { return +d.value; })]);
+    }
+
+    _SetUpXRange()
+    {
+        this._xScale.range([0, this._chartWidth])
+            .paddingInner(this._paddingInner);
+    }
+
+    _SetUpYRange()
+    {
+        this._yScale.range([this._chartHeight, 0])
     }
 }
 
