@@ -137,7 +137,7 @@ class IconBarChart extends AIconBar
                  * the first icon starts at 0. In addition, we add offset to account 
                  * for the padding set by the user.
                  */
-                var offset = (i === 0) ? 0 : this._padding;
+                var offset = (i === 0) ? 0 : parseFloat(this._padding);
                 return this._xScale(d.category) - this._xScale(minCategory) + offset;
             })
             .attr('y', () => {
@@ -201,6 +201,8 @@ class IconBarChart extends AIconBar
                 iconSize = parseFloat(node.attr('size')),
                 x = parseFloat(node.attr('x')),
                 y = parseFloat(node.attr('y'));
+
+            console.log('x: ' + x);
 
             var icon = new Konva.Text({
                 text: node.attr('icon'),
