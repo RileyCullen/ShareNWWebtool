@@ -25,6 +25,12 @@ class DonutChart extends APieChart
         decorator.CreateChart();
     }
 
+    UpdateChartSettings(settings)
+    {
+        super.UpdateChartSettings(settings);
+        this._innerRadius = settings.size.innerRadius;
+    }
+
     GetChartSettings()
     {
         return {
