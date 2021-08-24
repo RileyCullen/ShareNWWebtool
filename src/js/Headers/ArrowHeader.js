@@ -91,7 +91,7 @@ class ArrowHeader
         this._group.destroy();
     }
 
-    UpdateSettings(settings)
+    UpdateHeader(settings)
     {
         this._width = parseFloat(settings.size.width);
         this._height = parseFloat(settings.size.height);
