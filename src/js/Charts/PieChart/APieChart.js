@@ -62,7 +62,8 @@ class APieChart
 
     UpdateChartSettings(settings)
     {
-        
+        this._group.destroyChildren();
+        this._radius = parseFloat(settings.size.chartRadius);
     }
 
     /**
