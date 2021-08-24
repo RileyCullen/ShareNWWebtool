@@ -50,6 +50,21 @@ class RibbonHeader
         this._group.destroy();
     }
 
+    UpdateHeader(settings)
+    {
+        /**
+         * For this function, we assume settings is structured like the JSON
+         * returned from GetSettings
+         */
+        this._width = parseFloat(settings.size.width);
+        this._height = parseFloat(settings.size.height);
+
+        this._colorOne = settings.display.primaryColor.value;
+        this._colorTwo = settings.display.secondaryColor.value;
+
+        this._group.destroyChildren();
+    }
+
     GetSettings()
     {
         return {

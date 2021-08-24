@@ -120,6 +120,18 @@ class GraphicsHandler
         }; 
     }
 
+    UpdateGraphicSettings({id, settings})
+    {
+        let elem = this._handler[id];
+
+        switch(elem.type) {
+            case 'header':
+                elem.graphic.UpdateHeader(settings);
+                elem.graphic.CreateHeader();
+                break;
+        }
+    }
+
     /**
      * @summary     Updates the ids of each object in the handler.
      * @description See summary. This function is typically called when an object

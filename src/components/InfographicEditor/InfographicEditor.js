@@ -70,6 +70,7 @@ class InfographicEditor extends React.Component
                         textElem={this._editorTextElem}
                         chartData={this.state.chartData}
                         cSettings={this.state.cSettings}
+                        graphicSettings={this.state.graphicSettings}
                         isRemoving={this.state.isRemoving}
                         clearSelection={this._clearSelection}
                         style={{flex: 1}}
@@ -109,6 +110,12 @@ class InfographicEditor extends React.Component
             currentEditor: editor,
             toolbarContent: this._GetToolbarContent(expr, editor),
         });
+
+        if (editor === 'none') {
+            this.setState({
+                graphicSettings: 0,
+            });
+        }
 
         if (expr) this._clearSelection = true;
 
@@ -188,6 +195,13 @@ class InfographicEditor extends React.Component
         });
     }
 
+    _SetGraphicSettings(settings)
+    {
+        this.setState({
+            graphicSettings: settings,
+        });
+    }
+
     /**
      * @summary Selects the current editor being displayed.
      * @returns A react component
@@ -232,7 +246,8 @@ class InfographicEditor extends React.Component
                 settings={this.state.graphicSettings}/>;
         } else if (this.state.currentEditor === 'header-editor') {
             return <BackgroundElementEditor 
-                settings={this.state.graphicSettings}/>;
+                settings={this.state.graphicSettings}
+                setGraphicSettings={(settings) => { this._SetGraphicSettings(settings); }}/>;
         } else if (this.state.currentEditor === 'line-editor') {
             return <LineEditor 
                 chartData={this.state.chartData}

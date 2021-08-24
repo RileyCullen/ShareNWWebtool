@@ -33,6 +33,13 @@ class BackgroundElementEditor extends React.Component
         );
     }
 
+    _SetSizeSettings(category, key, value)
+    {
+        let settings = this.props.settings;
+        settings[category][key] = value;
+        this.props.setGraphicSettings(settings);
+    }
+
     _GetSizeContent()
     {
         return [
@@ -43,7 +50,7 @@ class BackgroundElementEditor extends React.Component
                     initialValue={this.props.settings.size.width}
                     rows={1}
                     cols={5}
-                    onchange={(d, i) => { }}
+                    onChange={(d, i) => { this._SetSizeSettings('size', 'width', d); }}
                 />
                 <LabeledTextField 
                     label='Height:'
@@ -51,10 +58,17 @@ class BackgroundElementEditor extends React.Component
                     initialValue={this.props.settings.size.height}
                     rows={1}
                     cols={5}
-                    onchange={(d, i) => { }}
+                    onChange={(d, i) => { this._SetSizeSettings('size', 'height', d); }}
                 /> 
             </div>
         ];
+    }
+
+    _SetDisplaySettings(key, value)
+    {
+        let settings = this.props.settings;
+        settings.display[key].value = value;
+        this.props.setGraphicSettings(settings);
     }
 
     _GetDisplayContent()
@@ -69,22 +83,20 @@ class BackgroundElementEditor extends React.Component
                             case 'color-picker':
                                 return (
                                     <LabeledColorPicker 
-                                        key={'color-picker-' + tmp.value}
                                         label={tmp.name}
                                         color={tmp.value}
-                                        onChange={(value) => { }}
+                                        onChange={(value) => { this._SetDisplaySettings(key, value); }}
                                     />
                                 );
                             case 'text-field':
                                 return (
                                     <LabeledTextField 
-                                        key={'text-field-' + tmp.value}
                                         label={tmp.name}
                                         index={tmp.type}
                                         initialValue={tmp.value}
                                         rows={1}
                                         cols={5}
-                                        onchange={(d, i) => { }}
+                                        onChange={(d, i) => { this._SetDisplaySettings(key, d); }}
                                     />
                                 );
                             default: 

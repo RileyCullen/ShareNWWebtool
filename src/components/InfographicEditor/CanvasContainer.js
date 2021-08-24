@@ -59,6 +59,7 @@ class CanvasContainer extends React.Component
                 this._infogObj.UpdateTextHandler(this.props.textElem);
                 this._infogObj.UpdateChartData(this.props.chartData);
                 this._infogObj.UpdateChartSettings(this.props.cSettings);
+                this._infogObj.UpdateGraphicSettings(this.props.graphicSettings);
             }
         }
         this._previousInfographic = this.props.infographic;

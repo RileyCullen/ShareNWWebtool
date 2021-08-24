@@ -476,6 +476,15 @@ class AInfographic
         this._UpdateDecorators(elem);
     }
 
+    UpdateGraphicSettings(settings)
+    {
+        if (settings === 0 || this._selectedGraphicIndex === -1) return;
+        this._graphicsHandler.UpdateGraphicSettings({
+            id: this._selectedGraphicIndex, 
+            settings:settings
+        });
+    }
+
     /**
      * @summary     Updates decorators.
      * @description Iterates though all the decorators in handlerElem and updates
