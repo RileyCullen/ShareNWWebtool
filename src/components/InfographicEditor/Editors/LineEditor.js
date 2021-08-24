@@ -98,6 +98,13 @@ class LineEditor extends React.Component
         )
     }
 
+    _SetChartSettings(category, key, value)
+    {
+        let settings = this.props.cSettings;
+        settings[category][key] = value;
+        this.props.setChartSettings(settings);
+    }
+
     _GetSizeContent()
     {
         let sizeSettings = this.props.cSettings.size;
@@ -109,7 +116,7 @@ class LineEditor extends React.Component
                     initialValue={sizeSettings.chartWidth}
                     rows={1}
                     cols={5}
-                    onchange={(d, i) => { }}
+                    onChange={(d, i) => { this._SetChartSettings('size', 'chartWidth', d); }}
                 />
                 <LabeledTextField 
                     label='Chart Height:'
@@ -117,7 +124,7 @@ class LineEditor extends React.Component
                     initialValue={sizeSettings.chartHeight}
                     rows={1}
                     cols={5}
-                    onchange={(d, i) => { }}
+                    onChange={(d, i) => { this._SetChartSettings('size', 'chartHeight', d); }}
                 />
                 <LabeledTextField 
                     label='Line Width:'
@@ -125,7 +132,7 @@ class LineEditor extends React.Component
                     initialValue={sizeSettings.lineWidth}
                     rows={1}
                     cols={5}
-                    onchange={(d, i) => { }}
+                    onChange={(d, i) => { this._SetChartSettings('size', 'lineWidth', d); }}
                 />
                 <LabeledTextField 
                     label='Point Radius:'
@@ -133,7 +140,7 @@ class LineEditor extends React.Component
                     initialValue={sizeSettings.pointRadius}
                     rows={1}
                     cols={5}
-                    onchange={(d, i) => { }}
+                    onChange={(d, i) => { this._SetChartSettings('size', 'pointRadius', d); }}
                 />
             </div>
         ];
@@ -147,12 +154,12 @@ class LineEditor extends React.Component
                 <LabeledColorPicker 
                     label='Line Color:'
                     color={colorSettings.lineColor}
-                    onChange={(value) => { }}
+                    onChange={(value) => { this._SetChartSettings('color', 'lineColor', value); }}
                 />
                 <LabeledColorPicker 
                     label='Point Color:'
                     color={colorSettings.pointColor}
-                    onChange={(value) => { }}
+                    onChange={(value) => { this._SetChartSettings('color', 'pointColor', value); }}
                 />
             </div>
         ];
@@ -164,20 +171,12 @@ class LineEditor extends React.Component
         return [
             <div className='center'>
                 <LabeledTextField 
-                    label='Space between chart and x-axis:'
+                    label='Space between chart and y-axis:'
                     index='x-offset'
                     initialValue={spacingSettings.internalOffsetX}
                     rows={1}
                     cols={5}
-                    onchange={(d, i) => { }}
-                />
-                <LabeledTextField 
-                    label='Space between chart and y-axis:'
-                    index='y-offset'
-                    initialValue={spacingSettings.internalOffsetY}
-                    rows={1}
-                    cols={5}
-                    onchange={(d, i) => { }}
+                    onChange={(d, i) => { this._SetChartSettings('spacing', 'internalOffsetX', d); }}
                 />
             </div>
         ];
@@ -204,7 +203,7 @@ class LineEditor extends React.Component
                         initialValue={settings.axis.label}
                         rows={1}
                         cols={5}
-                        onchange={(d, i) => { }}
+                        onChange={(d, i) => { }}
                     />
                     <LabeledTextField 
                         label='Axis Width:'
@@ -212,7 +211,7 @@ class LineEditor extends React.Component
                         initialValue={settings.axis.axisStrokeWidth}
                         rows={1}
                         cols={5}
-                        onchange={(d, i) => { }} 
+                        onChange={(d, i) => { }} 
                     />
                     <LabeledTextField 
                         label='Tick Width:'
@@ -220,7 +219,7 @@ class LineEditor extends React.Component
                         initialValue={settings.axis.axisTickWidth}
                         rows={1}
                         cols={5}
-                        onchange={(d, i) => { }} 
+                        onChange={(d, i) => { }} 
                     />
                     <LabeledColorPicker 
                         label='Axis Color: '
@@ -258,7 +257,7 @@ class LineEditor extends React.Component
                         initialValue={settings.axis.label}
                         rows={1}
                         cols={5}
-                        onchange={(d, i) => { }}
+                        onChange={(d, i) => { }}
                     />
                     <LabeledTextField 
                         label='Axis Width:'
@@ -266,7 +265,7 @@ class LineEditor extends React.Component
                         initialValue={settings.axis.axisStrokeWidth}
                         rows={1}
                         cols={5}
-                        onchange={(d, i) => { }} 
+                        onChange={(d, i) => { }} 
                     />
                     <LabeledTextField 
                         label='Tick Width:'
@@ -274,7 +273,7 @@ class LineEditor extends React.Component
                         initialValue={settings.axis.axisTickWidth}
                         rows={1}
                         cols={5}
-                        onchange={(d, i) => { }} 
+                        onChange={(d, i) => { }} 
                     />
                     <LabeledColorPicker 
                         label='Axis Color: '

@@ -152,19 +152,43 @@ class PieEditor extends React.Component
         this.props.setChartData(data);
     }
 
+    _SetRadius(radius)
+    {
+        let settings = this.props.cSettings;
+        settings.size.chartRadius = radius;
+        this.props.setChartSettings(settings);
+    }
+
+    _SetDonutRadius(radius)
+    {
+        let settings = this.props.cSettings;
+        settings.size.innerRadius = radius;
+        this.props.setChartSettings(settings);
+    }
+
     _GetSizeContents()
     {
         let size = this.props.cSettings.size;
+        let innerRadiusContent = (this.props.type === 'pie-editor') ? false : 
+            ( <LabeledTextField 
+                label='Inner Radius:'
+                index='donut-radius'
+                initialValue={size.innerRadius}
+                rows={1}
+                cols={5}
+                onChange={ (d, i) => { this._SetDonutRadius(d); }}
+            />);
         return [
             <div className='center'>
                 <LabeledTextField 
-                     label='Radius'
+                     label='Radius:'
                      index='chart-radius'
                      initialValue={size.chartRadius}
                      rows={1}
                      cols={5}
-                     onchange={(d, i) => { }}
+                     onChange={(d, i) => { this._SetRadius(d); }}
                 />
+                {innerRadiusContent}
             </div>
         ]
     }

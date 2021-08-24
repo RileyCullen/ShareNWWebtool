@@ -73,6 +73,13 @@ class IconBarEditor extends React.Component
         )
     }
 
+    _SetChartSettings(category, key, value)
+    {
+        let settings = this.props.cSettings;
+        settings[category][key] = value;
+        this.props.setChartSettings(settings);
+    }
+
     _GetIconContent()
     {
         let iconSettings = this.props.cSettings.iconSettings;
@@ -81,7 +88,7 @@ class IconBarEditor extends React.Component
                 <LabeledColorPicker
                     label='Icon Color'
                     color={iconSettings.iconColor}
-                    onChange={(value) => { }}
+                    onChange={(value) => { this._SetChartSettings('iconSettings', 'iconColor', value); }}
                 />
                 <LabeledTextField 
                     label='Icon Size:'
@@ -89,7 +96,7 @@ class IconBarEditor extends React.Component
                     initialValue={iconSettings.iconSize}
                     rows={1}
                     cols={5}
-                    onchange={(d, i) => { }}
+                    onChange={(d, i) => { this._SetChartSettings('iconSettings', 'iconSize', d); }}
                 />
                 <LabeledTextField 
                     label='Padding'
@@ -97,7 +104,7 @@ class IconBarEditor extends React.Component
                     initialValue={iconSettings.padding}
                     rows={1}
                     cols={5}
-                    onchange={(d, i) => { }}
+                    onChange={(d, i) => { this._SetChartSettings('iconSettings', 'padding', d); }}
                 />
             </div>
         ]
