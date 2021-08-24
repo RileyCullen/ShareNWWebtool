@@ -127,9 +127,17 @@ class LineChart extends ALineChart
         var elements = custom.selectAll('custom.point');
         var helper = new Konva.Group();
 
+        list.forEach(d => {
+            var line = new Konva.Line({
+                points: [d.x1, d.y1, d.x2, d.y2],
+                stroke: this._lineColor,
+                strokeWidth: parseFloat(this._lineWidth),
+            });
+            helper.add(line);
+        }); 
+
         elements.each(function(d, i){
             var node = d3.select(this);
-            console.log('x: ' + node.attr('x'))
             var point = new Konva.Circle({
                 radius: node.attr('pointRadius'),
                 fill: node.attr('pointColor'),
@@ -138,15 +146,6 @@ class LineChart extends ALineChart
             });
             helper.add(point);
         });
-
-        list.forEach(d => {
-            var line = new Konva.Line({
-                points: [d.x1, d.y1, d.x2, d.y2],
-                stroke: this._lineColor,
-                strokeWidth: this._lineWidth,
-            });
-            helper.add(line);
-        }); 
 
         this._group.add(helper);
     }
