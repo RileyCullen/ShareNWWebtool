@@ -23,7 +23,8 @@ class BarChartInputFields extends React.Component
                 let category = d.category, value = d.value; 
                 return (
                     <div className='data-input-container'>
-                        <ColorPicker 
+                        <ColorPicker
+                            id='bar-data-color-picker' 
                             color={d.color}
                             onChange={(color) => {
                                 let index = i;

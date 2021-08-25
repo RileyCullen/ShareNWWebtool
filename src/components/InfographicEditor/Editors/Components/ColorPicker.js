@@ -6,7 +6,8 @@ class ColorPicker extends React.Component
     {
         super(props);
         this.state = {
-            value: this.props.color
+            value: this.props.color,
+            id: this.props.id,
         }
         this._handleChange = this._HandleChange.bind(this);
     }
@@ -26,6 +27,17 @@ class ColorPicker extends React.Component
             value: event.target.value,
         });
         this.props.onChange(event.target.value);
+    }
+
+    static getDerivedStateFromProps(props, state)
+    {
+        if (props.id !== state.id) {
+            return {
+                value: props.color,
+                id: props.id,
+            };
+        }
+        return null;
     }
 }
 
