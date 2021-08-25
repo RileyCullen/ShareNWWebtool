@@ -2,6 +2,7 @@ import React from 'react';
 import { Editor, BarChartInputFields, Menu, LabeledTextField, LabeledColorPicker 
     , FontSelector, LabeledDropdown, StackedBarInputFields} from './Components/index';
 import { LabeledCheckbox } from './Components/LabeledCheckbox';
+import { SettingsManager } from '../../Helpers/SettingsManager';
 
 class BarEditor extends React.Component
 {
@@ -17,6 +18,13 @@ class BarEditor extends React.Component
             fontSize: 10,
             textColor: '#000'
         };
+
+        this._settingsManager = new SettingsManager({
+            cSettings: this.props.cSettings,
+            dSettings: this.props.dSettings,
+            setChartSettings: (settings) => { this.props.setChartSettings(settings); },
+            setDecoratorSettings: (settings) => { this.props.setDecoratorSettings(settings); }
+        });
     }
 
     render()
@@ -43,7 +51,9 @@ class BarEditor extends React.Component
                     checkbox={{ 
                         displayCheckbox: true,
                         isChecked: !(this.props.dSettings.remainder === undefined),
-                        checkboxHandler: () => { }
+                        checkboxHandler: (d) => { 
+                            this._CheckboxHandler(d, 'remainder', this._GetDefaultDecorator('remainder'));
+                        }
                     }}/>,
                 <Menu 
                     key='orietation'
@@ -119,11 +129,83 @@ class BarEditor extends React.Component
 
     _SetChartSettings(category, key, value)
     {
-        // Deep copy cSettings? 
-        console.log(value);
-        let cSettings = this.props.cSettings;
-        cSettings[category][key] = value;
-        this.props.setChartSettings(cSettings);
+        this._settingsManager.SetChartSettings(category, key, value);
+    }
+
+    /**
+     * @summary     Update existing decorator entry 
+     */
+    _UpdateDecoratorSettings(decorator, category, key, value)
+    {
+        this._settingsManager.UpdateDecoratorSettings(decorator, category, key, value);
+    }
+
+    _CheckboxHandler(checkboxValue, key, decoratorSettings)
+    {
+        this._settingsManager.DecoratorToggle(checkboxValue, key, decoratorSettings);
+    }
+
+    _GetDefaultDecorator(type)
+    {
+        switch(type) {
+            case 'remainder':
+                return {
+                    remainder: {
+                        color: {
+                            barColor: '#000'
+                        }
+                    }
+                };
+            case 'x-axis':
+                return {
+                    font: this._defaultFont,
+                    color: {
+                        lineColor: '#000'
+                    },
+                    size: {
+                        lineStrokeWidth: 1,
+                        tickStrokeWidth: 0.5,
+                    }
+                };
+            case 'y-axis':
+                return {
+                    font: this._defaultFont,
+                    color: {
+                        lineColor: '#000'
+                    },
+                    size: {
+                        lineStrokeWidth: 1,
+                        tickStrokeWidth: 0.5,
+                    }
+                };
+            case 'data-labels':
+                return {
+                    font: this._defaultFont,
+                    location: { isMiddle: true, },
+                    display: { 
+                        isPercentage: true,
+                        isCategory: false,
+                    }
+                };
+            case 'category-labels':
+                return {
+                    font: this._defaultFont,
+                    location: {
+                        isTop: true,
+                        isWithinBars: true,
+                    }
+                };  
+            case 'legend-table':
+                return {
+                    font: this._defaultFont,
+                    location: { isTop: true },
+                    labelSettings: {
+                        maxPerRow: 3,
+                    }
+                }; 
+            default:
+                return false;
+        }
     }
 
     _GetChartDataContent()
@@ -190,14 +272,15 @@ class BarEditor extends React.Component
 
     _GetRemainderContent()
     {
-        let color = (this.props.dSettings.remainder === undefined) ? '#fff' 
+        let color = (this.props.dSettings.remainder === undefined) ? '#000' 
             : this.props.dSettings.remainder.color.barColor;
         return [
             <div className='center'>
                 <LabeledColorPicker 
+                    key='remainder-color-picker'
                     label='Bar Color:'
                     color={color}
-                    onChange={(value) => { }} 
+                    onChange={(value) => { this._UpdateDecoratorSettings('remainder', 'color', 'barColor', value); }} 
                 />
             </div>
         ];
@@ -205,20 +288,8 @@ class BarEditor extends React.Component
 
     _GetXAxisContent()
     {
-        let xAxisSettings = (this.props.dSettings.xAxis === undefined) ? {
-                font: {
-                    fontFamily: 'Times New Roman, Times, serif',
-                    fontSize: 10,
-                    textColor: '#000'
-                },
-                color: {
-                    lineColor: '#000'
-                },
-                size: {
-                    lineStrokeWidth: 1,
-                    tickStrokeWidth: 0.5,
-                }
-            } : this.props.dSettings.xAxis;
+        let xAxisSettings = (this.props.dSettings.xAxis === undefined) ? 
+            this._GetDefaultDecorator('x-axis') : this.props.dSettings.xAxis;
         return [
             <div className='center'>
                 <div>
@@ -264,16 +335,8 @@ class BarEditor extends React.Component
 
     _GetYAxisContent()
     {
-        let yAxisSettings = (this.props.dSettings.yAxis === undefined) ? {
-            font: this._defaultFont,
-            color: {
-                lineColor: '#000'
-            },
-            size: {
-                lineStrokeWidth: 1,
-                tickStrokeWidth: 0.5,
-            }
-        } : this.props.dSettings.yAxis;
+        let yAxisSettings = (this.props.dSettings.yAxis === undefined) ? 
+            this._GetDefaultDecorator('y-axis') : this.props.dSettings.yAxis;
         return [
             <div className='center'>
                 <div>
@@ -318,14 +381,8 @@ class BarEditor extends React.Component
 
     _GetDataLabelsContent()
     {
-        let settings = (this.props.dSettings.dataValue === undefined) ? {
-            font: this._defaultFont,
-            location: { isMiddle: true, },
-            display: { 
-                isPercentage: true,
-                isCategory: false,
-            }
-        } : this.props.dSettings.dataValue;
+        let settings = (this.props.dSettings.dataValue === undefined) ? 
+            this._GetDefaultDecorator('data-labels') : this.props.dSettings.dataValue;
         return [
             <div className='center'>
                 <div>
@@ -357,13 +414,8 @@ class BarEditor extends React.Component
 
     _GetCategoryContent()
     {
-        let settings = (this.props.dSettings.categoryLabel === undefined) ? {
-            font: this._defaultFont,
-            location: {
-                isTop: true,
-                isWithinBars: true,
-            }
-        } : this.props.dSettings.categoryLabel;
+        let settings = (this.props.dSettings.categoryLabel === undefined) ? 
+            this._GetDefaultDecorator('category-labels') : this.props.dSettings.categoryLabel;
         return [
             <div className='center'>
                 <div>
@@ -390,13 +442,8 @@ class BarEditor extends React.Component
 
     _GetDescriptionContent()
     {
-        let settings = (this.props.dSettings.chartDescriptor === undefined) ? {
-            font: this._defaultFont,
-            location: { isTop: true },
-            labelSettings: {
-                maxPerRow: 3,
-            }
-        } : this.props.dSettings.chartDescriptor;
+        let settings = (this.props.dSettings.chartDescriptor === undefined) ? 
+            this._GetDefaultDecorator('legend-table') : this.props.dSettings.chartDescriptor;
 
         return [
             <div className='center'>
