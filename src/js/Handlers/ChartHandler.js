@@ -2,6 +2,8 @@
 // ChartHandler.js
 // November 5, 2020
 
+import { BuildBarChartDecoratorList } from '../Charts/DecoratorBuilder';
+
 class ChartHandler 
 {
     /**
@@ -128,6 +130,26 @@ class ChartHandler
         this._handler.splice(id, 1);
         this._curr--;
         this._UpdateHandlerId(); 
+    }
+
+    UpdateChartDecorators(id, dSettings)
+    {
+        let elem = this._handler[id],
+            name = elem.group.getAttr('name');
+        
+        if (name === 'Selectable Chart Bar' || name === 'Selectable Chart Stacked') {
+            elem.decorators = BuildBarChartDecoratorList(elem.chart, dSettings);
+            elem.decoratorSize = elem.decorators.length - 1;
+        } else if (name === 'Selectable Chart Pie' || name === 'Selectable Chart Donut') {
+            // Donut Builder
+        } else if (name === 'Selectable Chart Waffle') {
+            // Waffle Builder   
+        } else if (name === 'Selectable Chart Icon') {
+            // Icon Builder
+        } else if (name === 'Selectable CHart Line') {
+            // Line Builder
+        }
+        // elem.decorators[elem.decoratorSize].CreateChart();
     }
 
     /**
