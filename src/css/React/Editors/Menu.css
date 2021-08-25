@@ -1,6 +1,14 @@
+.dropdown-toggle-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-column-gap: 0px;
+    align-content: center;
+    height: 50px;
+}
+
 .dropdown-toggle {
     display: grid;
-    grid-template-columns: 40px auto auto;
+    grid-template-columns: 40px auto;
     grid-column-gap: 0px;
     align-content: center;
     height: 50px;
@@ -39,7 +47,7 @@
 .check-box-container {
     position: relative;
     left: 100%;
-    top: 100%;
+    top: 110%;
 
     width: max-content;
     height: max-content;
