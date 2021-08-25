@@ -70,6 +70,7 @@ class RemainderDecorator extends ABarChartDecorator
             }));
         });
         this._group.add(helper);
+        helper.moveToBottom();
         helper.rotate(this._rotateBy);
     }
 }
