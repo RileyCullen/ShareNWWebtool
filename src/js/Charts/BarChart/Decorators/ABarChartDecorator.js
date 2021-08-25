@@ -26,6 +26,7 @@ class ABarChartDecorator extends ABarChart
         this._chart = chart;
         this._yScale = chart._yScale;
 
+        // See ABarChart constructor.
         if (this.constructor === ABarChartDecorator) {
             throw new TypeError('Abstract class "ABarChartDecorator" cannot be instantiated');
         }
@@ -73,18 +74,30 @@ class ABarChartDecorator extends ABarChart
         return helper;
     }
 
+    /**
+     * @summary     Finds the canvas width of a given text string.
+     * @description Uses a vanilla canvas created in the DOM to find the width of
+     *              a given piece of text using the context's measureText function.
+     * 
+     * @param {string} text The text we want to measure.
+     * @param {JSON} font   The font of the text.
+     * 
+     * @returns A float representing the width of the given text element.
+     */
     _GetTextWidth(text, font)
     {
+        // Create the virtual (in memory as opposed to in the DOM) canvas element
+        // and context (think of the canvas as the paper and the ctx as the pencil).
         var canvas = document.createElement('canvas');
         var ctx    = canvas.getContext('2d');
 
-        document.getElementById('body').appendChild(canvas)
-
+        // Set up the font and measure the text
         ctx.font = font.fontSize + 'px ' + font.fontFamily;
         var textMetrics = ctx.measureText(text);
         var width = Math.abs(textMetrics.actualBoundingBoxLeft 
             - textMetrics.actualBoundingBoxRight);
 
+        // remove the canvas.
         canvas.remove();
 
         return width; 
@@ -99,6 +112,16 @@ class ABarChartDecorator extends ABarChart
         return this._GetTextWidth(icon, font);
     }
 
+    /**
+     * @summary     Finds the canvas height of a given text string.
+     * @description Uses a vanilla canvas created in the DOM to find the height of
+     *              a given piece of text using the context's measureText function.
+     * 
+     * @param {string} text The text we want to measure.
+     * @param {JSON} font   The font of the text.
+     * 
+     * @returns A float representing the height of the given text element.
+     */
     _GetTextHeight(text, font)
     {
         var canvas = document.createElement('canvas');

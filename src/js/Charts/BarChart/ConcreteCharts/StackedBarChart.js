@@ -29,6 +29,7 @@ class StackedBarChart extends ABarChart
      */
     CreateChart()
     {
+        // Create a virtual container for all of our data elements.
         var virtualDOM = document.createElement('custom');
         var custom = d3.select(virtualDOM);
 
@@ -44,6 +45,9 @@ class StackedBarChart extends ABarChart
      */
     _BindData(custom)
     {
+        // Standard D3 code, with the exception that instead of actually drawing
+        // the chart, this code just binds the given pieces of data to the 
+        // custom.rect elements contained within custom.
         custom.selectAll('custom.rect')
             .data(this._data)
             .enter()
@@ -66,12 +70,32 @@ class StackedBarChart extends ABarChart
         var elements = custom.selectAll('custom.rect');
         var helper = new Konva.Group();
 
+        // Here, the variable groups contains a set of the categories contained
+        // within _data (essentially, it returns a unique list of the categories 
+        // found in _data).
+        // 
+        // The variable offsetHelper then uses groups to create a JSON object 
+        // where the keys are the unique categories found when group was created.
+        // 
+        // Note: this is necessary because offsetHelper, as you will see, is 
+        // essential to building the stacked bar chart.
         var groups = this.GetGroups();
         var offsetHelper = this._CreateOffsetHelper(groups);
 
+        // Here, elements.each can essentially be thought of as a for loop that 
+        // iterates through all of the custom.rect's in custom.
         elements.each(function(d,i) {
+            // NOTE: that here an anonymous function is used instead of an arrow 
+            // function. This is because anonymous functions do not preserve the 
+            // context of the "this" keyword. 
+            //
+            // If an arrow function were to be used, "this" would refer to the 
+            // StackedBarChart object that this function is located in while 
+            // if an anonymous function is used, "this" refers to the custom.rect 
+            // element we are currently on.
             var node = d3.select(this);
 
+            // Add the bar to helper.
             helper.add(new Konva.Rect({
                 x: node.attr('x'),
                 y: node.attr('y') - offsetHelper[node.attr('id')],
@@ -80,8 +104,12 @@ class StackedBarChart extends ABarChart
                 fill: node.attr('fillStyle'),
                 draggable: false,
             }));
+            
+            // Without the following line, all of the bars would start at the bottom of
+            // the graph instead of being offset by the current height of the bar.
             offsetHelper[node.attr('id')] += -1 * node.attr('height');
         });
+        // Rotate the graph and add helper to the canvas.
         helper.rotate(this._rotateBy);
         this._group.add(helper);
     }
