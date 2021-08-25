@@ -70,6 +70,7 @@ class InfographicEditor extends React.Component
                         textElem={this._editorTextElem}
                         chartData={this.state.chartData}
                         cSettings={this.state.cSettings}
+                        dSettings={this.state.dSettings}
                         graphicSettings={this.state.graphicSettings}
                         isRemoving={this.state.isRemoving}
                         clearSelection={this._clearSelection}
@@ -195,6 +196,13 @@ class InfographicEditor extends React.Component
         });
     }
 
+    _SetDecoratorSettings(settings)
+    {
+        this.setState({
+            dSettings: settings,
+        });
+    }
+
     _SetGraphicSettings(settings)
     {
         this.setState({
@@ -228,7 +236,8 @@ class InfographicEditor extends React.Component
                 cSettings={this.state.cSettings}
                 dSettings={this.state.dSettings}
                 setChartData={(data) => { this._SetChartData(data); }}
-                setChartSettings={(settings) => { this._SetChartSettings(settings); }}/>;
+                setChartSettings={(settings) => { this._SetChartSettings(settings); }}
+                setDecoratorSettings={(settings) => { this._SetDecoratorSettings(settings); }}/>;
         } else if (this.state.currentEditor === 'pie-editor' || 
             this.state.currentEditor === 'donut-editor') {
             return <PieEditor 
