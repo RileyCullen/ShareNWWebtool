@@ -437,6 +437,12 @@ class AInfographic
         }
     }
 
+    UpdateChartDecorators(settings)
+    {
+        if (settings === 0 || this._selectedChartIndex === -1) return;
+        this._chartHandler.UpdateChartDecorators(this._selectedChartIndex, settings);
+    }
+
     /**
      * @summary     Updates the selected chart.
      * @description Updates the chart (and its associated data) at index 
