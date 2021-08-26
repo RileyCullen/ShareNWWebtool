@@ -227,7 +227,8 @@ class InfographicEditor extends React.Component
                 cSettings={this.state.cSettings}
                 dSettings={this.state.dSettings}
                 setChartData={(data) => { this._SetChartData(data); }}
-                setChartSettings={(settings) => { this._SetChartSettings(settings); }}/>
+                setChartSettings={(settings) => { this._SetChartSettings(settings); }}
+                setDecoratorSettings={(settings) => { this._SetDecoratorSettings(settings); }}/>
         } else if (this.state.currentEditor === 'bar-editor' || 
             this.state.currentEditor === 'stacked-bar-editor') {
             return <BarEditor
@@ -246,7 +247,8 @@ class InfographicEditor extends React.Component
                 cSettings={this.state.cSettings}
                 dSettings={this.state.dSettings}
                 setChartData={(data) => { this._SetChartData(data); }}
-                setChartSettings={(settings) => { this._SetChartSettings(settings); }}/>;
+                setChartSettings={(settings) => { this._SetChartSettings(settings); }}
+                setDecoratorSettings={(settings) => { this._SetDecoratorSettings(settings); }}/>;
         } else if (this.state.currentEditor === 'image-editor') {
             return <ImageEditor 
                 settings={this.state.graphicSettings}/>;
@@ -263,14 +265,16 @@ class InfographicEditor extends React.Component
                 cSettings={this.state.cSettings}
                 dSettings={this.state.dSettings}
                 setChartData={(data) => { this._SetChartData(data); }}
-                setChartSettings={(settings) => { this._SetChartSettings(settings); }}/>;
+                setChartSettings={(settings) => { this._SetChartSettings(settings); }}
+                setDecoratorSettings={(settings) => { this._SetDecoratorSettings(settings); }}/>;
         } else if (this.state.currentEditor === 'icon-bar-editor') {
             return <IconBarEditor 
                 chartData={this.state.chartData}
                 cSettings={this.state.cSettings}
                 dSettings={this.state.dSettings}
                 setChartData={(data) => { this._SetChartData(data); }}
-                setChartSettings={(settings) => { this._SetChartSettings(settings); }}/>;
+                setChartSettings={(settings) => { this._SetChartSettings(settings); }}
+                setDecoratorSettings={(settings) => { this._SetDecoratorSettings(settings); }}/>;
         } else if (this.state.currentEditor === 'insert-chart') {
             return (<Chart />);
         } else if (this.state.currentEditor === 'insert-icon') {
