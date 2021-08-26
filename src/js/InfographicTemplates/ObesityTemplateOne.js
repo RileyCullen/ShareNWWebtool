@@ -366,20 +366,20 @@ class ObesityTemplateOne extends AInfographic
             innerRadius: 40,
             innerColor: sectionColorArr[2],
         });
-        var outerOutline = new ChartOutlineDecorator({
-            chart: donut, 
-            radius: 70, 
-            outlineWidth: 5, 
-            outlineColor: '#7b706a'
-        });
         var innerOutline = new ChartOutlineDecorator({
-            chart: outerOutline, 
+            chart: donut, 
             radius: 40, 
             outlineWidth: 3, 
             outlineColor: '#7b706a'
         });
-        var majorStatistic = new FirstStatisticDecorator({
+        var outerOutline = new ChartOutlineDecorator({
             chart: innerOutline, 
+            radius: 70, 
+            outlineWidth: 5, 
+            outlineColor: '#7b706a'
+        });
+        var majorStatistic = new FirstStatisticDecorator({
+            chart: outerOutline, 
             font: {
                 'fontSize': statisticFontSize,
                 'fontFamily': titleFont, 
@@ -391,16 +391,12 @@ class ObesityTemplateOne extends AInfographic
         });
 
         this._chartHandler.AddChart({
-            chart: donut, 
+            chart: innerOutline, 
             group: pieChartGroup, 
             type: 'Donut'
         });
         this._chartHandler.AddDecorator({
             decorator: outerOutline, 
-            id: this._chartHandler.GetCurrChartID()
-        });
-        this._chartHandler.AddDecorator({
-            decorator: innerOutline, 
             id: this._chartHandler.GetCurrChartID()
         });
         this._chartHandler.AddDecorator({
