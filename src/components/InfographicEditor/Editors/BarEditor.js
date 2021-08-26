@@ -25,10 +25,61 @@ class BarEditor extends React.Component
             setChartSettings: (settings) => { this.props.setChartSettings(settings); },
             setDecoratorSettings: (settings) => { this.props.setDecoratorSettings(settings); }
         });
+
+        this._defaultSettings = {
+            remainder: {
+                color: {
+                    barColor: '#000'
+                }
+            },
+            xAxis: {
+                font: this._defaultFont,
+                color: {
+                    lineColor: '#000'
+                },
+                size: {
+                    lineStrokeWidth: 1,
+                    tickStrokeWidth: 0.5,
+                }
+            },
+            yAxis: {
+                font: this._defaultFont,
+                color: {
+                    lineColor: '#000'
+                },
+                size: {
+                    lineStrokeWidth: 1,
+                    tickStrokeWidth: 0.5,
+                }
+            }, 
+            dataValue: {
+                font: this._defaultFont,
+                location: { isMiddle: true, },
+                display: { 
+                    isPercentage: true,
+                    isCategory: false,
+                }
+            },
+            categoryLabel: {
+                font: this._defaultFont,
+                location: {
+                    isTop: true,
+                    isWithinBars: true,
+                }
+            },
+            chartDescriptor: {
+                font: this._defaultFont,
+                location: { isTop: true },
+                labelSettings: {
+                    maxPerRow: 3,
+                }
+            }
+        };
     }
 
     render()
     {        
+        console.log(this._defaultSettings);
         let content = {
             chartSettings: [
                 <Menu 
@@ -52,7 +103,7 @@ class BarEditor extends React.Component
                         displayCheckbox: true,
                         isChecked: !(this.props.dSettings.remainder === undefined),
                         checkboxHandler: (d) => { 
-                            this._CheckboxHandler(d, 'remainder', this._GetDefaultDecorator('remainder'));
+                            this._CheckboxHandler(d, 'remainder', {remainder: this._defaultSettings.remainder});
                         }
                     }}/>,
                 <Menu 
@@ -70,8 +121,10 @@ class BarEditor extends React.Component
                     content={this._GetXAxisContent()}
                     checkbox={{
                         displayCheckbox: true,
-                        isChecked: false,
-                        checkboxHandler: () => { }
+                        isChecked: !(this.props.dSettings.xAxis === undefined),
+                        checkboxHandler: (d) => { 
+                            this._CheckboxHandler(d, 'xAxis', {xAxis: this._defaultSettings.xAxis});
+                        }
                     }}
                 />,
                 <Menu 
@@ -81,8 +134,10 @@ class BarEditor extends React.Component
                     content={this._GetYAxisContent()}
                     checkbox={{
                         displayCheckbox: true,
-                        isChecked: false,
-                        checkboxHandler: () => { }
+                        isChecked: !(this.props.dSettings.yAxis === undefined),
+                        checkboxHandler: (d) => { 
+                            this._CheckboxHandler(d, 'yAxis', {yAxis: this._defaultSettings.yAxis});
+                        }
                     }}
                 />,
                 <Menu 
@@ -92,8 +147,10 @@ class BarEditor extends React.Component
                     content={this._GetDataLabelsContent()}
                     checkbox={{
                         displayCheckbox: true,
-                        isChecked: false,
-                        checkboxHandler: () => { }
+                        isChecked: !(this.props.dSettings.dataValue === undefined),
+                        checkboxHandler: (d) => { 
+                            this._CheckboxHandler(d, 'dataValue', {dataValue: this._defaultSettings.dataValue});
+                        }
                     }}
                 />,
                 <Menu 
@@ -103,8 +160,10 @@ class BarEditor extends React.Component
                     content={this._GetCategoryContent()}
                     checkbox={{
                         displayCheckbox: true,
-                        isChecked: false,
-                        checkboxHandler: () => { }
+                        isChecked: !(this.props.dSettings.categoryLabel === undefined),
+                        checkboxHandler: (d) => { 
+                            this._CheckboxHandler(d, 'categoryLabel', {categoryLabel: this._defaultSettings.categoryLabel})
+                        }
                     }}
                 />,
                 <Menu 
@@ -114,8 +173,10 @@ class BarEditor extends React.Component
                     content={this._GetDescriptionContent()}
                     checkbox={{
                         displayCheckbox: true,
-                        isChecked: false,
-                        checkboxHandler: () => { }
+                        isChecked: !(this.props.dSettings.chartDescriptor === undefined),
+                        checkboxHandler: (d) => { 
+                            this._CheckboxHandler(d, 'chartDescriptor', {chartDescriptor: this._defaultSettings.chartDescriptor});
+                        }
                     }}
                 />,
             ]
@@ -143,69 +204,6 @@ class BarEditor extends React.Component
     _CheckboxHandler(checkboxValue, key, decoratorSettings)
     {
         this._settingsManager.DecoratorToggle(checkboxValue, key, decoratorSettings);
-    }
-
-    _GetDefaultDecorator(type)
-    {
-        switch(type) {
-            case 'remainder':
-                return {
-                    remainder: {
-                        color: {
-                            barColor: '#000'
-                        }
-                    }
-                };
-            case 'x-axis':
-                return {
-                    font: this._defaultFont,
-                    color: {
-                        lineColor: '#000'
-                    },
-                    size: {
-                        lineStrokeWidth: 1,
-                        tickStrokeWidth: 0.5,
-                    }
-                };
-            case 'y-axis':
-                return {
-                    font: this._defaultFont,
-                    color: {
-                        lineColor: '#000'
-                    },
-                    size: {
-                        lineStrokeWidth: 1,
-                        tickStrokeWidth: 0.5,
-                    }
-                };
-            case 'data-labels':
-                return {
-                    font: this._defaultFont,
-                    location: { isMiddle: true, },
-                    display: { 
-                        isPercentage: true,
-                        isCategory: false,
-                    }
-                };
-            case 'category-labels':
-                return {
-                    font: this._defaultFont,
-                    location: {
-                        isTop: true,
-                        isWithinBars: true,
-                    }
-                };  
-            case 'legend-table':
-                return {
-                    font: this._defaultFont,
-                    location: { isTop: true },
-                    labelSettings: {
-                        maxPerRow: 3,
-                    }
-                }; 
-            default:
-                return false;
-        }
     }
 
     _GetChartDataContent()
@@ -289,7 +287,7 @@ class BarEditor extends React.Component
     _GetXAxisContent()
     {
         let xAxisSettings = (this.props.dSettings.xAxis === undefined) ? 
-            this._GetDefaultDecorator('x-axis') : this.props.dSettings.xAxis;
+            this._defaultSettings.xAxis : this.props.dSettings.xAxis;
         return [
             <div className='center'>
                 <div>
@@ -336,7 +334,7 @@ class BarEditor extends React.Component
     _GetYAxisContent()
     {
         let yAxisSettings = (this.props.dSettings.yAxis === undefined) ? 
-            this._GetDefaultDecorator('y-axis') : this.props.dSettings.yAxis;
+            this._defaultSettings.yAxis : this.props.dSettings.yAxis;
         return [
             <div className='center'>
                 <div>
@@ -382,7 +380,7 @@ class BarEditor extends React.Component
     _GetDataLabelsContent()
     {
         let settings = (this.props.dSettings.dataValue === undefined) ? 
-            this._GetDefaultDecorator('data-labels') : this.props.dSettings.dataValue;
+            this._defaultSettings.dataValue : this.props.dSettings.dataValue;
         return [
             <div className='center'>
                 <div>
@@ -415,7 +413,7 @@ class BarEditor extends React.Component
     _GetCategoryContent()
     {
         let settings = (this.props.dSettings.categoryLabel === undefined) ? 
-            this._GetDefaultDecorator('category-labels') : this.props.dSettings.categoryLabel;
+            this._defaultSettings.categoryLabel : this.props.dSettings.categoryLabel;
         return [
             <div className='center'>
                 <div>
@@ -443,7 +441,7 @@ class BarEditor extends React.Component
     _GetDescriptionContent()
     {
         let settings = (this.props.dSettings.chartDescriptor === undefined) ? 
-            this._GetDefaultDecorator('legend-table') : this.props.dSettings.chartDescriptor;
+            this._defaultSettings.chartDescriptor : this.props.dSettings.chartDescriptor;
 
         return [
             <div className='center'>

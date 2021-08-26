@@ -3,6 +3,7 @@ import { Editor, FontSelector, LabeledColorPicker, LabeledTextField, Menu,
     PieChartInputFields } from './Components/index';
 
 import '../../../css/React/Editors/ChartEditor.css';
+import { SettingsManager } from '../../Helpers/SettingsManager';
 
 class PieEditor extends React.Component 
 {
@@ -16,6 +17,32 @@ class PieEditor extends React.Component
             fontFamily: 'Times New Roman, Times, serif',
             fontSize: 10,
             textColor: '#000'
+        };
+
+        this._settingsManager = new SettingsManager({
+            cSettings: this.props.cSettings,
+            dSettings: this.props.dSettings,
+            setChartSettings: (settings) => { this.props.setChartSettings(settings); },
+            setDecoratorSettings: (settings) => { this.props.setDecoratorSettings(settings); }
+        });
+
+        this._defaultSettings = {
+            chartOutline: {
+                size: {
+                    radius: 100,
+                    outlineWidth: 2,
+                },
+                color: {
+                    outlineColor: '#000'
+                }
+            },
+            statistic: {
+                font: this._defaultFont,
+                position: {
+                    x: 0,
+                    y: 0
+                }
+            }
         };
     }
 
@@ -56,8 +83,10 @@ class PieEditor extends React.Component
                     content={this._GetDataLabelContents()}
                     checkbox={{
                         displayCheckbox: true,
-                        isChecked: false,
-                        checkboxHandler: () => { }
+                        isChecked: !(this.props.dSettings.statistic === undefined),
+                        checkboxHandler: (d) => { 
+                            this._CheckboxHandler(d, 'statistic', { statistic: this._defaultSettings.statistic});
+                        }
                     }} />,
                 <Menu 
                     key='chart-outline'
@@ -66,8 +95,10 @@ class PieEditor extends React.Component
                     content={this._GetChartOutlineContents()} 
                     checkbox={{
                         displayCheckbox: true,
-                        isChecked: false,
-                        checkboxHandler: () => { }
+                        isChecked: !(this.props.dSettings.chartOutline === undefined),
+                        checkboxHandler: (d) => { 
+                            this._CheckboxHandler(d, 'chartOutline', { chartOutline: this._defaultSettings.chartOutline});
+                        }
                     }} />
             ]
         }
@@ -84,6 +115,11 @@ class PieEditor extends React.Component
         this.setState({
             currentTab: state,
         });
+    }
+
+    _CheckboxHandler(checkboxValue, key, decoratorSettings)
+    {
+        this._settingsManager.DecoratorToggle(checkboxValue, key, decoratorSettings);
     }
 
     _GetChartData()
@@ -195,13 +231,8 @@ class PieEditor extends React.Component
 
     _GetDataLabelContents()
     {
-        let statistic = (this.props.dSettings.statistic === undefined) ? {
-            font: this._defaultFont,
-            position: {
-                x: 0,
-                y: 0
-            }
-        } : this.props.dSettings.statistic;
+        let statistic = (this.props.dSettings.statistic === undefined) ? 
+            this._defaultSettings.statistic : this.props.dSettings.statistic;
         return [
             <div className='center'>
                 <div>
@@ -233,15 +264,8 @@ class PieEditor extends React.Component
 
     _GetChartOutlineContents()
     {
-        let chartOutline = (this.props.dSettings.chartOutline === undefined) ? {
-            size: {
-                radius: 100,
-                outlineWidth: 2,
-            },
-            color: {
-                outlineColor: '#000'
-            }
-        } : this.props.dSettings.chartOutline;
+        let chartOutline = (this.props.dSettings.chartOutline === undefined) ? 
+            this._defaultSettings.chartOutline : this.props.dSettings.chartOutline;
         return [
             <div className='center'>
                 <div>

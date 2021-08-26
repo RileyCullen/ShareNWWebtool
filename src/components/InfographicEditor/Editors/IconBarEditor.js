@@ -3,6 +3,7 @@ import { Editor, Menu, BarChartInputFields, LabeledColorPicker, LabeledTextField
     LabeledCheckbox, FontSelector, LabeledDropdown } from './Components/index';
 
 import '../../../css/React/Editors/ChartEditor.css';
+import { SettingsManager } from '../../Helpers/SettingsManager';
 
 class IconBarEditor extends React.Component 
 {
@@ -14,6 +15,35 @@ class IconBarEditor extends React.Component
             fontSize: 10,
             textColor: '#000'
         };
+
+        this._settingsManager = new SettingsManager({
+            cSettings: this.props.cSettings,
+            dSettings: this.props.dSettings,
+            setChartSettings: (settings) => { this.props.setChartSettings(settings); },
+            setDecoratorSettings: (settings) => { this.props.setDecoratorSettings(settings); }
+        });
+
+        this._defaultSettings = {
+            dataValue: {
+                font: this._defaultFont,
+                display: {
+                    percentage: false,
+                    category: false,
+                    isMiddle: true
+                }, 
+                backgroundColor: {
+                    stroke: '#000',
+                    fill: '#fff',
+                }
+            },
+            category: {
+                font: this._defaultFont,
+                location: {
+                    isWithinBArs: this._isWithinBars,
+                    isTop: this._isTop,
+                }
+            }
+        }
     }
 
     render()
@@ -50,8 +80,10 @@ class IconBarEditor extends React.Component
                     content={this._GetDataLabelsContent()}
                     checkbox={{
                         displayCheckbox: true,
-                        isChecked: false,
-                        checkboxHandler: () => { }
+                        isChecked: !(this.props.dSettings.dataValue === undefined),
+                        checkboxHandler: (d) => { 
+                            this._CheckboxHandler(d, 'dataValue', {dataValue: this._defaultSettings.dataValue})
+                        }
                     }} />,
                 <Menu 
                     key='category-labels'
@@ -60,8 +92,10 @@ class IconBarEditor extends React.Component
                     content={this._GetCategoryLabelsContent()} 
                     checkbox={{
                         displayCheckbox: true,
-                        isChecked: false,
-                        checkboxHandler: () => { }
+                        isChecked: !(this.props.dSettings.category === undefined),
+                        checkboxHandler: (d) => { 
+                            this._CheckboxHandler(d, 'category', {category: this._defaultSettings.category})
+                        }
                     }} />
             ]
         }
@@ -75,9 +109,12 @@ class IconBarEditor extends React.Component
 
     _SetChartSettings(category, key, value)
     {
-        let settings = this.props.cSettings;
-        settings[category][key] = value;
-        this.props.setChartSettings(settings);
+        this._settingsManager.SetChartSettings(category, key, value);
+    }
+
+    _CheckboxHandler(checkboxValue, key, decoratorSettings)
+    {
+        this._settingsManager.DecoratorToggle(checkboxValue, key, decoratorSettings);
     }
 
     _GetIconContent()
@@ -112,18 +149,8 @@ class IconBarEditor extends React.Component
 
     _GetDataLabelsContent()
     {
-        let settings = (this.props.dSettings.dataValue === undefined) ? {
-            font: this._defaultFont,
-            display: {
-                percentage: true,
-                category: false,
-                isMiddle: true
-            }, 
-            backgroundColor: {
-                stroke: '#000',
-                fill: '#fff',
-            }
-        } : this.props.dSettings.dataValue;
+        let settings = (this.props.dSettings.dataValue === undefined) ? 
+            this._defaultSettings.dataValue : this.props.dSettings.dataValue;
         return [
             <div className='center'>
                 <div>
@@ -168,13 +195,8 @@ class IconBarEditor extends React.Component
 
     _GetCategoryLabelsContent()
     {
-        let settings = (this.props.dSettings.category === undefined) ? {
-            font: this._defaultFont,
-            location: {
-                isWithinBArs: this._isWithinBars,
-                isTop: this._isTop,
-            }
-        } : this.props.dSettings.category;
+        let settings = (this.props.dSettings.category === undefined) ? 
+            this._defaultSettings.category : this.props.dSettings.category;
         return [
             <div className='center'>
                 <div>

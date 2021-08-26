@@ -2,6 +2,7 @@ import React from 'react';
 import { Menu, Editor, LabeledColorPicker, LabeledTextField, FontSelector, LabeledCheckbox } from './Components/index';
 
 import '../../../css/React/Editors/ChartEditor.css';
+import { SettingsManager } from '../../Helpers/SettingsManager';
 
 class WaffleEditor extends React.Component
 {
@@ -18,6 +19,21 @@ class WaffleEditor extends React.Component
             fontSize: 10,
             textColor: '#000'
         };
+
+        this._settingsManager = new SettingsManager({
+            cSettings: this.props.cSettings,
+            dSettings: this.props.dSettings,
+            setChartSettings: (settings) => { this.props.setChartSettings(settings); },
+            setDecoratorSettings: (settings) => { this.props.setDecoratorSettings(settings); }
+        });
+
+        this._defaultSettings = {
+            statistic: {
+                font: this._defaultFont,
+                middleText: '',
+                lockToChart: true
+            }
+        }
     }
 
     render()
@@ -83,8 +99,10 @@ class WaffleEditor extends React.Component
                     content={this._GetDataLabelsContent()} 
                     checkbox={{
                         displayCheckbox: true,
-                        isChecked: false,
-                        checkboxHandler: () => { }
+                        isChecked: !(this.props.dSettings.statistic === undefined),
+                        checkboxHandler: (d) => { 
+                            this._CheckboxHandler(d, 'statistic', { statistic: this._defaultSettings.statistic });
+                        }
                     }}/>
             ]
         }
@@ -121,9 +139,17 @@ class WaffleEditor extends React.Component
 
     _SetChartSettings(category, key, value)
     {
-        let settings = this.props.cSettings;
-        settings[category][key] = value;
-        this.props.setChartSettings(settings);
+        this._settingsManager.SetChartSettings(category, key, value);
+    }
+
+    _UpdateDecoratorSettings(decorator, category, key, value)
+    {
+        this._settingsManager.UpdateDecoratorSettings(decorator, category, key, value);
+    }
+
+    _CheckboxHandler(checkboxValue, key, decoratorSettings)
+    {
+        this._settingsManager.DecoratorToggle(checkboxValue, key, decoratorSettings);
     }
 
     _GetIconContent()
@@ -196,11 +222,8 @@ class WaffleEditor extends React.Component
 
     _GetDataLabelsContent()
     {
-        let statistic = (this.props.dSettings.statistic === undefined) ?  {
-            font: this._defaultFont,
-            middleText: '',
-            lockToChart: true
-        } : this.props.dSettings.statistic;
+        let statistic = (this.props.dSettings.statistic === undefined) ? 
+            this._defaultSettings.statistic : this.props.dSettings.statistic;
         return [
             <div className='center'>
                 <div>
