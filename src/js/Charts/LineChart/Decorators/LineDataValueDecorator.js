@@ -47,7 +47,9 @@ class LineDataValueDecorator extends ALineChartDecorator
         return {
             dataValue: {
                 font: this._font,
-                location: 'Bottom',
+                location: {
+                    location: this._location,
+                },
             }
         }
     }
