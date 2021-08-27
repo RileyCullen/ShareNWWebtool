@@ -37,7 +37,7 @@ class LineXAxisDecorator extends ALineChartDecorator
     {
         super(chart);
         this._axisLabel = axisLabel;
-        this._lineColor = lineColor;
+        this._axisColor = lineColor;
         this._lineStrokeWidth = lineStrokeWidth;
         this._tickStrokeWidth = tickStrokeWidth;
         this._font = Lodash.cloneDeep(font);
@@ -60,7 +60,7 @@ class LineXAxisDecorator extends ALineChartDecorator
                 font: this._font,
                 axis: {
                     label: this._axisLabel,
-                    color: this._lineColor,
+                    color: this._axisColor,
                     axisStrokeWidth: this._lineStrokeWidth,
                     axisTickWidth: this._tickStrokeWidth,
                 },
@@ -89,7 +89,7 @@ class LineXAxisDecorator extends ALineChartDecorator
         helper.add(new Konva.Line({
             points: [0 - this._internalOffsetX, this._chartHeight - this._internalOffsetY,
                 this._chartWidth + 3 * this._internalOffsetX, this._chartHeight - this._internalOffsetY],
-            stroke: this._lineColor,
+            stroke: this._axisColor,
             strokeWidth: this._lineStrokeWidth,
         }));
     }
@@ -110,7 +110,7 @@ class LineXAxisDecorator extends ALineChartDecorator
                     this._xScale(d) + this._internalOffsetX, 
                     this._chartHeight + 6 - this._internalOffsetY
                 ],
-                stroke: this._lineColor,
+                stroke: this._axisColor,
                 strokeWidth: this._tickStrokeWidth,
             }));
 

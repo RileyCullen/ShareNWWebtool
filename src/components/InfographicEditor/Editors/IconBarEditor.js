@@ -191,12 +191,16 @@ class IconBarEditor extends React.Component
                     <LabeledColorPicker 
                         label='Border Color:'
                         color={settings.backgroundColor.stroke}
-                        onChange={(value) => { }}
+                        onChange={(value) => { 
+                            this._UpdateDecoratorSettings('dataValue', 'backgroundColor', 'stroke', value)
+                        }}
                     />
                     <LabeledColorPicker 
                         label='Fill Color:'
                         color={settings.backgroundColor.fill}
-                        onChange={(value) => { }}
+                        onChange={(value) => { 
+                            this._UpdateDecoratorSettings('dataValue', 'backgroundColor', 'fill', value);
+                        }}
                     />
                 </div>
                 <div>

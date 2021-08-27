@@ -37,8 +37,8 @@ class LineEditor extends React.Component
                 axis: {
                     label: '',
                     color: '#000',
-                    axisStrokeWidth: 1,
-                    axisTickWidth: 0.5
+                    lineStrokeWidth: 1,
+                    tickStrokeWidth: 0.5
                 }
             },
             dataValue: {
@@ -254,7 +254,7 @@ class LineEditor extends React.Component
                         rows={1}
                         cols={5}
                         onChange={(d, i) => { 
-                            this._UpdateDecoratorSettings('xAxis', 'axis', 'axisStrokeWidth', d);
+                            this._UpdateDecoratorSettings('xAxis', 'axis', 'axisStrokeWidth', parseFloat(d));
                         }} 
                     />
                     <LabeledTextField 
@@ -264,7 +264,7 @@ class LineEditor extends React.Component
                         rows={1}
                         cols={5}
                         onChange={(d, i) => { 
-                            this._UpdateDecoratorSettings('xAxis', 'axis', 'axisTickWidth', d);
+                            this._UpdateDecoratorSettings('xAxis', 'axis', 'axisTickWidth', parseFloat(d));
                         }} 
                     />
                     <LabeledColorPicker 
@@ -299,6 +299,7 @@ class LineEditor extends React.Component
     {
         let settings = (this.props.dSettings.yAxis === undefined) ? 
             this._defaultSettings.yAxis : this.props.dSettings.yAxis;
+            console.log(settings);
         return [
             <div className='center'>
                 <div>
@@ -316,21 +317,21 @@ class LineEditor extends React.Component
                     <LabeledTextField 
                         label='Axis Width:'
                         index={'y-stroke'}
-                        initialValue={settings.axis.axisStrokeWidth}
+                        initialValue={settings.axis.lineStrokeWidth}
                         rows={1}
                         cols={5}
                         onChange={(d, i) => { 
-                            this._UpdateDecoratorSettings('yAxis', 'axis', 'axisStrokeWidth', d);
+                            this._UpdateDecoratorSettings('yAxis', 'axis', 'lineStrokeWidth', parseFloat(d));
                         }} 
                     />
                     <LabeledTextField 
                         label='Tick Width:'
                         index={'y-tick'}
-                        initialValue={settings.axis.axisTickWidth}
+                        initialValue={settings.axis.tickStrokeWidth}
                         rows={1}
                         cols={5}
                         onChange={(d, i) => {
-                            this._UpdateDecoratorSettings('yAxis', 'axis', 'axisTickWidth', d);
+                            this._UpdateDecoratorSettings('yAxis', 'axis', 'tickStrokeWidth', parseFloat(d));
                         }} 
                     />
                     <LabeledColorPicker 
