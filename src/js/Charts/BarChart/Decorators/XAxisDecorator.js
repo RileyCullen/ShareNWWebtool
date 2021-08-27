@@ -4,6 +4,7 @@
 
 import { ABarChartDecorator } from "./ABarChartDecorator";
 import Konva from 'konva';
+import Lodash from 'lodash';
 
 class XAxisDecorator extends ABarChartDecorator
 {
@@ -32,7 +33,7 @@ class XAxisDecorator extends ABarChartDecorator
         this._lineColor = lineColor;
         this._lineStrokeWidth = lineStrokeWidth;
         this._tickStrokeWidth = tickStrokeWidth;
-        this._font = font;
+        this._font = Lodash.cloneDeep(font);
     }
 
     /**
@@ -117,6 +118,7 @@ class XAxisDecorator extends ABarChartDecorator
                 fontFamily: this._font.fontFamily,
                 x: (this._xScale(d) + this._xScale.bandwidth() / 2) - (textWidth / 2),
                 y: this._chartHeight + (textHeight),
+                fill: this._font.color,
             }) 
             helper.add(text);
             if (this._rotateBy === 90) {

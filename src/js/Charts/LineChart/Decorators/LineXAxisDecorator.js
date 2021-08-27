@@ -4,6 +4,7 @@
 
 import { ALineChartDecorator } from "./ALineChartDecorator";
 import Konva from 'konva';
+import Lodash from 'lodash';
 
 class LineXAxisDecorator extends ALineChartDecorator
 {
@@ -39,7 +40,7 @@ class LineXAxisDecorator extends ALineChartDecorator
         this._lineColor = lineColor;
         this._lineStrokeWidth = lineStrokeWidth;
         this._tickStrokeWidth = tickStrokeWidth;
-        this._font = font;
+        this._font = Lodash.cloneDeep(font);
         this._option = option;
     }
 

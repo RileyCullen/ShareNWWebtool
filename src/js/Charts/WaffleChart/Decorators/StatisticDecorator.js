@@ -4,6 +4,7 @@
 
 import { AWaffleChartDecorator } from "./AWaffleChartDecorator";
 import Konva from 'konva';
+import Lodash from 'lodash';
 
 class StatisticDecorator extends AWaffleChartDecorator
 {
@@ -28,7 +29,7 @@ class StatisticDecorator extends AWaffleChartDecorator
         this._top = new Konva.Group();
         this._middleText = middleText;
         this._helper = group;
-        this._font = font;
+        this._font = Lodash.cloneDeep(font);
     }
 
     /**
@@ -49,8 +50,10 @@ class StatisticDecorator extends AWaffleChartDecorator
         return {
             statistic: {
                 font: this._font,
-                middleText: this._middleText,
-                lockToChart: true,
+                display: {
+                    middleText: this._middleText,
+                    lockToChart: true,
+                }
             }
         }
     }
