@@ -278,7 +278,7 @@ class DiabetesTemplateOne extends AInfographic
             font: {
                 fontSize: 30,
                 fontFamily: font.fontFamily,
-                fontColor: 'white',
+                textColor: '#fff',
             }
         })
 

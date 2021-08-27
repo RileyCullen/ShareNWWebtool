@@ -274,9 +274,6 @@ class ViolenceTemplateOne extends AInfographic
             'fontColor': 'black',
             }
         });
-        descriptor.SetPadding(20);
-        descriptor.SetOffsetX(7);
-        descriptor.SetOffsetY(-10);
         this._chartHandler.AddChart({
             chart: stackedBarChart, 
             group: stackedBarChartGroup, 

@@ -273,7 +273,7 @@ class HIVTemplateOne extends AInfographic
             font: {
                 'fontSize': 12,
                 'fontFamily': 'canada-type-gibson, sans-serif',
-                'fontColor': 'white',
+                'textColor': 'white',
             }
         });
 
