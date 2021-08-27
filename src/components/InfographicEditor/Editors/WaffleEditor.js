@@ -30,8 +30,10 @@ class WaffleEditor extends React.Component
         this._defaultSettings = {
             statistic: {
                 font: this._defaultFont,
-                middleText: '',
-                lockToChart: true
+                display: {
+                    middleText: '',
+                    lockToChart: true
+                }
             }
         }
     }
@@ -165,7 +167,7 @@ class WaffleEditor extends React.Component
                 <LabeledColorPicker 
                     label='Secondary Color: '
                     color={iconSettings.bColor}
-                    onChange={(value) => { this._SetChartSettings('icon', 'aColor', value); }}
+                    onChange={(value) => { this._SetChartSettings('icon', 'bColor', value); }}
                 />
                 <LabeledTextField 
                     label='Icon Size: '
@@ -231,20 +233,35 @@ class WaffleEditor extends React.Component
                     <LabeledTextField 
                         label='Text:'
                         index={'text'}
-                        initialValue={statistic.middleText}
+                        initialValue={statistic.display.middleText}
                         rows={1}
                         cols={5}
-                        onchange={(d, i) => { }} 
+                        onChange={(d, i) => { 
+                            this._UpdateDecoratorSettings('statistic', 'display', 'middleText', d);
+                        }} 
                     />
                     <LabeledCheckbox 
                         label='Lock to Chart'
-                        initialValue={statistic.lockToChart}
-                        onClick={() => { }}
+                        initialValue={statistic.display.lockToChart}
+                        onClick={(d) => { 
+                            this._UpdateDecoratorSettings('statistic', 'display', 'lockToChart', d);
+                        }}
                     />
                 </div>
                 <div>
                     <h5>Font Settings:</h5>
-                    <FontSelector initialFont='Times New Roman'/>
+                    <FontSelector 
+                        initialFont={statistic.font}
+                        updateFontFamily={(d) => { 
+                            this._UpdateDecoratorSettings('statistic', 'font', 'fontFamily', d);
+                        }}
+                        updateFontSize={(d) => {
+                            this._UpdateDecoratorSettings('statistic', 'font', 'fontSize', parseFloat(d));
+                        }}
+                        updateTextColor={(d) => {
+                            this._UpdateDecoratorSettings('statistic', 'font', 'textColor', d);
+                        }}
+                    />
                 </div>
             </div>
         ];

@@ -117,6 +117,11 @@ class PieEditor extends React.Component
         });
     }
 
+    _UpdateDecoratorSettings(decorator, category, key, value)
+    {
+        this._settingsManager.UpdateDecoratorSettings(decorator, category, key, value);
+    }
+
     _CheckboxHandler(checkboxValue, key, decoratorSettings)
     {
         this._settingsManager.DecoratorToggle(checkboxValue, key, decoratorSettings);
@@ -243,7 +248,9 @@ class PieEditor extends React.Component
                         initialValue={statistic.position.x}
                         rows={1}
                         cols={5}
-                        onchange={(d, i) => { }} 
+                        onChange={(d, i) => { 
+                            this._UpdateDecoratorSettings('statistic', 'position', 'x', d);
+                        }} 
                     />
                     <LabeledTextField 
                         label='Y:'
@@ -251,12 +258,25 @@ class PieEditor extends React.Component
                         initialValue={statistic.position.y}
                         rows={1}
                         cols={5}
-                        onchange={(d, i) => { }} 
+                        onChange={(d, i) => { 
+                            this._UpdateDecoratorSettings('statistic', 'position', 'y', d);
+                        }} 
                     />
                 </div>
                 <div>
                     <h5>Font Settings:</h5>
-                    <FontSelector initialFont='Times New Roman'/>
+                    <FontSelector 
+                        initialFont={statistic.font}
+                        updateFontFamily={(d) => { 
+                            this._UpdateDecoratorSettings('statistic', 'font', 'fontFamily', d);
+                        }}
+                        updateFontSize={(d) => {
+                            this._UpdateDecoratorSettings('statistic', 'font', 'fontSize', parseFloat(d));
+                        }}
+                        updateTextColor={(d) => {
+                            this._UpdateDecoratorSettings('statistic', 'font', 'textColor', d);
+                        }}
+                    />
                 </div>
             </div>
         ];
@@ -276,7 +296,9 @@ class PieEditor extends React.Component
                         initialValue={chartOutline.size.radius}
                         rows={1}
                         cols={5}
-                        onchange={(d, i) => { }} 
+                        onChange={(d, i) => { 
+                            this._UpdateDecoratorSettings('chartOutline', 'size', 'radius', parseFloat(d));
+                        }} 
                     />
                     <LabeledTextField 
                         label='Stroke Width:'
@@ -284,7 +306,9 @@ class PieEditor extends React.Component
                         initialValue={chartOutline.size.outlineWidth}
                         rows={1}
                         cols={5}
-                        onchange={(d, i) => { }} 
+                        onChange={(d, i) => { 
+                            this._UpdateDecoratorSettings('chartOutline', 'size', 'outlineWidth', parseFloat(d));
+                        }} 
                     />
                 </div>
                 <div>
@@ -292,7 +316,9 @@ class PieEditor extends React.Component
                     <LabeledColorPicker 
                         label='Outline Color:'
                         color={chartOutline.color.outlineColor}
-                        onChange={(value) => { }}
+                        onChange={(value) => { 
+                            this._UpdateDecoratorSettings('chartOutline', 'color', 'outlineColor', value);
+                        }}
                     />
                 </div>
             </div>

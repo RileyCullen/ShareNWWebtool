@@ -48,6 +48,7 @@ class IconBarEditor extends React.Component
 
     render()
     {
+        console.log(this.props.dSettings);
         let chartDataContent = [
             <BarChartInputFields 
                 chartData={this.props.chartData} 
@@ -117,6 +118,11 @@ class IconBarEditor extends React.Component
         this._settingsManager.DecoratorToggle(checkboxValue, key, decoratorSettings);
     }
 
+    _UpdateDecoratorSettings(decorator, category, key, value)
+    {
+        this._settingsManager.UpdateDecoratorSettings(decorator, category, key, value);
+    }
+
     _GetIconContent()
     {
         let iconSettings = this.props.cSettings.iconSettings;
@@ -157,19 +163,27 @@ class IconBarEditor extends React.Component
                     <h5>Display Settings:</h5>
                     <LabeledCheckbox 
                         label='Display Category:'
-                        initialValue={settings.display.percentage}
-                        onClick={() => { }}
+                        initialValue={settings.display.category}
+                        onClick={(d) => { 
+                            this._UpdateDecoratorSettings('dataValue', 'display', 'category', d);
+                        }}
                     />
                     <LabeledCheckbox 
                         label='Display Percentage:'
-                        initialValue={settings.display.category}
-                        onClick={() => { }}
+                        initialValue={settings.display.percentage}
+                        onClick={(d) => { 
+                            this._UpdateDecoratorSettings('dataValue', 'display', 'percentage', d);
+                        }}
                     />
                     <LabeledDropdown 
                         label='Location:'
                         options={['Middle', 'Top']}
                         selected={(settings.display.isMiddle ? 'Middle' : 'Top')}
-                        onChange={(value) => { }}
+                        onChange={(value) => {
+                            let location = false;
+                            if (value === 'Middle') location = true;
+                            this._UpdateDecoratorSettings('dataValue', 'display', 'isMiddle', location);
+                         }}
                     />
                 </div>
                 <div>
@@ -187,7 +201,18 @@ class IconBarEditor extends React.Component
                 </div>
                 <div>
                     <h5>Font Settings:</h5>
-                    <FontSelector initialFont='Times New Roman'/>
+                    <FontSelector 
+                        initialFont={settings.font}
+                        updateFontFamily={(d) => { 
+                            this._UpdateDecoratorSettings('dataValue', 'font', 'fontFamily', d);
+                        }}
+                        updateFontSize={(d) => {
+                            this._UpdateDecoratorSettings('dataValue', 'font', 'fontSize', parseFloat(d));
+                        }}
+                        updateTextColor={(d) => {
+                            this._UpdateDecoratorSettings('dataValue', 'font', 'textColor', d);
+                        }}
+                    />
                 </div>
             </div>
         ];
@@ -205,17 +230,35 @@ class IconBarEditor extends React.Component
                         label='Location:'
                         options={['Top', 'Bottom']}
                         selected={(settings.location.isTop === true) ? 'Top' : 'Bottom'}
-                        onChange={(value) => { }}
+                        onChange={(value) => { 
+                            let location = false;
+                            if (value === 'Top') location = true;
+                            this._UpdateDecoratorSettings('category', 'location', 'isTop', location);
+                        }}
                     />
                     <LabeledCheckbox 
                         label='Display inside bars:'
                         initialVale={settings.location.isWithinBars}
-                        onClick={() => { }}
+                        onClick={(d) => { 
+                            this._UpdateDecoratorSettings('category', 'location', 'isWithinBars', d);
+                        }}
                     /> 
                 </div>
                 <div>
                     <h5>Font Settings:</h5>
-                    <FontSelector initialFont='Times New Roman' />
+                    <FontSelector 
+                        key='icon-category-labels'
+                        initialFont={settings.font}
+                        updateFontFamily={(d) => { 
+                            this._UpdateDecoratorSettings('category', 'font', 'fontFamily', d);
+                        }}
+                        updateFontSize={(d) => {
+                            this._UpdateDecoratorSettings('category', 'font', 'fontSize', parseFloat(d));
+                        }}
+                        updateTextColor={(d) => {
+                            this._UpdateDecoratorSettings('category', 'font', 'textColor', d);
+                        }}
+                    />
                 </div>
             </div>
         ];

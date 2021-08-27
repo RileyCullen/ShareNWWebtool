@@ -298,12 +298,14 @@ class BarEditor extends React.Component
                         initialValue={''}
                         rows={1}
                         cols={5}
-                        onchange={(d, i) => { }} 
+                        onChange={(d, i) => { }} 
                     />
                     <LabeledColorPicker 
                         label='Axis Color:'
                         color={xAxisSettings.color.lineColor}
-                        onChange={(value) => { }}
+                        onChange={(value) => { 
+                            this._UpdateDecoratorSettings('xAxis', 'color', 'lineColor', value)
+                        }}
                     />
                     <LabeledTextField
                         label='Line width:'
@@ -311,7 +313,9 @@ class BarEditor extends React.Component
                         initialValue={xAxisSettings.size.lineStrokeWidth}
                         rows={1}
                         cols={5}
-                        onchange={(d, i) => { }} 
+                        onChange={(d, i) => { 
+                            this._UpdateDecoratorSettings('xAxis', 'size', 'lineStrokeWidth', d);
+                        }} 
                     />
                     <LabeledTextField
                         label='Tick width:'
@@ -319,13 +323,24 @@ class BarEditor extends React.Component
                         initialValue={xAxisSettings.size.tickStrokeWidth}
                         rows={1}
                         cols={5}
-                        onchange={(d, i) => { }} 
+                        onChange={(d, i) => { 
+                            this._UpdateDecoratorSettings('xAxis', 'size', 'tickStrokeWidth', d);
+                        }} 
                     />
                 </div>
                 <div>
                     <h5>Font Settings:</h5>
                     <FontSelector 
-                        initialFont='Times New Roman'/>
+                        initialFont={xAxisSettings.font}
+                        updateFontFamily={(d) => { 
+                            this._UpdateDecoratorSettings('xAxis', 'font', 'fontFamily', d);
+                        }}
+                        updateFontSize={(d) => {
+                            this._UpdateDecoratorSettings('xAxis', 'font', 'fontSize', parseFloat(d));
+                        }}
+                        updateTextColor={(d) => {
+                            this._UpdateDecoratorSettings('xAxis', 'font', 'textColor', d);
+                        }}/>
                 </div>
             </div>
         ];
@@ -345,12 +360,14 @@ class BarEditor extends React.Component
                         initialValue={''}
                         rows={1}
                         cols={5}
-                        onchange={(d, i) => { }} 
+                        onChange={(d, i) => { }} 
                     />
                     <LabeledColorPicker 
                         label='Axis Color:'
                         color={yAxisSettings.color.lineColor}
-                        onChange={(value) => { }}
+                        onChange={(value) => { 
+                            this._UpdateDecoratorSettings('yAxis', 'color', 'lineColor', value);
+                        }}
                     />
                     <LabeledTextField
                         label='Line width:'
@@ -358,7 +375,9 @@ class BarEditor extends React.Component
                         initialValue={yAxisSettings.size.lineStrokeWidth}
                         rows={1}
                         cols={5}
-                        onchange={(d, i) => { }} 
+                        onChange={(d, i) => { 
+                            this._UpdateDecoratorSettings('yAxis', 'size', 'lineStrokeWidth', parseFloat(d));
+                        }} 
                     />
                     <LabeledTextField
                         label='Tick width:'
@@ -366,12 +385,25 @@ class BarEditor extends React.Component
                         initialValue={yAxisSettings.size.tickStrokeWidth}
                         rows={1}
                         cols={5}
-                        onchange={(d, i) => { }} 
+                        onChange={(d, i) => { 
+                            this._UpdateDecoratorSettings('yAxis', 'size', 'tickStrokeWidth', parseFloat(d));
+                        }} 
                     />
                 </div>
                 <div>
                     <h5>Font Settings:</h5>
-                    <FontSelector initialFont='Roboto'/>
+                    <FontSelector 
+                        initialFont={yAxisSettings.font}
+                        updateFontFamily={(d) => { 
+                            this._UpdateDecoratorSettings('yAxis', 'font', 'fontFamily', d);
+                        }}
+                        updateFontSize={(d) => {
+                            this._UpdateDecoratorSettings('yAxis', 'font', 'fontSize', parseFloat(d));
+                        }}
+                        updateTextColor={(d) => {
+                            this._UpdateDecoratorSettings('yAxis', 'font', 'textColor', d);
+                        }}
+                    />
                 </div>
             </div>
         ];    
@@ -387,24 +419,43 @@ class BarEditor extends React.Component
                     <h5>Display Settings</h5>
                     <LabeledCheckbox 
                         label='Display Category:'
-                        initialValue={settings.display.isPercentage}
-                        onClick={() => { }}
+                        initialValue={settings.display.isCategory}
+                        onClick={(d) => { 
+                            this._UpdateDecoratorSettings('dataValue', 'display', 'isCategory', d);
+                        }}
                     />
                     <LabeledCheckbox 
                         label='Display Percentage:'
-                        initialValue={settings.display.isCategory}
-                        onClick={() => { }}
+                        initialValue={settings.display.isPercentage}
+                        onClick={(d) => { 
+                            this._UpdateDecoratorSettings('dataValue', 'display', 'isPercentage', d);
+                        }}
                     />
                     <LabeledDropdown 
                         label='Location:'
                         options={['Middle', 'Top']}
                         selected={(settings.location.isMiddle ? 'Middle' : 'Top')}
-                        onChange={(value) => { }}
+                        onChange={(value) => {
+                            let location = false;
+                            if (value === 'Middle') location = true;
+                            this._UpdateDecoratorSettings('dataValue', 'location', 'isMiddle', location);
+                        }}
                     />
                 </div>
                 <div>
                     <h5>Font Settings:</h5>
-                    <FontSelector initialFont='Times New Roman'/>
+                    <FontSelector 
+                        initialFont={settings.font}
+                        updateFontFamily={(d) => { 
+                            this._UpdateDecoratorSettings('dataValue', 'font', 'fontFamily', d);
+                        }}
+                        updateFontSize={(d) => {
+                            this._UpdateDecoratorSettings('dataValue', 'font', 'fontSize', parseFloat(d));
+                        }}
+                        updateTextColor={(d) => {
+                            this._UpdateDecoratorSettings('dataValue', 'font', 'textColor', d);
+                        }}
+                    />
                 </div>
             </div>
         ];
@@ -422,17 +473,34 @@ class BarEditor extends React.Component
                         label='Location:'
                         options={['Top', 'Bottom']}
                         selected={(settings.location.isTop === true) ? 'Top' : 'Bottom'}
-                        onChange={(value) => { }}
+                        onChange={(value) => { 
+                            let location = false;
+                            if (value === 'Top') location = true;
+                            this._UpdateDecoratorSettings('categoryLabel', 'location', 'isTop', location);
+                        }}
                     />
                     <LabeledCheckbox 
                         label='Display inside bars:'
-                        initialVale={settings.location.isWithinBars}
-                        onClick={() => { }}
+                        initialValue={settings.location.isWithinBars}
+                        onClick={(d) => { 
+                            this._UpdateDecoratorSettings('categoryLabel', 'location', 'isWithinBars', d);
+                        }}
                     /> 
                 </div>
                 <div>
                     <h5>Font Settings:</h5>
-                    <FontSelector initialFont='Times New Roman' />
+                    <FontSelector 
+                        initialFont={settings.font}
+                        updateFontFamily={(d) => { 
+                            this._UpdateDecoratorSettings('categoryLabel', 'font', 'fontFamily', d);
+                        }}
+                        updateFontSize={(d) => {
+                            this._UpdateDecoratorSettings('categoryLabel', 'font', 'fontSize', parseFloat(d));
+                        }}
+                        updateTextColor={(d) => {
+                            this._UpdateDecoratorSettings('categoryLabel', 'font', 'textColor', d);
+                        }}
+                    />
                 </div>
             </div>
         ];
@@ -451,7 +519,11 @@ class BarEditor extends React.Component
                         label='Location:'
                         options={['Top', 'Bottom']}
                         selected={(settings.location.isTop === true) ? 'Top' : 'Bottom'}
-                        onChange={(value) => { }}
+                        onChange={(value) => {
+                            let location = false;
+                            if (value === 'Top') location = true;
+                            this._UpdateDecoratorSettings('chartDescriptor', 'location', 'isTop', location)
+                        }}
                     /> 
                     <LabeledTextField 
                         label='Max per row:'
@@ -459,12 +531,25 @@ class BarEditor extends React.Component
                         initialValue={settings.labelSettings.maxPerRow}
                         rows={1}
                         cols={5}
-                        onchange={(d, i) => { }} 
+                        onChange={(d, i) => { 
+                            this._UpdateDecoratorSettings('chartDescriptor', 'labelSettings', 'maxPerRow', parseFloat(d));
+                        }} 
                     />
                 </div>
                 <div>
                     <h5>Font Settings:</h5>
-                    <FontSelector initialFont='Times New Roman'/>
+                    <FontSelector 
+                        initialFont={settings.font}
+                        updateFontFamily={(d) => { 
+                            this._UpdateDecoratorSettings('chartDescriptor', 'font', 'fontFamily', d);
+                        }}
+                        updateFontSize={(d) => {
+                            this._UpdateDecoratorSettings('chartDescriptor', 'font', 'fontSize', parseFloat(d));
+                        }}
+                        updateTextColor={(d) => {
+                            this._UpdateDecoratorSettings('chartDescriptor', 'font', 'textColor', d);
+                        }}
+                    />
                 </div>
             </div>
         ];

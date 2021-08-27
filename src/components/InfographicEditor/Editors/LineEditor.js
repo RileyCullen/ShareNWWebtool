@@ -147,6 +147,11 @@ class LineEditor extends React.Component
         this._settingsManager.DecoratorToggle(checkboxValue, key, decoratorSettings);
     }
 
+    _UpdateDecoratorSettings(decorator, category, key, value)
+    {
+        this._settingsManager.UpdateDecoratorSettings(decorator, category, key, value);
+    }
+
     _GetSizeContent()
     {
         let sizeSettings = this.props.cSettings.size;
@@ -237,8 +242,10 @@ class LineEditor extends React.Component
                         index={'x-label'}
                         initialValue={settings.axis.label}
                         rows={1}
-                        cols={5}
-                        onChange={(d, i) => { }}
+                        cols={20}
+                        onChange={(d, i) => { 
+                            this._UpdateDecoratorSettings('xAxis', 'axis', 'label', d);
+                        }}
                     />
                     <LabeledTextField 
                         label='Axis Width:'
@@ -246,7 +253,9 @@ class LineEditor extends React.Component
                         initialValue={settings.axis.axisStrokeWidth}
                         rows={1}
                         cols={5}
-                        onChange={(d, i) => { }} 
+                        onChange={(d, i) => { 
+                            this._UpdateDecoratorSettings('xAxis', 'axis', 'axisStrokeWidth', d);
+                        }} 
                     />
                     <LabeledTextField 
                         label='Tick Width:'
@@ -254,17 +263,32 @@ class LineEditor extends React.Component
                         initialValue={settings.axis.axisTickWidth}
                         rows={1}
                         cols={5}
-                        onChange={(d, i) => { }} 
+                        onChange={(d, i) => { 
+                            this._UpdateDecoratorSettings('xAxis', 'axis', 'axisTickWidth', d);
+                        }} 
                     />
                     <LabeledColorPicker 
                         label='Axis Color: '
                         color={settings.axis.color}
-                        onChange={(value) => { }} 
+                        onChange={(value) => { 
+                            this._UpdateDecoratorSettings('xAxis', 'axis', 'color', value);
+                        }} 
                     />
                 </div>
                 <div>
                     <h5>Font Settings:</h5>
-                    <FontSelector initialFont='Times New Roman'/>
+                    <FontSelector 
+                        initialFont={settings.font}
+                        updateFontFamily={(d) => { 
+                            this._UpdateDecoratorSettings('xAxis', 'font', 'fontFamily', d);
+                        }}
+                        updateFontSize={(d) => {
+                            this._UpdateDecoratorSettings('xAxis', 'font', 'fontSize', parseFloat(d));
+                        }}
+                        updateTextColor={(d) => {
+                            this._UpdateDecoratorSettings('xAxis', 'font', 'textColor', d);
+                        }}
+                    />
                 </div>
             </div>
         ];
@@ -284,8 +308,10 @@ class LineEditor extends React.Component
                         index={'y-label'}
                         initialValue={settings.axis.label}
                         rows={1}
-                        cols={5}
-                        onChange={(d, i) => { }}
+                        cols={20}
+                        onChange={(d, i) => { 
+                            this._UpdateDecoratorSettings('yAxis', 'axis', 'label', d);
+                        }}
                     />
                     <LabeledTextField 
                         label='Axis Width:'
@@ -293,7 +319,9 @@ class LineEditor extends React.Component
                         initialValue={settings.axis.axisStrokeWidth}
                         rows={1}
                         cols={5}
-                        onChange={(d, i) => { }} 
+                        onChange={(d, i) => { 
+                            this._UpdateDecoratorSettings('yAxis', 'axis', 'axisStrokeWidth', d);
+                        }} 
                     />
                     <LabeledTextField 
                         label='Tick Width:'
@@ -301,17 +329,32 @@ class LineEditor extends React.Component
                         initialValue={settings.axis.axisTickWidth}
                         rows={1}
                         cols={5}
-                        onChange={(d, i) => { }} 
+                        onChange={(d, i) => {
+                            this._UpdateDecoratorSettings('yAxis', 'axis', 'axisTickWidth', d);
+                        }} 
                     />
                     <LabeledColorPicker 
                         label='Axis Color: '
                         color={settings.axis.color}
-                        onChange={(value) => { }} 
+                        onChange={(value) => { 
+                            this._UpdateDecoratorSettings('yAxis', 'axis', 'color', value);
+                        }} 
                     />
                 </div>
                 <div>
                     <h5>Font Settings:</h5>
-                    <FontSelector initialFont='Times New Roman'/>
+                    <FontSelector
+                        initialFont={settings.font}
+                        updateFontFamily={(d) => { 
+                            this._UpdateDecoratorSettings('yAxis', 'font', 'fontFamily', d);
+                        }}
+                        updateFontSize={(d) => {
+                            this._UpdateDecoratorSettings('yAxis', 'font', 'fontSize', parseFloat(d));
+                        }}
+                        updateTextColor={(d) => {
+                            this._UpdateDecoratorSettings('yAxis', 'font', 'textColor', d);
+                        }}
+                    />
                 </div>
             </div>
         ];
@@ -329,12 +372,25 @@ class LineEditor extends React.Component
                         label='Location:'
                         options={['Bottom', 'Top', 'Left', 'Right']}
                         selected={settings.location.location}
-                        onChange={(value) => { }}
+                        onChange={(value) => { 
+                            this._UpdateDecoratorSettings('dataValue', 'location', 'location', value);
+                        }}
                     />
                 </div>
                 <div>
                     <h5>Font Settings:</h5>
-                    <FontSelector initialFont='Times New Roman'/>
+                    <FontSelector
+                        initialFont={settings.font}
+                        updateFontFamily={(d) => { 
+                            this._UpdateDecoratorSettings('dataValue', 'font', 'fontFamily', d);
+                        }}
+                        updateFontSize={(d) => {
+                            this._UpdateDecoratorSettings('dataValue', 'font', 'fontSize', parseFloat(d));
+                        }}
+                        updateTextColor={(d) => {
+                            this._UpdateDecoratorSettings('dataValue', 'font', 'textColor', d);
+                        }}
+                    />
                 </div>
             </div>
         ];
