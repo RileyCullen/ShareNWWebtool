@@ -14,7 +14,8 @@ class Toolbar extends React.Component
                     currentEditor={this.props.currentEditor}
                     toolbarContent={this.props.toolbarContent}
                     displayHome={() => { this.props.displayHome(); }}
-                    setToolbarContent={(content) =>  { this.props.setToolbarContent(content); }}/>
+                    setToolbarContent={(content) =>  { this.props.setToolbarContent(content); }}
+                    toggleDownload={() => { this.props.downloadToggle(); }}/>
                 <ToolbarContent 
                     display={this.props.toolbarContent}
                     canvasToggle={(setting) => { this.props.canvasToggle(setting); }}

@@ -55,6 +55,8 @@ class CanvasContainer extends React.Component
                 this._infogObj.Remove();
             } else if (this.props.clearSelection) {
                 this._infogObj.ClearSelection()
+            } else if (this.props.isDownloading) { 
+                this._infogObj.Download();
             } else {
                 this._infogObj.UpdateTextHandler(this.props.textElem);
 

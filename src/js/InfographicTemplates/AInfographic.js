@@ -19,6 +19,7 @@ class AInfographic
      * @source _AddTextSelection() uses code from https://konvajs.org/docs/sandbox/Editable_Text.html
      * @source Selecting mutliple elements demo uses code from https://konvajs.org/docs/select_and_transform/Basic_demo.html#page-title
      * @source _DrawSVG code taken from https://konvajs.org/docs/sandbox/SVG_On_Canvas.html
+     * @source Download code taken from https://konvajs.org/docs/data_and_serialization/High-Quality-Export.html
      * 
      * @param {double} height The height of the canvas element
      * @param {double} width  The width of the canvas element
@@ -121,6 +122,22 @@ class AInfographic
         this._selectedChartIndex = -1;
         this._selectedGraphicIndex = -1;
         this._selectedTextIndex = this._selectedTextHelper = -1;
+    }
+
+    Download()
+    {
+        // function from https://stackoverflow.com/a/15832662/512042
+        function downloadURI(uri, name) {
+            var link = document.createElement('a');
+            link.download = name;
+            link.href = uri;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            link.remove();
+        }
+        var dataURL = this._stage.toDataURL({pixelRatio: 5})
+        downloadURI(dataURL, 'Infographic.png');
     }
 
     /**

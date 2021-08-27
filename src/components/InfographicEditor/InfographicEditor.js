@@ -28,6 +28,7 @@ class InfographicEditor extends React.Component
             dSettings: 0,
             graphicSettings: 0,
             isRemoving: false,
+            isDownloading: false,
         };
         this._infogTextElem = 0;
         this._editorTextElem = 0;
@@ -57,7 +58,8 @@ class InfographicEditor extends React.Component
                         setToolbarContent={(content) => { this._SetToolbarContent(content); }}
                         displayHome={() => { this.props.displayHome(); }}
                         canvasToggle={(setting) => { this._CanvasToggle(setting); }} 
-                        editorHandler={(editor) => { this._SetCurrentEditor(editor); }}/>
+                        editorHandler={(editor) => { this._SetCurrentEditor(editor); }}
+                        downloadToggle={() => { this._ToggleDownload(); }}/>
                 </div>
                 <div className='lower-container'>
                     <CanvasContainer 
@@ -73,6 +75,7 @@ class InfographicEditor extends React.Component
                         dSettings={this.state.dSettings}
                         graphicSettings={this.state.graphicSettings}
                         isRemoving={this.state.isRemoving}
+                        isDownloading={this.state.isDownloading}
                         clearSelection={this._clearSelection}
                         style={{flex: 1}}
                     />
@@ -94,6 +97,7 @@ class InfographicEditor extends React.Component
     componentDidUpdate()
     { 
         if (this.state.isRemoving) this.setState({isRemoving: false});
+        if (this.state.isDownloading) this.setState({isDownloading: false});
         this._clearSelection = false;
     }
 
@@ -154,6 +158,13 @@ class InfographicEditor extends React.Component
     {
         this.setState({
             graphicSettings: settings,
+        });
+    }
+
+    _ToggleDownload()
+    {
+        this.setState({
+            isDownloading: true,
         });
     }
 
