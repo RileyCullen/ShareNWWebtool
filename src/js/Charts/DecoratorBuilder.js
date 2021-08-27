@@ -30,7 +30,7 @@ function BuildBarChartDecoratorList(chart, dSettings)
                 decoratorList[size] = new ChartDescriptorDecorator({
                     chart: prevChart,
                     isTop: dSettings.chartDescriptor.location.isTop,
-                    maxPerRow: dSettings.chartDescriptor.labelSettings.maxPerRows,
+                    maxPerRow: dSettings.chartDescriptor.labelSettings.maxPerRow,
                     font: dSettings.chartDescriptor.font,
                 });
                 break;
@@ -78,7 +78,7 @@ function BuildWaffleChartDecoratorList(chart, dSettings)
             case 'statistic':
                 decoratorList[size] = new StatisticDecorator({
                     chart: prevChart,
-                    middleText: dSettings.statistic.middleText,
+                    middleText: dSettings.statistic.display.middleText,
                     font: dSettings.statistic.font,
                 });
                 break;
