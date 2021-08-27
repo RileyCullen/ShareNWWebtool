@@ -203,13 +203,6 @@ class InfographicEditor extends React.Component
         });
     }
 
-    _SetGraphicSettings(settings)
-    {
-        this.setState({
-            graphicSettings: settings,
-        });
-    }
-
     /**
      * @summary Selects the current editor being displayed.
      * @returns A react component
@@ -251,14 +244,16 @@ class InfographicEditor extends React.Component
                 setDecoratorSettings={(settings) => { this._SetDecoratorSettings(settings); }}/>;
         } else if (this.state.currentEditor === 'image-editor') {
             return <ImageEditor 
-                settings={this.state.graphicSettings}/>;
+                settings={this.state.graphicSettings}
+                setGraphicSettings={(settings) => { this._GraphicHandler(settings); }}/>;
         } else if (this.state.currentEditor === 'icon-editor') {
             return <IconEditor 
-                settings={this.state.graphicSettings}/>;
+                settings={this.state.graphicSettings}
+                setGraphicSettings={(settings) => { this._GraphicHandler(settings); }}/>;
         } else if (this.state.currentEditor === 'header-editor') {
             return <BackgroundElementEditor 
                 settings={this.state.graphicSettings}
-                setGraphicSettings={(settings) => { this._SetGraphicSettings(settings); }}/>;
+                setGraphicSettings={(settings) => { this._GraphicHandler(settings); }}/>;
         } else if (this.state.currentEditor === 'line-editor') {
             return <LineEditor 
                 chartData={this.state.chartData}

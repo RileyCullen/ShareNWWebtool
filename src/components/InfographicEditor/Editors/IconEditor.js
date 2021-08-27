@@ -32,18 +32,27 @@ class IconEditor extends React.Component
         )
     }
 
+    _SetGraphicSettings(key, value)
+    {
+        let settings = this.props.settings;
+        settings[key] = value;
+        this.props.setGraphicSettings(settings);
+    }
+
     _GetSizeSettings()
     {
         return [
             <div className='center'>
                 <LabeledTextField 
-                    key={'icon-size-' + this.props.settings.fontSize}
+                    key={'icon-size'}
                     label='Size:'
                     index={'font-size'}
                     initialValue={this.props.settings.fontSize}
                     rows={1}
                     cols={5}
-                    onchange={(d, i) => { }}
+                    onChange={(d, i) => { 
+                        this._SetGraphicSettings('fontSize', parseFloat(d));
+                    }}
                 />
             </div>
         ];
@@ -54,20 +63,24 @@ class IconEditor extends React.Component
         return [   
             <div className='center'>
                 <LabeledSlider 
-                    key={'icon-opacity-' + this.props.settings.opacity}
+                    key={'icon-opacity'}
                     label='Opacity:'
                     value={this.props.settings.opacity}
                     min={0}
                     max={1}
                     step={0.1}
-                    onChange={(event) => { }}
+                    onChange={(event) => { 
+                        this._SetGraphicSettings('opacity', event);
+                    }}
                     width='150px'
                 />
                 <LabeledColorPicker 
-                    key={'icon-color-' + this.props.settings.fill}
+                    key={'icon-color'}
                     label='Color:'
                     color={this.props.settings.fill}
-                    onChange={(value) => { }}
+                    onChange={(value) => {
+                        this._SetGraphicSettings('fill', value)
+                    }}
                 />
             </div>
         ];

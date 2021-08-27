@@ -41,18 +41,27 @@ class ImageEditor extends React.Component
         );
     }
 
+    _SetGraphicSettings(key, value)
+    {
+        let settings = this.props.settings;
+        settings[key] = value;
+        this.props.setGraphicSettings(settings);
+    }
+
     _GetSizeContent()
     {
         return [
             <div className='center'>
                 <LabeledTextField 
-                    key={'image-width-' + this.props.settings.width}
+                    key={'image-width'}
                     label='Width:'
                     index={'width'}
                     initialValue={this.props.settings.width}
                     rows={1}
                     cols={5}
-                    onchange={(d, i) => { }}
+                    onChange={(d, i) => { 
+                        this._SetGraphicSettings('width', parseFloat(d));
+                    }}
                 />
                 <LabeledTextField 
                     key={'image-height-' + this.props.settings.height}
@@ -61,7 +70,9 @@ class ImageEditor extends React.Component
                     initialValue={this.props.settings.height}
                     rows={1}
                     cols={5}
-                    onchange={(d, i) => { }}
+                    onChange={(d, i) => {
+                        this._SetGraphicSettings('height', parseFloat(d));    
+                    }}
                 />
             </div>
         ];
@@ -72,29 +83,35 @@ class ImageEditor extends React.Component
         return [
             <div className='center'>
                 <LabeledSlider
-                    key={'opacity-' + this.props.settings.opacity} 
+                    key={'image-opacity'} 
                     label='Opacity:'
-                    value={this.props.settings.opacity}
+                    value={parseFloat(this.props.settings.opacity)}
                     min={0}
                     max={1}
                     step={0.1}
-                    onChange={(event) => { }}
+                    onChange={(event) => { 
+                        this._SetGraphicSettings('opacity', event);
+                    }}
                     width='150px'
                 />
                 <LabeledColorPicker 
-                    key={'stroke-color-' + this.props.settings.stroke}
+                    key={'image-stroke-color'}
                     label='Stroke Color:'
                     color={this.props.settings.stroke}
-                    onChange={(value) => { }}
+                    onChange={(value) => { 
+                        this._SetGraphicSettings('stroke', value);
+                    }}
                 />
                 <LabeledTextField 
-                    key={'stroke-width-' + this.props.settings.strokeWidth}
+                    key={'image-stroke-width'}
                     label='Stroke Width:'
                     index={'stroke'}
                     initialValue={this.props.settings.strokeWidth}
                     rows={1}
                     cols={5}
-                    onchange={(d, i) => { }}
+                    onChange={(d, i) => { 
+                        this._SetGraphicSettings('strokeWidth', parseFloat(d));
+                    }}
                 />
             </div>
         ];
@@ -104,33 +121,39 @@ class ImageEditor extends React.Component
         return [
             <div className='center'>
                 <LabeledSlider 
-                    key={'contrast-' + this.props.settings.contrast}
+                    key={'image-contrast'}
                     label='Contrast:'
                     value={this.props.settings.contrast}
                     min={-100}
                     max={100}
                     step={1}
-                    onChange={(event) => { }}
+                    onChange={(event) => { 
+                        this._SetGraphicSettings('contrast', parseFloat(event));
+                    }}
                     width='150px' 
                 />
                 <LabeledSlider 
-                    key={'brightness-' + this.props.settings.brightness}
+                    key={'image-brightness'}
                     label='Brightness:'
                     value={this.props.settings.brightness}
                     min={-1}
                     max={1}
                     step={0.1}
-                    onChange={(event) => { }}
+                    onChange={(event) => { 
+                        this._SetGraphicSettings('brightness', parseFloat(event));
+                    }}
                     width='150px' 
                 />
                 <LabeledSlider 
-                    key={'blur-' + this.props}
+                    key={'image-blur'}
                     label='Blur:'
                     value={this.props.settings.blurRadius}
                     min={0}
                     max={40}
                     step={1}
-                    onChange={(event) => { }}
+                    onChange={(event) => { 
+                        this._SetGraphicSettings('blurRadius', parseFloat(event));
+                    }}
                     width='150px' 
                 />
             </div>

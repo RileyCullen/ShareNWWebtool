@@ -129,6 +129,16 @@ class GraphicsHandler
                 elem.graphic.UpdateHeader(settings);
                 elem.graphic.CreateHeader();
                 break;
+            case 'image':
+                elem.graphic.clearCache();
+                elem.graphic.cache();
+                elem.graphic.setAttrs(settings);
+                break;
+            case 'icon':
+                elem.graphic.setAttrs(settings);
+                break;
+            default:
+                break;
         }
     }
 

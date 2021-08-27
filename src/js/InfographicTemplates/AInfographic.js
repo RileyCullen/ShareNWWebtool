@@ -489,6 +489,8 @@ class AInfographic
             id: this._selectedGraphicIndex, 
             settings:settings
         });
+        this._tr.forceUpdate();
+        this._main.batchDraw();
     }
 
     /**
