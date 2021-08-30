@@ -60,6 +60,27 @@ class TextHandler
         console.log(this._handler);
     }
 
+    UpdateLayering(id, action) 
+    {
+        let group = this._handler[id].image;
+        switch(action) {
+            case 'move-to-back':
+                group.moveToBottom();
+                break;
+            case 'move-to-front':
+                group.moveToTop();
+                break;
+            case 'bring-forward':
+                group.moveUp();
+                break;
+            case 'send-backward':
+                group.moveDown();
+                break;
+            default:
+                break;
+        }
+    }
+
     SetTextInfo({id, font, size, color})
     {
         this._handler[id].textInfo.initialFont = font;

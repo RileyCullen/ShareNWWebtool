@@ -82,6 +82,7 @@ class GraphicsHandler
         let obj = this._handler[id];
         switch(obj.type) {
             case 'icon':
+                return obj.graphic.getAttrs();
             case 'image':
                 return obj.graphic.getAttrs();
             case 'header':
@@ -136,6 +137,27 @@ class GraphicsHandler
                 break;
             case 'icon':
                 elem.graphic.setAttrs(settings);
+                break;
+            default:
+                break;
+        }
+    }
+
+    UpdateLayering(id, action) 
+    {
+        let group = this._handler[id].group;
+        switch(action) {
+            case 'move-to-back':
+                group.moveToBottom();
+                break;
+            case 'move-to-front':
+                group.moveToTop();
+                break;
+            case 'bring-forward':
+                group.moveUp();
+                break;
+            case 'send-backward':
+                group.moveDown();
                 break;
             default:
                 break;

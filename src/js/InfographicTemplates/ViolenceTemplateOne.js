@@ -36,7 +36,7 @@ class ViolenceTemplateOne extends AInfographic
         });
         background.add(backgroundRect);
 
-        var header = new Konva.Group();
+        var header = this._CreateSwitchableContainer();
         this._main.add(header);
 
         var roboto700 = this._quillMap('Roboto', 700);
@@ -155,7 +155,7 @@ class ViolenceTemplateOne extends AInfographic
             lineHeight: '1.0',
         });
 
-        var sectionOne = new Konva.Group({
+        var sectionOne = this._CreateSwitchableContainer({
             x: 1,
             y: yellowStrip.getAttr('y') + yellowStrip.getAttr('height') + 70,
         });
@@ -479,7 +479,7 @@ class ViolenceTemplateOne extends AInfographic
         .CreateChart();
 
         /* TOOL TIP */
-        var toolTipGroup = new Konva.Group(), toolTip = new MessageBubble(toolTipGroup, 225, 150, '#1e2243', 300, 350);
+        var toolTipGroup = this._CreateSwitchableContainer(), toolTip = new MessageBubble(toolTipGroup, 225, 150, '#1e2243', 300, 350);
         this._graphicsHandler.AddGraphic({
             type: 'header',
             graphic: toolTip,
@@ -533,7 +533,7 @@ class ViolenceTemplateOne extends AInfographic
         var PERSON = '\uf007', ICON_FONT = '"Font Awesome 5 Free"';
         var orangePersonPreset = GenerateWafflePreset(PERSON, orange, 25, ICON_FONT),
             bluePersonPreset = GenerateWafflePreset(PERSON, mediumBlue, 25, ICON_FONT);
-        var waffleChartGroup = new Konva.Group({
+        var waffleChartGroup = this._CreateSwitchableContainer({
             x: 20,
             y: whiteBackground.getAttr('y') + 1.6 * whiteBackground.getAttr('height') + 30,
             width: 1000,

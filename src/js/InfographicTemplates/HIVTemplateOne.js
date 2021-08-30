@@ -14,26 +14,26 @@ class HIVTemplateOne extends AInfographic
 
     CreateInfographic()
     {
-        var header = new Konva.Group({
+        var header = this._CreateSwitchableContainer({
             x: 0,
             y: 0,
-        }),
-        sectionOne = new Konva.Group({
+        }, 'header'),
+        sectionOne = this._CreateSwitchableContainer({
             x: 90,
             y: 75,
-        }),
-        sectionTwo = new Konva.Group({
+        }, 'sectionOne'),
+        sectionTwo = this._CreateSwitchableContainer({
             x: 90,
             y: 220,
-        }),
-        sectionThree = new Konva.Group({
+        }, 'sectionTwo'),
+        sectionThree = this._CreateSwitchableContainer({
             x: 90,
             y: 365,
-        }), 
-        footer = new Konva.Group({
+        }, 'sectionThree'), 
+        footer = this._CreateSwitchableContainer({
             x: 0, 
             y: 500,
-        });
+        }, 'footer');
         this._main.add(header);
         this._main.add(sectionOne);
         this._main.add(sectionTwo);

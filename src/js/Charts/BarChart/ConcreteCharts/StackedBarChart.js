@@ -97,10 +97,10 @@ class StackedBarChart extends ABarChart
 
             // Add the bar to helper.
             helper.add(new Konva.Rect({
-                x: node.attr('x'),
-                y: node.attr('y') - offsetHelper[node.attr('id')],
-                width: node.attr('width'),
-                height: node.attr('height'),
+                x: parseFloat(node.attr('x')),
+                y: parseFloat(node.attr('y') - offsetHelper[node.attr('id')]),
+                width: parseFloat(node.attr('width')),
+                height: parseFloat(node.attr('height')),
                 fill: node.attr('fillStyle'),
                 draggable: false,
             }));

@@ -18,7 +18,7 @@ class ObesityTemplateOne extends AInfographic
     CreateInfographic()
     {
         // HEADER
-        var header = new Konva.Group({
+        var header = this._CreateSwitchableContainer({
             x: 0,
             y: 0,
         });
@@ -147,7 +147,7 @@ class ObesityTemplateOne extends AInfographic
         var statisticFontSize = 47.5;
 
         for (let i = 0; i < 4; i++) {
-            sectionArr[i] = (i === 0) ? new Konva.Group() : new Konva.Group({
+            sectionArr[i] = (i === 0) ? this._CreateSwitchableContainer({}) : this._CreateSwitchableContainer({
                 y: sectionArr[i - 1].getAttr('y') + rectHeight + rectOffset
             });
             content.add(sectionArr[i]);
@@ -509,7 +509,7 @@ class ObesityTemplateOne extends AInfographic
         });
 
         // Footer
-        var footer = new Konva.Group({
+        var footer = this._CreateSwitchableContainer({
             x: 0,
             y: this._chartHeight - 30,
         });

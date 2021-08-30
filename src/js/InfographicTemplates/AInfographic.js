@@ -144,10 +144,14 @@ class AInfographic
     {
         if (this._selectedChartIndex !== -1) {
             this._chartHandler.UpdateLayering(this._selectedChartIndex, layerAction);
+        } else if (this._selectedGraphicIndex !== -1) {
+            this._graphicsHandler.UpdateLayering(this._selectedGraphicIndex, layerAction);
+        } else if (this._selectedTextIndex !== -1) {
+            this._textHandler.UpdateLayering(this._selectedTextIndex, layerAction);
         }
     }
 
-    _CreateSwitchableContainer(attrs, id = '')
+    _CreateSwitchableContainer(attrs = {}, id = '')
     {
         attrs.name = 'Switchable Container ' + id;
         return new Konva.Group(attrs);
@@ -389,7 +393,6 @@ class AInfographic
 
         selection.forEach((textElem) => {
             textElem.on('dblclick', () => {
-                console.log(textElem)
                 textElem.setAttr('draggable', true);
 
                 this._tr.nodes([textElem]);
@@ -417,6 +420,10 @@ class AInfographic
                     }
                 };
             });
+
+            textElem.on('dragend', () => {
+                this._SwitchContainerOnDrag(textElem);
+            });
         });
     }
 
@@ -434,7 +441,6 @@ class AInfographic
             textElem === 0) {
             return;
         } 
-        console.log('index: ' + this._selectedTextHelper);
         this._textHandler.UpdateTextElem({
             index: this._selectedTextHelper,
             textElem: textElem.textElem,
@@ -442,7 +448,6 @@ class AInfographic
             image: textElem.image,
             spanCSS: textElem.spanCSS,
         });
-        console.log(this._textHandler);
         this._selectedTextHelper = -1;
     }
 
@@ -600,7 +605,6 @@ class AInfographic
             });
 
             chart.on('dragend', () => {
-                alert('start')
                 this._SwitchContainerOnDrag(chart);
             });
         });
@@ -642,6 +646,10 @@ class AInfographic
                     }
                 };
             });
+
+            group.on('dragend', () => {
+                this._SwitchContainerOnDrag(group);
+            });
         });
     }
 
@@ -653,12 +661,8 @@ class AInfographic
             parent = this._FindTopContainer(elem);
         
         selection = selection.filter(d => parent !== d)
-        console.log(selection);
     
         selection.forEach(group => {
-            let groupPosition = group.getClientRect();
-            console.log('New Group');
-            console.log(group.getClientRect());
             if (Konva.Util.haveIntersection(group.getClientRect(), elem.getClientRect())) {
                 let absPos = elem.getAbsolutePosition();
                 elem.moveTo(group);
@@ -666,7 +670,6 @@ class AInfographic
                     x: absPos.x,
                     y: absPos.y
                 });
-                // alert('switched to: ' + group.id());
             }
         });
     }
@@ -674,7 +677,7 @@ class AInfographic
     _FindTopContainer(elem)
     {
         let parent = elem.getParent();
-        while (parent.getDepth > 2) {
+        while (parent.getDepth > 2 || !parent.hasName('Switchable')) {
             parent = parent.getParent();
         }
         return parent;

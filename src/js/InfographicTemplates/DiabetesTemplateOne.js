@@ -29,7 +29,7 @@ class DiabetesTemplateOne extends AInfographic
 
     _CreateHeader()
     {
-        var header = new Konva.Group({
+        var header = this._CreateSwitchableContainer({
             x: 0,
             y: 0
         });
@@ -85,7 +85,7 @@ class DiabetesTemplateOne extends AInfographic
 
     _CreateTitle()
     {
-        var group = new Konva.Group({
+        var group = this._CreateSwitchableContainer({
             x: 0,
             y: 50,
         });
@@ -176,7 +176,7 @@ class DiabetesTemplateOne extends AInfographic
     {
         // Set up 
         var width = 280, height = 290;
-        var sectionOne = new Konva.Group({
+        var sectionOne = this._CreateSwitchableContainer({
             x: 30,
             y: 320
         });
@@ -305,7 +305,7 @@ class DiabetesTemplateOne extends AInfographic
 
     _CreateSectionTwo({textColor})
     {
-        var sectionTwo = new Konva.Group({
+        var sectionTwo = this._CreateSwitchableContainer({
             x: this._chartWidth / 2 + 10,
             y: 320
         });
@@ -426,7 +426,7 @@ class DiabetesTemplateOne extends AInfographic
 
     _CreateSectionThree({textColor})
     {
-        var sectionThree = new Konva.Group({
+        var sectionThree = this._CreateSwitchableContainer({
             x: 30, 
             y: 635
         });
