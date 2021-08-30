@@ -4,6 +4,7 @@
 
 import { APieChartDecorator } from "./APieChartDecorator";
 import Konva from 'konva';
+import Lodash from 'lodash';
 
 class FirstStatisticDecorator extends APieChartDecorator 
 {
@@ -27,7 +28,7 @@ class FirstStatisticDecorator extends APieChartDecorator
     {
         super(chart);
         this._top = new Konva.Group();
-        this._font = font;
+        this._font = Lodash.cloneDeep(font);
         this._x = x;
         this._y = y;
         this._helper = group;

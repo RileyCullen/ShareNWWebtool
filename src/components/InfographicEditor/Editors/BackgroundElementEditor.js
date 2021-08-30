@@ -13,14 +13,6 @@ class BackgroundElementEditor extends React.Component
             <div className='tabless-container'>
                 <div className='tabless-editor'>
                     <Menu 
-                        name='Position'
-                        isOpen={false}
-                        content={this._GetPositionContent()}
-                        checkbox={{
-                            displayCheckbox: false
-                        }}
-                    />
-                    <Menu 
                         name='Size'
                         isOpen={false}
                         content={this._GetSizeContent()}
@@ -41,28 +33,11 @@ class BackgroundElementEditor extends React.Component
         );
     }
 
-    _GetPositionContent()
+    _SetSizeSettings(category, key, value)
     {
-        return [
-            <div className='center'>
-                <LabeledTextField 
-                    label='X:'
-                    index={'x'}
-                    initialValue={this.props.settings.position.x}
-                    rows={1}
-                    cols={5}
-                    onchange={(d, i) => { }}
-                />
-                <LabeledTextField 
-                    label='Y:'
-                    index={'y'}
-                    initialValue={this.props.settings.position.y}
-                    rows={1}
-                    cols={5}
-                    onchange={(d, i) => { }}
-                /> 
-            </div>
-        ];
+        let settings = this.props.settings;
+        settings[category][key] = value;
+        this.props.setGraphicSettings(settings);
     }
 
     _GetSizeContent()
@@ -75,7 +50,7 @@ class BackgroundElementEditor extends React.Component
                     initialValue={this.props.settings.size.width}
                     rows={1}
                     cols={5}
-                    onchange={(d, i) => { }}
+                    onChange={(d, i) => { this._SetSizeSettings('size', 'width', d); }}
                 />
                 <LabeledTextField 
                     label='Height:'
@@ -83,10 +58,17 @@ class BackgroundElementEditor extends React.Component
                     initialValue={this.props.settings.size.height}
                     rows={1}
                     cols={5}
-                    onchange={(d, i) => { }}
+                    onChange={(d, i) => { this._SetSizeSettings('size', 'height', d); }}
                 /> 
             </div>
         ];
+    }
+
+    _SetDisplaySettings(key, value)
+    {
+        let settings = this.props.settings;
+        settings.display[key].value = value;
+        this.props.setGraphicSettings(settings);
     }
 
     _GetDisplayContent()
@@ -101,22 +83,20 @@ class BackgroundElementEditor extends React.Component
                             case 'color-picker':
                                 return (
                                     <LabeledColorPicker 
-                                        key={'color-picker-' + tmp.value}
                                         label={tmp.name}
                                         color={tmp.value}
-                                        onChange={(value) => { }}
+                                        onChange={(value) => { this._SetDisplaySettings(key, value); }}
                                     />
                                 );
                             case 'text-field':
                                 return (
                                     <LabeledTextField 
-                                        key={'text-field-' + tmp.value}
                                         label={tmp.name}
                                         index={tmp.type}
                                         initialValue={tmp.value}
                                         rows={1}
                                         cols={5}
-                                        onchange={(d, i) => { }}
+                                        onChange={(d, i) => { this._SetDisplaySettings(key, d); }}
                                     />
                                 );
                             default: 

@@ -4,6 +4,7 @@
 
 import { ALineChartDecorator } from "./ALineChartDecorator";
 import Konva from 'konva';
+import Lodash from 'lodash';
 
 class LineDataValueDecorator extends ALineChartDecorator
 {
@@ -23,12 +24,12 @@ class LineDataValueDecorator extends ALineChartDecorator
         font = {
             fontSize: 8,
             fontFamily: 'Times New Roman, Times, serif',
-            fontColor: 'black'
+            textColor: 'black'
         }
     })
     {
         super(chart);
-        this._font = font;
+        this._font = Lodash.cloneDeep(font);
         this._location = location;
     }
 
@@ -47,7 +48,9 @@ class LineDataValueDecorator extends ALineChartDecorator
         return {
             dataValue: {
                 font: this._font,
-                location: 'Bottom',
+                location: {
+                    location: this._location,
+                },
             }
         }
     }
@@ -89,7 +92,7 @@ class LineDataValueDecorator extends ALineChartDecorator
                 text: text,
                 fontSize: this._font.fontSize,
                 fontfamily: this._font.fontFamily,
-                fill: this._font.fontColor,
+                fill: this._font.textColor,
             });
             this._group.add(textObj);
         });

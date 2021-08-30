@@ -21,16 +21,22 @@ class Menu extends React.Component
     {
         let checkBox = this._DisplayCheckbox(),
             name = (this.state.isOpen) ? 'dropdown-content open' : 'dropdown-content',
-            rotation = (this.state.isOpen) ? '90deg' : '0deg';
+            rotation = (this.state.isOpen) ? '90deg' : '0deg',
+            width = (this.props.checkbox.displayCheckbox) ? '475px' : '525px';
         return (
             <div className='dropdown-menu'>
-                <div className='dropdown-toggle'
-                    onClick={() => { this._ToggleOpen(); }}>
-                    <FontAwesomeIcon 
-                        className='dropdown-icon' 
-                        icon={faAngleRight}
-                        style={{transform: 'rotate(' + rotation + ')'}}/>
-                    <p className='dropdown-name'>{this.props.name}</p>
+                <div className='dropdown-toggle-container'>
+                    <div className='dropdown-toggle'
+                        style={{
+                            width: width,
+                        }}
+                        onClick={() => { this._ToggleOpen(); }}>
+                        <FontAwesomeIcon 
+                            className='dropdown-icon' 
+                            icon={faAngleRight}
+                            style={{transform: 'rotate(' + rotation + ')'}}/>
+                        <p className='dropdown-name'>{this.props.name}</p>
+                    </div>
                     {checkBox}
                 </div>
                 <div className={name}>
@@ -59,19 +65,19 @@ class Menu extends React.Component
                 <div className='check-box-container'>
                     <Checkbox 
                         initialValue={this.state.isChecked}
-                        onClick={() => { this._ToggleCheckBox(); }} />
+                        onClick={(d) => { this._ToggleCheckBox(d); }} />
                 </div>
             );
         }
         return false;
     }
 
-    _ToggleCheckBox()
+    _ToggleCheckBox(d)
     {
         this.setState({
             isChecked: !this.state.isChecked,
         });
-        this.props.checkbox.checkboxHandler();
+        this.props.checkbox.checkboxHandler(d);
     }
 }
 

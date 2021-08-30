@@ -4,6 +4,7 @@
 
 import { ALineChartDecorator } from "./ALineChartDecorator";
 import Konva from 'konva';
+import Lodash from 'lodash';
 
 class LineYAxisDecorator extends ALineChartDecorator
 {
@@ -31,10 +32,10 @@ class LineYAxisDecorator extends ALineChartDecorator
     {
         super(chart);
         this._axisLabel = axisLabel;
-        this._lineColor = lineColor;
+        this._axisColor = lineColor;
         this._lineStrokeWidth = lineStrokeWidth;
         this._tickStrokeWidth = tickStrokeWidth;
-        this._font = font;
+        this._font = Lodash.cloneDeep(font);
         this._tickCount = tickCount;
         this._includeZero = includeZero;
     }
@@ -55,7 +56,7 @@ class LineYAxisDecorator extends ALineChartDecorator
                 font: this._font,
                 axis: {
                     label: this._axisLabel,
-                    color: this._lineColor,
+                    color: this._axisColor,
                     lineStrokeWidth: this._lineStrokeWidth,
                     tickStrokeWidth: this._tickStrokeWidth,
                     tickCount: this._tickCount,
@@ -86,7 +87,7 @@ class LineYAxisDecorator extends ALineChartDecorator
                 -this._internalOffsetX, 
                 this._chartHeight - this._internalOffsetY + this._lineStrokeWidth / 2
             ],
-            stroke: this._lineColor,
+            stroke: this._axisColor,
             strokeWidth: this._lineStrokeWidth,
         });
         this._group.add(yAxis); 
@@ -141,7 +142,7 @@ class LineYAxisDecorator extends ALineChartDecorator
                     -tickLength - this._internalOffsetX, 
                     this._yScale(d) - 0.5 - this._internalOffsetY
                 ],
-                stroke: this._lineColor,
+                stroke: this._axisColor,
                 strokeWidth: this._tickStrokeWidth,
             }));
             var text = new Konva.Text({

@@ -35,14 +35,25 @@ class ABarChart
     */
     constructor(data, group, width, height, padding, rotateBy)
     {
+        // Since ES6 does not natively support abstract classes, we must manually
+        // throw a type error when the programmer tries to instantiate this class.
+        // 
+        // Essentially, what the following if-block means is that if the programmer
+        // tries to instantiate it directly (i.e. let obj = new ABarChart()) then 
+        // throw a type error. A type error will NOT be thrown if the constructor 
+        // is called when an object that inherits from ABarChart is instantiated 
+        // (i.e. let obj = new BasicBarChart()).
         if (this.constructor === ABarChart) {
             throw new TypeError('Abstract class "ABarChart" cannot be instantiated');
         }
 
+        // ES6 also does not support abstract methods. So, we must explicitly throw
+        // a type error when this function is not implemented in an extending class.
         if (this.CreateChart === undefined) {
             throw new TypeError('Classes extending ABarChart must implement "CreateBarChart"');
         }
 
+        // Setting up instance variables
         this._data = data;
         this._group = group;
         this._chartWidth = width;
@@ -52,6 +63,7 @@ class ABarChart
         this._xScale = d3.scaleBand();
         this._yScale = d3.scaleLinear();
 
+        // Setting up the x and y scales using D3.
         this._SetUpXRange();
         this._SetUpXDomain();
         this._SetUpYRange();
@@ -92,6 +104,11 @@ class ABarChart
     {
         this._Clean();
         this._data = data;
+
+        // NOTE: When chart data is updated, it could contain new categories or 
+        // output values that are not within the previously defined x and y domains
+        // respectively. To prevent this, we reinitialize the x and y domains to 
+        // be consistent with the new data.
         this._SetUpYDomain();
         this._SetUpXDomain();
     }
@@ -103,11 +120,13 @@ class ABarChart
         this._padding = settings.size.padding; 
         this._rotateBy = (settings.orientation.landscape === true) ? 90 : 0;
 
+        // For similar reasons as explained in the previous method, when the chart
+        // settings are updated, we must also update the range of the x and y 
+        // scales (this is because both ranges depend on the chart height or 
+        // width respectively).
         this._Clean();
         this._SetUpYRange();
-        this._SetUpYDomain();
         this._SetUpXRange();
-        this._SetUpXDomain();
     }
 
     /**
@@ -168,8 +187,14 @@ class ABarChart
      */
     _SetUpYDomain()
     {
+        // Essentially, keys creates a set (unique entries) of strings where the 
+        // entries are the categories. The variable tmp then holds a new JSON 
+        // object where the keys are the categories passed by the data.
         var keys = this.GetGroups(), tmp = this._CreateOffsetHelper(keys);
 
+        // Using tmp, we now iterate through _data and add all of the entries with
+        // a common category together. This allows us to find the maximum bar value
+        // for both stacked and non-stacked charts.
         this._data.forEach(d => {
             tmp[d.category] += parseInt(d.value);
         });

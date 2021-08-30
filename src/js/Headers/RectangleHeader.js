@@ -57,13 +57,20 @@ class RectangleHeader
         this._group.destroy();
     }
 
+    UpdateHeader(settings)
+    {
+        this._width = parseFloat(settings.size.width);
+        this._height = parseFloat(settings.size.height);
+        
+        this._fill = settings.display.fill.value;
+        this._cornerRadius = settings.display.cornerRadius.value;
+
+        this._group.destroyChildren();
+    }
+
     GetSettings()
     {
         return {
-            position: {
-                x: this._x,
-                y: this._y,
-            },
             size: {
                 width: this._width,
                 height: this._height,

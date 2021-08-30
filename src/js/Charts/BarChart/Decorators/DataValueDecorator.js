@@ -4,6 +4,7 @@
 
 import { ABarChartDecorator } from "./ABarChartDecorator";
 import Konva from 'konva';
+import Lodash from 'lodash';
 
 class DataValueDecorator extends ABarChartDecorator 
 {
@@ -45,12 +46,12 @@ class DataValueDecorator extends ABarChartDecorator
         font = {
             fontSize: 8, 
             fontFamily: 'Times New Roman, Times, serif', 
-            fontColor: 'black'
+            textColor: '#fff'
         },
     }) 
     {
         super(chart);
-        this._font = font;
+        this._font = Lodash.cloneDeep(font);
         this._isPercentage = displayPercentage;
         this._isCategory = displayCategory;
         this._isMiddle = isMiddle;
@@ -118,7 +119,7 @@ class DataValueDecorator extends ABarChartDecorator
                 text: label,
                 fontSize: this._font.fontSize,
                 fontFamily: this._font.fontFamily,
-                fill: this._font.fontColor,
+                fill: this._font.textColor,
             }); 
             offsetHelper[d.category] += (this._chartHeight - this._yScale(d.value));
 

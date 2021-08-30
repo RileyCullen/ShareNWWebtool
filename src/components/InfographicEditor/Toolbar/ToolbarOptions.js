@@ -39,7 +39,8 @@ class ToolbarOptions extends React.Component
                 <div className='toolbar-options-right'>
                     <div 
                         id='toolbar-download'
-                        className='toolbar-text'>
+                        className='toolbar-text'
+                        onClick={() => { this.props.toggleDownload(); }}>
                         <FontAwesomeIcon 
                             className='toolbar-download-icon'
                             icon={faDownload} />

@@ -55,10 +55,16 @@ class CanvasContainer extends React.Component
                 this._infogObj.Remove();
             } else if (this.props.clearSelection) {
                 this._infogObj.ClearSelection()
+            } else if (this.props.isDownloading) { 
+                this._infogObj.Download();
             } else {
                 this._infogObj.UpdateTextHandler(this.props.textElem);
+
+                this._infogObj.UpdateChartDecorators(this.props.dSettings);
                 this._infogObj.UpdateChartData(this.props.chartData);
                 this._infogObj.UpdateChartSettings(this.props.cSettings);
+
+                this._infogObj.UpdateGraphicSettings(this.props.graphicSettings);
             }
         }
         this._previousInfographic = this.props.infographic;

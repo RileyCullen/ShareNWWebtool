@@ -91,13 +91,20 @@ class ArrowHeader
         this._group.destroy();
     }
 
+    UpdateHeader(settings)
+    {
+        this._width = parseFloat(settings.size.width);
+        this._height = parseFloat(settings.size.height);
+
+        this._borderColor = settings.display.borderColor.value;
+        this._backgroundColor = settings.display.backgroundColor.value;
+
+        this._group.destroyChildren();
+    }
+
     GetSettings()
     {
         return {
-            position: {
-                x: this._x,
-                y: this._y,
-            },
             size: {
                 width: this._width,
                 height: this._height,

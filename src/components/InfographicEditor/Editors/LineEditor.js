@@ -2,6 +2,7 @@ import React from 'react';
 import { Editor, Menu, LabeledTextField, LabeledColorPicker, FontSelector, LabeledDropdown, LineChartInputFields } from './Components/index';
 
 import '../../../css/React/Editors/ChartEditor.css';
+import { SettingsManager } from '../../Helpers/SettingsManager';
 
 class LineEditor extends React.Component 
 {
@@ -13,6 +14,38 @@ class LineEditor extends React.Component
             fontSize: 10,
             textColor: '#000'
         };
+
+        this._settingsManager = new SettingsManager({
+            cSettings: this.props.cSettings,
+            dSettings: this.props.dSettings,
+            setChartSettings: (settings) => { this.props.setChartSettings(settings); },
+            setDecoratorSettings: (settings) => { this.props.setDecoratorSettings(settings); }
+        });
+
+        this._defaultSettings = {
+            xAxis: {
+                font: this._defaultFont,
+                axis: {
+                    label: '',
+                    color: '#000',
+                    axisStrokeWidth: 1,
+                    axisTickWidth: 0.5
+                }
+            },
+            yAxis: {
+                font: this._defaultFont,
+                axis: {
+                    label: '',
+                    color: '#000',
+                    lineStrokeWidth: 1,
+                    tickStrokeWidth: 0.5
+                }
+            },
+            dataValue: {
+                font: this._defaultFont,
+                location: {location: 'Bottom'},
+            }
+        }
     }
 
     render()
@@ -65,8 +98,10 @@ class LineEditor extends React.Component
                     content={this._GetXAxisContent()}
                     checkbox={{
                         displayCheckbox: true,
-                        isChecked: false,
-                        checkboxHandler: () => { }
+                        isChecked: !(this.props.dSettings.xAxis === undefined),
+                        checkboxHandler: (d) => { 
+                            this._CheckboxHandler(d, 'xAxis', { xAxis: this._defaultSettings.xAxis })
+                        }
                     }} />,
                 <Menu 
                     key='y-axis'
@@ -75,8 +110,10 @@ class LineEditor extends React.Component
                     content={this._GetYAxisContent()} 
                     checkbox={{
                         displayCheckbox: true,
-                        isChecked: false,
-                        checkboxHandler: () => { }
+                        isChecked: !(this.props.dSettings.yAxis === undefined),
+                        checkboxHandler: (d) => { 
+                            this._CheckboxHandler(d, 'yAxis', { yAxis: this._defaultSettings.yAxis }) 
+                        }
                     }} />,
                 <Menu 
                     key='data-labels'
@@ -85,8 +122,10 @@ class LineEditor extends React.Component
                     content={this._GetDataLabelContent()} 
                     checkbox={{
                         displayCheckbox: true,
-                        isChecked: false,
-                        checkboxHandler: () => { }
+                        isChecked: !(this.props.dSettings.dataValue === undefined),
+                        checkboxHandler: (d) => { 
+                            this._CheckboxHandler(d, 'dataValue', { dataValue: this._defaultSettings.dataValue })
+                        }
                     }} />,
             ]
         }
@@ -96,6 +135,21 @@ class LineEditor extends React.Component
                 <Editor content={content} />
             </div>
         )
+    }
+
+    _SetChartSettings(category, key, value)
+    {
+        this._settingsManager.SetChartSettings(category, key, value);
+    }
+
+    _CheckboxHandler(checkboxValue, key, decoratorSettings)
+    {
+        this._settingsManager.DecoratorToggle(checkboxValue, key, decoratorSettings);
+    }
+
+    _UpdateDecoratorSettings(decorator, category, key, value)
+    {
+        this._settingsManager.UpdateDecoratorSettings(decorator, category, key, value);
     }
 
     _GetSizeContent()
@@ -109,7 +163,7 @@ class LineEditor extends React.Component
                     initialValue={sizeSettings.chartWidth}
                     rows={1}
                     cols={5}
-                    onchange={(d, i) => { }}
+                    onChange={(d, i) => { this._SetChartSettings('size', 'chartWidth', d); }}
                 />
                 <LabeledTextField 
                     label='Chart Height:'
@@ -117,7 +171,7 @@ class LineEditor extends React.Component
                     initialValue={sizeSettings.chartHeight}
                     rows={1}
                     cols={5}
-                    onchange={(d, i) => { }}
+                    onChange={(d, i) => { this._SetChartSettings('size', 'chartHeight', d); }}
                 />
                 <LabeledTextField 
                     label='Line Width:'
@@ -125,7 +179,7 @@ class LineEditor extends React.Component
                     initialValue={sizeSettings.lineWidth}
                     rows={1}
                     cols={5}
-                    onchange={(d, i) => { }}
+                    onChange={(d, i) => { this._SetChartSettings('size', 'lineWidth', d); }}
                 />
                 <LabeledTextField 
                     label='Point Radius:'
@@ -133,7 +187,7 @@ class LineEditor extends React.Component
                     initialValue={sizeSettings.pointRadius}
                     rows={1}
                     cols={5}
-                    onchange={(d, i) => { }}
+                    onChange={(d, i) => { this._SetChartSettings('size', 'pointRadius', d); }}
                 />
             </div>
         ];
@@ -147,12 +201,12 @@ class LineEditor extends React.Component
                 <LabeledColorPicker 
                     label='Line Color:'
                     color={colorSettings.lineColor}
-                    onChange={(value) => { }}
+                    onChange={(value) => { this._SetChartSettings('color', 'lineColor', value); }}
                 />
                 <LabeledColorPicker 
                     label='Point Color:'
                     color={colorSettings.pointColor}
-                    onChange={(value) => { }}
+                    onChange={(value) => { this._SetChartSettings('color', 'pointColor', value); }}
                 />
             </div>
         ];
@@ -164,20 +218,12 @@ class LineEditor extends React.Component
         return [
             <div className='center'>
                 <LabeledTextField 
-                    label='Space between chart and x-axis:'
+                    label='Space between chart and y-axis:'
                     index='x-offset'
                     initialValue={spacingSettings.internalOffsetX}
                     rows={1}
                     cols={5}
-                    onchange={(d, i) => { }}
-                />
-                <LabeledTextField 
-                    label='Space between chart and y-axis:'
-                    index='y-offset'
-                    initialValue={spacingSettings.internalOffsetY}
-                    rows={1}
-                    cols={5}
-                    onchange={(d, i) => { }}
+                    onChange={(d, i) => { this._SetChartSettings('spacing', 'internalOffsetX', d); }}
                 />
             </div>
         ];
@@ -185,15 +231,8 @@ class LineEditor extends React.Component
 
     _GetXAxisContent()
     {
-        let settings = (this.props.dSettings.xAxis === undefined) ? {
-            font: this._defaultFont,
-            axis: {
-                label: '',
-                color: '#000',
-                axisStrokeWidth: 1,
-                axisTickWidth: 0.5
-            }
-        } : this.props.dSettings.xAxis;
+        let settings = (this.props.dSettings.xAxis === undefined) ? 
+            this._defaultSettings.xAxis : this.props.dSettings.xAxis;
         return [
             <div className='center'>
                 <div>
@@ -203,8 +242,10 @@ class LineEditor extends React.Component
                         index={'x-label'}
                         initialValue={settings.axis.label}
                         rows={1}
-                        cols={5}
-                        onchange={(d, i) => { }}
+                        cols={20}
+                        onChange={(d, i) => { 
+                            this._UpdateDecoratorSettings('xAxis', 'axis', 'label', d);
+                        }}
                     />
                     <LabeledTextField 
                         label='Axis Width:'
@@ -212,7 +253,9 @@ class LineEditor extends React.Component
                         initialValue={settings.axis.axisStrokeWidth}
                         rows={1}
                         cols={5}
-                        onchange={(d, i) => { }} 
+                        onChange={(d, i) => { 
+                            this._UpdateDecoratorSettings('xAxis', 'axis', 'axisStrokeWidth', parseFloat(d));
+                        }} 
                     />
                     <LabeledTextField 
                         label='Tick Width:'
@@ -220,17 +263,32 @@ class LineEditor extends React.Component
                         initialValue={settings.axis.axisTickWidth}
                         rows={1}
                         cols={5}
-                        onchange={(d, i) => { }} 
+                        onChange={(d, i) => { 
+                            this._UpdateDecoratorSettings('xAxis', 'axis', 'axisTickWidth', parseFloat(d));
+                        }} 
                     />
                     <LabeledColorPicker 
                         label='Axis Color: '
                         color={settings.axis.color}
-                        onChange={(value) => { }} 
+                        onChange={(value) => { 
+                            this._UpdateDecoratorSettings('xAxis', 'axis', 'color', value);
+                        }} 
                     />
                 </div>
                 <div>
                     <h5>Font Settings:</h5>
-                    <FontSelector initialFont='Times New Roman'/>
+                    <FontSelector 
+                        initialFont={settings.font}
+                        updateFontFamily={(d) => { 
+                            this._UpdateDecoratorSettings('xAxis', 'font', 'fontFamily', d);
+                        }}
+                        updateFontSize={(d) => {
+                            this._UpdateDecoratorSettings('xAxis', 'font', 'fontSize', parseFloat(d));
+                        }}
+                        updateTextColor={(d) => {
+                            this._UpdateDecoratorSettings('xAxis', 'font', 'textColor', d);
+                        }}
+                    />
                 </div>
             </div>
         ];
@@ -239,15 +297,9 @@ class LineEditor extends React.Component
 
     _GetYAxisContent()
     {
-        let settings = (this.props.dSettings.yAxis === undefined) ? {
-            font: this._defaultFont,
-            axis: {
-                label: '',
-                color: '#000',
-                axisStrokeWidth: 1,
-                axisTickWidth: 0.5
-            }
-        } : this.props.dSettings.yAxis;
+        let settings = (this.props.dSettings.yAxis === undefined) ? 
+            this._defaultSettings.yAxis : this.props.dSettings.yAxis;
+            console.log(settings);
         return [
             <div className='center'>
                 <div>
@@ -257,44 +309,61 @@ class LineEditor extends React.Component
                         index={'y-label'}
                         initialValue={settings.axis.label}
                         rows={1}
-                        cols={5}
-                        onchange={(d, i) => { }}
+                        cols={20}
+                        onChange={(d, i) => { 
+                            this._UpdateDecoratorSettings('yAxis', 'axis', 'label', d);
+                        }}
                     />
                     <LabeledTextField 
                         label='Axis Width:'
                         index={'y-stroke'}
-                        initialValue={settings.axis.axisStrokeWidth}
+                        initialValue={settings.axis.lineStrokeWidth}
                         rows={1}
                         cols={5}
-                        onchange={(d, i) => { }} 
+                        onChange={(d, i) => { 
+                            this._UpdateDecoratorSettings('yAxis', 'axis', 'lineStrokeWidth', parseFloat(d));
+                        }} 
                     />
                     <LabeledTextField 
                         label='Tick Width:'
                         index={'y-tick'}
-                        initialValue={settings.axis.axisTickWidth}
+                        initialValue={settings.axis.tickStrokeWidth}
                         rows={1}
                         cols={5}
-                        onchange={(d, i) => { }} 
+                        onChange={(d, i) => {
+                            this._UpdateDecoratorSettings('yAxis', 'axis', 'tickStrokeWidth', parseFloat(d));
+                        }} 
                     />
                     <LabeledColorPicker 
                         label='Axis Color: '
                         color={settings.axis.color}
-                        onChange={(value) => { }} 
+                        onChange={(value) => { 
+                            this._UpdateDecoratorSettings('yAxis', 'axis', 'color', value);
+                        }} 
                     />
                 </div>
                 <div>
                     <h5>Font Settings:</h5>
-                    <FontSelector initialFont='Times New Roman'/>
+                    <FontSelector
+                        initialFont={settings.font}
+                        updateFontFamily={(d) => { 
+                            this._UpdateDecoratorSettings('yAxis', 'font', 'fontFamily', d);
+                        }}
+                        updateFontSize={(d) => {
+                            this._UpdateDecoratorSettings('yAxis', 'font', 'fontSize', parseFloat(d));
+                        }}
+                        updateTextColor={(d) => {
+                            this._UpdateDecoratorSettings('yAxis', 'font', 'textColor', d);
+                        }}
+                    />
                 </div>
             </div>
         ];
     }
     _GetDataLabelContent()
     {
-        let settings = (this.props.dSettings.dataValue === undefined) ? {
-            font: this._defaultFont,
-            location: 'Bottom',
-        } : this.props.dSettings.dataValue;
+        let settings = (this.props.dSettings.dataValue === undefined) ? 
+            this._defaultSettings.dataValue : this.props.dSettings.dataValue;
 
         return [
             <div className='center'>
@@ -303,13 +372,26 @@ class LineEditor extends React.Component
                     <LabeledDropdown 
                         label='Location:'
                         options={['Bottom', 'Top', 'Left', 'Right']}
-                        selected={settings.location}
-                        onChange={(value) => { }}
+                        selected={settings.location.location}
+                        onChange={(value) => { 
+                            this._UpdateDecoratorSettings('dataValue', 'location', 'location', value);
+                        }}
                     />
                 </div>
                 <div>
                     <h5>Font Settings:</h5>
-                    <FontSelector initialFont='Times New Roman'/>
+                    <FontSelector
+                        initialFont={settings.font}
+                        updateFontFamily={(d) => { 
+                            this._UpdateDecoratorSettings('dataValue', 'font', 'fontFamily', d);
+                        }}
+                        updateFontSize={(d) => {
+                            this._UpdateDecoratorSettings('dataValue', 'font', 'fontSize', parseFloat(d));
+                        }}
+                        updateTextColor={(d) => {
+                            this._UpdateDecoratorSettings('dataValue', 'font', 'textColor', d);
+                        }}
+                    />
                 </div>
             </div>
         ];

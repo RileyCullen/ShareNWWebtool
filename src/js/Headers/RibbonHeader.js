@@ -50,18 +50,29 @@ class RibbonHeader
         this._group.destroy();
     }
 
+    UpdateHeader(settings)
+    {
+        /**
+         * For this function, we assume settings is structured like the JSON
+         * returned from GetSettings
+         */
+        this._width = parseFloat(settings.size.width);
+        this._height = parseFloat(settings.size.height);
+
+        this._colorOne = settings.display.primaryColor.value;
+        this._colorTwo = settings.display.secondaryColor.value;
+
+        this._group.destroyChildren();
+    }
+
     GetSettings()
     {
         return {
-            position: {
-                x: this._x,
-                y: this._y,
-            },
             size: {
                 width: this._width,
                 height: this._height,
             },
-            displaySettings: {
+            display: {
                 primaryColor: {
                     type: 'color-picker',
                     name: 'Primary Color:',

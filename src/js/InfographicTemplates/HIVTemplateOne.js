@@ -85,7 +85,7 @@ class HIVTemplateOne extends AInfographic
             align: 'center',
         });
         
-        const MAN = '\uf183', WOMAN = '\uf182', LIGHT_ORANGE = '#f9ab7d', ORANGE = '#ee5d26',
+        const WOMAN = '\uf182', LIGHT_ORANGE = '#f9ab7d', ORANGE = '#ee5d26',
             DEFAULT_OFFSET = 30;
         var orangeBackground = new ArrowHeader(0, 0, 400, 125, sectionOne, ORANGE, 'white');
         this._graphicsHandler.AddGraphic({
@@ -138,8 +138,8 @@ class HIVTemplateOne extends AInfographic
         var waffleOneGroup = new Konva.Group({
             name: 'WaffleChart',
             id: 0,
-            offsetY: -27.5,
-            offsetX: -25,
+            offsetY: -30,
+            offsetX: -23,
             width: 110,
             height: 100,
         });
@@ -148,7 +148,7 @@ class HIVTemplateOne extends AInfographic
         
         var ICON_FONT = '"Font Awesome 5 Free"';
         console.log("Default offset: " + DEFAULT_OFFSET);
-        var manPreset = GenerateWafflePreset(MAN, LIGHT_ORANGE, DEFAULT_OFFSET, ICON_FONT),
+        var manPreset = GenerateWafflePreset(WOMAN, LIGHT_ORANGE, DEFAULT_OFFSET, ICON_FONT),
             orangeWomanPreset = GenerateWafflePreset(WOMAN, ORANGE, DEFAULT_OFFSET - 1, ICON_FONT);
 
         var waffleOne = new WaffleChart({
@@ -273,7 +273,7 @@ class HIVTemplateOne extends AInfographic
             font: {
                 'fontSize': 12,
                 'fontFamily': 'canada-type-gibson, sans-serif',
-                'fontColor': 'white',
+                'textColor': 'white',
             }
         });
 

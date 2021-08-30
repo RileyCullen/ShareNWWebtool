@@ -48,7 +48,16 @@ class ALineChartDecorator extends ALineChart
         this._data = chart._data;
         this._chart = chart;
         this._yScale = chart._yScale;
-        this._xScale = chart._xScale
+        this._xScale = chart._xScale;
+
+        this._chartHeight = chart._chartHeight;
+        this._chartWidth = chart._chartWidth;
+        this._lineWidth = chart._lineWidth;
+        this._pointRadius = chart._pointRadius;
+        this._pointColor = chart._pointColor;
+        this._lineColor = chart._lineColor;
+        this._internalOffsetX = chart._internalOffsetX;
+        this._internalOffsetY = chart._internalOffsetY;
     }
 
     /**

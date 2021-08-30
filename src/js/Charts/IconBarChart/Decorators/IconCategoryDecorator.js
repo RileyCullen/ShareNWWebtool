@@ -1,5 +1,6 @@
 import { AIconBarDecorator } from './AIconBarDecorator';
 import Konva from 'konva';
+import Lodash from 'lodash';
 
 class IconCategoryDecorator extends AIconBarDecorator
 {
@@ -15,11 +16,10 @@ class IconCategoryDecorator extends AIconBarDecorator
     })
     {
         super(chart);
-        
         this._isWithinBars = isWithinBars;
         this._isTop = isTop;
         this._keys = this.GetGroups();
-        this._font = font;
+        this._font = Lodash.cloneDeep(font);
     }
 
     /**

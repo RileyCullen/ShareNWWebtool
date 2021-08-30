@@ -24,8 +24,10 @@ class FontSelector extends React.Component
                 <div className='element-right'>
                     <DropdownList 
                         options={this._fontList} 
-                        selected={this.state.currentFont}
-                        onChange={(value) => { }}
+                        selected={this.state.currentFont.fontFamily}
+                        onChange={(value) => { 
+                            this._HandleChange('fontFamily', value);
+                        }}
                     />
                 </div>
                 <p>Font Size:</p>
@@ -33,21 +35,38 @@ class FontSelector extends React.Component
                     <TextField 
                         id='font-size'
                         index={0}
-                        initialValue={'1'}
+                        initialValue={this.state.currentFont.fontSize}
                         rows={1}
                         cols={5}
-                        onchange={(d, i) => { }}
+                        onChange={(d, i) => { 
+                            this._HandleChange('fontSize', d);
+                        }}
                     />
                 </div>
                 <p>Text Color:</p>
                 <div className='element-right'>
                     <ColorPicker 
-                        color={'#fff'}
-                        onChange={(value) => { }}    
+                        color={this.state.currentFont.textColor}
+                        onChange={(value) => { 
+                            this._HandleChange('textColor', value);
+                        }}    
                     />
                 </div>
             </div>
         );
+    }
+
+    _HandleChange(key, value)
+    {
+        let newFont = this.state.currentFont;
+        newFont[key] = value;
+        this.setState({
+            currentFont: newFont,
+        });
+
+        if (key === 'fontFamily') this.props.updateFontFamily(value);
+        else if (key === 'fontSize') this.props.updateFontSize(value);
+        else if (key === 'textColor') this.props.updateTextColor(value);
     }
 }
 

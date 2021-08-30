@@ -55,7 +55,8 @@ class StackedBarInputFields extends React.Component
                         return (
                         <div>
                             <div className='stacked-bar-grid-four extra-margin'>
-                                <ColorPicker 
+                                <ColorPicker
+                                    id='stacked-bar-color-picker' 
                                     color={d.data[0].color}
                                     onChange={(color) => { 
                                         this._SetColor(data, color, i);

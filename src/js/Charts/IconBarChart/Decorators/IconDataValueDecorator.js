@@ -1,5 +1,6 @@
 import { AIconBarDecorator } from "./AIconBarDecorator";
 import Konva from 'konva';
+import Lodash from 'lodash';
 
 class IconDataValueDecorator extends AIconBarDecorator
 {
@@ -18,7 +19,7 @@ class IconDataValueDecorator extends AIconBarDecorator
     })
     {
         super(chart);
-        this._font = font;
+        this._font = Lodash.cloneDeep(font);
         this._isPercentage = isPercentage;
         this._isCategory = isCategory;
         this._isMiddle = isMiddle;

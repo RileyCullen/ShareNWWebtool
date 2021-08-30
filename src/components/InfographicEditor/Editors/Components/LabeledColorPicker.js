@@ -13,6 +13,7 @@ class LabeledColorPicker extends React.Component
                 <label>{this.props.label}</label>
                 <div className='labeled-color-picker'>
                     <ColorPicker 
+                        id={this.props.color}
                         color={this.props.color}
                         onChange={(value) => { this.props.onChange(value); }}
                     />

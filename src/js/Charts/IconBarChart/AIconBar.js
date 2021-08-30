@@ -84,7 +84,11 @@ class AIconBar
 
     UpdateChartSettings(settings)
     {
-        
+        this._remainderColor = settings.iconSettings.iconColor;
+        this._iconSize = settings.iconSettings.iconSize;
+        this._padding = settings.iconSettings.padding;
+
+        this._group.destroyChildren();
     }     
 
      /**

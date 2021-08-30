@@ -28,6 +28,7 @@ class InfographicEditor extends React.Component
             dSettings: 0,
             graphicSettings: 0,
             isRemoving: false,
+            isDownloading: false,
         };
         this._infogTextElem = 0;
         this._editorTextElem = 0;
@@ -57,7 +58,8 @@ class InfographicEditor extends React.Component
                         setToolbarContent={(content) => { this._SetToolbarContent(content); }}
                         displayHome={() => { this.props.displayHome(); }}
                         canvasToggle={(setting) => { this._CanvasToggle(setting); }} 
-                        editorHandler={(editor) => { this._SetCurrentEditor(editor); }}/>
+                        editorHandler={(editor) => { this._SetCurrentEditor(editor); }}
+                        downloadToggle={() => { this._ToggleDownload(); }}/>
                 </div>
                 <div className='lower-container'>
                     <CanvasContainer 
@@ -70,7 +72,10 @@ class InfographicEditor extends React.Component
                         textElem={this._editorTextElem}
                         chartData={this.state.chartData}
                         cSettings={this.state.cSettings}
+                        dSettings={this.state.dSettings}
+                        graphicSettings={this.state.graphicSettings}
                         isRemoving={this.state.isRemoving}
+                        isDownloading={this.state.isDownloading}
                         clearSelection={this._clearSelection}
                         style={{flex: 1}}
                     />
@@ -92,6 +97,7 @@ class InfographicEditor extends React.Component
     componentDidUpdate()
     { 
         if (this.state.isRemoving) this.setState({isRemoving: false});
+        if (this.state.isDownloading) this.setState({isDownloading: false});
         this._clearSelection = false;
     }
 
@@ -109,6 +115,12 @@ class InfographicEditor extends React.Component
             currentEditor: editor,
             toolbarContent: this._GetToolbarContent(expr, editor),
         });
+
+        if (editor === 'none') {
+            this.setState({
+                graphicSettings: 0,
+            });
+        }
 
         if (expr) this._clearSelection = true;
 
@@ -146,6 +158,13 @@ class InfographicEditor extends React.Component
     {
         this.setState({
             graphicSettings: settings,
+        });
+    }
+
+    _ToggleDownload()
+    {
+        this.setState({
+            isDownloading: true,
         });
     }
 
@@ -188,6 +207,13 @@ class InfographicEditor extends React.Component
         });
     }
 
+    _SetDecoratorSettings(settings)
+    {
+        this.setState({
+            dSettings: settings,
+        });
+    }
+
     /**
      * @summary Selects the current editor being displayed.
      * @returns A react component
@@ -204,7 +230,9 @@ class InfographicEditor extends React.Component
                 chartData={this.state.chartData}
                 cSettings={this.state.cSettings}
                 dSettings={this.state.dSettings}
-                setChartData={(data) => { this._SetChartData(data); }}/>
+                setChartData={(data) => { this._SetChartData(data); }}
+                setChartSettings={(settings) => { this._SetChartSettings(settings); }}
+                setDecoratorSettings={(settings) => { this._SetDecoratorSettings(settings); }}/>
         } else if (this.state.currentEditor === 'bar-editor' || 
             this.state.currentEditor === 'stacked-bar-editor') {
             return <BarEditor
@@ -213,7 +241,8 @@ class InfographicEditor extends React.Component
                 cSettings={this.state.cSettings}
                 dSettings={this.state.dSettings}
                 setChartData={(data) => { this._SetChartData(data); }}
-                setChartSettings={(settings) => { this._SetChartSettings(settings); }}/>;
+                setChartSettings={(settings) => { this._SetChartSettings(settings); }}
+                setDecoratorSettings={(settings) => { this._SetDecoratorSettings(settings); }}/>;
         } else if (this.state.currentEditor === 'pie-editor' || 
             this.state.currentEditor === 'donut-editor') {
             return <PieEditor 
@@ -221,28 +250,37 @@ class InfographicEditor extends React.Component
                 chartData={this.state.chartData}
                 cSettings={this.state.cSettings}
                 dSettings={this.state.dSettings}
-                setChartData={(data) => { this._SetChartData(data); }}/>;
+                setChartData={(data) => { this._SetChartData(data); }}
+                setChartSettings={(settings) => { this._SetChartSettings(settings); }}
+                setDecoratorSettings={(settings) => { this._SetDecoratorSettings(settings); }}/>;
         } else if (this.state.currentEditor === 'image-editor') {
             return <ImageEditor 
-                settings={this.state.graphicSettings}/>;
+                settings={this.state.graphicSettings}
+                setGraphicSettings={(settings) => { this._GraphicHandler(settings); }}/>;
         } else if (this.state.currentEditor === 'icon-editor') {
             return <IconEditor 
-                settings={this.state.graphicSettings}/>;
+                settings={this.state.graphicSettings}
+                setGraphicSettings={(settings) => { this._GraphicHandler(settings); }}/>;
         } else if (this.state.currentEditor === 'header-editor') {
             return <BackgroundElementEditor 
-                settings={this.state.graphicSettings}/>;
+                settings={this.state.graphicSettings}
+                setGraphicSettings={(settings) => { this._GraphicHandler(settings); }}/>;
         } else if (this.state.currentEditor === 'line-editor') {
             return <LineEditor 
                 chartData={this.state.chartData}
                 cSettings={this.state.cSettings}
                 dSettings={this.state.dSettings}
-                setChartData={(data) => { this._SetChartData(data); }}/>;
+                setChartData={(data) => { this._SetChartData(data); }}
+                setChartSettings={(settings) => { this._SetChartSettings(settings); }}
+                setDecoratorSettings={(settings) => { this._SetDecoratorSettings(settings); }}/>;
         } else if (this.state.currentEditor === 'icon-bar-editor') {
             return <IconBarEditor 
                 chartData={this.state.chartData}
                 cSettings={this.state.cSettings}
                 dSettings={this.state.dSettings}
-                setChartData={(data) => { this._SetChartData(data); }}/>;
+                setChartData={(data) => { this._SetChartData(data); }}
+                setChartSettings={(settings) => { this._SetChartSettings(settings); }}
+                setDecoratorSettings={(settings) => { this._SetDecoratorSettings(settings); }}/>;
         } else if (this.state.currentEditor === 'insert-chart') {
             return (<Chart />);
         } else if (this.state.currentEditor === 'insert-icon') {

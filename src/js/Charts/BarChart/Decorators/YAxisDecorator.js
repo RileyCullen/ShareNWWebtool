@@ -4,6 +4,7 @@
 
 import { ABarChartDecorator } from "./ABarChartDecorator";
 import Konva from 'konva';
+import Lodash from 'lodash';
 
 class YAxisDecorator extends ABarChartDecorator
 {
@@ -31,7 +32,7 @@ class YAxisDecorator extends ABarChartDecorator
         this._lineColor = lineColor;
         this._lineStrokeWidth = lineStrokeWidth;
         this._tickStrokeWidth = tickStrokeWidth;
-        this._font = font;
+        this._font = Lodash.cloneDeep(font);
     }
 
     /**
@@ -117,6 +118,7 @@ class YAxisDecorator extends ABarChartDecorator
                 fontFamily: this._font.fontFamily,
                 x: -tickLength - numberWidth - 5,
                 y: this._yScale(d) - (numberHeight / 2),
+                fill: this._font.textColor,
             }); 
 
             if (this._rotateBy === 90) {

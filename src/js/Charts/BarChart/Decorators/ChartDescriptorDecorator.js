@@ -4,6 +4,7 @@
 
 import { ABarChartDecorator } from "./ABarChartDecorator";
 import Konva from 'konva';
+import Lodash from 'lodash';
 
 class ChartDescriptorDecorator extends ABarChartDecorator
 {
@@ -33,13 +34,13 @@ class ChartDescriptorDecorator extends ABarChartDecorator
     {
         // TODO: vertical vs horizontal descriptor
         super(chart);
-        this._font = font;
+        this._font = Lodash.cloneDeep(font);
         this._iconSize = this._chartWidth / 30;
         this._isTop = isTop;
         this._maxPerRow = maxPerRow;
-        this._padding = 10;
-        this._offsetX = 0;
-        this._offsetY = 0;
+        this._spacing = 20;
+        this._offsetX = 7;
+        this._offsetY = -10;
     }
 
     /**
@@ -113,7 +114,6 @@ class ChartDescriptorDecorator extends ABarChartDecorator
         }*/
 
         startingY += this._offsetY;
-
         this._data.slice().reverse().forEach((d, i) => {
 
             if ((i % this._maxPerRow) === 0 && i !== 0) {
@@ -130,7 +130,7 @@ class ChartDescriptorDecorator extends ABarChartDecorator
                 var textX = rectX + this._iconSize + textOffset;
 
                 prevOffset = this._iconSize + textWidth + textOffset;
-                cumulativeX += prevOffset + groupOffset + this._padding;
+                cumulativeX += prevOffset + groupOffset + this._spacing;
 
                 helper.add(new Konva.Rect({
                     x: rectX,

@@ -2,6 +2,7 @@ import React from 'react';
 import { Menu, Editor, LabeledColorPicker, LabeledTextField, FontSelector, LabeledCheckbox } from './Components/index';
 
 import '../../../css/React/Editors/ChartEditor.css';
+import { SettingsManager } from '../../Helpers/SettingsManager';
 
 class WaffleEditor extends React.Component
 {
@@ -18,6 +19,23 @@ class WaffleEditor extends React.Component
             fontSize: 10,
             textColor: '#000'
         };
+
+        this._settingsManager = new SettingsManager({
+            cSettings: this.props.cSettings,
+            dSettings: this.props.dSettings,
+            setChartSettings: (settings) => { this.props.setChartSettings(settings); },
+            setDecoratorSettings: (settings) => { this.props.setDecoratorSettings(settings); }
+        });
+
+        this._defaultSettings = {
+            statistic: {
+                font: this._defaultFont,
+                display: {
+                    middleText: '',
+                    lockToChart: true
+                }
+            }
+        }
     }
 
     render()
@@ -71,8 +89,8 @@ class WaffleEditor extends React.Component
                     content={this._GetResizeContent()} 
                     checkbox={{
                         displayCheckbox: true,
-                        isChecked: false,
-                        checkboxHandler: () => { }
+                        isChecked: this.props.cSettings.dynamicResize.isChecked,
+                        checkboxHandler: (d) => { this._SetChartSettings('dynamicResize', 'isChecked', d); }
                     }}/>
             ],
             designOptions: [
@@ -83,8 +101,10 @@ class WaffleEditor extends React.Component
                     content={this._GetDataLabelsContent()} 
                     checkbox={{
                         displayCheckbox: true,
-                        isChecked: false,
-                        checkboxHandler: () => { }
+                        isChecked: !(this.props.dSettings.statistic === undefined),
+                        checkboxHandler: (d) => { 
+                            this._CheckboxHandler(d, 'statistic', { statistic: this._defaultSettings.statistic });
+                        }
                     }}/>
             ]
         }
@@ -119,20 +139,51 @@ class WaffleEditor extends React.Component
         this.props.setChartData(tmp);
     }
 
+    _SetChartSettings(category, key, value)
+    {
+        this._settingsManager.SetChartSettings(category, key, value);
+    }
+
+    _UpdateDecoratorSettings(decorator, category, key, value)
+    {
+        this._settingsManager.UpdateDecoratorSettings(decorator, category, key, value);
+    }
+
+    _CheckboxHandler(checkboxValue, key, decoratorSettings)
+    {
+        this._settingsManager.DecoratorToggle(checkboxValue, key, decoratorSettings);
+    }
+
     _GetIconContent()
     {
         let iconSettings = this.props.cSettings.icon;
         return [
             <div className='center'>
                 <LabeledColorPicker 
-                    label='Icon A Color: '
+                    label='Primary Color: '
                     color={iconSettings.aColor}
-                    onChange={(value) => { }}
+                    onChange={(value) => { this._SetChartSettings('icon', 'aColor', value); }}
                 />
                 <LabeledColorPicker 
-                    label='Icon B Color: '
+                    label='Secondary Color: '
                     color={iconSettings.bColor}
-                    onChange={(value) => { }}
+                    onChange={(value) => { this._SetChartSettings('icon', 'bColor', value); }}
+                />
+                <LabeledTextField 
+                    label='Icon Size: '
+                    index='max'
+                    initialValue={iconSettings.size}
+                    rows={1}
+                    cols={5}
+                    onChange={(d, i) => { this._SetChartSettings('icon', 'size', d)}}
+                />
+                <LabeledTextField 
+                    label='Padding: '
+                    index='max'
+                    initialValue={iconSettings.padding}
+                    rows={1}
+                    cols={5}
+                    onChange={(d, i) => { this._SetChartSettings('icon', 'padding', d)}}
                 />
                 <LabeledTextField 
                     label='Max icons per row: '
@@ -140,7 +191,7 @@ class WaffleEditor extends React.Component
                     initialValue={iconSettings.maxIconsPerRow}
                     rows={1}
                     cols={5}
-                    onchange={(d, i) => { }}
+                    onChange={(d, i) => { this._SetChartSettings('icon', 'maxIconsPerRow', d)}}
                 />
             </div>
         ]
@@ -157,7 +208,7 @@ class WaffleEditor extends React.Component
                     initialValue={resize.width}
                     rows={1}
                     cols={5}
-                    onchange={(d, i) => { }} 
+                    onChange={(d, i) => { this._SetChartSettings('dynamicResize', 'width', d); }} 
                 />
                 <LabeledTextField 
                     label='Height'
@@ -165,7 +216,7 @@ class WaffleEditor extends React.Component
                     initialValue={resize.height}
                     rows={1}
                     cols={5}
-                    onchange={(d, i) => { }} 
+                    onChange={(d, i) => { this._SetChartSettings('dynamicResize', 'height', d); }} 
                 />
             </div>
         ];
@@ -173,11 +224,8 @@ class WaffleEditor extends React.Component
 
     _GetDataLabelsContent()
     {
-        let statistic = (this.props.dSettings.statistic === undefined) ?  {
-            font: this._defaultFont,
-            middleText: '',
-            lockToChart: true
-        } : this.props.dSettings.statistic;
+        let statistic = (this.props.dSettings.statistic === undefined) ? 
+            this._defaultSettings.statistic : this.props.dSettings.statistic;
         return [
             <div className='center'>
                 <div>
@@ -185,20 +233,35 @@ class WaffleEditor extends React.Component
                     <LabeledTextField 
                         label='Text:'
                         index={'text'}
-                        initialValue={statistic.middleText}
+                        initialValue={statistic.display.middleText}
                         rows={1}
                         cols={5}
-                        onchange={(d, i) => { }} 
+                        onChange={(d, i) => { 
+                            this._UpdateDecoratorSettings('statistic', 'display', 'middleText', d);
+                        }} 
                     />
                     <LabeledCheckbox 
                         label='Lock to Chart'
-                        initialValue={statistic.lockToChart}
-                        onClick={() => { }}
+                        initialValue={statistic.display.lockToChart}
+                        onClick={(d) => { 
+                            this._UpdateDecoratorSettings('statistic', 'display', 'lockToChart', d);
+                        }}
                     />
                 </div>
                 <div>
                     <h5>Font Settings:</h5>
-                    <FontSelector initialFont='Times New Roman'/>
+                    <FontSelector 
+                        initialFont={statistic.font}
+                        updateFontFamily={(d) => { 
+                            this._UpdateDecoratorSettings('statistic', 'font', 'fontFamily', d);
+                        }}
+                        updateFontSize={(d) => {
+                            this._UpdateDecoratorSettings('statistic', 'font', 'fontSize', parseFloat(d));
+                        }}
+                        updateTextColor={(d) => {
+                            this._UpdateDecoratorSettings('statistic', 'font', 'textColor', d);
+                        }}
+                    />
                 </div>
             </div>
         ];

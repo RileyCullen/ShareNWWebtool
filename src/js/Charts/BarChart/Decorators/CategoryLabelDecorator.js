@@ -4,6 +4,7 @@
 
 import { ABarChartDecorator } from "./ABarChartDecorator";
 import Konva from 'konva';
+import Lodash from 'lodash';
 
 class CategoryLabelDecorator extends ABarChartDecorator
 {
@@ -57,7 +58,7 @@ class CategoryLabelDecorator extends ABarChartDecorator
         this._isWithinBars = isWithinBars;
         this._isTop = isTop;
         this._keys = this.GetGroups();
-        this._font = font;
+        this._font = Lodash.cloneDeep(font);
     }
 
     /**
