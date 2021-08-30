@@ -140,6 +140,19 @@ class AInfographic
         downloadURI(dataURL, 'Infographic.png');
     }
 
+    UpdateLayering(layerAction)
+    {
+        if (this._selectedChartIndex !== -1) {
+            this._chartHandler.UpdateLayering(this._selectedChartIndex, layerAction);
+        }
+    }
+
+    _CreateSwitchableContainer(attrs, id = '')
+    {
+        attrs.name = 'Switchable Container ' + id;
+        return new Konva.Group(attrs);
+    }
+
     /**
      * @summary Removes the event listeners from each text node.
      */
@@ -540,6 +553,9 @@ class AInfographic
             return node.hasName('Selectable') && node.hasName('Chart');
         });
         selection.forEach((chart) => {
+            /**
+             * Adds ability to select and edit graphs.
+             */
             chart.on('dblclick', () => {
                 this._selectedChartIndex = parseInt(chart.getAttr('id'));
                 this._tr.nodes([chart]);
@@ -582,6 +598,11 @@ class AInfographic
                     }
                 };
             });
+
+            chart.on('dragend', () => {
+                alert('start')
+                this._SwitchContainerOnDrag(chart);
+            });
         });
     }
 
@@ -622,6 +643,41 @@ class AInfographic
                 };
             });
         });
+    }
+
+    _SwitchContainerOnDrag(elem)
+    {
+        let selection = this._stage.find((node) => {
+            return node.hasName('Switchable') && node.hasName('Container');
+        }),
+            parent = this._FindTopContainer(elem);
+        
+        selection = selection.filter(d => parent !== d)
+        console.log(selection);
+    
+        selection.forEach(group => {
+            let groupPosition = group.getClientRect();
+            console.log('New Group');
+            console.log(group.getClientRect());
+            if (Konva.Util.haveIntersection(group.getClientRect(), elem.getClientRect())) {
+                let absPos = elem.getAbsolutePosition();
+                elem.moveTo(group);
+                elem.absolutePosition({
+                    x: absPos.x,
+                    y: absPos.y
+                });
+                // alert('switched to: ' + group.id());
+            }
+        });
+    }
+
+    _FindTopContainer(elem)
+    {
+        let parent = elem.getParent();
+        while (parent.getDepth > 2) {
+            parent = parent.getParent();
+        }
+        return parent;
     }
 
     _AddMultipleElementSelector()

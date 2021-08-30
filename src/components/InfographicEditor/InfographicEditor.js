@@ -29,6 +29,7 @@ class InfographicEditor extends React.Component
             graphicSettings: 0,
             isRemoving: false,
             isDownloading: false,
+            layerAction: 'none',
         };
         this._infogTextElem = 0;
         this._editorTextElem = 0;
@@ -77,6 +78,7 @@ class InfographicEditor extends React.Component
                         isRemoving={this.state.isRemoving}
                         isDownloading={this.state.isDownloading}
                         clearSelection={this._clearSelection}
+                        layerAction={this.state.layerAction}
                         style={{flex: 1}}
                     />
                 </div>
@@ -98,6 +100,7 @@ class InfographicEditor extends React.Component
     { 
         if (this.state.isRemoving) this.setState({isRemoving: false});
         if (this.state.isDownloading) this.setState({isDownloading: false});
+        if (this.state.layerAction !== 'none') this.setState({layerAction: 'none'});
         this._clearSelection = false;
     }
 
@@ -299,6 +302,8 @@ class InfographicEditor extends React.Component
     {
         if (setting === 'remove') {
             this._ToggleRemove();
+        } else {
+            this._ToggleLayerAction(setting)
         }
     }
 
@@ -307,6 +312,13 @@ class InfographicEditor extends React.Component
         this.setState({
             isRemoving: true,
         }); 
+    }
+
+    _ToggleLayerAction(layerAction)
+    {
+        this.setState({
+            layerAction: layerAction
+        });
     }
 
     /**

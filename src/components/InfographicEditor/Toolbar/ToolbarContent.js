@@ -143,7 +143,8 @@ class ToolbarContent extends React.Component
             <div className='canvas-settings'>
                 <button 
                     id='bring-forward-button' 
-                    className='insert-button'>
+                    className='insert-button'
+                    onClick={() => { this.props.canvasToggle('bring-forward'); }}>
                     <svg width="26" height="30" viewBox="0 0 26 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect x="7.5" y="8.5" width="18" height="21" fill="#979797" stroke="black"/>
                         <rect x="0.5" y="0.5" width="18" height="21" fill="white" stroke="black"/>
@@ -153,7 +154,8 @@ class ToolbarContent extends React.Component
 
                 <button 
                     id='send-back-button' 
-                    className='insert-button'>
+                    className='insert-button'
+                    onClick={() => { this.props.canvasToggle('send-backward')}}>
                     <svg width="26" height="30" viewBox="0 0 26 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect x="7.5" y="8.5" width="18" height="21" fill="white" stroke="black"/>
                         <rect x="0.5" y="0.5" width="18" height="21" fill="#979797" stroke="black"/>
@@ -163,7 +165,8 @@ class ToolbarContent extends React.Component
 
                 <button 
                     id='move-front-button' 
-                    className='insert-button'>
+                    className='insert-button'
+                    onClick={() => { this.props.canvasToggle('move-to-front'); }}>
                     <svg width="29" height="30" viewBox="0 0 29 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect x="0.5" y="9.5" width="18" height="20" fill="#CBCBCB" stroke="black"/>
                         <rect x="10.5" y="5.5" width="18" height="21" fill="#979797" stroke="black"/>
@@ -174,7 +177,8 @@ class ToolbarContent extends React.Component
                 
                 <button 
                     id='move-bottom-button' 
-                    className='insert-button'>
+                    className='insert-button'
+                    onClick={() => { this.props.canvasToggle('move-to-back'); }}>
                     <svg width="29" height="30" viewBox="0 0 29 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect x="0.5" y="9.5" width="18" height="20" fill="white" stroke="black"/>
                         <rect x="10.5" y="5.5" width="18" height="21" fill="#979797" stroke="black"/>

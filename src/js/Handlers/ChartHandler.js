@@ -154,6 +154,27 @@ class ChartHandler
         // elem.decorators[elem.decoratorSize].CreateChart();
     }
 
+    UpdateLayering(id, action)
+    {
+        let group = this._handler[id].group;
+        switch(action) {
+            case 'move-to-back':
+                group.moveToBottom();
+                break;
+            case 'move-to-front':
+                group.moveToTop();
+                break;
+            case 'bring-forward':
+                group.moveUp();
+                break;
+            case 'send-backward':
+                group.moveDown();
+                break;
+            default:
+                break;
+        }
+    }
+
     /**
      * @summary     Updates the id assigned to the different chart elements in 
      *              the handler.
