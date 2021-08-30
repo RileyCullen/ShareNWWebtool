@@ -97,6 +97,7 @@ class DataValueDecorator extends ABarChartDecorator
         var groups = this.GetGroups();
         var offsetHelper = this._CreateOffsetHelper(groups);
         var labelHeight = this._GetFontSize('M', this._font);
+        var lastValue = 0;
 
         this._data.forEach(d => {
             var label = d.value;
@@ -124,11 +125,17 @@ class DataValueDecorator extends ABarChartDecorator
             // Text y position wrong when we rotate so we need to adjust them
             if (this._rotateBy !== 0) {
                 text.x(text.x() + (1/2.5) * labelWidth);
-                text.y(this._chartHeight / 2 + labelWidth / 2);
+                text.y(this._chartHeight - (offsetHelper[d.category]+lastValue)/2+labelWidth/2);
             }
 
             text.rotate(-this._rotateBy);
             helper.add(text);
+            if (offsetHelper[d.category]===this._chartHeight){
+                lastValue=0;
+            }
+            else {
+                lastValue = offsetHelper[d.category];
+            }
         });
         this._group.add(helper);
         helper.rotate(this._rotateBy);
