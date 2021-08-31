@@ -1,6 +1,7 @@
 .content-element {
     width: 100%;
     height: inherit;
+    background-color: white;
 }
 
 .content-image {
@@ -45,7 +46,6 @@
 }
 
 .content-divider {
-    border: 1px solid black;
     position: relative;
     top: -12px;
 }
@@ -82,4 +82,17 @@
 
 .content-shift-up {
     transform: translate(0, -35px);
+}
+
+.content-options, .content-shift-up {
+    background-color: white;
+}
+
+#preview-button {
+    background-color: #B6472A;
+    color: white;
+}
+
+#preview-button:hover {
+    background-color: #9b3c25;
 }
