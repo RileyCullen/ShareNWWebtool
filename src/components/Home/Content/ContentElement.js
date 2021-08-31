@@ -12,8 +12,8 @@ class ContentElement extends React.Component
                     <img className='content-translate' src={this.props.image} alt='An infographic about HIV'/>
                     <input 
                         type='button' 
-                        value='Use Template'
-                        onClick={() => { this.props.displayEditor(index); }}>    
+                        value='Preview'
+                        onClick={() => { this._TogglePopup(index); }}>    
                     </input>
                 </div>
                 <hr className='content-divider content-shift-up' />
@@ -26,8 +26,8 @@ class ContentElement extends React.Component
                             id='preview-button'
                             className='use-template'
                             type='button' 
-                            value='Preview' 
-                            onClick={() => { this._TogglePopup(index) }}>    
+                            value='Use Template' 
+                            onClick={() => { this.props.displayEditor(index) }}>    
                         </input>
                     </div>
                 </div>
