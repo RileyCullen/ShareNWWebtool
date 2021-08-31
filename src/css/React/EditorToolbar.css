@@ -29,13 +29,14 @@
 
 #toolbar-download:hover {
     color: black;
+    cursor: pointer;
 }
 
 .toolbar-download-icon {
     font-size: 16px;
-    float: left;
-    padding: 0px;
-    margin: 0px;
+    position: relative;
+    left: 6px;
+    top: 2px;
 }
 
 .toolbar-download-text {
