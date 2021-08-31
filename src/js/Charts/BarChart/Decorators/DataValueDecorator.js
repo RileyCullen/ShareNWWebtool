@@ -113,6 +113,16 @@ class DataValueDecorator extends ABarChartDecorator
                 - offsetHelper[d.category] : (this._yScale(d.value) - offsetHelper[d.category]
                 - labelHeight - 5);
 
+            offsetHelper[d.category] += (this._chartHeight - this._yScale(d.value));
+
+            if (labelWidth > offsetHelper[d.category]-lastValue && this._rotateBy !==0){
+                label = '';
+                labelWidth = this._GetFontSize(label, this._font);
+            }
+            else if (labelHeight > offsetHelper[d.category]-lastValue){
+                label = '';
+            }
+
             var text = new Konva.Text({
                 x: (this._xScale(d.category) + this._xScale.bandwidth() / 2) - (labelWidth / 2),
                 y: yPos,
@@ -121,7 +131,6 @@ class DataValueDecorator extends ABarChartDecorator
                 fontFamily: this._font.fontFamily,
                 fill: this._font.textColor,
             }); 
-            offsetHelper[d.category] += (this._chartHeight - this._yScale(d.value));
 
             // Text y position wrong when we rotate so we need to adjust them
             if (this._rotateBy !== 0) {
