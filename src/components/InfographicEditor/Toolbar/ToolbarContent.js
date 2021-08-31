@@ -90,9 +90,11 @@ class ToolbarContent extends React.Component
                 <div className='insert-bkg-container'>
                     <button id='insert-bkg-button' className='insert-button'
                             onClick={() => { this.props.editorHandler('insert-background-elem'); }}>
-                        <FontAwesomeIcon 
-                            className='insert-icon'
-                            icon={faStop}/>
+                        <svg width="81" height="15" viewBox="0 0 81 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect y="3.75" width="4.2748" height="11.2501" rx="2.1374" fill="#5F9400"/>
+                            <rect x="75.7266" y="3.75" width="4.2748" height="11.2501" rx="2.1374" fill="#5F9400"/>
+                            <rect x="2.24219" width="75.3179" height="12.1876" rx="5" fill="#94BD31"/>
+                        </svg>
                         <p className='insert-text'>Background Element</p>
                     </button>
                 </div>
