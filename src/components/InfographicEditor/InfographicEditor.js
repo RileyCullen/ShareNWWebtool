@@ -43,8 +43,7 @@ class InfographicEditor extends React.Component
     render()
     {
         let currentEditor = this._SelectEditor(),
-            editorWindowHeight = (this.state.currentEditor === 'none') ? 
-                '100%' : '150px',
+            editorWindowHeight = this._DetermineEditorMenuHeight(),
             editorWindowBkgColor = (this.state.currentEditor === 'none') ? 
                 'white' : '#ECECEC';
 
@@ -102,6 +101,26 @@ class InfographicEditor extends React.Component
         if (this.state.isDownloading) this.setState({isDownloading: false});
         if (this.state.layerAction !== 'none') this.setState({layerAction: 'none'});
         this._clearSelection = false;
+    }
+
+    _DetermineEditorMenuHeight()
+    {
+        switch(this.state.currentEditor) {
+            case 'none':
+                return '100%';
+            case 'insert-chart':
+            case 'insert-icon':
+            case 'insert-text':
+            case 'insert-image':
+            case 'insert-background-elem':
+            case 'edit-background':
+            case 'header-editor':
+            case 'image-editor':
+            case 'icon-editor':
+            case 'text-editor':
+                return '100px';
+        }
+        return '150px';
     }
 
     /**
@@ -356,8 +375,63 @@ class InfographicEditor extends React.Component
                 <p className='editor-placeholder-text'>Double click on an element to begin editing!</p>
             );
         } else {
+            let text = '';
+            switch(this.state.currentEditor) {
+                case 'insert-chart':
+                    text = 'Chart Library';
+                    break;
+                case 'insert-icon':
+                    text = 'Icon Library';
+                    break;
+                case 'insert-image':
+                    text = 'Image Library';
+                    break;
+                case 'insert-background-elem':
+                    text = 'Background Element Library';
+                    break;
+                case 'edit-background':
+                    text = 'Background Editor';
+                    break;
+                case 'text-editor':
+                    text = 'Text Editor';
+                    break;
+                case 'waffle-editor':
+                    text = 'Waffle Chart Editor';
+                    break;
+                case 'pie-editor':
+                    text = 'Pie Chart Editor';
+                    break;
+                case 'bar-editor':
+                    text = 'Bar Chart Editor';
+                    break;
+                case 'stacked-bar-editor':
+                    text = 'Stacked Bar Chart Editor';
+                    break;
+                case 'line-editor':
+                    text = 'Line Chart Editor';
+                    break;
+                case 'icon-bar-editor':
+                    text = 'Icon Bar Chart Editor';
+                    break;
+                case 'donut-editor':
+                    text = 'Donut Chart Editor';
+                    break;
+                case 'image-editor':
+                    text = 'Image Editor';
+                    break;
+                case 'icon-editor':
+                    text = 'Icon Editor';
+                    break;
+                case 'header-editor':
+                    text = 'Header Editor';
+                    break;
+            }
             return (
-                <p>{this.state.currentEditor}</p>
+                <h3 style={{
+                    fontSize: '20px',
+                    position: 'relative',
+                    top: '-8px',
+                }}>{text}</h3>
             );
         }
     }
