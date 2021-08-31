@@ -23,6 +23,7 @@ class ContentElement extends React.Component
                     </div>
                     <div className='content-buttons'>
                         <input 
+                            id='preview-button'
                             className='use-template'
                             type='button' 
                             value='Preview' 
