@@ -22,6 +22,11 @@
 
 .insert-chart-button:hover {
     background-color: #e2e2e2; 
+    cursor: pointer;
+}
+
+.insert-chart-button:active {
+    background-color: #e7e7e7;
 }
 
 .insert-chart-button p {
