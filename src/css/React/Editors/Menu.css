@@ -14,6 +14,14 @@
     height: 50px;
 }
 
+.dropdown-toggle-container:hover {
+    background-color: rgb(230, 230, 230);
+}
+
+.dropdown-toggle-container:active {
+    background-color: rgb(240, 240, 240);
+}
+
 .dropdown-name {
     font-size: 20px;
     position: relative;
