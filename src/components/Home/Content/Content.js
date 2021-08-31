@@ -31,6 +31,7 @@ class Content extends React.Component
                             <div className='item'>
                                 <ContentElement 
                                     index={i}
+                                    toggleButtons={popup === false}
                                     elementName={d.name}
                                     image={d.url}
                                     showPopup={this.state.showPopup}

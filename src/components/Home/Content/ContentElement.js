@@ -5,15 +5,19 @@ class ContentElement extends React.Component
 {
     render()
     {
-        let index = this.props.index;
-        return ( 
+        let index = this.props.index,
+            previewHandler = (this.props.toggleButtons) ? () => { this._TogglePopup(index); }
+                : false,
+            useHandler = (this.props.toggleButtons) ? () => { this.props.displayEditor(index); }
+                : false;
+        return (
             <div className='content-element'>
                 <div className='content-image'>
                     <img className='content-translate' src={this.props.image} alt='An infographic about HIV'/>
                     <input 
                         type='button' 
                         value='Preview'
-                        onClick={() => { this._TogglePopup(index); }}>    
+                        onClick={previewHandler}>    
                     </input>
                 </div>
                 <hr className='content-divider content-shift-up' />
@@ -27,7 +31,7 @@ class ContentElement extends React.Component
                             className='use-template'
                             type='button' 
                             value='Use Template' 
-                            onClick={() => { this.props.displayEditor(index) }}>    
+                            onClick={useHandler}>    
                         </input>
                     </div>
                 </div>
