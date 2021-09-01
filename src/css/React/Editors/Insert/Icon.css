@@ -15,10 +15,16 @@
 
     border: none;
     background-color: #ececec;
+    box-shadow: 0px 0px 5px #a3a3a3;
 }
 
 .insert-fa-icon-button:hover {
     background-color: #e2e2e2;
+    cursor: pointer;
+}
+
+.insert-fa-icon-button:active {
+    background-color: #e7e7e7;
 }
 
 .insert-fa-icon {
