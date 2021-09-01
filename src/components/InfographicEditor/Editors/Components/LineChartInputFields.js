@@ -34,7 +34,7 @@ class LineChartInputFields extends React.Component
                                     key={i + '-category'}
                                     id={i + '-category'}
                                     index={i}
-                                    initialValue={d.date}
+                                    initialValue={d.category}
                                     rows={1}
                                     cols={20}
                                     onChange={(d, i) => { this._SetChartData(d, i, 'date')}}

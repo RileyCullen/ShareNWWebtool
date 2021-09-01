@@ -66,7 +66,7 @@ class LineChart extends ALineChart
             .append('custom')
             .attr('class', 'point')
             .attr('x', (d) => {
-                return this._internalOffsetX + this._xScale(d.date);
+                return this._internalOffsetX + this._xScale(d.category);
             })
             .attr('y', (d) => {
                 return -1 * this._internalOffsetY + this._yScale(d.value);

@@ -123,7 +123,7 @@ class ALineChart
      */
     _SetUpXDomain()
     {
-        this._xScale.domain(this._data.map(d => { return d.date; }));
+        this._xScale.domain(this._data.map(d => { return d.category; }));
     }
 
     /**
