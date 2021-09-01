@@ -66,6 +66,11 @@ class ALineChart
         return this._data;
     }
 
+    Remove()
+    {
+        this._group.destroy();
+    }
+
     GetChartSettings()
     {
         return {
