@@ -32,7 +32,8 @@ class Icon extends React.Component
             faBrain, faCapsules, faFirstAid, faLungs, faLungsVirus, faPills, faSyringe,]
         return iconList.map((d, i) => {
             return (
-                <button className='insert-fa-icon-button'>
+                <button className='insert-fa-icon-button'
+                    onClick={() => { this.props.toggleInsert('icon', d.icon[3])}}>
                     <FontAwesomeIcon className='insert-fa-icon' icon={d} />
                 </button>
             );

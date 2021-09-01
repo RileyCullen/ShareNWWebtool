@@ -321,7 +321,8 @@ class InfographicEditor extends React.Component
             return (<Chart 
                 toggleInsert={(type, element) => { this._ToggleInsert(type, element); }}/>);
         } else if (this.state.currentEditor === 'insert-icon') {
-            return (<Icon />);
+            return (<Icon 
+                toggleInsert={(type, element) => { this._ToggleInsert(type, element); }}/>);
         } else if (this.state.currentEditor === 'insert-background-elem') {
             return (<BackgroundElement />);
         } else if (this.state.currentEditor === 'insert-image') {

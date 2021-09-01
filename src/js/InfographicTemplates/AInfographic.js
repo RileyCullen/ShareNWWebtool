@@ -158,14 +158,14 @@ class AInfographic
 
     InsertElement({type, element})
     {
+        let group = new Konva.Group({
+            x: this._chartWidth / 2,
+            y: this._chartHeight / 2,
+        });
+        this._main.add(group);
         if (type === 'chart') {
             let chart = 0, 
-                decoratorList = [],
-                group = new Konva.Group({
-                    x: this._chartWidth / 2,
-                    y: this._chartHeight / 2,
-                });
-            this._main.add(group);
+                decoratorList = [];
             switch(element) {
                 case 'Bar':
                     chart = new BasicBarChart({
@@ -334,6 +334,21 @@ class AInfographic
                 this._AddGraphSelection();
                 this._ChartHelper(group);
             }
+        } else if (type === 'icon') {
+            let icon = new Konva.Text({
+                text: String.fromCharCode(parseInt(element, 16)),
+                fontFamily: '"Font Awesome 5 Free"',
+                fontStyle: '900',
+                fill: '#000',
+                fontSize: 100,
+            });
+            this._graphicsHandler.AddGraphic({
+                type: type,
+                graphic: icon,
+                group: group,
+            });
+            this._AddGraphicSelection();
+            this._GraphicHelper(group);
         }
         this._main.batchDraw();
     }
@@ -811,39 +826,44 @@ class AInfographic
 
         selection.forEach((group) => {
             group.on('dblclick', () => {
-                this._selectedGraphicIndex = group.getAttr('id');
-                let type = this._graphicsHandler.GetType(this._selectedGraphicIndex);
-                this._tr.nodes([group]);
-                this._tr.moveToTop();
-                this._main.batchDraw();
-                group.setAttr('draggable', true);
-
-                this._editorHandler(type + '-editor');
-
-                this._graphicCallback(
-                    this._graphicsHandler.GetSettings(this._selectedGraphicIndex)
-                );
-
-                setTimeout(() => {
-                    this._stage.on('click', HandleOutsideClick);
-                });
-
-                var HandleOutsideClick = (e) => {
-                    if (e.target !== group) {
-                        this._selectedGraphicIndex = -1;
-                        this._tr.nodes([]);
-                        group.setAttr('draggable', false);
-                        this._main.batchDraw();
-                        this._editorHandler('none');
-                        this._stage.off('click', HandleOutsideClick);
-                    }
-                };
+                this._GraphicHelper(group);
             });
 
             group.on('dragend', () => {
                 this._SwitchContainerOnDrag(group);
             });
         });
+    }
+
+    _GraphicHelper(group)
+    {
+        this._selectedGraphicIndex = group.getAttr('id');
+        let type = this._graphicsHandler.GetType(this._selectedGraphicIndex);
+        this._tr.nodes([group]);
+        this._tr.moveToTop();
+        this._main.batchDraw();
+        group.setAttr('draggable', true);
+
+        this._editorHandler(type + '-editor');
+
+        this._graphicCallback(
+            this._graphicsHandler.GetSettings(this._selectedGraphicIndex)
+        );
+
+        setTimeout(() => {
+            this._stage.on('click', HandleOutsideClick);
+        });
+
+        var HandleOutsideClick = (e) => {
+            if (e.target !== group) {
+                this._selectedGraphicIndex = -1;
+                this._tr.nodes([]);
+                group.setAttr('draggable', false);
+                this._main.batchDraw();
+                this._editorHandler('none');
+                this._stage.off('click', HandleOutsideClick);
+            }
+        };
     }
 
     _SwitchContainerOnDrag(elem)
