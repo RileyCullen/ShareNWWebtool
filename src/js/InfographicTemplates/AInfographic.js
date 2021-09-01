@@ -5,6 +5,11 @@
 import Konva from 'konva';
 import html2canvas from 'html2canvas';
 import { ChartHandler, GraphicsHandler, TextHandler } from '../Handlers/index';
+import { BasicBarChart, StackedBarChart } from '../Charts/BarChart/index';
+import { IconBarChart } from '../Charts/IconBarChart/index';
+import { GenerateIconDataArray, WaffleChart } from '../Charts/WaffleChart';
+import { LineChart, LineXAxisDecorator, LineYAxisDecorator } from '../Charts/LineChart';
+import { DonutChart, PieChart } from '../Charts/PieChart';
 
 class AInfographic 
 {
@@ -149,6 +154,188 @@ class AInfographic
         } else if (this._selectedTextIndex !== -1) {
             this._textHandler.UpdateLayering(this._selectedTextIndex, layerAction);
         }
+    }
+
+    InsertElement({type, element})
+    {
+        if (type === 'chart') {
+            let chart = 0, 
+                decoratorList = [],
+                group = new Konva.Group({
+                    x: this._chartWidth / 2,
+                    y: this._chartHeight / 2,
+                });
+            this._main.add(group);
+            switch(element) {
+                case 'Bar':
+                    chart = new BasicBarChart({
+                        data: [
+                            {
+                                category: 'A',
+                                value: 10,
+                                color: '#000',
+                            },
+                            {
+                                category: 'B',
+                                value: 30,
+                                color: '#000'
+                            }
+                        ],
+                        group: group,
+                        width: 100,
+                        height: 100,
+                        padding: 0.2,
+                    });
+                    break;
+                case 'Stacked':
+                    chart = new StackedBarChart({
+                        data: [
+                            {
+                                category: 'A',
+                                subcategory: 'one',
+                                value: 10,
+                                color: '#000',
+                            },
+                            {
+                                category: 'A',
+                                subcategory: 'two',
+                                value: 20,
+                                color: '#999',
+                            }
+                        ],
+                        group: group,
+                        width: 100,
+                        height: 100, 
+                        padding: 0.2,
+                    });
+                    break;
+                case 'Icon':
+                    chart = new IconBarChart({
+                        data: [
+                            {
+                                category: 'A',
+                                value: 15,
+                                color: '#999'
+                            },
+                            {
+                                category: 'B',
+                                value: 30,
+                                color: '#999',
+                            }
+                        ],
+                        group: group,
+                        width: 100,
+                        height: 100,
+                        padding: 50,
+                    });
+                    break;
+                case 'Waffle':
+                    chart = new WaffleChart({
+                        numerator: 1,
+                        denominator: 3,
+                        group: group,
+                        presetA: GenerateIconDataArray({
+                            icon: '\uf004',
+                            color: '#999',
+                            offset: 85,
+                            font: '"Font Awesome 5 Free"'
+                        }),
+                        presetB: GenerateIconDataArray({
+                            icon: '\uf004',
+                            color: '#000',
+                            offset: 85,
+                            font: '"Font Awesome 5 Free"'
+                        }),
+                        fontSize: 80,
+                        isDynamicResize: false,
+                    });
+                    break;
+                case 'Line':
+                    chart = new LineChart({
+                        data: [
+                            {
+                                category: 'A',
+                                value: 10,
+                            },
+                            {
+                                category: 'B',
+                                value: 20,
+                            }
+                        ],
+                        group: group,
+                        chartWidth: 100,
+                        chartHeight: 100,
+                        lineWidth: 1,
+                        pointRadius: 3,
+                    });
+                    decoratorList[0] = new LineXAxisDecorator({
+                        chart: chart,
+                    });
+                    decoratorList[1] = new LineYAxisDecorator({
+                        chart: decoratorList[0],
+                    });
+                    break;
+                case 'Pie':
+                    chart = new PieChart({
+                        data: [
+                            {
+                                category: 'A',
+                                value: 10,
+                                color: '#999',
+                            },
+                            {
+                                category: 'B',
+                                value: 90,
+                                color: '#000',
+                            }
+                        ],
+                        group: group,
+                        radius: 50,
+                    });
+                    break;
+                case 'Donut':
+                    chart = new DonutChart({
+                        data: [
+                            {
+                                category: 'A',
+                                value: 20,
+                                color: '#999',
+                            },
+                            {
+                                category: 'B',
+                                value: 80,
+                                color: '#000'
+                            }
+                        ],
+                        group: group,
+                        radius: 50,
+                        innerRadius: 35,
+                    });
+                    break;
+                default:
+                    break;
+            }
+            if (chart !== 0) {
+                this._chartHandler.AddChart({
+                    chart: chart,
+                    group: group,
+                    type: element,
+                });
+                decoratorList.forEach(d => {
+                    this._chartHandler.AddDecorator({
+                        decorator: d, 
+                        id: this._chartHandler.GetCurrChartID()
+                    });
+                });
+
+                if (decoratorList.length === 0) chart.CreateChart();
+                else decoratorList[decoratorList.length - 1].CreateChart();
+
+                this._AddGraphSelection();
+                this._ChartHelper(group);
+            }
+        }
+        this._main.batchDraw();
     }
 
     _CreateSwitchableContainer(attrs = {}, id = '')
@@ -562,7 +749,19 @@ class AInfographic
              * Adds ability to select and edit graphs.
              */
             chart.on('dblclick', () => {
-                this._selectedChartIndex = parseInt(chart.getAttr('id'));
+                this._ChartHelper(chart);
+            });
+
+            chart.on('dragend', () => {
+                this._SwitchContainerOnDrag(chart);
+            });
+        });
+    }
+
+
+    _ChartHelper(chart)
+    {
+        this._selectedChartIndex = parseInt(chart.getAttr('id'));
                 this._tr.nodes([chart]);
                 this._tr.moveToTop();
                 this._main.batchDraw();
@@ -602,12 +801,6 @@ class AInfographic
                         this._stage.off('click', HandleOutsideClick);
                     }
                 };
-            });
-
-            chart.on('dragend', () => {
-                this._SwitchContainerOnDrag(chart);
-            });
-        });
     }
 
     _AddGraphicSelection()
@@ -677,7 +870,7 @@ class AInfographic
     _FindTopContainer(elem)
     {
         let parent = elem.getParent();
-        while (parent.getDepth > 2 || !parent.hasName('Switchable')) {
+        while (parent.getDepth() > 2 && !parent.hasName('Switchable')) {
             parent = parent.getParent();
         }
         return parent;

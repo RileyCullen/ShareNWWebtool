@@ -30,6 +30,8 @@ class InfographicEditor extends React.Component
             isRemoving: false,
             isDownloading: false,
             layerAction: 'none',
+            insertType: 'none',
+            insertElement: 'none',
         };
         this._infogTextElem = 0;
         this._editorTextElem = 0;
@@ -78,6 +80,8 @@ class InfographicEditor extends React.Component
                         isDownloading={this.state.isDownloading}
                         clearSelection={this._clearSelection}
                         layerAction={this.state.layerAction}
+                        insertType={this.state.insertType}
+                        insertElement={this.state.insertElement}
                         style={{flex: 1}}
                     />
                 </div>
@@ -100,6 +104,8 @@ class InfographicEditor extends React.Component
         if (this.state.isRemoving) this.setState({isRemoving: false});
         if (this.state.isDownloading) this.setState({isDownloading: false});
         if (this.state.layerAction !== 'none') this.setState({layerAction: 'none'});
+        if (this.state.insertElement !== 'none') this.setState({insertElement: 'none'});
+        if (this.state.insertType !== 'none') this.setState({insertType: 'none'});
         this._clearSelection = false;
     }
 
@@ -187,6 +193,14 @@ class InfographicEditor extends React.Component
     {
         this.setState({
             isDownloading: true,
+        });
+    }
+
+    _ToggleInsert(type, element)
+    {
+        this.setState({
+            insertType: type,
+            insertElement: element,
         });
     }
 
@@ -304,7 +318,8 @@ class InfographicEditor extends React.Component
                 setChartSettings={(settings) => { this._SetChartSettings(settings); }}
                 setDecoratorSettings={(settings) => { this._SetDecoratorSettings(settings); }}/>;
         } else if (this.state.currentEditor === 'insert-chart') {
-            return (<Chart />);
+            return (<Chart 
+                toggleInsert={(type, element) => { this._ToggleInsert(type, element); }}/>);
         } else if (this.state.currentEditor === 'insert-icon') {
             return (<Icon />);
         } else if (this.state.currentEditor === 'insert-background-elem') {

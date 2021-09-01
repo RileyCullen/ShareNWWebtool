@@ -231,11 +231,11 @@ class DiabetesTemplateOne extends AInfographic
         sectionOne.add(chartGroup);
         var data = [
             {
-                date: '2007',
+                category: '2007',
                 value: 174
             },
             {
-                date: '2012',
+                category: '2012',
                 value: 245
             }
         ]
