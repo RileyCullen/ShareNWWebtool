@@ -73,6 +73,7 @@ class AInfographic
         this._mouseX1 = 0, this._mouseX2 = 0, this._mouseY1 = 0, this._mouseY2 = 0;*/
 
         this._main = new Konva.Layer();
+        this._bkg = 0;
         // this._UIAdder = new UIAdder(this._chartWidth, this._chartHeight);
 
         this._editorHandler = editorHandler;
@@ -156,6 +157,14 @@ class AInfographic
         } else if (this._selectedTextIndex !== -1) {
             this._textHandler.UpdateLayering(this._selectedTextIndex, layerAction);
         }
+    }
+
+    UpdateBackground(settings)
+    {
+        if (settings === 0) return;
+        this._bkg.setAttrs({
+            fill: settings.fill,
+        });
     }
 
     InsertElement({type, element})
@@ -568,7 +577,7 @@ class AInfographic
      */
     _AddStageBorder()
     {
-        var bkg = new Konva.Rect({
+        this._bkg = new Konva.Rect({
             x: 0,
             y: 0,
             width: this._stage.width(),
@@ -576,8 +585,8 @@ class AInfographic
             fill: 'white',
             stroke: 'black',
         });
-        this._main.add(bkg);
-        bkg.moveToBottom();
+        this._main.add(this._bkg);
+        this._bkg.moveToBottom();
     }
 
     /**

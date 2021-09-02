@@ -32,14 +32,14 @@ class Background extends React.Component
                     checkbox={{displayCheckbox: false}}
                     content={[
                         <div className='edit-background-fill'>
-                            <div className='edit-background-radio-container'>
+                            {/*<div className='edit-background-radio-container'>
                                 <input className='edit-background-input' type='radio' value='Fill' checked={true}/>
                                 <label className='edit-background-label'>Fill</label>
                             </div>
                             <div className='edit-background-radio-container'>
                                 <input className='edit-background-input' type='radio' value='Gradient' checked={false}/>
                                 <label className='edit-background-label'>Gradient</label>
-                            </div>
+                            </div>*/}
                             <div className='edit-background-content'>
                                 {
                                     this._GetContent()
@@ -57,17 +57,22 @@ class Background extends React.Component
     {
         if (this.state.radioboxValue === 'Fill') {
             return (
-                <div style={{
-                    margin: '60px 0px 60px 60px',
-                }}>
+                <div className='center'>
                     <LabeledColorPicker 
                         label='Fill:'
                         color='#ffffff'
-                        onChange={(value) => { }}
+                        onChange={(value) => { this._ToggleBackgroundSettings('fill', value) }}
                     />
                 </div>
             );
         }
+    }
+
+    _ToggleBackgroundSettings(key, value)
+    {
+        let helper = {};
+        helper[key] = value;
+        this.props.toggleBackgroundSettings(helper);
     }
 }
 

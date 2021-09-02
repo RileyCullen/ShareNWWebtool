@@ -33,6 +33,7 @@ class InfographicEditor extends React.Component
             insertType: 'none',
             insertElement: 'none',
             infogTextElem: 0,
+            backgroundSettings: 0,
         };
         this._editorTextElem = 0;
         this._infogDimensions = {
@@ -82,6 +83,7 @@ class InfographicEditor extends React.Component
                         layerAction={this.state.layerAction}
                         insertType={this.state.insertType}
                         insertElement={this.state.insertElement}
+                        backgroundSettings={this.state.backgroundSettings}
                         style={{flex: 1}}
                     />
                 </div>
@@ -106,6 +108,7 @@ class InfographicEditor extends React.Component
         if (this.state.layerAction !== 'none') this.setState({layerAction: 'none'});
         if (this.state.insertElement !== 'none') this.setState({insertElement: 'none'});
         if (this.state.insertType !== 'none') this.setState({insertType: 'none'});
+        if (this.state.backgroundSettings !== 0) this.setState({backgroundSettings: 0});
         this._clearSelection = false;
     }
 
@@ -205,6 +208,13 @@ class InfographicEditor extends React.Component
         this.setState({
             insertType: type,
             insertElement: element,
+        });
+    }
+
+    _ToggleBackgroundSettings(settings)
+    {
+        this.setState({
+            backgroundSettings: settings,
         });
     }
 
@@ -333,7 +343,8 @@ class InfographicEditor extends React.Component
         } else if (this.state.currentEditor === 'insert-image') {
             return (<Image />);
         } else if (this.state.currentEditor === 'edit-background') {
-            return (<Background />);
+            return (<Background 
+                toggleBackgroundSettings={(settings) => { this._ToggleBackgroundSettings(settings); }}/>);
         }
         return false;
     }

@@ -64,6 +64,8 @@ class CanvasContainer extends React.Component
                 this._infogObj.ClearSelection()
             } else if (this.props.isDownloading) { 
                 this._infogObj.Download();
+            } else if (this.props.backgroundSettings !== 0) {
+                this._infogObj.UpdateBackground(this.props.backgroundSettings);
             } else {
                 this._infogObj.UpdateTextHandler(this.props.textElem);
 
