@@ -10,6 +10,8 @@ import { IconBarChart } from '../Charts/IconBarChart/index';
 import { GenerateIconDataArray, WaffleChart } from '../Charts/WaffleChart';
 import { LineChart, LineXAxisDecorator, LineYAxisDecorator } from '../Charts/LineChart';
 import { DonutChart, PieChart } from '../Charts/PieChart';
+import { RectangleHeader, RibbonHeader } from '../Headers';
+import { MessageBubble } from '../ToolTips';
 
 class AInfographic 
 {
@@ -331,7 +333,12 @@ class AInfographic
                 if (decoratorList.length === 0) chart.CreateChart();
                 else decoratorList[decoratorList.length - 1].CreateChart();
 
-                this._AddGraphSelection();
+                group.on('dblclick', () => {
+                    this._ChartHelper(group);
+                });
+                group.on('dragend', () => {
+                    this._SwitchContainerOnDrag(group);
+                });
                 this._ChartHelper(group);
             }
         } else if (type === 'icon') {
@@ -347,7 +354,97 @@ class AInfographic
                 graphic: icon,
                 group: group,
             });
-            this._AddGraphicSelection();
+
+            group.on('dblclick', () => {
+                this._GraphicHelper(group);
+            });
+            group.on('dragend', () => {
+                this._SwitchContainerOnDrag(group);
+            });
+            this._GraphicHelper(group);
+        } else if (type === 'text') {
+            // Set up text
+            let div = document.createElement('div'),
+                textElem = '<p><span style="line-height: 1.2; font-size: 20px; font-family: museo, serif;">' 
+                + element + '</span></p>';
+            div.innerHTML = textElem;
+
+            // Set up text handler 
+            this._textHandler.AddTextElem({
+                textElem: div,
+                group: group,
+                x: 0,
+                y: 0,
+                rotateBy: 0,
+            });
+            this._textHandler.SetCSSInfo({
+                id: this._textHandler.GetCurrID(),
+                fontFamily: this._quillMap('museo', 900),
+                fontSize: '20px',
+                textColor: '#000',
+                lineHeight: '1.2',
+                align: 'center',
+            });
+
+            // Render the text 
+            var helperElem = document.createElement('div');
+            helperElem.style.position = 'absolute';
+            document.getElementById('renderHelper').appendChild(helperElem);
+            helperElem.appendChild(div);
+            this._HTMLToCanvas('.EditableText', this._textHandler.GetCurrID());
+            div.remove();
+            helperElem.remove();
+
+            let helper = this._textHandler.GetImage(this._textHandler.GetCurrID());
+            helper.on('dblclick', () => {
+                this._TextHelper(helper);
+            });
+            helper.on('dragend', () => {
+                this._SwitchContainerOnDrag(helper);
+            });
+            this._TextHelper(helper);
+        } else if (type === 'bkg-elem') {
+            let graphic = 0;
+            switch(element) {
+                case 'ribbon-header':
+                    graphic = new RibbonHeader({
+                        colorOne: '#000',
+                        colorTwo: '#999',
+                        group: group,
+                        hWidth: 300,
+                        hHeight: 25,
+                        iWidth: this._chartWidth,
+                        iHeight: this._chartHeight,
+                    });
+                    break;
+                case 'rectangle-header':
+                    graphic = new RectangleHeader({
+                        x: 0,
+                        y: 0,
+                        width: 300,
+                        height: 200,
+                        cornerRadius: 0,
+                        fill: '#999',
+                        group: group,
+                    });
+                    break;
+                case 'message-bubble':
+                    graphic = new MessageBubble(group, 200, 100, '#999', 0, 0);
+                    break;
+                default:
+                    break;
+            }
+            this._graphicsHandler.AddGraphic({
+                type: 'header',
+                graphic: graphic,
+                group: group,
+            });
+            group.on('dblclick', () => {
+                this._GraphicHelper(group);
+            });
+            group.on('dragend', () => {
+                this._SwitchContainerOnDrag(group);
+            });
             this._GraphicHelper(group);
         }
         this._main.batchDraw();
@@ -595,38 +692,43 @@ class AInfographic
 
         selection.forEach((textElem) => {
             textElem.on('dblclick', () => {
-                textElem.setAttr('draggable', true);
-
-                this._tr.nodes([textElem]);
-                this._tr.moveToTop();
-                this._main.batchDraw();
-
-                this._selectedTextIndex = textElem.getAttr('id');
-                this._selectedTextHelper = this._selectedTextIndex;
-  
-                this._textCallback(this._textHandler.GetHandlerElem(this._selectedTextIndex))
-                this._editorHandler('text-editor');
-
-                setTimeout(() => {
-                    this._stage.on('click', HandleOutsideClick);
-                });
-
-                var HandleOutsideClick = (e) => {
-                    if (e.target !== textElem) {
-                        this._selectedTextIndex = -1;
-                        this._editorHandler('none');
-                        this._tr.nodes([]);
-                        textElem.setAttr('draggable', false);
-                        this._main.batchDraw();
-                        this._stage.off('click', HandleOutsideClick);
-                    }
-                };
+                this._TextHelper(textElem);
             });
 
             textElem.on('dragend', () => {
                 this._SwitchContainerOnDrag(textElem);
             });
         });
+    }
+
+    _TextHelper(textElem)
+    {
+        textElem.setAttr('draggable', true);
+
+        this._tr.nodes([textElem]);
+        this._tr.moveToTop();
+        this._main.batchDraw();
+
+        this._selectedTextIndex = textElem.getAttr('id');
+        this._selectedTextHelper = this._selectedTextIndex;
+  
+        this._textCallback(this._textHandler.GetHandlerElem(this._selectedTextIndex));
+        this._editorHandler('text-editor');
+
+        setTimeout(() => {
+            this._stage.on('click', HandleOutsideClick);
+        });
+
+        var HandleOutsideClick = (e) => {
+            if (e.target !== textElem) {
+                this._selectedTextIndex = -1;
+                this._editorHandler('none');
+                this._tr.nodes([]);
+                textElem.setAttr('draggable', false);
+                this._main.batchDraw();
+                this._stage.off('click', HandleOutsideClick);
+            }
+        };
     }
 
     /**
@@ -651,6 +753,7 @@ class AInfographic
             spanCSS: textElem.spanCSS,
         });
         this._selectedTextHelper = -1;
+        this._main.batchDraw();
     }
 
     Remove()

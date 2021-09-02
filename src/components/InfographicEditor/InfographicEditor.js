@@ -32,8 +32,8 @@ class InfographicEditor extends React.Component
             layerAction: 'none',
             insertType: 'none',
             insertElement: 'none',
+            infogTextElem: 0,
         };
-        this._infogTextElem = 0;
         this._editorTextElem = 0;
         this._infogDimensions = {
             width: 582,
@@ -148,6 +148,8 @@ class InfographicEditor extends React.Component
             this.setState({
                 graphicSettings: 0,
             });
+        } else if (editor === 'insert-text') {
+            this._ToggleInsert('text', 'Sample Text');
         }
 
         if (expr) this._clearSelection = true;
@@ -170,7 +172,9 @@ class InfographicEditor extends React.Component
      */
     _SetInfogTextElem(textElem) 
     {
-        this._infogTextElem = textElem;
+        this.setState({
+            infogTextElem: textElem,
+        });
     }
 
     /**
@@ -258,7 +262,7 @@ class InfographicEditor extends React.Component
     {
         if (this.state.currentEditor === 'text-editor') {
             return <QuillEditor 
-                textElem={this._infogTextElem}
+                textElem={this.state.infogTextElem}
                 setTextElem={(textElem) => { this._SetEditorTextElem(textElem); }}
             />;
         } else if (this.state.currentEditor === 'waffle-editor') {
@@ -324,7 +328,8 @@ class InfographicEditor extends React.Component
             return (<Icon 
                 toggleInsert={(type, element) => { this._ToggleInsert(type, element); }}/>);
         } else if (this.state.currentEditor === 'insert-background-elem') {
-            return (<BackgroundElement />);
+            return (<BackgroundElement 
+                toggleInsert={(type, element) => { this._ToggleInsert(type, element); }}/>);
         } else if (this.state.currentEditor === 'insert-image') {
             return (<Image />);
         } else if (this.state.currentEditor === 'edit-background') {

@@ -40,12 +40,13 @@ class BackgroundElement extends React.Component
                 <rect x="19" width="147" height="93" fill="#5F9400"/>
             </svg>
         ],
-        nameList = ['Ribbon Header', 'Rectangle Header', 'Message Bubble'];
-
+        nameList = ['Ribbon Header', 'Rectangle Header', 'Message Bubble'],
+        codeList = ['ribbon-header', 'rectangle-header', 'message-bubble'];
 
         return svgList.map((d, i) => {
             return (
-                <div className='editor-bkg-elem'>
+                <div className='editor-bkg-elem'
+                    onClick={() => { this.props.toggleInsert('bkg-elem', codeList[i])}}>
                     <div className='editor-bkg-elem-svg-container'>
                         <div className='editor-bkg-elem-svg'> {d} </div>
                     </div>
