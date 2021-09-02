@@ -49,7 +49,6 @@ class TextHandler
 
     UpdateTextElem({index, textElem, group, image, spanCSS})
     {
-        console.log(this._handler);
         this._handler[index] = {
             textElem: textElem,
             group: group,
@@ -196,8 +195,7 @@ class TextHandler
     _UpdateHandlerId()
     {
         this._handler.forEach((d, i) => {
-            d.image.setAttr('id', i);
-            
+            d.image.setAttr('id', i); 
         });
     }
 }

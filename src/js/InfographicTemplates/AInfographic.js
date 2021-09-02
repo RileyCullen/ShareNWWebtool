@@ -711,7 +711,7 @@ class AInfographic
 
         this._selectedTextIndex = textElem.getAttr('id');
         this._selectedTextHelper = this._selectedTextIndex;
-  
+
         this._textCallback(this._textHandler.GetHandlerElem(this._selectedTextIndex));
         this._editorHandler('text-editor');
 
@@ -768,7 +768,7 @@ class AInfographic
             this._tr.nodes([]);
             this._main.batchDraw();
             this._textHandler.RemoveHandlerElem(this._selectedTextIndex);
-            this._selectedChartIndex = -1;
+            this._selectedTextIndex = this._selectedTextHelper = -1;
         } else if (this._selectedGraphicIndex !== -1) {
             this._tr.nodes([]);
             this._main.batchDraw();
