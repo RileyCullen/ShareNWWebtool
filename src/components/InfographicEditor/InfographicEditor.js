@@ -444,7 +444,7 @@ class InfographicEditor extends React.Component
                     text = 'Icon Editor';
                     break;
                 case 'header-editor':
-                    text = 'Header Editor';
+                    text = 'Banner Editor';
                     break;
             }
             return (
