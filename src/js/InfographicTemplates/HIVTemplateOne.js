@@ -10,6 +10,10 @@ class HIVTemplateOne extends AInfographic
     constructor({editorHandler, textHandler, chartHandler, graphicHandler})
     {
         super(582, 582, editorHandler, textHandler, chartHandler, graphicHandler);
+        this._colorScheme = {
+            primary: '#F9ab7c',
+            secondary: '#ee5d25'
+        }
     }
 
     CreateInfographic()

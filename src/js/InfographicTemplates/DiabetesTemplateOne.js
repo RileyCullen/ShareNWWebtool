@@ -12,6 +12,10 @@ class DiabetesTemplateOne extends AInfographic
     constructor({editorHandler, textHandler, chartHandler, graphicHandler})
     {
         super(900, 635, editorHandler, textHandler, chartHandler, graphicHandler);
+        this._colorScheme = {
+            primary: '#455f06',
+            secondary: '#ffffff',
+        }
     }
 
     CreateInfographic()

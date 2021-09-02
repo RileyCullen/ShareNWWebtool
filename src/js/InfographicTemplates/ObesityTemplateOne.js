@@ -13,6 +13,10 @@ class ObesityTemplateOne extends AInfographic
     constructor({editorHandler, textHandler, chartHandler, graphicHandler})
     {
         super(1181, 564, editorHandler, textHandler, chartHandler, graphicHandler);
+        this._colorScheme = {
+            primary: '#ffffff',
+            secondary: '#12578a'
+        }
     }
 
     CreateInfographic()

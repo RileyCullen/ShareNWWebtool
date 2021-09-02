@@ -86,6 +86,11 @@ class AInfographic
         this._selectedChartIndex = -1;
         this._selectedGraphicIndex = -1;
 
+        this._colorScheme = {
+            primary: '#999',
+            secondary: '#000',
+        }
+
         this._stage.add(this._main);
 
         this._main.add(this._tr);
@@ -184,12 +189,12 @@ class AInfographic
                             {
                                 category: 'A',
                                 value: 10,
-                                color: '#000',
+                                color: this._colorScheme.primary,
                             },
                             {
                                 category: 'B',
                                 value: 30,
-                                color: '#000'
+                                color: this._colorScheme.primary
                             }
                         ],
                         group: group,
@@ -205,13 +210,13 @@ class AInfographic
                                 category: 'A',
                                 subcategory: 'one',
                                 value: 10,
-                                color: '#000',
+                                color: this._colorScheme.primary,
                             },
                             {
                                 category: 'A',
                                 subcategory: 'two',
                                 value: 20,
-                                color: '#999',
+                                color: this._colorScheme.secondary,
                             }
                         ],
                         group: group,
@@ -226,18 +231,19 @@ class AInfographic
                             {
                                 category: 'A',
                                 value: 15,
-                                color: '#999'
+                                color: this._colorScheme.primary
                             },
                             {
                                 category: 'B',
                                 value: 30,
-                                color: '#999',
+                                color: this._colorScheme.primary,
                             }
                         ],
                         group: group,
                         width: 100,
                         height: 100,
                         padding: 50,
+                        remainderColor: this._colorScheme.secondary
                     });
                     break;
                 case 'Waffle':
@@ -247,13 +253,13 @@ class AInfographic
                         group: group,
                         presetA: GenerateIconDataArray({
                             icon: '\uf004',
-                            color: '#999',
+                            color: this._colorScheme.primary,
                             offset: 85,
                             font: '"Font Awesome 5 Free"'
                         }),
                         presetB: GenerateIconDataArray({
                             icon: '\uf004',
-                            color: '#000',
+                            color: this._colorScheme.secondary,
                             offset: 85,
                             font: '"Font Awesome 5 Free"'
                         }),
@@ -278,6 +284,8 @@ class AInfographic
                         chartHeight: 100,
                         lineWidth: 1,
                         pointRadius: 3,
+                        lineColor: this._colorScheme.primary,
+                        pointColor: this._colorScheme.secondary,
                     });
                     decoratorList[0] = new LineXAxisDecorator({
                         chart: chart,
@@ -292,12 +300,12 @@ class AInfographic
                             {
                                 category: 'A',
                                 value: 10,
-                                color: '#999',
+                                color: this._colorScheme.primary,
                             },
                             {
                                 category: 'B',
                                 value: 90,
-                                color: '#000',
+                                color: this._colorScheme.secondary,
                             }
                         ],
                         group: group,
@@ -310,12 +318,12 @@ class AInfographic
                             {
                                 category: 'A',
                                 value: 20,
-                                color: '#999',
+                                color: this._colorScheme.primary,
                             },
                             {
                                 category: 'B',
                                 value: 80,
-                                color: '#000'
+                                color: this._colorScheme.secondary
                             }
                         ],
                         group: group,
@@ -355,7 +363,7 @@ class AInfographic
                 text: String.fromCharCode(parseInt(element, 16)),
                 fontFamily: '"Font Awesome 5 Free"',
                 fontStyle: '900',
-                fill: '#000',
+                fill: this._colorScheme.primary,
                 fontSize: 100,
             });
             this._graphicsHandler.AddGraphic({
@@ -417,8 +425,8 @@ class AInfographic
             switch(element) {
                 case 'ribbon-header':
                     graphic = new RibbonHeader({
-                        colorOne: '#000',
-                        colorTwo: '#999',
+                        colorOne: this._colorScheme.primary,
+                        colorTwo: this._colorScheme.secondary,
                         group: group,
                         hWidth: 300,
                         hHeight: 25,
@@ -433,12 +441,12 @@ class AInfographic
                         width: 300,
                         height: 200,
                         cornerRadius: 0,
-                        fill: '#999',
+                        fill: this._colorScheme.primary,
                         group: group,
                     });
                     break;
                 case 'message-bubble':
-                    graphic = new MessageBubble(group, 200, 100, '#999', 0, 0);
+                    graphic = new MessageBubble(group, 200, 100, this._colorScheme.primary, 0, 0);
                     break;
                 default:
                     break;

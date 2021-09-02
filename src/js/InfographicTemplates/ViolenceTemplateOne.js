@@ -15,6 +15,10 @@ class ViolenceTemplateOne extends AInfographic
     constructor({editorHandler, textHandler, chartHandler, graphicHandler})
     {
         super(3125 / 3 - 100, 2550 / 4, editorHandler, textHandler, chartHandler, graphicHandler);
+        this._colorScheme = {
+            primary: '#e2f3ff',
+            secondary: '#536670'
+        }
     }
 
     CreateInfographic()
