@@ -5,9 +5,17 @@ import React from 'react';
 import '../../../../css/React/Editors/StackedBarInputFields.css';
 
 import { ColorPicker, TextField } from './index';
+import { CategoryGenerator } from '../../../Helpers/CategoryGenerator';
+import Lodash from 'lodash';
 
 class StackedBarInputFields extends React.Component
 {
+    constructor(props)
+    {
+        super(props);
+        this._generateCategory = CategoryGenerator();
+    }
+
     render()
     {
         let data = this._ReformatData(), 
@@ -56,6 +64,7 @@ class StackedBarInputFields extends React.Component
                         <div>
                             <div className='stacked-bar-grid-four extra-margin'>
                                 <ColorPicker
+                                    key={d.subcategory + '-' + i + '-color'}
                                     id='stacked-bar-color-picker' 
                                     color={d.data[0].color}
                                     onChange={(color) => { 
@@ -63,6 +72,7 @@ class StackedBarInputFields extends React.Component
                                     }}
                                 />
                                 <TextField 
+                                    key={d.subcategory + '-' + i + '-subcategory'}
                                     id={i + '-subcategory'}
                                     index={i}
                                     initialValue={d.subcategory}
@@ -74,9 +84,11 @@ class StackedBarInputFields extends React.Component
                                     {
                                         d.data.map((d, i) => {
                                             let content = false;
+                                            console.log(d)
                                             categories.forEach((e, j) => {
                                                 if (e === d.category) {
                                                     content = <TextField 
+                                                    key={d.subcategory + '-' + j + '-category'}
                                                     id={j + '-category'}
                                                     index={d.originalIndex}
                                                     initialValue={d.value}
@@ -94,16 +106,42 @@ class StackedBarInputFields extends React.Component
                                         })
                                     }
                                 </div>
-                                <FontAwesomeIcon className='remove-row-icon' icon={faTimesCircle} />
+                                <FontAwesomeIcon className='remove-row-icon' icon={faTimesCircle} 
+                                    onClick={() => { this._RemoveSubcategory(d.subcategory); }}/>
                             </div>
                         </div>
                     )})
                 }
                 <div className='add-row-container'>
-                    <button>Add a Row</button>
+                    <button onClick={() => { this._AddSubcategory(); }}>Add a Row</button>
                 </div>
             </div>
         )
+    }
+
+    _RemoveSubcategory(subcategory)
+    {
+        let data = Lodash.cloneDeep(this.props.chartData);
+        Lodash.remove(data, (n) => {
+                return (n.subcategory === subcategory);
+        });
+        this.props.setChartData(data);
+    }
+
+    _AddSubcategory()
+    {
+        let data = Lodash.cloneDeep(this.props.chartData),
+            categories = Array.from(new Set(this.props.chartData.map(d => d.category))),
+            categoryLabel = this._generateCategory();
+        categories.forEach(d => {
+            data.push({
+                category: d,
+                subcategory: categoryLabel,
+                value: 10,
+                color: '#000000',
+            })
+        });
+        this.props.setChartData(data);
     }
 
     _ReformatData()

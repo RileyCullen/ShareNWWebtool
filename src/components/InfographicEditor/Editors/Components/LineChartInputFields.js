@@ -1,13 +1,22 @@
 import React from 'react'
 import { TextField } from './index';
+import { CategoryGenerator } from '../../../Helpers/CategoryGenerator';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+
+import Lodash from 'lodash';
 
 import '../../../../css/React/Editors/BarChartInputFields.css'
 
 class LineChartInputFields extends React.Component
 {
+    constructor(props)
+    {
+        super(props);
+        this._generateCategory = CategoryGenerator();
+    }
+
     render()
     {
         return (
@@ -48,7 +57,8 @@ class LineChartInputFields extends React.Component
                                     cols={10}
                                     onChange={(d, i) => { this._SetChartData(d, i, 'value')}}
                                 />
-                                <FontAwesomeIcon className='remove-row-icon' icon={faTimesCircle}/>
+                                <FontAwesomeIcon className='remove-row-icon' icon={faTimesCircle}
+                                    onClick={() => { this._RemoveEntry(i); }}/>
                             </div>
                         );
                     })
@@ -61,6 +71,7 @@ class LineChartInputFields extends React.Component
                             position: 'relative',
                             left: '61.5px'
                         }}
+                        onClick={() => { this._AddEntry(); }}
                     />
                 </div>
             </div>
@@ -80,6 +91,23 @@ class LineChartInputFields extends React.Component
         if (type === 'value') data[i].value = parseFloat(d);
         else if (type === 'date') data[i].date = d;
 
+        this.props.setChartData(data);
+    }
+
+    _RemoveEntry(i)
+    {
+        let data = Lodash.cloneDeep(this.props.chartData);
+        data.splice(i, 1);
+        this.props.setChartData(data);
+    }
+
+    _AddEntry()
+    {
+        let data = Lodash.cloneDeep(this.props.chartData);
+        data.push({
+            category: this._generateCategory(),
+            value: 10,
+        });
         this.props.setChartData(data);
     }
 }

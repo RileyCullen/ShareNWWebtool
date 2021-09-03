@@ -1,13 +1,22 @@
 import React from 'react';
 
 import { TextField, ColorPicker } from './index';
+import { CategoryGenerator } from '../../../Helpers/CategoryGenerator';
 
 import '../../../../css/React/Editors/BarChartInputFields.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 
+import Lodash from 'lodash';
+
 class BarChartInputFields extends React.Component 
 {
+    constructor(props)
+    {
+        super(props);
+        this._generateCategory = CategoryGenerator();
+    }
+
     render()
     {
         let barData = this.props.chartData, rows = 1, cols = 15;
@@ -24,6 +33,7 @@ class BarChartInputFields extends React.Component
                 return (
                     <div className='data-input-container'>
                         <ColorPicker
+                            key={d + '-' + i + 'color'}
                             id='bar-data-color-picker' 
                             color={d.color}
                             onChange={(color) => {
@@ -32,7 +42,7 @@ class BarChartInputFields extends React.Component
                             }
                         }/>
                         <TextField 
-                            id={i + '-category'}
+                            id={d + '-' + i + '-category'}
                             index={i}
                             initialValue={category}
                             rows={rows}
@@ -40,18 +50,20 @@ class BarChartInputFields extends React.Component
                             onChange={(d, i) => { this._SetChartData(d, i, 'category')}}
                             />
                         <TextField
-                            id={i + '-value'}
+                            id={d + '-' + i + '-value'}
                             index={i}
                             initialValue={value} 
                             rows={rows}
                             cols={cols}
                             onChange={(d, i) => { this._SetChartData(d, i, 'value') }}/>
-                        <FontAwesomeIcon className='remove-row-icon' icon={faTimesCircle}/>
+                        <FontAwesomeIcon className='remove-row-icon' icon={faTimesCircle}
+                            onClick={() => { this._RemoveEntry(i); }}/>
                     </div>);
                 })
             }
             <div className='data-input-container'>
-                <FontAwesomeIcon className='add-row-icon' icon={faPlus} />
+                <FontAwesomeIcon className='add-row-icon' icon={faPlus} 
+                    onClick={() => { this._AddEntry(); }}/>
             </div>
             </div>
         ); 
@@ -69,6 +81,25 @@ class BarChartInputFields extends React.Component
         if (type === 'value') data[i].value = parseFloat(d);
         else if (type === 'category') data[i].category = d;
         else if (type === 'color') data[i].color = d;
+        this.props.setChartData(data);
+    }
+
+    _RemoveEntry(i)
+    {
+        let data = Lodash.cloneDeep(this.props.chartData);
+        data.splice(i, 1);
+        console.log(data);
+        this.props.setChartData(data);
+    }
+
+    _AddEntry()
+    {
+        let data = Lodash.cloneDeep(this.props.chartData);
+        data.push({
+            category: this._generateCategory(),
+            value: 10,
+            color: 'black',
+        });
         this.props.setChartData(data);
     }
 }
