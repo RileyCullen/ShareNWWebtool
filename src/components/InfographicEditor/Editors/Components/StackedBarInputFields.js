@@ -1,4 +1,4 @@
-import { faPlusSquare, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { faPlusSquare, faTimes, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 
@@ -21,6 +21,7 @@ class StackedBarInputFields extends React.Component
         let data = this._ReformatData(), 
             categories = Array.from(new Set(this.props.chartData.map(d => d.category))),
             cols = 10;
+        console.log(this.props.chartData)
         return (
             <div>
                 <div className='stacked-bar-grid-four'>
@@ -37,16 +38,23 @@ class StackedBarInputFields extends React.Component
                         {
                             categories.map((d, i)=> {
                                 return (
-                                    <TextField 
-                                        id={i + '-category'}
-                                        index={i}
-                                        initialValue={d}
-                                        rows={1}
-                                        cols={cols}
-                                        onChange={(value, index) => { 
-                                            this._SetCategory(categories, value, index);
-                                        }}
-                                    />
+                                    <div style={{position: 'relative', top: '-10px',}}>
+                                        <FontAwesomeIcon id='remove-column-icon' className='remove-row-icon' icon={faTimes} 
+                                            onClick={() => {  
+                                                this._RemoveCategory(d);
+                                            }}/>
+                                        <TextField 
+                                            key={this.props.chartData.length + '-category'}
+                                            id={i + '-category'}
+                                            index={i}
+                                            initialValue={d}
+                                            rows={1}
+                                            cols={cols}
+                                            onChange={(value, index) => { 
+                                                this._SetCategory(categories, value, index);
+                                            }}
+                                        />
+                                    </div>
                                 );       
                             })
                         }
@@ -55,8 +63,9 @@ class StackedBarInputFields extends React.Component
                         fontSize: '20px',
                         position: 'relative',
                         left: '10px',
-                        top: '2px'
-                    }}icon={faPlusSquare} />
+                        top: '18px'
+                    }}icon={faPlusSquare} 
+                    onClick={() => { this._AddCategory(); }}/>
                 </div>
                 {
                     data.map((d, i) => {
@@ -117,6 +126,41 @@ class StackedBarInputFields extends React.Component
                 </div>
             </div>
         )
+    }
+
+    _RemoveCategory(category)   
+    {
+        let data = Lodash.cloneDeep(this.props.chartData);
+        Lodash.remove(data, n => {
+            return (n.category === category);
+        });
+        this.props.setChartData(data);
+    }
+
+    _AddCategory()
+    {
+        let data = Lodash.cloneDeep(this.props.chartData),
+            subcategories = Array.from(new Set(this.props.chartData.map(d => d.subcategory))),
+            categoryLabel = this._generateCategory(),
+            colors = {};
+        
+        subcategories.forEach(d => {
+            data.forEach(e => {
+                if (e.subcategory === d) {
+                    colors[d] = e.color;
+                }
+            });
+        });
+
+        subcategories.forEach(d => {
+            data.push({
+                category: categoryLabel,
+                subcategory: d,
+                value: 10,
+                color: colors[d],
+            });
+        });
+        this.props.setChartData(data);
     }
 
     _RemoveSubcategory(subcategory)

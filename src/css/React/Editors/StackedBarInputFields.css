@@ -2,6 +2,8 @@
     display: grid;
     grid-template-columns: auto auto auto auto;
     grid-column-gap: 10px;
+    position: relative;
+    top: 20px;
 }
 
 .stacked-bar-grid-auto {
@@ -33,4 +35,12 @@
 
 .add-row-container button:active {
     background-color: rgb(215, 215, 215);
+}
+
+#remove-column-icon {
+    position: relative;
+    width: max-content;
+    left: 50%;
+    top: -10px;
+    transform: translateX(-50%);
 }
