@@ -24,4 +24,13 @@
     border: 1px solid #b6472a;
     color: #b6472a;
     background-color: white;
+    cursor: pointer;
+}
+
+.add-row-container button:hover {
+    background-color: rgb(224, 224, 224);
+}
+
+.add-row-container button:active {
+    background-color: rgb(215, 215, 215);
 }
