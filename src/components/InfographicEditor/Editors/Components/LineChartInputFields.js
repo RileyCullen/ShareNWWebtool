@@ -46,7 +46,7 @@ class LineChartInputFields extends React.Component
                                     initialValue={d.category}
                                     rows={1}
                                     cols={20}
-                                    onChange={(d, i) => { this._SetChartData(d, i, 'date')}}
+                                    onChange={(d, i) => { this._SetChartData(d, i, 'category')}}
                                 />
                                 <TextField 
                                     key={i + '-data'}
@@ -83,13 +83,13 @@ class LineChartInputFields extends React.Component
         if (d === '') return;
         let data = this.props.chartData.map(d => {
             return {
-                date: d.date,
+                category: d.category,
                 value: d.value
             };
         });
 
         if (type === 'value') data[i].value = parseFloat(d);
-        else if (type === 'date') data[i].date = d;
+        else if (type === 'category') data[i].category = d;
 
         this.props.setChartData(data);
     }

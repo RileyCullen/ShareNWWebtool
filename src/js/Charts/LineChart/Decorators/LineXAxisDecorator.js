@@ -114,9 +114,8 @@ class LineXAxisDecorator extends ALineChartDecorator
                 strokeWidth: this._tickStrokeWidth,
             }));
 
-            // clean text 
+            // clean text
             var label = d;
-            console.log(label)
             var textWidth = this._GetFontSize(label, this._font);
             var text = new Konva.Text({
                 text: label,

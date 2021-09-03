@@ -77,7 +77,7 @@ class IconDataValueDecorator extends AIconBarDecorator
                */
               var labelWidth = this._GetTextWidth(label, this._font),
                   labelHeight = this._GetTextHeight(label, this._font),
-                  offset = (i === 0) ? 0 : this._padding,
+                  offset = (i === 0) ? 0 : i * this._padding,
                   iconWidth = this._GetIconWidth(this._icon, this._iconSize),
                   iconHeight = this._GetIconHeight(this._icon, this._iconSize),
                   xIcon = (this._xScale(d.category) - this._xScale(minCategory) + offset),

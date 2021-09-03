@@ -129,7 +129,7 @@ class LineChart extends ALineChart
 
         list.forEach(d => {
             var line = new Konva.Line({
-                points: [d.x1, d.y1, d.x2, d.y2],
+                points: [parseFloat(d.x1), parseFloat(d.y1), parseFloat(d.x2), parseFloat(d.y2)],
                 stroke: this._lineColor,
                 strokeWidth: parseFloat(this._lineWidth),
             });
@@ -141,8 +141,8 @@ class LineChart extends ALineChart
             var point = new Konva.Circle({
                 radius: node.attr('pointRadius'),
                 fill: node.attr('pointColor'),
-                x: node.attr('x'),
-                y: node.attr('y'),
+                x: parseFloat(node.attr('x')),
+                y: parseFloat(node.attr('y')),
             });
             helper.add(point);
         });

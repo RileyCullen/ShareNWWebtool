@@ -138,7 +138,7 @@ class IconBarChart extends AIconBar
                  * for the padding set by the user.
                  */
                 var offset = (i === 0) ? 0 : parseFloat(this._padding);
-                return this._xScale(d.category) - this._xScale(minCategory) + offset;
+                return this._xScale(d.category) - this._xScale(minCategory) + i * offset;
             })
             .attr('y', () => {
                 // Update to use text metrics to find height

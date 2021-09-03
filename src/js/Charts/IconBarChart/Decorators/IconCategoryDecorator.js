@@ -75,7 +75,7 @@ class IconCategoryDecorator extends AIconBarDecorator
              *  4. For some reason, we have to multiple the icon height by 2.1.
              *     Not sure why, but it holds for all icons.
              */
-            var offset = (counter === 0) ? 0 : this._padding;
+            var offset = (counter === 0) ? 0 : counter * this._padding;
             var width = this._GetFontSize(i, this._font);
             var iconWidth = this._GetIconWidth(this._icon, this._iconSize);
             var iconHeight = this._GetIconHeight(this._icon, this._iconSize);
