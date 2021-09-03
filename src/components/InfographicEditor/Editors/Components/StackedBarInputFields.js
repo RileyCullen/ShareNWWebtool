@@ -23,7 +23,9 @@ class StackedBarInputFields extends React.Component
             cols = 10;
         console.log(this.props.chartData)
         return (
-            <div>
+            <div style={{
+                overflow: 'auto'
+            }}>
                 <div className='stacked-bar-grid-four'>
                     <p>Color</p>
                     <p style={{
