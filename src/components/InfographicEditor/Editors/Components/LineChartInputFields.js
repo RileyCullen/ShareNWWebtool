@@ -40,7 +40,7 @@ class LineChartInputFields extends React.Component
                                 { (i === 0) && value}
                                 { (i === 0) && <div></div>}
                                  <TextField 
-                                    key={i + '-category'}
+                                    key={this.props.chartData.length + '-category'}
                                     id={i + '-category'}
                                     index={i}
                                     initialValue={d.category}
@@ -49,7 +49,7 @@ class LineChartInputFields extends React.Component
                                     onChange={(d, i) => { this._SetChartData(d, i, 'category')}}
                                 />
                                 <TextField 
-                                    key={i + '-data'}
+                                    key={this.props.chartData.length + '-data'}
                                     id={i + '-data'}
                                     index={i}
                                     initialValue={d.value}
