@@ -124,7 +124,6 @@ class GraphicsHandler
     UpdateGraphicSettings({id, settings})
     {
         let elem = this._handler[id];
-
         switch(elem.type) {
             case 'header':
                 elem.graphic.UpdateHeader(settings);
@@ -160,6 +159,16 @@ class GraphicsHandler
                 group.moveDown();
                 break;
             default:
+                break;
+        }
+    }
+
+    UpdateDisplayContent(id, element)
+    {
+        let entry = this._handler[id];
+        switch(entry.type) {
+            case 'icon':
+                entry.graphic.text(String.fromCharCode(parseInt(element, 16)));
                 break;
         }
     }

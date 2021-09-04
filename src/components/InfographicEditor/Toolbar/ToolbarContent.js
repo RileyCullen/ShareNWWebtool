@@ -300,8 +300,11 @@ class ToolbarContent extends React.Component
                 <div className='editor-settings'>
                     <button 
                         id='editor-button' 
-                        className='insert-button selected-editor'
-                        onClick={() => { }}>
+                        className={'insert-button'}
+                        onClick={() => { 
+                            this._SetSelectedEditor(0);
+                            this.props.editorHandler('icon-editor')
+                        }}>
                         <FontAwesomeIcon 
                             className='insert-icon'
                             icon={faList}/>
@@ -309,12 +312,12 @@ class ToolbarContent extends React.Component
                     </button>
                     <button 
                         id='replace-icon-button' 
-                        className='insert-button'
-                        onClick={() => { }}>
+                        className={'insert-button'}
+                        onClick={() => { this.props.editorHandler('update-icon')}}>
                         <FontAwesomeIcon 
                             className='insert-icon'
                             icon={faIcons}/>
-                        <p id='replace-icon-text' className='insert-text'>Replace Header</p>
+                        <p id='replace-icon-text' className='insert-text'>Replace Icon</p>
                     </button>
                 </div>
             </div>

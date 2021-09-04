@@ -58,6 +58,11 @@ class CanvasContainer extends React.Component
                     type: this.props.insertType,
                     element: this.props.insertElement,
                 });
+            } else if (this.props.updateType !== 'none') {
+                this._infogObj.UpdateElement({
+                    type: this.props.updateType,
+                    element: this.props.updateElement,
+                })
             } else if (this.props.layerAction !== 'none') {
                 this._infogObj.UpdateLayering(this.props.layerAction);
             } else if (this.props.clearSelection) {

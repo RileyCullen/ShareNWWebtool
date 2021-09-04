@@ -172,6 +172,13 @@ class AInfographic
         });
     }
 
+    UpdateElement({type, element})
+    {
+        if (this._selectedGraphicIndex !== -1) {
+            this._graphicsHandler.UpdateDisplayContent(this._selectedGraphicIndex, element);
+        }
+    }
+
     InsertElement({type, element})
     {
         let group = new Konva.Group({

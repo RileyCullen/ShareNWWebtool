@@ -22,6 +22,7 @@ class InfographicEditor extends React.Component
         super(props);
         this.state = {
             currentEditor: 'none',
+            toolbarOptions: 'none',
             toolbarContent: 'insert',
             chartData: 0,
             cSettings: 0,
@@ -32,6 +33,8 @@ class InfographicEditor extends React.Component
             layerAction: 'none',
             insertType: 'none',
             insertElement: 'none',
+            updateType: 'none',
+            updateElement: 'none',
             infogTextElem: 0,
             backgroundSettings: 0,
         };
@@ -56,7 +59,7 @@ class InfographicEditor extends React.Component
             <div className='editor-container'>
                 <div className='upper-container'>
                     <Toolbar 
-                        currentEditor={this.state.currentEditor}
+                        currentEditor={this.state.toolbarOptions}
                         toolbarContent={this.state.toolbarContent}
                         setToolbarContent={(content) => { this._SetToolbarContent(content); }}
                         displayHome={() => { this.props.displayHome(); }}
@@ -83,6 +86,8 @@ class InfographicEditor extends React.Component
                         layerAction={this.state.layerAction}
                         insertType={this.state.insertType}
                         insertElement={this.state.insertElement}
+                        updateType={this.state.updateType}
+                        updateElement={this.state.updateElement}
                         backgroundSettings={this.state.backgroundSettings}
                         style={{flex: 1}}
                     />
@@ -109,6 +114,13 @@ class InfographicEditor extends React.Component
         if (this.state.insertElement !== 'none') this.setState({insertElement: 'none'});
         if (this.state.insertType !== 'none') this.setState({insertType: 'none'});
         if (this.state.backgroundSettings !== 0) this.setState({backgroundSettings: 0});
+        if (this.state.updateType !== 'none') {
+            this.setState({
+                currentEditor: this.state.toolbarOptions,
+                updateType: 'none'
+            });
+        }
+        if (this.state.updateElement !== 'none') this.setState({updateElement: 'none'});
         this._clearSelection = false;
     }
 
@@ -141,9 +153,11 @@ class InfographicEditor extends React.Component
         let expr = editor === 'insert-chart' || editor === 'insert-icon'
             || editor === 'insert-text' || editor === 'insert-image' 
             || editor === 'insert-background-elem' || editor === 'edit-background';
+
         this._RemoveUnderline(this.state.toolbarContent);
         this.setState({
             currentEditor: editor,
+            toolbarOptions: this._GetToolbarOptions(editor),
             toolbarContent: this._GetToolbarContent(expr, editor),
         });
 
@@ -157,14 +171,21 @@ class InfographicEditor extends React.Component
 
         if (expr) this._clearSelection = true;
 
-        this._infogTextElem = 0;
         this._editorTextElem = 0;
+    }
+
+    _GetToolbarOptions(editor)
+    {
+        if (editor === 'update-icon') return this.state.toolbarOptions
+        return editor;
     }
 
     _GetToolbarContent(expr, editor)
     {
         if (expr || editor === 'none') {
             return 'insert';
+        } else if (editor === 'update-icon') {
+            return this.state.currentEditor;
         }
         return editor;
     }
@@ -208,6 +229,14 @@ class InfographicEditor extends React.Component
         this.setState({
             insertType: type,
             insertElement: element,
+        });
+    }
+
+    _ToggleUpdate(type, element)
+    {   
+        this.setState({
+            updateType: type,
+            updateElement: element,
         });
     }
 
@@ -334,9 +363,12 @@ class InfographicEditor extends React.Component
         } else if (this.state.currentEditor === 'insert-chart') {
             return (<Chart 
                 toggleInsert={(type, element) => { this._ToggleInsert(type, element); }}/>);
-        } else if (this.state.currentEditor === 'insert-icon') {
+        } else if (this.state.currentEditor === 'insert-icon' || this.state.currentEditor === 'update-icon') {
+            let handler = (this.state.currentEditor === 'insert-icon') ? 
+                (type, element) => { this._ToggleInsert(type, element); } : 
+                (type, element) => { this._ToggleUpdate(type, element); };
             return (<Icon 
-                toggleInsert={(type, element) => { this._ToggleInsert(type, element); }}/>);
+                toggleInsert={(type, element) => { handler(type, element); }}/>);
         } else if (this.state.currentEditor === 'insert-background-elem') {
             return (<BackgroundElement 
                 toggleInsert={(type, element) => { this._ToggleInsert(type, element); }}/>);
@@ -412,6 +444,7 @@ class InfographicEditor extends React.Component
                 case 'insert-chart':
                     text = 'Chart Library';
                     break;
+                case 'update-icon':
                 case 'insert-icon':
                     text = 'Icon Library';
                     break;
