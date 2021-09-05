@@ -43,6 +43,7 @@ class DataValueDecorator extends ABarChartDecorator
         displayPercentage = true, 
         displayCategory = false, 
         isMiddle = true, 
+        stacked = chart._stacked,
         font = {
             fontSize: 8, 
             fontFamily: 'Times New Roman, Times, serif', 
@@ -55,6 +56,7 @@ class DataValueDecorator extends ABarChartDecorator
         this._isPercentage = displayPercentage;
         this._isCategory = displayCategory;
         this._isMiddle = isMiddle;
+        this._stacked = stacked;
     }
 
     /**
@@ -115,11 +117,11 @@ class DataValueDecorator extends ABarChartDecorator
 
             offsetHelper[d.category] += (this._chartHeight - this._yScale(d.value));
 
-            if (labelWidth > offsetHelper[d.category]-lastValue && this._rotateBy !==0){
+            if (labelWidth > offsetHelper[d.category]-lastValue && this._rotateBy !==0 && this._stacked){
                 label = '';
                 labelWidth = this._GetFontSize(label, this._font);
             }
-            else if (labelHeight > offsetHelper[d.category]-lastValue){
+            else if (labelHeight > offsetHelper[d.category]-lastValue && this._stacked){
                 label = '';
             }
 
@@ -135,7 +137,15 @@ class DataValueDecorator extends ABarChartDecorator
             // Text y position wrong when we rotate so we need to adjust them
             if (this._rotateBy !== 0) {
                 text.x(text.x() + (1/2.5) * labelWidth);
-                text.y(this._chartHeight - (offsetHelper[d.category]+lastValue)/2+labelWidth/2);
+                if (this._stacked){
+                    text.y(this._chartHeight - (offsetHelper[d.category]+lastValue)/2+labelWidth/2);
+                }
+                else if (this._isMiddle) {
+                    text.y(this._chartHeight/2 + labelWidth/2);
+                }
+                else {
+                    text.y(this._chartHeight - offsetHelper[d.category] - (1/5) * labelWidth);
+                }
             }
 
             text.rotate(-this._rotateBy);

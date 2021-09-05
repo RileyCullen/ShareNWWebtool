@@ -22,9 +22,10 @@ class ABarChartDecorator extends ABarChart
      */
     constructor(chart) 
     {
-        super(chart._data, chart._group, chart._chartWidth, chart._chartHeight, chart._padding, chart._rotateBy, chart._chartType);
+        super(chart._data, chart._group, chart._chartWidth, chart._chartHeight, chart._padding, chart._rotateBy, chart._chartType, chart._stacked);
         this._chart = chart;
         this._yScale = chart._yScale;
+        this._stacked = chart._stacked;
 
         // See ABarChart constructor.
         if (this.constructor === ABarChartDecorator) {
