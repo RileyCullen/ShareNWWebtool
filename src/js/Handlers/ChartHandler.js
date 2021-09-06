@@ -2,9 +2,18 @@
 // ChartHandler.js
 // November 5, 2020
 
+import { ABarChart, BasicBarChart, StackedBarChart } from '../Charts/BarChart';
 import { BuildBarChartDecoratorList, BuildIconBarChartDecoratorList, 
     BuildLineChartDecoratorList, BuildPieChartDecoratorList, 
     BuildWaffleChartDecoratorList } from '../Charts/DecoratorBuilder';
+import { ALineChart } from '../Charts/LineChart/ALineChart';
+import { APieChart } from '../Charts/PieChart/APieChart';
+import { AWaffleChart } from '../Charts/WaffleChart/AWaffleChart';
+import { LineChart } from '../Charts/LineChart/index';
+import { DonutChart, PieChart } from '../Charts/PieChart';
+import { GenerateIconDataArray, WaffleChart } from '../Charts/WaffleChart';
+import { AIconBar } from '../Charts/IconBarChart/AIconBar';
+import { IconBarChart } from '../Charts/IconBarChart';
 
 class ChartHandler 
 {
@@ -175,6 +184,83 @@ class ChartHandler
         }
     }
 
+    ReplaceChart(id, type)
+    {
+        let elem = this._handler[id], attrs = {};
+        //elem.group.destroyChildren();
+        switch(type) {
+            case 'Bar':
+                if (elem.chart instanceof ABarChart) {
+                    attrs = elem.chart.GetAttrs();
+                } else {
+                    attrs = this._ConvertChartAttributes(elem.chart, type);
+                    attrs['group'] = elem.group;
+                }
+                elem.chart = new BasicBarChart(attrs);
+                break;
+            case 'Stacked':
+                if (elem.chart instanceof StackedBarChart) {
+                    attrs = elem.chart.GetAttrs();
+                } else {
+                    attrs = this._ConvertChartAttributes(elem.chart, type);
+                    attrs['group'] = elem.group;
+                }
+                elem.chart = new StackedBarChart(attrs);
+                break;
+            case 'Line':
+                if (elem.chart instanceof ALineChart) {
+                    attrs = elem.chart.GetAttrs();
+                } else {
+                    attrs = this._ConvertChartAttributes(elem.chart, type);
+                    attrs['group'] = elem.group;
+                }
+                elem.chart = new LineChart(attrs);
+                break;
+            case 'Pie':
+                if (elem.chart instanceof APieChart) {
+                    attrs = elem.chart.GetAttrs();
+                } else {
+                    attrs = this._ConvertChartAttributes(elem.chart, type);
+                    attrs['group'] = elem.group;
+                }
+                elem.chart = new PieChart(attrs);
+                break;
+            case 'Donut':
+                if (elem.chart instanceof DonutChart) {
+                    attrs = elem.chart.GetAttrs();
+                } else {
+                    attrs = this._ConvertChartAttributes(elem.chart, type);
+                    attrs['group'] = elem.group;
+                }
+                elem.chart = new DonutChart(attrs);
+                break;
+            case 'Waffle':
+                if (elem.chart instanceof AWaffleChart) {
+                    attrs = elem.chart.GetAttrs();
+                } else {
+                    attrs = this._ConvertChartAttributes(elem.chart, type);
+                    attrs['group'] = elem.group;
+                }
+                elem.chart = new WaffleChart(attrs);
+                break;
+            case 'Icon':
+                if (elem.chart instanceof AIconBar) {
+                    attrs = elem.chart.GetAttrs();
+                } else {
+                    attrs = this._ConvertChartAttributes(elem.chart, type);
+                    attrs['group'] = elem.group;
+                }
+                elem.chart = new IconBarChart(attrs);
+                break;
+            default: 
+                return;
+        }
+        elem.decorators = [];
+        elem.decoratorSize = -1;
+        elem.group.setAttr('name', 'Selectable Chart ' + type);
+        console.log(this._handler)
+    }
+
     /**
      * @summary     Updates the id assigned to the different chart elements in 
      *              the handler.
@@ -185,6 +271,183 @@ class ChartHandler
             d.group.setAttr('id', i);
         });
     }
+
+    _ConvertChartAttributes(currentChart, desiredType)
+    {
+        let commonAttrs = this._GetCommonAttributes(currentChart),
+            data = this._ConvertData(currentChart, desiredType);
+        if (desiredType === 'Bar' || desiredType === 'Stacked') {
+            return {
+                data: data,
+                width: commonAttrs.width,
+                height: commonAttrs.height,
+                padding: (commonAttrs.hasOwnProperty('padding')) ? commonAttrs.padding : 0.4,
+            };
+        } else if (desiredType === 'Line') {
+            return {
+                data: data,
+                chartWidth: commonAttrs.width,
+                chartHeight: commonAttrs.height,
+            }
+        } else if (desiredType === 'Pie') {
+            return {
+                data: data,
+                radius: (commonAttrs.width < commonAttrs.height) ? commonAttrs.width : commonAttrs.height,
+            }
+        } else if (desiredType === 'Donut') {
+            return {
+                data: data,
+                radius: (commonAttrs.width < commonAttrs.height) ? commonAttrs.width : commonAttrs.height,
+                innerRadius: (commonAttrs.width < commonAttrs.height) ? commonAttrs.width - 10 : commonAttrs.height - 10,
+            }
+        } else if (desiredType === 'Waffle') {
+            return {
+                numerator: data.numerator,
+                denominator: data.denominator,
+                presetA: GenerateIconDataArray({
+                    icon: '\uf004',
+                    color: '#999999',
+                    offset: commonAttrs.height / 4 + 10,
+                    font: '"Font Awesome 5 Free"',
+                }),
+                presetB: GenerateIconDataArray({
+                    icon: '\uf004',
+                    color: '#000000',
+                    offset: commonAttrs.height / 4 + 10,
+                    font: '"Font Awesome 5 Free"',
+                }),
+                fontSize: commonAttrs.height / 4,
+                isDynamicResize: false,
+            }
+        } else if (desiredType === 'Icon') {
+            return {
+                data: data,
+                width: commonAttrs.width,
+                height: commonAttrs.height,
+                padding: (commonAttrs.hasOwnProperty('padding')) ? commonAttrs.padding : 0.4,
+            }
+        }
+    }
+
+    _GetCommonAttributes(chart)
+    {
+        let attrs = chart.GetAttrs();
+        if (chart instanceof ABarChart) {
+            return {
+                width: attrs.width,
+                height: attrs.height,
+                padding: attrs.padding,
+                rotateBy: attrs.rotateBy,
+            };
+        } else if (chart instanceof ALineChart) {
+            return {
+                width: attrs.chartWidth,
+                height: attrs.chartHeight,
+            }
+        } else if (chart instanceof APieChart) {
+            return {
+                width: attrs.radius,
+                height: attrs.radius,
+            }
+        } else if (chart instanceof AWaffleChart) {
+            return {
+                width: 50,
+                height: 100,
+            }
+        }
+    }
+
+    _ConvertData(chart, desiredType)
+    {
+        let data = chart.GetData(),
+            colors = ['#000000', '#999999'],
+            newData = [],
+            nameCounter = 0;
+
+        // Convert chart data into a common format 
+        // Note that GetData in AWaffleChart returns a JSON object while all other
+        // chart classes return an array. 
+        if (data instanceof Array) {
+            data.forEach(d => {
+                let category = 'category' + nameCounter,
+                    subcategory = 'subcat' + nameCounter,
+                    value = 10,
+                    color = '#999999';
+
+                if (chart instanceof ABarChart) {
+                    if (chart instanceof StackedBarChart) {
+                        category = d.category;
+                        subcategory = d.subcategory;
+                        value = d.value;
+                        color = d.color;
+                    } else {
+                        category = d.category;
+                        value = d.value;
+                        color = d.color;
+                    }
+                } else if (chart instanceof ALineChart) {
+                    category = d.category;
+                    value = d.value;
+                } 
+
+                newData.push({
+                    category: category,
+                    subcategory: subcategory,
+                    value: value,
+                    color: color,
+                });
+            });
+        } else {
+            newData[0] = {
+                category: 'category1',
+                subcategory: 'subcat1',
+                value: data.numerator,
+                color: '#999999',
+            }
+            newData[1] = {
+                category: 'category2',
+                subcategory: 'subcat2',
+                value: data.denominator,
+                color: '#999999',
+            }
+        } 
+
+        // Convert from common format to desired data format.
+        switch (desiredType) {
+            case 'Stacked':
+            case 'Bar': 
+                return newData;
+            case 'Line':
+                return newData.map(d => {
+                    return {
+                        category: d.category,
+                        value: d.value,
+                    };
+                });
+            case 'Waffle':
+                return {
+                    numerator: (data.length >= 1) ? data[0].value : 2,
+                    denominator: (data.length >= 2) ? data[1].value : 4,
+                };
+            case 'Donut':
+            case 'Pie':
+                return newData.map((d, i) => {
+                    return {
+                        category: d.category,
+                        value: d.value,
+                        color: (i === 0) ? d.color : '#999999',
+                    }
+                });
+            case 'Icon':
+                return newData.map(d => {
+                    return {
+                        category: d.category,
+                        value: d.value,
+                        color: d.color,
+                    };
+                });
+        }
+    } 
 }
 
 export { ChartHandler }; 

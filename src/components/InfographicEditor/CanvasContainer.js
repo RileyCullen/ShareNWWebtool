@@ -62,7 +62,36 @@ class CanvasContainer extends React.Component
                 this._infogObj.UpdateElement({
                     type: this.props.updateType,
                     element: this.props.updateElement,
-                })
+                });
+                
+                switch(this.props.updateElement) {
+                    case 'Bar':
+                        this.props.editorHandler('bar-editor');
+                        break;
+                    case 'Icon': 
+                        this.props.editorHandler('icon-bar-editor');
+                        break;
+                    case 'Line':
+                        this.props.editorHandler('line-editor');
+                        break;
+                    case 'Stacked':
+                        this.props.editorHandler('stacked-bar-editor');
+                        break;
+                    case 'Waffle':
+                        this.props.editorHandler('waffle-editor');
+                        break;
+                    case 'Donut':
+                        this.props.editorHandler('donut-editor')
+                        break;
+                    case 'Pie':
+                        this.props.editorHandler('pie-editor');
+                        break;
+                    default:
+                        if (this.props.updateType === 'icon') {
+                            this.props.editorHandler('icon-editor');
+                        }
+                        break;
+                }
             } else if (this.props.layerAction !== 'none') {
                 this._infogObj.UpdateLayering(this.props.layerAction);
             } else if (this.props.clearSelection) {

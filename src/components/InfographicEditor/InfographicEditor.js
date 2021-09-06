@@ -54,7 +54,6 @@ class InfographicEditor extends React.Component
                 'white' : '#ECECEC';
 
         let editorWindowContent = this._GetEditorWindowContent();
-        
         return (
             <div className='editor-container'>
                 <div className='upper-container'>
@@ -114,12 +113,7 @@ class InfographicEditor extends React.Component
         if (this.state.insertElement !== 'none') this.setState({insertElement: 'none'});
         if (this.state.insertType !== 'none') this.setState({insertType: 'none'});
         if (this.state.backgroundSettings !== 0) this.setState({backgroundSettings: 0});
-        if (this.state.updateType !== 'none') {
-            this.setState({
-                currentEditor: this.state.toolbarOptions,
-                updateType: 'none'
-            });
-        }
+        if (this.state.updateType !== 'none') this.setState({ updateType: 'none'});
         if (this.state.updateElement !== 'none') this.setState({updateElement: 'none'});
         this._clearSelection = false;
     }
@@ -176,7 +170,7 @@ class InfographicEditor extends React.Component
 
     _GetToolbarOptions(editor)
     {
-        if (editor === 'update-icon') return this.state.toolbarOptions
+        if (editor.slice(0, 6) === 'update') return this.state.toolbarOptions
         return editor;
     }
 
@@ -184,7 +178,7 @@ class InfographicEditor extends React.Component
     {
         if (expr || editor === 'none') {
             return 'insert';
-        } else if (editor === 'update-icon') {
+        } else if (editor.slice(0, 6) === 'update') {
             return this.state.currentEditor;
         }
         return editor;
@@ -360,9 +354,12 @@ class InfographicEditor extends React.Component
                 setChartData={(data) => { this._SetChartData(data); }}
                 setChartSettings={(settings) => { this._SetChartSettings(settings); }}
                 setDecoratorSettings={(settings) => { this._SetDecoratorSettings(settings); }}/>;
-        } else if (this.state.currentEditor === 'insert-chart') {
+        } else if (this.state.currentEditor === 'insert-chart' || this.state.currentEditor === 'update-chart') {
+            let handler = (this.state.currentEditor === 'insert-chart') ?
+                (type, element) => { this._ToggleInsert(type, element); } :
+                (type, element) => { this._ToggleUpdate(type, element); };
             return (<Chart 
-                toggleInsert={(type, element) => { this._ToggleInsert(type, element); }}/>);
+                toggleInsert={(type, element) => { handler(type, element); }}/>);
         } else if (this.state.currentEditor === 'insert-icon' || this.state.currentEditor === 'update-icon') {
             let handler = (this.state.currentEditor === 'insert-icon') ? 
                 (type, element) => { this._ToggleInsert(type, element); } : 

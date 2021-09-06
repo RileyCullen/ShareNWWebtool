@@ -157,6 +157,18 @@ class ABarChart
         }
     }
 
+    GetAttrs()
+    {
+        return {
+            data: this._data,
+            group: this._group,
+            width: this._chartWidth,
+            height: this._chartHeight,
+            padding: this._padding,
+            rotateBy: this._rotateBy,
+        }
+    }
+
     /**
      * @summary     Removes all child nodes in this group.
      * @description A wrapper function that calls the Konva.js method 

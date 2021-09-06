@@ -92,6 +92,15 @@ class APieChart
             }
         }
     }
+
+    GetAttrs()
+    {
+        return {
+            data: this._data,
+            group: this._group,
+            radius: this._radius,
+        }
+    }
 }
 
 export { APieChart };

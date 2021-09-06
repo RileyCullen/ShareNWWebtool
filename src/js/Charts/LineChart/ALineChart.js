@@ -90,6 +90,23 @@ class ALineChart
         }
     }
 
+    GetAttrs()
+    {
+        return {
+            data: this._data,
+            group: this._group,
+            chartWidth: this._chartWidth,
+            chartHeight: this._chartHeight,
+            lineWidth: this._lineWidth,
+            pointRadius: this._pointRadius,
+            pointColor: this._pointColor,
+            lineColor: this._lineColor,
+            internalOffsetX: this._internalOffsetX,
+            internalOffsetY: this._internalOffsetY,
+            paddingInner: this._paddingInner,
+        }
+    }
+
     UpdateData(data)
     {
         this._group.destroyChildren();

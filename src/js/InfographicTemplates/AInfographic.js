@@ -176,7 +176,15 @@ class AInfographic
     {
         if (this._selectedGraphicIndex !== -1) {
             this._graphicsHandler.UpdateDisplayContent(this._selectedGraphicIndex, element);
+        } else if (this._selectedChartIndex !== -1) {
+            this._chartHandler.ReplaceChart(this._selectedChartIndex, element);
+            let data = this._chartHandler.GetHandlerElem(this._selectedChartIndex)
+                    .chart.GetData(),
+                cSettings = this._chartHandler.GetSettingsArray(this._selectedChartIndex),
+                dSettings = this._chartHandler.GetDecoratorSettingsArray(this._selectedChartIndex);
+            this._chartCallback(data, cSettings, dSettings);
         }
+        this._main.batchDraw();
     }
 
     InsertElement({type, element})

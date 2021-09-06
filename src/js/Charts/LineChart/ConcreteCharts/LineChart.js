@@ -15,8 +15,8 @@ class LineChart extends ALineChart
      * @param {*} param1 See ALineChart.js for the meaning of each of the elements
      *                   in the JSON object.
      */
-    constructor({data, group, chartWidth, chartHeight, lineWidth = 1, 
-        pointRadius = 1, pointColor = 'none', lineColor = 'black', internalOffsetX = 0,
+    constructor({data, group, chartWidth, chartHeight, lineWidth = 3, 
+        pointRadius = 5, pointColor = 'none', lineColor = 'black', internalOffsetX = 0,
         internalOffsetY = 0,
     })
     {

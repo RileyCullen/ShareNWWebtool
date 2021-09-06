@@ -97,6 +97,20 @@ class AWaffleChart
         }
     }
 
+    GetAttrs()
+    {
+        return {
+            numerator: this._numerator,
+            denominator: this._denominator,
+            group: this._group,
+            presetA: this._presetA,
+            presetB: this._presetB,
+            fontSize: this._fontSize,
+            isDynamicResize: this._isDynamicResize,
+            maxIconsPerRow: this._maxIconsPerRow,
+        };
+    }
+
     /**
      * @summary     Removes group and its children from canvas.
      * @description A wrapper function that call's _group's destroy function. 

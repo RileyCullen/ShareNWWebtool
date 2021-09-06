@@ -38,6 +38,17 @@ class DonutChart extends APieChart
             color: { innerColor: this._innerColor }
         }
     }
+
+    GetAttrs()
+    {
+        return {
+            data: this._data,
+            group: this._group,
+            radius: this._radius,
+            innerRadius: this._innerRadius,
+            innerColor: this._innerColor,
+        }
+    }
 }
 
 export { DonutChart };
