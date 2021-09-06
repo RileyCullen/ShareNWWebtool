@@ -27,6 +27,6 @@
     top: -40px;
     left: -10px;
 
-
+    overflow-y: auto;
     height: 520px;
 }
