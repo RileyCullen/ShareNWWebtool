@@ -44,6 +44,8 @@ class DataValueDecorator extends ABarChartDecorator
         displayCategory = false, 
         isMiddle = true, 
         stacked = chart._stacked,
+        basic = chart._basic,
+        percent = chart._percent,
         font = {
             fontSize: 8, 
             fontFamily: 'Times New Roman, Times, serif', 
@@ -57,6 +59,8 @@ class DataValueDecorator extends ABarChartDecorator
         this._isCategory = displayCategory;
         this._isMiddle = isMiddle;
         this._stacked = stacked;
+        this._basic = basic;
+        this._percent = percent;
     }
 
     /**
@@ -125,6 +129,13 @@ class DataValueDecorator extends ABarChartDecorator
                 label = '';
             }
 
+            if (this._percent && labelWidth > this._xScale.bandwidth() && this._rotateBy===0){
+                label = '';
+            }
+            else if (this._percent && labelWidth > this._chartHeight && this._rotateBy!==0){
+                label = '';
+            }
+
             var text = new Konva.Text({
                 x: (this._xScale(d.category) + this._xScale.bandwidth() / 2) - (labelWidth / 2),
                 y: yPos,
@@ -140,11 +151,19 @@ class DataValueDecorator extends ABarChartDecorator
                 if (this._stacked){
                     text.y(this._chartHeight - (offsetHelper[d.category]+lastValue)/2+labelWidth/2);
                 }
-                else if (this._isMiddle) {
+                else if (this._basic && this._isMiddle){
+                    text.y(this._chartHeight - offsetHelper[d.category]/2 + labelWidth/2);
+                }
+                else if (this._basic){
+                    text.y(this._chartHeight - offsetHelper[d.category] - (1/5) * labelWidth); 
+                }
+                else if (this._percent){
                     text.y(this._chartHeight/2 + labelWidth/2);
                 }
-                else {
-                    text.y(this._chartHeight - offsetHelper[d.category] - (1/5) * labelWidth);
+            }
+            else {
+                if (this._percent){
+                    text.y(this._chartHeight/2 + labelHeight/2);
                 }
             }
 
