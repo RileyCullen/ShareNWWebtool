@@ -33,7 +33,7 @@ class ABarChart
      *                               (note that this value can only be 0 or 90
      *                               and goes in the clockwise direction).
     */
-    constructor(data, group, width, height, padding, rotateBy, stacked)
+    constructor(data, group, width, height, padding, rotateBy, stacked, basic, percent)
     {
         // Since ES6 does not natively support abstract classes, we must manually
         // throw a type error when the programmer tries to instantiate this class.
@@ -63,6 +63,8 @@ class ABarChart
         this._xScale = d3.scaleBand();
         this._yScale = d3.scaleLinear();
         this._stacked = (stacked===true || stacked===false) ? stacked : true;
+        this._basic = (basic===true || basic===false) ? basic : true;
+        this._percent = (percent===true || percent===false) ? percent : true;
 
         // Setting up the x and y scales using D3.
         this._SetUpXRange();

@@ -16,9 +16,9 @@ class StackedBarChart extends ABarChart
      * @requires ABarChart.js
      * @see ABarChart.js for constructor parameters.
      */
-    constructor({data, group, width, height, padding, rotateBy = 0, stacked = true})
+    constructor({data, group, width, height, padding, rotateBy = 0, stacked = true, basic = false, percent = false})
     {
-        super(data, group, width, height, padding, rotateBy, stacked);
+        super(data, group, width, height, padding, rotateBy, stacked, basic, percent);
     }   
 
     /**
