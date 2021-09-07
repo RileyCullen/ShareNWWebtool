@@ -2,6 +2,9 @@
 // GraphicsHandler.js
 // July 19, 2021
 
+import { ArrowHeader, RectangleHeader, RibbonHeader } from "../Headers";
+import { MessageBubble } from "../ToolTips";
+
 class GraphicsHandler
 {
     constructor()
@@ -163,12 +166,47 @@ class GraphicsHandler
         }
     }
 
-    UpdateDisplayContent(id, element)
+    UpdateDisplayContent(id, element, infogSettings)
     {
         let entry = this._handler[id];
         switch(entry.type) {
             case 'icon':
                 entry.graphic.text(String.fromCharCode(parseInt(element, 16)));
+                break;
+            case 'header':
+                let attrs = this._GetCommonAttrs(entry.graphic);
+                switch(element) {
+                    case 'ribbon-header':
+                        entry.graphic = new RibbonHeader({
+                            colorOne: attrs.colorOne,
+                            colorTwo: attrs.colorTwo,
+                            group: attrs.group,
+                            hWidth: attrs.width,
+                            hHeight: attrs.height,
+                            iWidth: infogSettings.width,
+                            iHeight: infogSettings.height,
+                        });
+                        break;
+                    case 'rectangle-header':
+                        entry.graphic = new RectangleHeader({
+                            x: attrs.x,
+                            y: attrs.y,
+                            width: attrs.width,
+                            height: attrs.height,
+                            cornerRadius: attrs.cornerRadius,
+                            group: attrs.group,
+                        });
+                        break;
+                    case 'message-bubble':
+                        entry.graphic = new MessageBubble(attrs.group, attrs.width,
+                            attrs.height, attrs.colorOne, attrs.x, attrs.y);
+                        break;
+                    default: 
+                        break;
+                };
+                entry.graphic.CreateHeader();
+                break;
+            default:
                 break;
         }
     }
@@ -185,6 +223,56 @@ class GraphicsHandler
         this._handler.forEach((d, i) => {
             d.group.setAttr('id', i);
         });
+    }
+
+    _GetCommonAttrs(graphicElement)
+    {
+        let attrs = graphicElement.GetAttrs();
+        if (graphicElement instanceof RibbonHeader) {
+            return {
+                x: 0,
+                y: 0,
+                width: attrs.hWidth,
+                height: attrs.hHeight,
+                colorOne: attrs.colorOne,
+                colorTwo: attrs.colorTwo,
+                group: attrs.group,
+                cornerRadius: 0,
+            };
+        } else if (graphicElement instanceof RectangleHeader) {
+            return {
+                x: attrs.x,
+                y: attrs.y,
+                width: attrs.width,
+                height: attrs.height,
+                cornerRadius: attrs.cornerRadius,
+                group: attrs.group,
+                colorOne: attrs.fill,
+                colorTwo: '#999999',
+            };
+        } else if (graphicElement instanceof ArrowHeader) {
+            return {
+                x: attrs.x,
+                y: attrs.y,
+                width: attrs.width,
+                height: attrs.height,
+                colorOne: attrs.backgroundColor,
+                colorTwo: attrs.borderColor,
+                group: attrs.group,
+                cornerRadius: 0
+            };
+        } else if (graphicElement instanceof MessageBubble) {
+            return {
+                x: attrs.x,
+                y: attrs.y,
+                width: attrs.width,
+                height: attrs.height,
+                colorOne: attrs.color,
+                colorTwo: '#999999',
+                group: attrs.group,
+                cornerRadius: 0,
+            };
+        }
     }
 }
 

@@ -89,6 +89,19 @@ class RectangleHeader
             }
         }
     }
+
+    GetAttrs()
+    {
+        return {
+            x: this._x,
+            y: this._y,
+            width: this._width,
+            height: this._height,
+            cornerRadius: this._cornerRadius,
+            fill: this._fill,
+            group: this._group,
+        }
+    }
 }
 
 export { RectangleHeader };

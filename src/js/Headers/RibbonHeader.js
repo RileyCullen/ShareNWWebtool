@@ -87,6 +87,19 @@ class RibbonHeader
         };
     }
 
+    GetAttrs()
+    {
+        return {
+            colorOne: this._colorOne,
+            colorTwo: this._colorTwo,
+            group: this._group,
+            hWidth: this._hWidth,
+            hHeight: this._hHeight,
+            iWidth: this._infogWidth,
+            iHeight: this._infogHeight,
+        };
+    }
+
     /**
      * @summary     Creates the main, central rectangle in the ribbon.
      * @description Adds a Konva.Rect to the group. The position of the Rect is

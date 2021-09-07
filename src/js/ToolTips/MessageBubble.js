@@ -94,6 +94,18 @@ class MessageBubble
             }
         }
     }
+
+    GetAttrs()
+    {
+        return {
+            x: this._x,
+            y: this._y,
+            width: this._width,
+            height: this._height,
+            group: this._group,
+            color: this._color,
+        }
+    }
 }
 
 export { MessageBubble };

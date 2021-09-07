@@ -175,7 +175,15 @@ class AInfographic
     UpdateElement({type, element})
     {
         if (this._selectedGraphicIndex !== -1) {
-            this._graphicsHandler.UpdateDisplayContent(this._selectedGraphicIndex, element);
+            this._graphicsHandler.UpdateDisplayContent(this._selectedGraphicIndex, element, 
+                {
+                    width: this._chartWidth,
+                    height: this._chartHeight,
+            });
+            this._graphicCallback(
+                this._graphicsHandler.GetSettings(this._selectedGraphicIndex)
+            );
+            console.log(this._graphicsHandler);
         } else if (this._selectedChartIndex !== -1) {
             this._chartHandler.ReplaceChart(this._selectedChartIndex, element);
             let data = this._chartHandler.GetHandlerElem(this._selectedChartIndex)

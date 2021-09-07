@@ -31,9 +31,9 @@ class ToolbarContent extends React.Component
             return this._CreateInsertIcons();
         } else if (this.props.display === 'edit') {
             return this._CreateEditIcons();
-        } else if (this.props.display === 'bar-editor' || this.props.display === 'waffle-editor'
-            || this.props.display === 'pie-editor' || this.props.display === 'stacked-bar-editor' 
-            || this.props.display === 'line-editor' || this.props.display === 'donut-editor') {
+        } else if (this.props.display === 'bar-editor' || this.props.display === 'pie-editor' 
+            || this.props.display === 'stacked-bar-editor' || this.props.display === 'line-editor' 
+            || this.props.display === 'donut-editor') {
             return this._CreateChartIcons();
         } else if (this.props.display === 'text-editor') {
             return this._CreateTextIcons();
@@ -43,7 +43,7 @@ class ToolbarContent extends React.Component
             return this._CreateImageIcons();
         } else if (this.props.display === 'icon-editor') {
             return this._CreateIconIcons();
-        } else if (this.props.display === 'icon-bar-editor') {
+        } else if (this.props.display === 'icon-bar-editor' || this.props.display === 'waffle-editor') {
             return this._CreateIconBarIcons();
         }
     }
@@ -205,7 +205,7 @@ class ToolbarContent extends React.Component
             <div className='editor-settings'>
                 <button 
                     id='editor-button' 
-                    className='insert-button selected-editor'
+                    className='insert-button'
                     onClick={() => { this.props.editorHandler(this.props.display); }}>
                     <FontAwesomeIcon 
                         className='insert-icon'
@@ -242,8 +242,10 @@ class ToolbarContent extends React.Component
                 <div className='editor-settings'>
                     <button 
                         id='editor-button' 
-                        className='insert-button selected-editor'
-                        onClick={() => { }}>
+                        className='insert-button'
+                        onClick={() => { 
+                            this.props.editorHandler('header-editor');
+                        }}>
                         <FontAwesomeIcon 
                             className='insert-icon'
                             icon={faList}/>
@@ -252,7 +254,9 @@ class ToolbarContent extends React.Component
                     <button 
                         id='replace-header-button' 
                         className='insert-button'
-                        onClick={() => { }}>
+                        onClick={() => { 
+                            this.props.editorHandler('update-background-elem');
+                        }}>
                         <FontAwesomeIcon 
                             className='insert-icon'
                             icon={faStop}/>
@@ -271,7 +275,7 @@ class ToolbarContent extends React.Component
                 <div className='editor-settings'>
                     <button 
                         id='editor-button' 
-                        className='insert-button selected-editor'
+                        className='insert-button'
                         onClick={() => { }}>
                         <FontAwesomeIcon 
                             className='insert-icon'
@@ -285,7 +289,7 @@ class ToolbarContent extends React.Component
                         <FontAwesomeIcon 
                             className='insert-icon'
                             icon={faFileImage}/>
-                        <p id='replace-image-text' className='insert-text'>Replace Header</p>
+                        <p id='replace-image-text' className='insert-text'>Replace Image</p>
                     </button>
                 </div>
             </div>
@@ -335,8 +339,10 @@ class ToolbarContent extends React.Component
                         marginRight: '80px'}}>
                     <button 
                         id='editor-button' 
-                        className='insert-button selected-editor'
-                        onClick={() => { }}>
+                        className='insert-button'
+                        onClick={() => { 
+                            this.props.editorHandler(this.props.display);
+                        }}>
                         <FontAwesomeIcon 
                             className='insert-icon'
                             icon={faList}/>
@@ -345,7 +351,9 @@ class ToolbarContent extends React.Component
                     <button 
                         id='replace-chart-button' 
                         className='insert-button'
-                        onClick={() => { }}>
+                        onClick={() => { 
+                            this.props.editorHandler('update-chart');
+                        }}>
                         <FontAwesomeIcon 
                             className='insert-icon'
                             icon={faChartBar}/>
