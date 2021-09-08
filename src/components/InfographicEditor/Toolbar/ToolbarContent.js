@@ -91,8 +91,10 @@ class ToolbarContent extends React.Component
                 <div className='insert-bkg-container'>
                     <button id='insert-bkg-button' className='insert-button'
                             onClick={() => { this.props.editorHandler('insert-background-elem'); }}>
-                        <img src={ribbon} style={{width: 70, height: 14}}/>
-                        <p className='insert-text'>Background Element</p>
+                        <img src={ribbon} style={{width: 60, height: 12}}/>
+                        <p className='insert-text' style={{position: 'relative', left: '-1px'}}>
+                            Banner
+                        </p>
                     </button>
                 </div>
             </div>
