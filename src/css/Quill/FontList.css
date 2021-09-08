@@ -9,6 +9,12 @@
   overflow: hidden;
 }
 
+.ql-snow .ql-picker.ql-font .ql-picker-label::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item::before
+{
+  font-size: 14px;
+}
+
 /* Setting up Museo font*/
 .ql-snow .ql-picker.ql-font .ql-picker-label[data-value='900-museo']::before,
 .ql-snow .ql-picker.ql-font .ql-picker-item[data-value='900-museo']::before

@@ -9,10 +9,31 @@
     font-weight: 900;
 }
 
+.ql-toolbar {
+    height: 60px;
+}
+
+.ql-formats {
+    position: relative;
+    top: 10px;
+}
+
 .ql-picker-options 
 {
     overflow: scroll;
-    height: 100px;
+    height: 110px;
+}
+
+#ql-picker-options-0, #ql-picker-options-1 {
+    height: 200px;
+}
+
+#ql-picker-options-2 {
+    height: 155px;
+}
+
+#ql-picker-options-4 {
+    height: 135px;
 }
 
 .ql-color .ql-picker-options [data-value=custom-color] {
