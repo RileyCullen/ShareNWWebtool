@@ -132,7 +132,10 @@ class DataValueDecorator extends ABarChartDecorator
             if (this._percent && labelWidth > this._xScale.bandwidth() && this._rotateBy===0){
                 label = '';
             }
-            else if (this._percent && labelWidth > this._chartHeight && this._rotateBy!==0){
+            else if (this._percent && labelWidth > this._chartHeight && this._rotateBy!==0 && this._isMiddle){
+                label = '';
+            }
+            else if (this._percent && labelWidth > this._chartHeight - offsetHelper[d.category] - (1/5) * labelWidth && !this._isMiddle && this._rotateBy!==0){
                 label = '';
             }
 
@@ -154,7 +157,7 @@ class DataValueDecorator extends ABarChartDecorator
                 else if (this._basic && this._isMiddle){
                     text.y(this._chartHeight - offsetHelper[d.category]/2 + labelWidth/2);
                 }
-                else if (this._basic){
+                else if (this._basic || (this._percent && !this._isMiddle)){
                     text.y(this._chartHeight - offsetHelper[d.category] - (1/5) * labelWidth); 
                 }
                 else if (this._percent){
@@ -162,8 +165,11 @@ class DataValueDecorator extends ABarChartDecorator
                 }
             }
             else {
-                if (this._percent){
+                if (this._percent && this._isMiddle){
                     text.y(this._chartHeight/2 + labelHeight/2);
+                }
+                else if (this._percent && !this._isMiddle){
+                    text.y(this._chartHeight - offsetHelper[d.category] - 2*labelHeight);
                 }
             }
 
