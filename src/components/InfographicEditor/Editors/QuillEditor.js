@@ -64,6 +64,7 @@ function QuillEditor(props)
             font: font,
             fontList: fontArr,
         });
+        quill.setSelection(0, 0);
     }
 
     /**
