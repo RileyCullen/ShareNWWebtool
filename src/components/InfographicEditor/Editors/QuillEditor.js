@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState }from 'react';
 import html2canvas from 'html2canvas';
 import { useQuill } from 'react-quilljs';
 import Delta from 'quill-delta';
@@ -44,6 +44,7 @@ function QuillEditor(props)
     const formats = ['font', 'size', 'lineheight', 'align', 'color'];
 
     const { quill, quillRef, Quill } = useQuill({ theme, modules, formats, placeholder });
+    const [ sizeArr, setSizeArr ] = useState(sizeList);
 
     var font = {font: 0}, fontArr = [];
 
@@ -51,7 +52,8 @@ function QuillEditor(props)
     if (Quill && quill) {
         // Set up font, font sizes, and line heights so Quill recognizes them
         // and can use them
-        RegisterFontSizes(Quill, sizeList);
+        console.log(props.textElem);
+        // RegisterFontSizes(Quill, sizeList);
         RegisterFontFamilies(Quill, fontList)
         InitLineHeights(Quill, lineHeightList);
 
@@ -65,6 +67,10 @@ function QuillEditor(props)
             fontList: fontArr,
         });
         quill.setSelection(0, 0);
+        let size = quill.getFormat(quill.getSelection()).size;
+        if (!sizeArr.find(elem => elem === size)) {
+            UpdateSizeUI(size);
+        }
     }
 
     /**
@@ -82,6 +88,30 @@ function QuillEditor(props)
                 textElem: props.textElem,
                 setTextElem: (textElem) => { props.setTextElem(textElem); }
             });
+
+            /**
+             * @summary     Updates the UI component for the text's size to accurately
+             *              reflect the font of the current selection.
+             * @description An event handler than runs when the quill editor's 
+             *              selection has changed. When this runs, we manually 
+             *              update the quill editor's UI to accurately reflect
+             *              "custom" font sizes.
+             */
+            quill.on('selection-change', () => {
+                let selection = quill.getSelection();
+                
+                if (selection === null) {
+                    RemoveColorFromSize();
+                    return;
+                }
+
+                let format = quill.getFormat(selection),
+                    size = format.size;
+                
+                if (!sizeArr.find(elem => elem === size)) {
+                    UpdateSizeUI(size);
+                }
+            });
         }
     });
     return (
@@ -91,6 +121,19 @@ function QuillEditor(props)
             </div>
         </div>
     )
+}
+
+function UpdateSizeUI(value)
+{
+    let elem = document.querySelector('.ql-snow .ql-picker.ql-size .ql-picker-label');
+    elem.setAttribute('data-value', value);
+    elem.classList.add('ql-active');
+}
+
+function RemoveColorFromSize()
+{
+    let elem = document.querySelector('.ql-snow .ql-picker.ql-size .ql-picker-label');
+    elem.classList.remove('ql-active')
 }
 
 function InitLineHeights(Quill, lineHeightList)
@@ -159,9 +202,9 @@ function InitEditor({textElem, quillObj, quillClass, sizeList, font, fontList})
     cssList.forEach(d => {
         if (!sizeList.find(elem => elem === d.fontSize)) {
             sizeList.push(d.fontSize);
-            RegisterFontSizes(quillClass, sizeList);
         }
     });
+    RegisterFontSizes(quillClass, sizeList);
 
     // Converts the spanCSS element in textElem to a Delta (the Quill way of
     // describing elements)
@@ -376,14 +419,21 @@ function AddFontColorListener(quill, font)
 function AddFontSizeListener(quill, font, sizeList, quillClass)
 {
     quill.getModule('toolbar').addHandler('size', (value) => {
+        let list = ['10px', '11px', '12px', '13px', '14px', '15px', '16px', 
+        '17px', '18px', '20px', 'custom-size'];
         if (value === 'custom-size') {
             value = prompt('Enter font size');
             value += 'px';
-            sizeList.push(value);
+            console.log(sizeList);
+            list.push(value);
         }
-        RegisterFontSizes(quillClass, sizeList);
+        RegisterFontSizes(quillClass, list);
         font.font = quill.getFormat(quill.getSelection()).font;
         quill.format('size', value);
+
+        let elem = document.querySelector('.ql-snow .ql-picker.ql-size .ql-picker-label');
+        elem.setAttribute('data-value', value);
+        console.log(elem);
     });
 }
 
