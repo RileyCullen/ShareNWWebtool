@@ -420,20 +420,26 @@ function AddFontSizeListener(quill, font, sizeList, quillClass)
 {
     quill.getModule('toolbar').addHandler('size', (value) => {
         let list = ['10px', '11px', '12px', '13px', '14px', '15px', '16px', 
-        '17px', '18px', '20px', 'custom-size'];
+            '17px', '18px', '20px', 'custom-size'];
+
         if (value === 'custom-size') {
             value = prompt('Enter font size');
             value += 'px';
-            console.log(sizeList);
             list.push(value);
+
+            quill.getContents().ops.forEach(d => {
+                if (d.attributes !== undefined) {
+                    if (!list.find(elem => elem === d.attributes.size)) {
+                        list.push(d.attributes.size);
+                    }
+                }
+            });
+
+            RegisterFontSizes(quillClass, list);
         }
-        RegisterFontSizes(quillClass, list);
         font.font = quill.getFormat(quill.getSelection()).font;
         quill.format('size', value);
-
-        let elem = document.querySelector('.ql-snow .ql-picker.ql-size .ql-picker-label');
-        elem.setAttribute('data-value', value);
-        console.log(elem);
+        UpdateSizeUI(value);
     });
 }
 
