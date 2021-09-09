@@ -58,8 +58,9 @@ class InfographicEditor extends React.Component
             <div className='editor-container'>
                 <div className='upper-container'>
                     <Toolbar 
-                        currentEditor={this.state.toolbarOptions}
+                        currentEditor={this.state.currentEditor}
                         toolbarContent={this.state.toolbarContent}
+                        toolbarOptions={this.state.toolbarOptions}
                         setToolbarContent={(content) => { this._SetToolbarContent(content); }}
                         displayHome={() => { this.props.displayHome(); }}
                         canvasToggle={(setting) => { this._CanvasToggle(setting); }} 

@@ -11,12 +11,13 @@ class Toolbar extends React.Component
         return (
             <div className='editor-toolbar'>
                 <ToolbarOptions 
-                    currentEditor={this.props.currentEditor}
+                    currentEditor={this.props.toolbarOptions}
                     toolbarContent={this.props.toolbarContent}
                     displayHome={() => { this.props.displayHome(); }}
                     setToolbarContent={(content) =>  { this.props.setToolbarContent(content); }}
                     toggleDownload={() => { this.props.downloadToggle(); }}/>
                 <ToolbarContent 
+                    currentEditor={this.props.currentEditor}
                     display={this.props.toolbarContent}
                     canvasToggle={(setting) => { this.props.canvasToggle(setting); }}
                     editorHandler={(editor) => { this.props.editorHandler(editor); }}/>

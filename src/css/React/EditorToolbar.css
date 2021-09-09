@@ -221,6 +221,12 @@
     background-color: #C8755F;
 }
 
+.selected-editor:hover {
+    background-color: #C8755F;
+    cursor: default;
+}
+
+
 #editor-button {
     height: 75px;
 }
