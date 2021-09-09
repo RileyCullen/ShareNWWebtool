@@ -66,6 +66,41 @@ function QuillEditor(props)
             font: font,
             fontList: fontArr,
         });
+
+        AddQuillListeners({
+            quill: quill,
+            sizeList: sizeList,
+            font: font,
+            quillClass: Quill,
+            fontArr: fontArr,
+            textElem: props.textElem,
+            setTextElem: (textElem) => { props.setTextElem(textElem); }
+        });
+
+        /**
+         * @summary     Updates the UI component for the text's size to accurately
+         *              reflect the font of the current selection.
+         * @description An event handler than runs when the quill editor's 
+         *              selection has changed. When this runs, we manually 
+         *              update the quill editor's UI to accurately reflect
+         *              "custom" font sizes.
+         */
+        quill.on('selection-change', () => {
+            let selection = quill.getSelection();
+            
+            if (selection === null) {
+                RemoveColorFromSize();
+                return;
+            }
+
+            let format = quill.getFormat(selection),
+                size = format.size;
+            
+            if (!sizeArr.find(elem => elem === size)) {
+                UpdateSizeUI(size);
+            }
+        });
+
         quill.setSelection(0, 0);
         let size = quill.getFormat(quill.getSelection()).size;
         if (!sizeArr.find(elem => elem === size)) {
@@ -79,39 +114,15 @@ function QuillEditor(props)
     
     useEffect(() => {
         if (quill && Quill) {
-            AddQuillListeners({
-                quill: quill,
-                sizeList: sizeList,
-                font: font,
-                quillClass: Quill,
-                fontArr: fontArr,
-                textElem: props.textElem,
-                setTextElem: (textElem) => { props.setTextElem(textElem); }
-            });
-
-            /**
-             * @summary     Updates the UI component for the text's size to accurately
-             *              reflect the font of the current selection.
-             * @description An event handler than runs when the quill editor's 
-             *              selection has changed. When this runs, we manually 
-             *              update the quill editor's UI to accurately reflect
-             *              "custom" font sizes.
-             */
-            quill.on('selection-change', () => {
-                let selection = quill.getSelection();
-                
-                if (selection === null) {
-                    RemoveColorFromSize();
+            let elem = document.querySelector('.ql-container'),
+                spanCSS = props.textElem.spanCSS;
+            
+            for (let i = 0; i < spanCSS.length; i++) {
+                if (spanCSS[i].textColor === '#ffffff' || spanCSS[i].textColor === 'white') {
+                    elem.style.backgroundColor = '#000';
                     return;
                 }
-
-                let format = quill.getFormat(selection),
-                    size = format.size;
-                
-                if (!sizeArr.find(elem => elem === size)) {
-                    UpdateSizeUI(size);
-                }
-            });
+            }
         }
     });
     return (
