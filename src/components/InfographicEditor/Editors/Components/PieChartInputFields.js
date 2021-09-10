@@ -67,7 +67,7 @@ class PieChartInputFields extends React.Component
 
     _IncrementValue()
     {
-        this._HandleChange(this.state.value + 1);
+        this._HandleChange(parseFloat(this.state.value) + 1);
     }
 
     _DecrementValue()
