@@ -331,7 +331,7 @@ class ToolbarContent extends React.Component
                         id='replace-icon-button' 
                         className={'insert-button' + (this.props.currentEditor === 'update-icon' ? ' selected-editor' : '')}
                         onClick={() => { 
-                            if (this.props.currentEditor === 'insert-icon') this.props.editorHandler('update-icon')
+                            if (this.props.currentEditor === 'icon-editor') this.props.editorHandler('update-icon')
                         }}>
                         <FontAwesomeIcon 
                             className='insert-icon'
