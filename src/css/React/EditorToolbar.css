@@ -82,6 +82,7 @@
 .toolbar-text:hover {
     font-size: 18px;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .vertical-divider {
@@ -105,6 +106,10 @@
 
 #toolbar-insert {
     width: 60px;
+}
+
+#toolbar-edit {
+    width: 45px;
 }
 
 /**
