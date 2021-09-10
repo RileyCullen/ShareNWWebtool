@@ -79,6 +79,11 @@
     background-color: #B6472A;
 }
 
+.toolbar-text:hover {
+    font-size: 18px;
+    font-weight: bold;
+}
+
 .vertical-divider {
     border-left: 2px solid white;
     height: 25px;
@@ -94,6 +99,12 @@
 
 .selected {
     border-bottom: 1px solid white;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+#toolbar-insert {
+    width: 60px;
 }
 
 /**
