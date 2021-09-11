@@ -137,6 +137,7 @@ function QuillEditor(props)
 function UpdateSizeUI(value)
 {
     let elem = document.querySelector('.ql-snow .ql-picker.ql-size .ql-picker-label');
+    if (elem === null) return;
     elem.setAttribute('data-value', value);
     elem.classList.add('ql-active');
 }
@@ -144,6 +145,7 @@ function UpdateSizeUI(value)
 function RemoveColorFromSize()
 {
     let elem = document.querySelector('.ql-snow .ql-picker.ql-size .ql-picker-label');
+    if (elem === null) return;
     elem.classList.remove('ql-active')
 }
 
