@@ -49,17 +49,20 @@ class TextHandler
 
     UpdateTextElem({index, textElem, group, image, spanCSS})
     {
+        if (index === -1) return;
         this._handler[index] = {
             textElem: textElem,
             group: group,
             image: image,
             spanCSS: spanCSS,
         };
+        console.log(this._handler)
     }
 
     UpdateLayering(id, action) 
     {
         let group = this._handler[id].image;
+        console.log(group);
         switch(action) {
             case 'move-to-back':
                 group.moveToBottom();
