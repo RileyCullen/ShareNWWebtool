@@ -731,6 +731,14 @@ class AInfographic
         });
 
         selection.forEach((textElem) => {
+            let top = this._FindTopContainer(textElem),
+                absPos = textElem.getAbsolutePosition();
+            textElem.moveTo(top);
+            textElem.absolutePosition({
+                x: absPos.x,
+                y: absPos.y
+            });
+
             textElem.on('dblclick', () => {
                 this._TextHelper(textElem);
             });
@@ -748,7 +756,7 @@ class AInfographic
         this._tr.nodes([textElem]);
         this._tr.moveToTop();
         this._main.batchDraw();
-
+        
         this._selectedTextIndex = textElem.getAttr('id');
         this._selectedTextHelper = this._selectedTextIndex;
 

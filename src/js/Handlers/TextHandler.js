@@ -55,8 +55,6 @@ class TextHandler
             image: image,
             spanCSS: spanCSS,
         };
-        console.log('after')
-        console.log(this._handler);
     }
 
     UpdateLayering(id, action) 
