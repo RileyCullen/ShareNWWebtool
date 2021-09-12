@@ -446,7 +446,7 @@ class ViolenceTemplateOne extends AInfographic
             padding: 0.4
         });
         var xAxisOne = new XAxisDecorator({
-            chart: barChartOne,  
+            chart: barChartOne, 
             lineStrokeWidth: 1, 
             tickStrokeWidth: 0.5, 
             font: xAxisFont
