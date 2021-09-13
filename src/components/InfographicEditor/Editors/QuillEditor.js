@@ -86,6 +86,20 @@ function QuillEditor(props)
          *              "custom" font sizes.
          */
         quill.on('selection-change', () => {
+            
+            /**
+             * The following (93-96) exists because of the following scenario.
+             * Essentially, for multi-line text, if we select all of the quill 
+             * contents and press any letter (say 'k' for example), then the quill
+             * editor will lose focus and any text that is entered after this will
+             * not be formatted, which will cause us errors when re-selecting the
+             * text. So, we must manually reformat the text here.
+             */
+            if (IsEditorEmpty(quill)) {
+                quill.format('font', '900-museo');
+                return;
+            }
+
             let selection = quill.getSelection();
             
             if (selection === null) {
@@ -253,11 +267,11 @@ function SpanCSSToDelta(textElem, Quill)
 {
     var elemCount = 0
     var cssList = textElem.spanCSS;
-    // var Delta = Quill.import('delta');
     var contents = new Delta();
 
     textElem.textElem.childNodes.forEach((d, i) => {
         d.childNodes.forEach((elem) => {
+            console.log(elem)
             contents.insert(elem.innerHTML, {
                 font: cssList[elemCount].fontFamily,
                 color: cssList[elemCount].textColor, 
@@ -561,20 +575,23 @@ function DeltaToSpanCSS(quill, textElem)
 {
     var attributeCount = 0;
     var cssList = [];
+    console.log(quill.getContents())
     quill.getContents().ops.forEach((d, i) => {
-        if (d.attributes && d.insert !== '\n') {
+        let isAttrs = d.hasOwnProperty('attributes');
+        if (d.insert !== '\n') {
             var elem = {
-                fontFamily: (d.attributes) ? d.attributes.font : '900-museo',
-                fontSize: (d.attributes) ? d.attributes.size : '10px',
-                textColor: (d.attributes) ? d.attributes.color : 'black',
-                lineHeight: (d.attributes) ? d.attributes.lineheight : '1.0',
-                align: (d.attributes) ? quill.getFormat().align : 'left'
+                fontFamily: (isAttrs) ? d.attributes.font : '900-museo',
+                fontSize: (isAttrs) ? d.attributes.size : '10px',
+                textColor: (isAttrs) ? d.attributes.color : 'black',
+                lineHeight: (isAttrs) ? d.attributes.lineheight : '1.0',
+                align: (isAttrs) ? quill.getFormat().align : 'left'
             };
             cssList[attributeCount] = elem;
             attributeCount++;
         }
     });
     textElem.spanCSS = cssList; 
+    console.log(cssList)
 }
 
 /**
