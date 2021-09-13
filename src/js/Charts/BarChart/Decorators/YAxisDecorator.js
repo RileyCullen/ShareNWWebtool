@@ -25,11 +25,12 @@ class YAxisDecorator extends ABarChartDecorator
      * @param {int}        tickStrokeWidth Width of the x-axis ticks
      * @param {JSON Array} font            Determines font size and font family
      */
-    constructor({chart, lineColor = 'black', lineStrokeWidth = 1, tickStrokeWidth = 0.5,
+    constructor({chart, axisLabel = 'Elephant', lineColor = 'black', lineStrokeWidth = 1, tickStrokeWidth = 0.5,
         font = {fontSize : 10, fontFamily : 'Times New Roman, Times, serif', textColor : 'black'}})
     {
         super(chart);
         this._lineColor = lineColor;
+        this._axisLabel = axisLabel;
         this._lineStrokeWidth = lineStrokeWidth;
         this._tickStrokeWidth = tickStrokeWidth;
         this._font = Lodash.cloneDeep(font);
@@ -50,6 +51,7 @@ class YAxisDecorator extends ABarChartDecorator
     {
         return {
             yAxis: {
+                label: this._axisLabel,
                 font: this._font,
                 color: {
                     lineColor: this._lineColor,
@@ -70,7 +72,8 @@ class YAxisDecorator extends ABarChartDecorator
     _CreateYAxis()
     {
         this._CreateAxis();
-        this._AddTicks();
+        var maxWidth = this._AddTicks();
+        this._CreateAxisLabel(maxWidth);
     }
 
     /**
@@ -105,8 +108,12 @@ class YAxisDecorator extends ABarChartDecorator
         var helper = new Konva.Group();
         var tickLength = 6;
         var numberHeight = this._GetFontSize('M', this._font); 
+        var maxNumberWidth = 0;
         yTicks.forEach(d => {
             var numberWidth = this._GetFontSize(d, this._font);
+            if (numberWidth>maxNumberWidth){
+                maxNumberWidth = numberWidth;
+            }
             helper.add(new Konva.Line({
                 points: [0, this._yScale(d) - 0.5, -tickLength, this._yScale(d) - 0.5],
                 stroke: this._lineColor,
@@ -130,6 +137,31 @@ class YAxisDecorator extends ABarChartDecorator
         });
         this._group.add(helper);
         helper.rotate(this._rotateBy);
+        return -2*maxNumberWidth - tickLength - 10;
+    }
+
+      /**
+     * @summary Creates the axis label.
+     */
+    _CreateAxisLabel(maxWidth)
+    {
+        console.log(this._axisLabel);
+        if (this._axisLabel === 'none') return;
+   
+        var textWidth = this._GetFontSize(this._axisLabel, this._font),
+            xPos = maxWidth,
+            yPos = this._chartHeight/2 + textWidth/2;
+   
+        var textLabel = new Konva.Text({
+            x: xPos,
+            y: yPos,
+            text: this._axisLabel,
+            fontSize: this._font.fontSize,
+            fontFamily: this._font.fontFamily,
+            fill: this._font.textColor,
+        });
+        textLabel.rotate(-90);
+        this._group.add(textLabel);
     }
 }
 
