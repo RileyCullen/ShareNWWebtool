@@ -46,6 +46,7 @@ function BuildBarChartDecoratorList(chart, dSettings)
             case 'xAxis':
                 decoratorList[size] = new XAxisDecorator({
                     chart: prevChart,
+                    axisLabel: dSettings.xAxis.axis.label,
                     lineColor: dSettings.xAxis.color.lineColor,
                     lineStrokeWidth: dSettings.xAxis.size.lineStrokeWidth,
                     tickStrokeWidth: dSettings.xAxis.size.tickStrokeWidth,
@@ -55,6 +56,7 @@ function BuildBarChartDecoratorList(chart, dSettings)
             case 'yAxis':
                 decoratorList[size] = new YAxisDecorator({
                     chart: prevChart,
+                    axisLabel: dSettings.yAxis.axis.label,
                     lineColor: dSettings.yAxis.color.lineColor,
                     lineStrokeWidth: dSettings.yAxis.size.lineStrokeWidth,
                     tickStrokeWidth: dSettings.yAxis.size.tickStrokeWidth,

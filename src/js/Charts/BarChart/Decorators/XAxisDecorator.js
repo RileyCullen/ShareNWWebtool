@@ -26,7 +26,7 @@ class XAxisDecorator extends ABarChartDecorator
      * @param {int}        tickStrokeWidth Width of the x-axis ticks
      * @param {JSON Array} font            Determines font size and font family
      */
-    constructor({chart, axisLabel = 'Elephant', lineColor = 'black', lineStrokeWidth = 1, tickStrokeWidth = 0.5,
+    constructor({chart, axisLabel = 'none', lineColor = 'black', lineStrokeWidth = 1, tickStrokeWidth = 0.5,
         font = {fontSize : 10, fontFamily : 'Times New Roman, Times, serif', textColor : '#000'}})
     {
         super(chart);
@@ -52,7 +52,9 @@ class XAxisDecorator extends ABarChartDecorator
     {
         return {
             xAxis: {
-                label: this._axisLabel,
+                axis: {
+                    label: this._axisLabel
+                },
                 font: this._font,
                 color: {
                     lineColor: this._lineColor,
@@ -140,11 +142,7 @@ class XAxisDecorator extends ABarChartDecorator
      */
     _CreateAxisLabel(maxHeight)
     {
-        console.log("creating axis label for bar chart.");
-        if (this._axisLabel === 'none'){
-            console.log(this._axisLabel);
-            return;
-        }
+        if (this._axisLabel === 'none') return;
         var textWidth = this._GetFontSize(this._axisLabel, this._font),
             xPos = this._chartWidth/2 - textWidth/2,
             yPos = maxHeight;
@@ -158,7 +156,6 @@ class XAxisDecorator extends ABarChartDecorator
             fill: this._font.textColor,
         });
         this._group.add(textLabel);
-        console.log(this._axisLabel);
     }
 }
 
