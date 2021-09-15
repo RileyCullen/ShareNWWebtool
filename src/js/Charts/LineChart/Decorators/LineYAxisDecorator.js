@@ -73,6 +73,7 @@ class LineYAxisDecorator extends ALineChartDecorator
     {
         this._CreateAxis();
         var maxWidth = this._CreateTicks();
+        if (this._internalOffsetX === 0) maxWidth *= 1.75;
         this._CreateAxisLabel(maxWidth);
     }
 
@@ -153,10 +154,11 @@ class LineYAxisDecorator extends ALineChartDecorator
                 x: -tickLength - numberWidth - 5 - this._internalOffsetX,
                 y: this._yScale(d) - (numberHeight / 2) - this._internalOffsetY,
             }); 
+            
             helper.add(text);
         });
         this._group.add(helper);
-        return maxWidth + tickLength + 5 + this._internalOffsetX;
+        return 1.2 * maxWidth + tickLength + this._internalOffsetX;
     }
 }
 
