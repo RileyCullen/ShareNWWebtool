@@ -152,7 +152,7 @@ class InfographicEditor extends React.Component
     {
         let expr = editor === 'insert-chart' || editor === 'insert-icon'
             || editor === 'insert-text' || editor === 'insert-image' 
-            || editor === 'insert-background-elem' || editor === 'edit-background';
+            || editor === 'insert-background-elem';
 
         this._RemoveUnderline(this.state.toolbarContent);
         this.setState({
@@ -169,7 +169,7 @@ class InfographicEditor extends React.Component
             this._ToggleInsert('text', 'Sample Text');
         }
 
-        if (expr) this._clearSelection = true;
+        if (expr || editor === 'edit-background') this._clearSelection = true;
 
         this._editorTextElem = 0;
     }
