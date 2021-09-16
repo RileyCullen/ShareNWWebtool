@@ -164,10 +164,11 @@
     position: absolute;
     left: 30px;
     display: grid;
-    grid-template-columns: 60px 60px;
+    grid-template-columns: 60px 60px auto;
     grid-column-gap: 20px;
     align-content: center;
     padding-top: 10px;
+    width: 95%;
 }
 
 #edit-color-button {
@@ -183,9 +184,9 @@
 */
 
 .chart-container {
-    position: absolute;
+    position: relative;
     width: 100%;
-    left: 30px;
+    top: -10px;
     padding-top: 10px;
 }
 
@@ -228,7 +229,6 @@
     grid-template-columns: 60px 60px;
     grid-column-gap: 20px;
     float: right;
-    margin-right: 80px;
 }
 
 .selected-editor {
@@ -263,4 +263,11 @@
 
 #replace-image-text, #replace-icon-text {
     margin-top: 5px;
+}
+
+.vertical-divider-black {
+    border-left: 2px solid black; 
+    height: 75px;
+    position: relative;
+    left: 35px;
 }

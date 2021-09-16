@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChartBar, faIcons, faFont, faImage, faStop, faPalette, faFileImage, 
+import { faChartBar, faIcons, faFont, faImage, faStop, faFileImage, 
     faTrash, faList} from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
 
@@ -40,21 +40,7 @@ class ToolbarContent extends React.Component
             return this._CreateInsertIcons();
         } else if (this.props.display === 'edit') {
             return this._CreateEditIcons();
-        } else if (this.props.display === 'bar-editor' || this.props.display === 'pie-editor' 
-            || this.props.display === 'stacked-bar-editor' || this.props.display === 'line-editor' 
-            || this.props.display === 'donut-editor') {
-            return this._CreateChartIcons();
-        } else if (this.props.display === 'text-editor') {
-            return this._CreateTextIcons();
-        } else if (this.props.display === 'header-editor') {
-            return this._CreateHeaderIcons();
-        } else if (this.props.display === 'image-editor') {
-            return this._CreateImageIcons();
-        } else if (this.props.display === 'icon-editor') {
-            return this._CreateIconIcons();
-        } else if (this.props.display === 'icon-bar-editor' || this.props.display === 'waffle-editor') {
-            return this._CreateIconBarIcons();
-        }
+        } 
     }
 
     _CreateInsertIcons()
@@ -112,16 +98,9 @@ class ToolbarContent extends React.Component
 
     _CreateEditIcons()
     {
+        let additionalButtons = this._CreateAdditionalButtons();
         return (
             <div className='edit-container'>
-                <div className='edit-color-scheme'>
-                    <button id='edit-color-button' className='insert-button'>
-                        <FontAwesomeIcon 
-                            className='insert-icon'
-                            icon={faPalette}/>
-                        <p className='insert-text'>Color Scheme</p>
-                    </button>
-                </div>
                 <div className='edit-background'>
                     <button 
                         id='edit-background-button' 
@@ -133,8 +112,31 @@ class ToolbarContent extends React.Component
                         <p className='insert-text'>Background</p>
                     </button>
                 </div>
+                <div className='vertical-divider-black'></div>
+                <div>
+                    {additionalButtons}
+                </div>
             </div>
         ); 
+    }
+
+    _CreateAdditionalButtons()
+    {
+        if (this.props.options === 'bar-editor' || this.props.options === 'pie-editor' 
+            || this.props.options === 'stacked-bar-editor' || this.props.options === 'line-editor' 
+            || this.props.options === 'donut-editor' || this.props.options === 'update-chart') {
+            return this._CreateChartIcons();
+        } else if (this.props.options === 'text-editor') {
+            return this._CreateTextIcons();
+        } else if (this.props.options === 'header-editor') {
+            return this._CreateHeaderIcons();
+        } else if (this.props.options === 'image-editor') {
+            return this._CreateImageIcons();
+        } else if (this.props.options === 'icon-editor') {
+            return this._CreateIconIcons();
+        } else if (this.props.options === 'icon-bar-editor' || this.props.options === 'waffle-editor') {
+            return this._CreateIconBarIcons();
+        }
     }
 
     _CreateChartIcons()
@@ -218,7 +220,7 @@ class ToolbarContent extends React.Component
                     id='editor-button' 
                     className={'insert-button' + (this.props.currentEditor === 'update-chart' ? '' : ' selected-editor')}
                     onClick={() => { 
-                        if (this.props.currentEditor === 'update-chart') this.props.editorHandler(this.props.display); 
+                        if (this.props.currentEditor === 'update-chart') this.props.editorHandler(this.props.options); 
                     }}>
                     <FontAwesomeIcon 
                         className='insert-icon'
@@ -356,12 +358,12 @@ class ToolbarContent extends React.Component
                         gridTemplateColumns: '60px 60px 60px',
                         gridColumnGap: '20px',
                         float: 'right',
-                        marginRight: '80px'}}>
+                        marginRight: '0px'}}>
                     <button 
                         id='editor-button' 
                         className={'insert-button' + (selected === 0 ? ' selected-editor' : '')}
                         onClick={() => { 
-                            if (selected !== 0) this.props.editorHandler(this.props.display);
+                            if (selected !== 0) this.props.editorHandler(this.props.options);
                         }}>
                         <FontAwesomeIcon 
                             className='insert-icon'

@@ -54,6 +54,11 @@ class InfographicEditor extends React.Component
                 'white' : '#ECECEC';
 
         let editorWindowContent = this._GetEditorWindowContent();
+        console.log({
+            currEditor: this.state.currentEditor, 
+            toolbarContent: this.state.toolbarContent,
+            toolbarOptions: this.state.toolbarOptions,
+        });
         return (
             <div className='editor-container'>
                 <div className='upper-container'>
@@ -177,12 +182,10 @@ class InfographicEditor extends React.Component
 
     _GetToolbarContent(expr, editor)
     {
-        if (expr || editor === 'none') {
+        if (expr || editor === 'none' || editor === 'insert') {
             return 'insert';
-        } else if (editor.slice(0, 6) === 'update') {
-            return this.state.currentEditor;
         }
-        return editor;
+        return 'edit';
     }
 
     /**

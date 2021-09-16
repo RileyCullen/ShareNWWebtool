@@ -18,6 +18,7 @@ class Toolbar extends React.Component
                     toggleDownload={() => { this.props.downloadToggle(); }}/>
                 <ToolbarContent 
                     currentEditor={this.props.currentEditor}
+                    options={this.props.toolbarOptions}
                     display={this.props.toolbarContent}
                     canvasToggle={(setting) => { this.props.canvasToggle(setting); }}
                     editorHandler={(editor) => { this.props.editorHandler(editor); }}/>

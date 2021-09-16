@@ -8,7 +8,6 @@ class ToolbarOptions extends React.Component
 {
     render()
     {
-        let editorOption = this._CreateEditorOption();
         return (
             <div className='toolbar-options'>
                 <div className='toolbar-options-left'>
@@ -34,7 +33,6 @@ class ToolbarOptions extends React.Component
                         onClick={() => { this.props.setToolbarContent('edit'); }}>
                         Edit
                     </button>
-                    {editorOption}
                 </div>
                 <div className='toolbar-options-right'>
                     <div 
@@ -54,127 +52,10 @@ class ToolbarOptions extends React.Component
     componentDidUpdate()
     {
         // Add underline
-        if (this.props.toolbarContent === 'none') return;
+        if (this.props.toolbarContent === 'none' || (this.props.toolbarContent !== 'insert'
+            && this.props.toolbarContent !== 'edit')) return;
         let newElem = document.getElementById('toolbar-' + this.props.toolbarContent);
         newElem.classList.add('selected');
-    }
-
-    _CreateEditorOption()
-    {
-        switch(this.props.currentEditor) {
-            case 'text-editor':
-                return (
-                    <button
-                        id='toolbar-text-editor'
-                        className='toolbar-text'
-                        style={{left: '80px'}}
-                        onClick={() => { this.props.setToolbarContent('text-editor'); }}>
-                        Text Editor
-                    </button>
-                );
-            case 'bar-editor':
-                return (
-                    <button
-                        id='toolbar-bar-editor'
-                        className='toolbar-text'
-                        style={{left: '80px'}}
-                        onClick={() => { this.props.setToolbarContent('bar-editor')}}>
-                        Bar Editor 
-                    </button>
-                );
-            case 'waffle-editor':
-                return (
-                    <button
-                        id='toolbar-waffle-editor'
-                        className='toolbar-text'
-                        style={{left: '80px'}}
-                        onClick={() => { this.props.setToolbarContent('waffle-editor')}}>
-                        Waffle Editor
-                    </button>
-                );
-            case 'pie-editor':
-                return (
-                    <button
-                        id='toolbar-pie-editor'
-                        className='toolbar-text'
-                        style={{left: '80px'}}
-                        onClick={() => { this.props.setToolbarContent('pie-editor')}}>
-                        Pie Editor
-                    </button>
-                );
-            case 'stacked-bar-editor':
-                return (
-                    <button
-                        id='toolbar-stacked-bar-editor'
-                        className='toolbar-text'
-                        style={{left: '80px'}}
-                        onClick={() => { this.props.setToolbarContent('stacked-bar-editor')}}>
-                        Stacked Bar Editor
-                    </button>
-                ); 
-            case 'header-editor':
-                return (
-                    <button
-                        id='toolbar-header-editor'
-                        className='toolbar-text'
-                        style={{left: '80px'}}
-                        onClick={() => { this.props.setToolbarContent('header-editor')}}>
-                        Graphics Editor
-                    </button>
-                );
-            case 'image-editor':
-                return (
-                    <button
-                        id='toolbar-image-editor'
-                        className='toolbar-text'
-                        style={{left: '80px'}}
-                        onClick={() => { this.props.setToolbarContent('image-editor')}}>
-                        Image Editor
-                    </button>
-                );
-            case 'icon-editor':
-                return (
-                    <button
-                        id='toolbar-icon-editor'
-                        className='toolbar-text'
-                        style={{left: '80px'}}
-                        onClick={() => { this.props.setToolbarContent('icon-editor')}}>
-                        Icon Editor
-                    </button>
-                );
-            case 'line-editor':
-                return (
-                    <button
-                        id='toolbar-line-editor'
-                        className='toolbar-text'
-                        style={{left: '80px'}}
-                        onClick={() => { this.props.setToolbarContent('line-editor')}}>
-                        Line Editor
-                    </button>
-                ); 
-            case 'icon-bar-editor':
-                return (
-                    <button
-                        id='toolbar-icon-bar-editor'
-                        className='toolbar-text'
-                        style={{left: '80px'}}
-                        onClick={() => { this.props.setToolbarContent('icon-bar-editor')}}>
-                        Bar Editor
-                    </button>
-                );
-            case 'donut-editor':
-                return (
-                    <button
-                        id='toolbar-donut-editor'
-                        className='toolbar-text'
-                        style={{left: '80px'}}
-                        onClick={() => { this.props.setToolbarContent('donut-editor')}}>
-                        Donut Editor
-                    </button>
-                ); 
-            default: 
-                return false;
-        }
     }
 }
 
