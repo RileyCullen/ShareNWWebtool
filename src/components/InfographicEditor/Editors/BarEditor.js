@@ -116,7 +116,7 @@ class BarEditor extends React.Component
             designOptions: [
                 <Menu 
                     key='x-axis'
-                    name='X-Axis'
+                    name='X-Axis - Settings'
                     isOpen={false}
                     content={this._GetXAxisContent()}
                     checkbox={{
@@ -127,9 +127,18 @@ class BarEditor extends React.Component
                         }
                     }}
                 />,
+                <Menu
+                    key='x-axis-font'
+                    name='X-Axis - Font Settings'
+                    isOpen={false}
+                    content={[]}
+                    checkbox={{
+                        displayCheckbox: false,
+                    }}
+                />, 
                 <Menu 
                     key='y-axis'
-                    name='Y-Axis'
+                    name='Y-Axis - Settings'
                     isOpen={false}
                     content={this._GetYAxisContent()}
                     checkbox={{
@@ -138,6 +147,15 @@ class BarEditor extends React.Component
                         checkboxHandler: (d) => { 
                             this._CheckboxHandler(d, 'yAxis', {yAxis: this._defaultSettings.yAxis});
                         }
+                    }}
+                />,
+                <Menu 
+                    key='y-axis-font'
+                    name='Y-Axis - Font Settings'
+                    isOpen={false}
+                    content={[]}
+                    checkbox={{
+                        displayCheckbox: false,
                     }}
                 />,
                 <Menu 
