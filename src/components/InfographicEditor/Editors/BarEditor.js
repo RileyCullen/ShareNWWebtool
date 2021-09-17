@@ -34,6 +34,9 @@ class BarEditor extends React.Component
             },
             xAxis: {
                 font: this._defaultFont,
+                axis: {
+                    label: 'none'
+                },
                 color: {
                     lineColor: '#000'
                 },
@@ -44,6 +47,9 @@ class BarEditor extends React.Component
             },
             yAxis: {
                 font: this._defaultFont,
+                axis: {
+                    label: 'none'
+                },
                 color: {
                     lineColor: '#000'
                 },
@@ -313,16 +319,18 @@ class BarEditor extends React.Component
                     <LabeledTextField
                         label='Axis Label:'
                         index={'x-axis'}
-                        initialValue={''}
+                        initialValue={xAxisSettings.axis.label}
                         rows={1}
                         cols={5}
-                        onChange={(d, i) => { }} 
+                        onChange={(d, i) => { 
+                            this._UpdateDecoratorSettings('xAxis', 'axis', 'label', d);
+                        }} 
                     />
                     <LabeledColorPicker 
                         label='Axis Color:'
                         color={xAxisSettings.color.lineColor}
                         onChange={(value) => { 
-                            this._UpdateDecoratorSettings('xAxis', 'color', 'lineColor', value)
+                            this._UpdateDecoratorSettings('xAxis', 'color', 'lineColor', value);
                         }}
                     />
                     <LabeledTextField
@@ -375,10 +383,12 @@ class BarEditor extends React.Component
                     <LabeledTextField
                         label='Axis Label:'
                         index={'y-axis'}
-                        initialValue={''}
+                        initialValue={yAxisSettings.axis.label}
                         rows={1}
                         cols={5}
-                        onChange={(d, i) => { }} 
+                        onChange={(d, i) => { 
+                            this._UpdateDecoratorSettings('yAxis', 'axis', 'label', d);
+                        }} 
                     />
                     <LabeledColorPicker 
                         label='Axis Color:'
