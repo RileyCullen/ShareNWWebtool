@@ -93,7 +93,7 @@ class LineEditor extends React.Component
             designOptions: [
                 <Menu 
                     key='x-axis'
-                    name='X-Axis'
+                    name='X-Axis - Settings'
                     isOpen={false}
                     content={this._GetXAxisContent()}
                     checkbox={{
@@ -104,8 +104,17 @@ class LineEditor extends React.Component
                         }
                     }} />,
                 <Menu 
+                    key='x-axis-font'
+                    name='X-Axis - Font Settings'
+                    isOpen={false}
+                    content={this._GetFontContent('xAxis')}
+                    checkbox={{
+                        displayCheckbox: false,
+                    }}
+                />,
+                <Menu 
                     key='y-axis'
-                    name='Y-Axis'
+                    name='Y-Axis - Settings'
                     isOpen={false}
                     content={this._GetYAxisContent()} 
                     checkbox={{
@@ -115,6 +124,15 @@ class LineEditor extends React.Component
                             this._CheckboxHandler(d, 'yAxis', { yAxis: this._defaultSettings.yAxis }) 
                         }
                     }} />,
+                <Menu 
+                    key='y-axis-font'
+                    name='Y-Axis - Font Settings'
+                    isOpen={false}
+                    content={this._GetFontContent('yAxis')}
+                    checkbox={{
+                        displayCheckbox: false,
+                    }}
+                />,
                 <Menu 
                     key='data-labels'
                     name='Data Labels'
@@ -275,21 +293,6 @@ class LineEditor extends React.Component
                         }} 
                     />
                 </div>
-                <div>
-                    <h5>Font Settings:</h5>
-                    <FontSelector 
-                        initialFont={settings.font}
-                        updateFontFamily={(d) => { 
-                            this._UpdateDecoratorSettings('xAxis', 'font', 'fontFamily', d);
-                        }}
-                        updateFontSize={(d) => {
-                            this._UpdateDecoratorSettings('xAxis', 'font', 'fontSize', parseFloat(d));
-                        }}
-                        updateTextColor={(d) => {
-                            this._UpdateDecoratorSettings('xAxis', 'font', 'textColor', d);
-                        }}
-                    />
-                </div>
             </div>
         ];
     }
@@ -342,24 +345,33 @@ class LineEditor extends React.Component
                         }} 
                     />
                 </div>
-                <div>
-                    <h5>Font Settings:</h5>
-                    <FontSelector
-                        initialFont={settings.font}
-                        updateFontFamily={(d) => { 
-                            this._UpdateDecoratorSettings('yAxis', 'font', 'fontFamily', d);
-                        }}
-                        updateFontSize={(d) => {
-                            this._UpdateDecoratorSettings('yAxis', 'font', 'fontSize', parseFloat(d));
-                        }}
-                        updateTextColor={(d) => {
-                            this._UpdateDecoratorSettings('yAxis', 'font', 'textColor', d);
-                        }}
-                    />
-                </div>
             </div>
         ];
     }
+
+    _GetFontContent(decoratorType)
+    {
+        let settings = (this.props.dSettings[decoratorType] === undefined) ?
+            this._defaultSettings[decoratorType] : this.props.dSettings[decoratorType];
+        return [
+            <div className='center'>
+                <h5>Font Settings:</h5>
+                    <FontSelector 
+                        initialFont={settings.font}
+                        updateFontFamily={(d) => { 
+                            this._UpdateDecoratorSettings(decoratorType, 'font', 'fontFamily', d);
+                        }}
+                        updateFontSize={(d) => {
+                            this._UpdateDecoratorSettings(decoratorType, 'font', 'fontSize', parseFloat(d));
+                        }}
+                        updateTextColor={(d) => {
+                            this._UpdateDecoratorSettings(decoratorType, 'font', 'textColor', d);
+                        }}
+                    />
+            </div>
+        ]
+    }
+
     _GetDataLabelContent()
     {
         let settings = (this.props.dSettings.dataValue === undefined) ? 

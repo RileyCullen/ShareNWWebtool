@@ -137,7 +137,7 @@ class BarEditor extends React.Component
                     key='x-axis-font'
                     name='X-Axis - Font Settings'
                     isOpen={false}
-                    content={[]}
+                    content={this._GetFontContent('xAxis')}
                     checkbox={{
                         displayCheckbox: false,
                     }}
@@ -159,7 +159,7 @@ class BarEditor extends React.Component
                     key='y-axis-font'
                     name='Y-Axis - Font Settings'
                     isOpen={false}
-                    content={[]}
+                    content={this._GetFontContent('yAxis')}
                     checkbox={{
                         displayCheckbox: false,
                     }}
@@ -354,20 +354,6 @@ class BarEditor extends React.Component
                         }} 
                     />
                 </div>
-                <div>
-                    <h5>Font Settings:</h5>
-                    <FontSelector 
-                        initialFont={xAxisSettings.font}
-                        updateFontFamily={(d) => { 
-                            this._UpdateDecoratorSettings('xAxis', 'font', 'fontFamily', d);
-                        }}
-                        updateFontSize={(d) => {
-                            this._UpdateDecoratorSettings('xAxis', 'font', 'fontSize', parseFloat(d));
-                        }}
-                        updateTextColor={(d) => {
-                            this._UpdateDecoratorSettings('xAxis', 'font', 'textColor', d);
-                        }}/>
-                </div>
             </div>
         ];
     }
@@ -418,23 +404,31 @@ class BarEditor extends React.Component
                         }} 
                     />
                 </div>
-                <div>
-                    <h5>Font Settings:</h5>
-                    <FontSelector 
-                        initialFont={yAxisSettings.font}
-                        updateFontFamily={(d) => { 
-                            this._UpdateDecoratorSettings('yAxis', 'font', 'fontFamily', d);
-                        }}
-                        updateFontSize={(d) => {
-                            this._UpdateDecoratorSettings('yAxis', 'font', 'fontSize', parseFloat(d));
-                        }}
-                        updateTextColor={(d) => {
-                            this._UpdateDecoratorSettings('yAxis', 'font', 'textColor', d);
-                        }}
-                    />
-                </div>
             </div>
         ];    
+    }
+
+    _GetFontContent(decoratorType)
+    {
+        let settings = (this.props.dSettings[decoratorType] === undefined) ?
+            this._defaultSettings[decoratorType] : this.props.dSettings[decoratorType];
+        return [
+            <div className='center'>
+                <h5>Font Settings:</h5>
+                    <FontSelector 
+                        initialFont={settings.font}
+                        updateFontFamily={(d) => { 
+                            this._UpdateDecoratorSettings(decoratorType, 'font', 'fontFamily', d);
+                        }}
+                        updateFontSize={(d) => {
+                            this._UpdateDecoratorSettings(decoratorType, 'font', 'fontSize', parseFloat(d));
+                        }}
+                        updateTextColor={(d) => {
+                            this._UpdateDecoratorSettings(decoratorType, 'font', 'textColor', d);
+                        }}
+                    />
+            </div>
+        ]
     }
 
     _GetDataLabelsContent()
