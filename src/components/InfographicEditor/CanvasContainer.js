@@ -51,6 +51,9 @@ class CanvasContainer extends React.Component
             this.props.editorHandler('none');
             this._DrawInfographic();
         } else {
+            // move this around to (preferrably after the else statement so that
+            // else and isRemoving and the update selection clauses run)
+            console.log(this.props);
             if (this.props.isRemoving) {
                 this._infogObj.Remove();
             } else if (this.props.insertType !== 'none') {
@@ -94,8 +97,6 @@ class CanvasContainer extends React.Component
                 }
             } else if (this.props.layerAction !== 'none') {
                 this._infogObj.UpdateLayering(this.props.layerAction);
-            } else if (this.props.clearSelection) {
-                this._infogObj.ClearSelection()
             } else if (this.props.isDownloading) { 
                 this._infogObj.Download();
             } else if (this.props.backgroundSettings !== 0) {
@@ -108,6 +109,10 @@ class CanvasContainer extends React.Component
                 this._infogObj.UpdateChartSettings(this.props.cSettings);
 
                 this._infogObj.UpdateGraphicSettings(this.props.graphicSettings);
+            }
+
+            if (this.props.clearSelection === true) {
+                this._infogObj.ClearSelection();
             }
         }
         this._previousInfographic = this.props.infographic;
