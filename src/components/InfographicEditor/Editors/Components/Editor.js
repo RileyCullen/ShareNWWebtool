@@ -22,7 +22,9 @@ class Editor extends React.Component
                     currentTab={this.state.currentTab} 
                     onClick={(state) => { this._SetCurrentTab(state); }}/>
                 <div className='editor-content'>
-                    {this._DisplayContent()}
+                    <div className='editor-menu-container'>
+                        {this._DisplayContent()}
+                    </div>
                 </div>
             </div>
         )

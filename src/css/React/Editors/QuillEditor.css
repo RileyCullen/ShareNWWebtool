@@ -1,6 +1,5 @@
 .text-editor-container {
     position: relative;
-    top: -54px;
     height: inherit;
     border-top: 2px solid #CCCBCC;
 }

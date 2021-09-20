@@ -1,5 +1,5 @@
 #canvas-container {
     padding: 15px;
-    height: 700px;
+    height: inherit;
     overflow: scroll;
 }
