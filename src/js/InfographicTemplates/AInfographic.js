@@ -291,6 +291,11 @@ class AInfographic
                     });
                     break;
                 case 'Line':
+                    let tmpFont = {
+                        fontSize: 14, 
+                        fontFamily: 'Times New Roman, Times, serif', 
+                        textColor: 'black'
+                    };
                     chart = new LineChart({
                         data: [
                             {
@@ -303,18 +308,24 @@ class AInfographic
                             }
                         ],
                         group: group,
-                        chartWidth: 100,
-                        chartHeight: 100,
-                        lineWidth: 1,
-                        pointRadius: 3,
+                        chartWidth: 200,
+                        chartHeight: 200,
+                        lineWidth: 5,
+                        pointRadius: 6,
                         lineColor: this._colorScheme.primary,
                         pointColor: this._colorScheme.secondary,
                     });
                     decoratorList[0] = new LineXAxisDecorator({
                         chart: chart,
+                        lineStrokeWidth: 3,
+                        tickStrokeWidth: 1,
+                        font: tmpFont,
                     });
                     decoratorList[1] = new LineYAxisDecorator({
                         chart: decoratorList[0],
+                        lineStrokeWidth: 3,
+                        tickStrokeWidth: 1,
+                        font: tmpFont,
                     });
                     break;
                 case 'Pie':
