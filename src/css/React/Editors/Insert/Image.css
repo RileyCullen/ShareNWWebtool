@@ -10,7 +10,7 @@
     top: 50px;
 }
 
-#upload-image-button {
+#upload-image-input {
     position: relative;
     left: 50%;
     transform: translateX(-50%);
@@ -18,4 +18,9 @@
     background-color: white;
     padding: 10px;
     border: 2px solid #B6472A;
+}
+
+img {
+    width: 150px;
+    height: 150px;
 }
