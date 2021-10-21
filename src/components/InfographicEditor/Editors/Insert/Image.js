@@ -10,10 +10,10 @@ class Image extends React.Component
         return (
             <div className='editor-insert-container'>
                 <div id='upper-image-upload-container'>
-                    <input id="upload-image-input" type="file" accept="image/png, image/jpeg" onChange={function() {
+                    <input id="upload-image-input" type="file" accept="image/png, image/jpeg, image/jpg" onChange={function(event) {
                         if (document.getElementById("upload-image-input").value){
-                            var fileinput = document.getElementById("upload-image-input").files[0].name;
                             var image = document.createElement("img");
+                            var fileinput = URL.createObjectURL(event.target.files[0]);
                             image.src = fileinput;
                             document.getElementsByClassName("konvajs-content")[0].appendChild(image);
                         }
