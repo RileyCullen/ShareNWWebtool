@@ -370,14 +370,14 @@ class ObesityTemplateOne extends AInfographic
             innerRadius: 40,
             innerColor: sectionColorArr[2],
         });
-        var innerOutline = new ChartOutlineDecorator({
+        /*var innerOutline = new ChartOutlineDecorator({
             chart: donut, 
             radius: 40, 
             outlineWidth: 3, 
             outlineColor: '#7b706a'
-        });
+        });*/
         var outerOutline = new ChartOutlineDecorator({
-            chart: innerOutline, 
+            chart: donut, 
             radius: 70, 
             outlineWidth: 5, 
             outlineColor: '#7b706a'
@@ -395,7 +395,7 @@ class ObesityTemplateOne extends AInfographic
         });
 
         this._chartHandler.AddChart({
-            chart: innerOutline, 
+            chart: donut, 
             group: pieChartGroup, 
             type: 'Donut'
         });
