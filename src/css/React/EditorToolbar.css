@@ -62,12 +62,15 @@
 }
 
 #undo {
-    top: 7px;
+    top: 8px;
     left: 17px;
+}
+#undo-redo-icon {
+    font-size: 19px;
 }
 
 #redo {
-    top: 7px;
+    top: 8px;
     left: 21px;
 }
 
