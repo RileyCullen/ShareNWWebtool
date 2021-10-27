@@ -12,7 +12,7 @@ import { LineChart, LineXAxisDecorator, LineYAxisDecorator } from '../Charts/Lin
 import { DonutChart, PieChart } from '../Charts/PieChart';
 import { RectangleHeader, RibbonHeader } from '../Headers';
 import { MessageBubble } from '../ToolTips';
-import { PositionCommand } from '../Commands/CanvasCommands/PositionCommand';
+import { CommandManager, PositionCommand } from '../Commands/index'
 
 class AInfographic 
 {
@@ -49,6 +49,8 @@ class AInfographic
         this._chartHandler = new ChartHandler();
         this._textHandler = new TextHandler();
         this._graphicsHandler = new GraphicsHandler();
+
+        this._commandManager = new CommandManager();
 
         this._tr = new Konva.Transformer({
             nodes: [],
@@ -1074,6 +1076,7 @@ class AInfographic
             x: konvaElement.x,
             y: konvaElement.y
         });
+        this._commandManager.Add(currPosition);
     }
 
     _AddMultipleElementSelector()
