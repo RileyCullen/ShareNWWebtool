@@ -4,7 +4,14 @@
 
 class CommandManager 
 {
-
+    /**
+     * @summary Constructor for CommandManger class.
+     */
+    constructor()
+    {
+        this._undoStack = [];
+        this._redoStack = [];
+    }
 }
 
 export { CommandManager };  
