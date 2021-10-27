@@ -24,6 +24,19 @@ class CommandManager
         this._undoStack.push(command);
         command.Execute();
     }
+
+    /**
+     * @summary     Undo the most recent command.
+     * @description Pops from the undoStack and calls that command object's 
+     *              unexecute method.
+     */
+    Undo()
+    {
+        if (this._undoStack === 0) return;
+        var elem = this._undoStack.pop();
+        elem.Unexecute();
+        this._redoStack.push(elem);
+    }
 }
 
 export { CommandManager };  
