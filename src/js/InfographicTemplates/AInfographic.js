@@ -1083,7 +1083,7 @@ class AInfographic
      */
     _LogPosition(konvaElement)
     {
-        let currPosition = PositionCommand({
+        let currPosition = new PositionCommand({
             id: konvaElement.id,
             x: konvaElement.x,
             y: konvaElement.y
