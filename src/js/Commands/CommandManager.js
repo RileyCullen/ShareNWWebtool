@@ -37,6 +37,19 @@ class CommandManager
         elem.Unexecute();
         this._redoStack.push(elem);
     }
+
+    /**
+     * @summary     Redo the most recently undone command.
+     * @description Pops from the redoStack and calls that command object's 
+     *              execute method.
+     */
+    Redo()
+    {
+        if (this._redoStack === 0) return;
+        var elem = this._redoStack.pop();
+        elem.Execute();
+        this._undoStack.push(elem);
+    }
 }
 
 export { CommandManager };  
