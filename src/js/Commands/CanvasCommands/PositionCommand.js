@@ -8,6 +8,7 @@ class PositionCommand extends ACommand
 {
     constructor({id, x, y})
     {
+        super();
         this._id = id;
         this._x = x;
         this._y = y;
