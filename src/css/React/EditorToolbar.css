@@ -57,11 +57,8 @@
 }
 
 #home{
-    position: relative;
     top: 7px;
     left: 10px;
-    background-color: #B6472A;
-    border: none;
 }
 
 #undo {
@@ -74,7 +71,7 @@
     left: 21px;
 }
 
-.toolbar-home-button:hover {
+.toolbar-button:hover {
     background-color: #9b3c24; 
 }
 
