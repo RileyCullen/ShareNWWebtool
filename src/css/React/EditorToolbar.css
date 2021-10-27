@@ -64,6 +64,16 @@
     border: none;
 }
 
+#undo {
+    top: 7px;
+    left: 17px;
+}
+
+#redo {
+    top: 7px;
+    left: 21px;
+}
+
 .toolbar-home-button:hover {
     background-color: #9b3c24; 
 }
@@ -97,7 +107,7 @@
     margin-left: 10px;
     position: relative;
     top: 7.5px;
-    left: 15px;
+    left: 20px;
 }
 
 .toolbar-insert, .toolbar-button, .vertical-divider {
