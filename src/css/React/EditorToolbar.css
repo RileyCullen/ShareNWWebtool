@@ -50,7 +50,13 @@
     height: 95px;
 }
 
-.toolbar-home-button {
+.toolbar-button {
+    position: relative;
+    background-color: #B6472A;
+    border: none;
+}
+
+#home{
     position: relative;
     top: 7px;
     left: 10px;
@@ -94,7 +100,7 @@
     left: 15px;
 }
 
-.toolbar-insert, .toolbar-home-button, .vertical-divider {
+.toolbar-insert, .toolbar-button, .vertical-divider {
     float: left;
 }
 
