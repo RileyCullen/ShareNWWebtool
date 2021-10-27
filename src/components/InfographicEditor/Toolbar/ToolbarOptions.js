@@ -21,13 +21,17 @@ class ToolbarOptions extends React.Component
                         <button 
                             id='undo'
                             className='toolbar-button'>
-                            <FontAwesomeIcon className='toolbar-icon' 
+                            <FontAwesomeIcon 
+                                id='undo-redo-icon'
+                                className='toolbar-icon' 
                                 icon={faUndo}/>
                         </button>
                         <button 
                             id='redo'
                             className='toolbar-button'>
-                            <FontAwesomeIcon className='toolbar-icon' 
+                            <FontAwesomeIcon 
+                                id='undo-redo-icon'
+                                className='toolbar-icon' 
                                 icon={faRedo}/>
                         </button> 
                     </div>
