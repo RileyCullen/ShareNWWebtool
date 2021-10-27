@@ -13,6 +13,9 @@ class PositionCommand extends ACommand
         this._x = x;
         this._y = y;
     }
+
+    Execute() { }
+    Unexecute() { }
 }
 
 export { PositionCommand }; 
