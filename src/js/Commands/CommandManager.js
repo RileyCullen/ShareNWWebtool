@@ -14,6 +14,16 @@ class CommandManager
     }
 
     /**
+     * @summary     Adds command to undoStack.
+     * @description Adds but does NOT execute a given command to the undo stack.
+     * @param {*} command 
+     */
+    Add(command)
+    {
+        this._undoStack.push(command);
+    }
+
+    /**
      * @summary     Executes a given command.
      * @description Calls a ICommand object's Execute method and adds it to the
      *              undo stack
