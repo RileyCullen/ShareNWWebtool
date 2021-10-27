@@ -12,6 +12,18 @@ class CommandManager
         this._undoStack = [];
         this._redoStack = [];
     }
+
+    /**
+     * @summary     Executes a given command.
+     * @description Calls a ICommand object's Execute method and adds it to the
+     *              undo stack
+     * @param {*} command 
+     */
+    Execute(command) 
+    {
+        this._undoStack.push(command);
+        command.Execute();
+    }
 }
 
 export { CommandManager };  
