@@ -1,2 +1,2 @@
-import { CommandManager } from "./CommandManager";
-import { PositionCommand } from "./CanvasCommands/PositionCommand";
+export { CommandManager } from "./CommandManager";
+export { PositionCommand } from "./CanvasCommands/PositionCommand";
