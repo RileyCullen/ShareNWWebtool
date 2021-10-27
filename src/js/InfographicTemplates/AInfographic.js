@@ -12,6 +12,7 @@ import { LineChart, LineXAxisDecorator, LineYAxisDecorator } from '../Charts/Lin
 import { DonutChart, PieChart } from '../Charts/PieChart';
 import { RectangleHeader, RibbonHeader } from '../Headers';
 import { MessageBubble } from '../ToolTips';
+import { PositionCommand } from '../Commands/CanvasCommands/PositionCommand';
 
 class AInfographic 
 {
@@ -1056,6 +1057,23 @@ class AInfographic
             parent = parent.getParent();
         }
         return parent;
+    }
+
+    /**
+     * @summary     Creates a PositionCommand object to save the position of a 
+     *              given object.
+     * @description Creates a PositionCommand object that holds the target 
+     *              object's current position. This object is then added to
+     *              the command manager.
+     * @param {*} konvaElement 
+     */
+    _LogPosition(konvaElement)
+    {
+        let currPosition = PositionCommand({
+            id: konvaElement.id,
+            x: konvaElement.x,
+            y: konvaElement.y
+        });
     }
 
     _AddMultipleElementSelector()
