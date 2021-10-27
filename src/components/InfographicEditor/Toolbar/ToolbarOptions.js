@@ -13,16 +13,19 @@ class ToolbarOptions extends React.Component
                 <div className='toolbar-options-left'>
                     <div className='button-container'>
                         <button 
+                            id='home'
                             className='toolbar-button'
                             onClick={() => { this.props.displayHome(); }}>
                             <FontAwesomeIcon className='toolbar-home-icon' icon={faHome} />
                         </button>
                         <button 
+                            id='undo'
                             className='toolbar-button'>
                             <FontAwesomeIcon className='toolbar-home-icon' 
                                 icon={faUndo}/>
                         </button>
                         <button 
+                            id='redo'
                             className='toolbar-button'>
                             <FontAwesomeIcon className='toolbar-home-icon' 
                                 icon={faRedo}/>
