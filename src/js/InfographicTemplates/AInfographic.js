@@ -757,6 +757,10 @@ class AInfographic
                 this._TextHelper(textElem);
             });
 
+            textElem.on('dragstart', () => {
+                this._LogPosition(textElem);
+            });
+
             textElem.on('dragend', () => {
                 this._SwitchContainerOnDrag(textElem);
             });
@@ -932,6 +936,10 @@ class AInfographic
                 this._ChartHelper(chart);
             });
 
+            chart.on('dragstart', () => {
+                this._LogPosition(chart);
+            });
+
             chart.on('dragend', () => {
                 this._SwitchContainerOnDrag(chart);
             });
@@ -992,6 +1000,10 @@ class AInfographic
         selection.forEach((group) => {
             group.on('dblclick', () => {
                 this._GraphicHelper(group);
+            });
+
+            group.on('dragstart', () => {
+                this._LogPosition(group);
             });
 
             group.on('dragend', () => {
