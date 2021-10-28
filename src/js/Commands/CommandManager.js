@@ -24,6 +24,16 @@ class CommandManager
     }
 
     /**
+     * @summary     Removes the top element from the stack
+     * @returns An ICommand object corresponding to the top element of the undo
+     *          stack.
+     */
+    RemoveFromUndoStack() 
+    { 
+        return this._undoStack.pop();
+    }
+
+    /**
      * @summary     Executes a given command.
      * @description Calls a ICommand object's Execute method and adds it to the
      *              undo stack
