@@ -498,6 +498,34 @@ class AInfographic
             });
             this._GraphicHelper(group);
         }
+        else if (type === 'image'){
+            console.log("inside image ");
+            Konva.Image.fromURL(element, (image) => {
+                this._main.add(image);
+      
+                image.position({x: 0, y:0});
+                image.draggable(true);
+              });
+            var imageObj = new Image();
+            imageObj.src = element;
+            let graphic = new Konva.Image({
+                x: 0,
+                y: 0,
+                image: imageObj
+            });
+            /*this._graphicsHandler.AddGraphic({
+                type: 'header',
+                graphic: graphic,
+                group: group,
+            });
+            group.on('dblclick', () => {
+                this._GraphicHelper(group);
+            });
+            group.on('dragend', () => {
+                this._SwitchContainerOnDrag(group);
+            });
+            this._GraphicHelper(group);*/
+        }
         this._main.batchDraw();
     }
 
