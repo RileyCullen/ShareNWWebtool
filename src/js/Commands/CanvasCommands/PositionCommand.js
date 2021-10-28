@@ -10,10 +10,22 @@ class PositionCommand extends ACommand
     {
         super();
         this._id = id;
-        this._x = x;
-        this._y = y;
+        this._x0 = x; // starting x
+        this._y0 = y; // starting y
+        this._x1 = x; // ending (current) x
+        this._y1 = y; // ending (current) y
     }
 
+    /**
+     * @summary Sets the current coordinates.
+     * @param {*} param0 
+     */
+    SetCurrentCoordinates({x ,y}) 
+    { 
+        this._x1 = x;
+        this._y1 = y;
+    }
+     
     Execute() { }
     Unexecute() { }
 }
