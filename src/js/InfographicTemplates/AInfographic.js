@@ -763,6 +763,8 @@ class AInfographic
 
             textElem.on('dragend', () => {
                 this._SwitchContainerOnDrag(textElem);
+                this._LogEndingPosition(textElem);
+                console.log(this._commandManager)
             });
         });
     }
@@ -942,6 +944,7 @@ class AInfographic
 
             chart.on('dragend', () => {
                 this._SwitchContainerOnDrag(chart);
+                this._LogEndingPosition(chart);
             });
         });
     }
@@ -1008,6 +1011,7 @@ class AInfographic
 
             group.on('dragend', () => {
                 this._SwitchContainerOnDrag(group);
+                this._LogStartingPosition(group);
             });
         });
     }
@@ -1084,9 +1088,28 @@ class AInfographic
     _LogStartingPosition(konvaElement)
     {
         let currPosition = new PositionCommand({
-            id: konvaElement.id,
-            x: konvaElement.x,
-            y: konvaElement.y
+            id: konvaElement.getAttr('id'),
+            x: konvaElement.getAttr('x'),
+            y: konvaElement.getAttr('y')
+        });
+        this._commandManager.Add(currPosition);
+    }
+
+    /**
+     * @summary     Pops the top object in CommandManager and (assuming the 
+     *              object is a PositionCommand object) sets the current 
+     *              coordinates.
+     * @assumptions This assumes that the top object in CommandManager is a 
+     *              PositionCommand object. It is recommended that this be used
+     *              in conjunction with _LogStartingPosition. 
+     * @param {*} konvaElement 
+     */
+    _LogEndingPosition(konvaElement)
+    {
+        let currPosition = this._commandManager.RemoveFromUndoStack();
+        currPosition.SetCurrentCoordinates({
+            x: konvaElement.getAttr('x'),
+            y: konvaElement.getAttr('y'),
         });
         this._commandManager.Add(currPosition);
     }
