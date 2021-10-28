@@ -764,7 +764,6 @@ class AInfographic
             textElem.on('dragend', () => {
                 this._SwitchContainerOnDrag(textElem);
                 this._LogEndingPosition(textElem);
-                console.log(this._commandManager)
             });
         });
     }
