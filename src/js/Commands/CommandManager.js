@@ -52,7 +52,7 @@ class CommandManager
      */
     Undo()
     {
-        if (this._undoStack === 0) return;
+        if (this._undoStack.length === 0) return;
         var elem = this._undoStack.pop();
         elem.Unexecute();
         this._redoStack.push(elem);
@@ -65,7 +65,7 @@ class CommandManager
      */
     Redo()
     {
-        if (this._redoStack === 0) return;
+        if (this._redoStack.length === 0) return;
         var elem = this._redoStack.pop();
         elem.Execute();
         this._undoStack.push(elem);
