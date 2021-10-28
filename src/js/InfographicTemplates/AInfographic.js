@@ -1087,10 +1087,11 @@ class AInfographic
      */
     _LogStartingPosition(konvaElement)
     {
+        let absPos = konvaElement.absolutePosition()
         let currPosition = new PositionCommand({
             id: konvaElement.getAttr('id'),
-            x: konvaElement.getAttr('x'),
-            y: konvaElement.getAttr('y')
+            x: absPos.x,
+            y: absPos.y
         });
         this._commandManager.Add(currPosition);
     }
@@ -1106,10 +1107,11 @@ class AInfographic
      */
     _LogEndingPosition(konvaElement)
     {
+        let absPos = konvaElement.absolutePosition();
         let currPosition = this._commandManager.RemoveFromUndoStack();
         currPosition.SetCurrentCoordinates({
-            x: konvaElement.getAttr('x'),
-            y: konvaElement.getAttr('y'),
+            x: absPos.x,
+            y: absPos.y,
         });
         this._commandManager.Add(currPosition);
     }
