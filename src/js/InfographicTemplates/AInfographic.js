@@ -758,7 +758,7 @@ class AInfographic
             });
 
             textElem.on('dragstart', () => {
-                this._LogPosition(textElem);
+                this._LogStartingPosition(textElem);
             });
 
             textElem.on('dragend', () => {
@@ -937,7 +937,7 @@ class AInfographic
             });
 
             chart.on('dragstart', () => {
-                this._LogPosition(chart);
+                this._LogStartingPosition(chart);
             });
 
             chart.on('dragend', () => {
@@ -1003,7 +1003,7 @@ class AInfographic
             });
 
             group.on('dragstart', () => {
-                this._LogPosition(group);
+                this._LogStartingPosition(group);
             });
 
             group.on('dragend', () => {
@@ -1081,7 +1081,7 @@ class AInfographic
      *              the command manager.
      * @param {*} konvaElement 
      */
-    _LogPosition(konvaElement)
+    _LogStartingPosition(konvaElement)
     {
         let currPosition = new PositionCommand({
             id: konvaElement.id,
