@@ -1089,7 +1089,7 @@ class AInfographic
     {
         let absPos = konvaElement.absolutePosition()
         let currPosition = new PositionCommand({
-            id: konvaElement.getAttr('id'),
+            element: konvaElement,
             x: absPos.x,
             y: absPos.y
         });
