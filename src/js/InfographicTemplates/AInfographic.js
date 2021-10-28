@@ -102,6 +102,24 @@ class AInfographic
     }
 
     /**
+     * @summary     Undo the most recent action.
+     * @description Wrapper function that calls _commandManager's Undo method.
+     */
+    Undo()
+    {
+        this._commandManager.Undo();
+    }
+
+    /**
+     * @summary     Redo the most recent action.
+     * @description Wrapper function that calls _commandManager's Redo method.
+     */
+    Redo()
+    {
+        this._commandManager.Redo();
+    }
+
+    /**
      * @summary     Returns chart's dimensions to caller.
      * @description Returns the chart's width and height in the form of a JSON
      *              object to the caller.
