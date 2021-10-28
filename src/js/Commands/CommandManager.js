@@ -21,6 +21,7 @@ class CommandManager
     Add(command)
     {
         this._undoStack.push(command);
+        this._redoStack = [];
     }
 
     /**
@@ -42,6 +43,7 @@ class CommandManager
     Execute(command) 
     {
         this._undoStack.push(command);
+        this._redoStack = [];
         command.Execute();
     }
 
