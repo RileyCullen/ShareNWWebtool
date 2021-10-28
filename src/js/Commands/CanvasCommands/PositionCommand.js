@@ -6,10 +6,10 @@ import { ACommand } from "../ACommand";
 
 class PositionCommand extends ACommand
 {
-    constructor({id, x, y})
+    constructor({element, x, y})
     {
         super();
-        this._id = id;
+        this._element = element;
         this._x0 = x; // starting x
         this._y0 = y; // starting y
         this._x1 = x; // ending (current) x
@@ -26,8 +26,27 @@ class PositionCommand extends ACommand
         this._y1 = y;
     }
      
-    Execute() { }
-    Unexecute() { }
+    /**
+     * @summary Repositions element to its ending position.
+     */
+    Execute() 
+    { 
+        this._element.absolutePosition({
+            x: this._x1,
+            y: this._y1,
+        });
+    }
+
+    /**
+     * @summary Repositions element to its initial position.
+     */
+    Unexecute() 
+    { 
+        this._element.absolutePosition({
+            x: this._x0,
+            y: this._y0,
+        });
+    }
 }
 
 export { PositionCommand }; 
