@@ -20,7 +20,8 @@ class ToolbarOptions extends React.Component
                         </button>
                         <button 
                             id='undo'
-                            className='toolbar-button'>
+                            className='toolbar-button'
+                            onClick={() => { this.props.toggleUndo(); }}>
                             <FontAwesomeIcon 
                                 id='undo-redo-icon'
                                 className='toolbar-icon' 
@@ -28,7 +29,8 @@ class ToolbarOptions extends React.Component
                         </button>
                         <button 
                             id='redo'
-                            className='toolbar-button'>
+                            className='toolbar-button'
+                            onClick={() => { this.props.toggleRedo(); }}>
                             <FontAwesomeIcon 
                                 id='undo-redo-icon'
                                 className='toolbar-icon' 
