@@ -67,7 +67,9 @@ class InfographicEditor extends React.Component
                         displayHome={() => { this.props.displayHome(); }}
                         canvasToggle={(setting) => { this._CanvasToggle(setting); }} 
                         editorHandler={(editor) => { this._SetCurrentEditor(editor); }}
-                        downloadToggle={() => { this._ToggleDownload(); }}/>
+                        downloadToggle={() => { this._ToggleDownload(); }}
+                        undoToggle={() => { this._Undo(); }}
+                        redoToggle={() => { this._Redo(); }}/>
                 </div>
                 <div className='lower-container'>
                     <CanvasContainer 
@@ -91,6 +93,8 @@ class InfographicEditor extends React.Component
                         updateType={this.state.updateType}
                         updateElement={this.state.updateElement}
                         backgroundSettings={this.state.backgroundSettings}
+                        undo={this.state.undo}
+                        redo={this.state.redo}
                         style={{flex: 1}}
                     />
                 </div>
