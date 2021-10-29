@@ -2,8 +2,6 @@ import React from 'react';
 
 import '../../../../css/React/Editors/Insert/Insert.css';
 import '../../../../css/React/Editors/Insert/Image.css';
-//import Konva from 'konva';
-//import { Canvas } from 'canvas';
 
 class Image extends React.Component 
 {
