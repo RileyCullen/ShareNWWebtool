@@ -73,15 +73,6 @@ class ArrowHeader
     }
 
     /**
-     * @summary Returns the Konva.Group of this header to the caller.
-     * @returns A Konva.Group object.
-     */
-    GetGroup()
-    {
-        return this._group;
-    }
-
-    /**
      * @summary     Removes the header from the infographic.
      * @description A wrapper function that calls the Konva.Group function 
      *              destroy(), which removes the group as well as its children
