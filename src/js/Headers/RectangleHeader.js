@@ -28,7 +28,8 @@ class RectangleHeader
         this._height = height;
         this._cornerRadius = cornerRadius;
         this._fill = fill;
-        this._group = group;
+        this._group = new Konva.Group();
+        this._container = group;
     }
 
     /**
@@ -46,6 +47,7 @@ class RectangleHeader
             height: this._height,
             fill: this._fill,
         });
+        this._container.add(this._group);
         this._group.add(rect); 
     }
 
@@ -54,7 +56,7 @@ class RectangleHeader
      */
     Remove()
     {
-        this._group.destroy();
+        this._group.remove();
     }
 
     UpdateHeader(settings)

@@ -51,10 +51,10 @@ class GraphicsHandler
                 this._handler[id].graphic.Remove();
                 break;
             case 'image':
-                this._handler[id].graphic.destroy();
+                this._handler[id].graphic.remove();
                 break;
             case 'icon':
-                this._handler[id].group.destroy();
+                this._handler[id].graphic.remove();
                 break;
             default: 
                 break;
@@ -79,6 +79,18 @@ class GraphicsHandler
      * @returns A string representing the type of graphic element at index id.
      */
     GetType(id) { return this._handler[id].type; }
+
+    /**
+     * @summary Get the graphic element at id.
+     * @param {int} id 
+     */
+    GetGraphic(id) { return this._handler[id].graphic; }
+
+    /**
+     * @summary Get the group at id.
+     * @param {*} id 
+     */
+    GetGroup(id) { return this._handler[id].group; }
 
     GetSettings(id)
     {

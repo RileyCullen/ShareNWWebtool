@@ -101,6 +101,10 @@ class CanvasContainer extends React.Component
                 this._infogObj.Download();
             } else if (this.props.backgroundSettings !== 0) {
                 this._infogObj.UpdateBackground(this.props.backgroundSettings);
+            } else if (this.props.undo){
+                this._infogObj.Undo();
+            } else if (this.props.redo){
+                this._infogObj.Redo();
             } else {
                 this._infogObj.UpdateTextHandler(this.props.textElem);
 

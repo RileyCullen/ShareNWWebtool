@@ -37,6 +37,8 @@ class InfographicEditor extends React.Component
             updateElement: 'none',
             infogTextElem: 0,
             backgroundSettings: 0,
+            undo: false,
+            redo: false,
         };
         this._editorTextElem = 0;
         this._infogDimensions = {
@@ -65,7 +67,9 @@ class InfographicEditor extends React.Component
                         displayHome={() => { this.props.displayHome(); }}
                         canvasToggle={(setting) => { this._CanvasToggle(setting); }} 
                         editorHandler={(editor) => { this._SetCurrentEditor(editor); }}
-                        downloadToggle={() => { this._ToggleDownload(); }}/>
+                        downloadToggle={() => { this._ToggleDownload(); }}
+                        undoToggle={() => { this._Undo(); }}
+                        redoToggle={() => { this._Redo(); }}/>
                 </div>
                 <div className='lower-container'>
                     <CanvasContainer 
@@ -89,6 +93,8 @@ class InfographicEditor extends React.Component
                         updateType={this.state.updateType}
                         updateElement={this.state.updateElement}
                         backgroundSettings={this.state.backgroundSettings}
+                        undo={this.state.undo}
+                        redo={this.state.redo}
                         style={{flex: 1}}
                     />
                 </div>
@@ -116,7 +122,33 @@ class InfographicEditor extends React.Component
         if (this.state.backgroundSettings !== 0) this.setState({backgroundSettings: 0});
         if (this.state.updateType !== 'none') this.setState({ updateType: 'none'});
         if (this.state.updateElement !== 'none') this.setState({updateElement: 'none'});
+        if (this.state.undo) this.setState({undo: false});
+        if (this.state.redo) this.setState({redo: false});
         this._clearSelection = false;
+    }
+
+    /**
+     * @summary     Triggers undo protocol.
+     * @description Updates undo to true, which causes a re-render and allows
+     *              for the updated state to be passed to CanvasContainer.
+     */
+    _Undo()
+    {
+        this.setState({
+            undo: true,
+        });
+    }
+
+    /**
+     * @summary     Triggers redo protocol.
+     * @description Updates redo to true, which causes a re-render and allows
+     *              for the updated state to be passed to CanvasContainer.
+     */
+    _Redo()
+    {
+        this.setState({
+            redo: true,
+        });
     }
 
     _DetermineEditorMenuHeight()

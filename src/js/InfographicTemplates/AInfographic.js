@@ -12,6 +12,7 @@ import { LineChart, LineXAxisDecorator, LineYAxisDecorator } from '../Charts/Lin
 import { DonutChart, PieChart } from '../Charts/PieChart';
 import { RectangleHeader, RibbonHeader } from '../Headers';
 import { MessageBubble } from '../ToolTips';
+import { AutoLayerCommand, CommandManager, PositionCommand, RemoveGraphicCommand } from '../Commands/index'
 
 class AInfographic 
 {
@@ -48,6 +49,8 @@ class AInfographic
         this._chartHandler = new ChartHandler();
         this._textHandler = new TextHandler();
         this._graphicsHandler = new GraphicsHandler();
+
+        this._commandManager = new CommandManager();
 
         this._tr = new Konva.Transformer({
             nodes: [],
@@ -96,6 +99,24 @@ class AInfographic
         this._main.add(this._tr);
 
         this._AddStageBorder();
+    }
+
+    /**
+     * @summary     Undo the most recent action.
+     * @description Wrapper function that calls _commandManager's Undo method.
+     */
+    Undo()
+    {
+        this._commandManager.Undo();
+    }
+
+    /**
+     * @summary     Redo the most recent action.
+     * @description Wrapper function that calls _commandManager's Redo method.
+     */
+    Redo()
+    {
+        this._commandManager.Redo();
     }
 
     /**
@@ -754,8 +775,13 @@ class AInfographic
                 this._TextHelper(textElem);
             });
 
+            textElem.on('dragstart', () => {
+                this._LogStartingPosition(textElem);
+            });
+
             textElem.on('dragend', () => {
                 this._SwitchContainerOnDrag(textElem);
+                this._LogEndingPosition(textElem);
             });
         });
     }
@@ -829,9 +855,13 @@ class AInfographic
             this._textHandler.RemoveHandlerElem(this._selectedTextIndex);
             this._selectedTextIndex = this._selectedTextHelper = -1;
         } else if (this._selectedGraphicIndex !== -1) {
-            this._tr.nodes([]);
-            this._main.batchDraw();
-            this._graphicsHandler.RemoveHandlerElem(this._selectedGraphicIndex);
+            let graphicsObj = new RemoveGraphicCommand({
+                id: this._selectedGraphicIndex,
+                handler: this._graphicsHandler,
+                transformer: this._tr,
+                main: this._main
+            });
+            this._commandManager.Execute(graphicsObj);
             this._selectedGraphicIndex = -1;
         }
     }
@@ -929,8 +959,13 @@ class AInfographic
                 this._ChartHelper(chart);
             });
 
+            chart.on('dragstart', () => {
+                this._LogStartingPosition(chart);
+            });
+
             chart.on('dragend', () => {
                 this._SwitchContainerOnDrag(chart);
+                this._LogEndingPosition(chart);
             });
         });
     }
@@ -991,8 +1026,13 @@ class AInfographic
                 this._GraphicHelper(group);
             });
 
+            group.on('dragstart', () => {
+                this._LogStartingPosition(group);
+            });
+
             group.on('dragend', () => {
                 this._SwitchContainerOnDrag(group);
+                this._LogEndingPosition(group);
             });
         });
     }
@@ -1037,16 +1077,10 @@ class AInfographic
         
         selection = selection.filter(d => parent !== d)
     
-        selection.forEach(group => {
-            if (Konva.Util.haveIntersection(group.getClientRect(), elem.getClientRect())) {
-                let absPos = elem.getAbsolutePosition();
-                elem.moveTo(group);
-                elem.absolutePosition({
-                    x: absPos.x,
-                    y: absPos.y
-                });
-            }
-        });
+        new AutoLayerCommand({
+            containers: selection,
+            element: elem
+        }).Execute();
     }
 
     _FindTopContainer(elem)
@@ -1056,6 +1090,52 @@ class AInfographic
             parent = parent.getParent();
         }
         return parent;
+    }
+
+    /**
+     * @summary     Creates a PositionCommand object to save the position of a 
+     *              given object.
+     * @description Creates a PositionCommand object that holds the target 
+     *              object's current position. This object is then added to
+     *              the command manager.
+     * @param {*} konvaElement 
+     */
+    _LogStartingPosition(konvaElement)
+    {
+        let absPos = konvaElement.absolutePosition(),
+            selection = this._stage.find((node) => {
+                return node.hasName('Switchable') && node.hasName('Container');
+            });
+        
+        let currPosition = new PositionCommand({
+            element: konvaElement,
+            x: absPos.x,
+            y: absPos.y,
+            z: konvaElement.zIndex(),
+            containers: selection,
+        });
+        this._commandManager.Add(currPosition);
+    }
+
+    /**
+     * @summary     Pops the top object in CommandManager and (assuming the 
+     *              object is a PositionCommand object) sets the current 
+     *              coordinates.
+     * @assumptions This assumes that the top object in CommandManager is a 
+     *              PositionCommand object. It is recommended that this be used
+     *              in conjunction with _LogStartingPosition. 
+     * @param {*} konvaElement 
+     */
+    _LogEndingPosition(konvaElement)
+    {
+        let absPos = konvaElement.absolutePosition();
+        let currPosition = this._commandManager.RemoveFromUndoStack();
+        currPosition.SetCurrentCoordinates({
+            x: absPos.x,
+            y: absPos.y,
+            z: konvaElement.zIndex(),
+        });
+        this._commandManager.Add(currPosition);
     }
 
     _AddMultipleElementSelector()

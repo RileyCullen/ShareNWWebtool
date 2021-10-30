@@ -34,7 +34,7 @@ class ArrowHeader
         this._borderColor = borderColor;
         this._backgroundColor = backgroundColor;
         
-        group.add(this._group);
+        this._container = group;
     }
 
     /**
@@ -67,17 +67,9 @@ class ArrowHeader
             closed: true, 
         })
 
+        this._container.add(this._group);
         this._group.add(border);
         this._group.add(miniBorder);
-    }
-
-    /**
-     * @summary Returns the Konva.Group of this header to the caller.
-     * @returns A Konva.Group object.
-     */
-    GetGroup()
-    {
-        return this._group;
     }
 
     /**
@@ -88,7 +80,7 @@ class ArrowHeader
      */
     Remove()
     {
-        this._group.destroy();
+        this._group.remove();
     }
 
     UpdateHeader(settings)
