@@ -12,7 +12,7 @@ import { LineChart, LineXAxisDecorator, LineYAxisDecorator } from '../Charts/Lin
 import { DonutChart, PieChart } from '../Charts/PieChart';
 import { RectangleHeader, RibbonHeader } from '../Headers';
 import { MessageBubble } from '../ToolTips';
-import { CommandManager, PositionCommand } from '../Commands/index'
+import { CommandManager, PositionCommand, RemoveGraphicCommand } from '../Commands/index'
 
 class AInfographic 
 {
@@ -855,9 +855,13 @@ class AInfographic
             this._textHandler.RemoveHandlerElem(this._selectedTextIndex);
             this._selectedTextIndex = this._selectedTextHelper = -1;
         } else if (this._selectedGraphicIndex !== -1) {
-            this._tr.nodes([]);
-            this._main.batchDraw();
-            this._graphicsHandler.RemoveHandlerElem(this._selectedGraphicIndex);
+            let graphicsObj = new RemoveGraphicCommand({
+                id: this._selectedGraphicIndex,
+                handler: this._graphicsHandler,
+                transformer: this._tr,
+                main: this._main
+            });
+            this._commandManager.Execute(graphicsObj);
             this._selectedGraphicIndex = -1;
         }
     }
