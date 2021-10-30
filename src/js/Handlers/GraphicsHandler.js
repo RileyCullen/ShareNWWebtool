@@ -51,10 +51,10 @@ class GraphicsHandler
                 this._handler[id].graphic.Remove();
                 break;
             case 'image':
-                this._handler[id].graphic.destroy();
+                this._handler[id].graphic.remove();
                 break;
             case 'icon':
-                this._handler[id].group.destroy();
+                this._handler[id].group.remove();
                 break;
             default: 
                 break;
