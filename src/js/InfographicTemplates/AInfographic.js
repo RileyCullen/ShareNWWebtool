@@ -1102,11 +1102,17 @@ class AInfographic
      */
     _LogStartingPosition(konvaElement)
     {
-        let absPos = konvaElement.absolutePosition()
+        let absPos = konvaElement.absolutePosition(),
+            selection = this._stage.find((node) => {
+                return node.hasName('Switchable') && node.hasName('Container');
+            });
+        
         let currPosition = new PositionCommand({
             element: konvaElement,
             x: absPos.x,
-            y: absPos.y
+            y: absPos.y,
+            z: konvaElement.zIndex(),
+            containers: selection,
         });
         this._commandManager.Add(currPosition);
     }
@@ -1127,6 +1133,7 @@ class AInfographic
         currPosition.SetCurrentCoordinates({
             x: absPos.x,
             y: absPos.y,
+            z: konvaElement.zIndex(),
         });
         this._commandManager.Add(currPosition);
     }
