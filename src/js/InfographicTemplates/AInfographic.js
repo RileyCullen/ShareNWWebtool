@@ -1032,7 +1032,7 @@ class AInfographic
 
             group.on('dragend', () => {
                 this._SwitchContainerOnDrag(group);
-                this._LogStartingPosition(group);
+                this._LogEndingPosition(group);
             });
         });
     }
