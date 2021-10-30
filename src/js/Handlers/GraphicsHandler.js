@@ -80,6 +80,18 @@ class GraphicsHandler
      */
     GetType(id) { return this._handler[id].type; }
 
+    /**
+     * @summary Get the graphic element at id.
+     * @param {int} id 
+     */
+    GetGraphic(id) { return this._handler[id].graphic; }
+
+    /**
+     * @summary Get the group at id.
+     * @param {*} id 
+     */
+    GetGroup(id) { return this._handler[id].group; }
+
     GetSettings(id)
     {
         let obj = this._handler[id];
