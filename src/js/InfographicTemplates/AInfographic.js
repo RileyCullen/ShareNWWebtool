@@ -12,7 +12,7 @@ import { LineChart, LineXAxisDecorator, LineYAxisDecorator } from '../Charts/Lin
 import { DonutChart, PieChart } from '../Charts/PieChart';
 import { RectangleHeader, RibbonHeader } from '../Headers';
 import { MessageBubble } from '../ToolTips';
-import { CommandManager, PositionCommand, RemoveGraphicCommand } from '../Commands/index'
+import { AutoLayerCommand, CommandManager, PositionCommand, RemoveGraphicCommand } from '../Commands/index'
 
 class AInfographic 
 {
@@ -1077,16 +1077,10 @@ class AInfographic
         
         selection = selection.filter(d => parent !== d)
     
-        selection.forEach(group => {
-            if (Konva.Util.haveIntersection(group.getClientRect(), elem.getClientRect())) {
-                let absPos = elem.getAbsolutePosition();
-                elem.moveTo(group);
-                elem.absolutePosition({
-                    x: absPos.x,
-                    y: absPos.y
-                });
-            }
-        });
+        new AutoLayerCommand({
+            containers: selection,
+            element: elem
+        }).Execute();
     }
 
     _FindTopContainer(elem)
