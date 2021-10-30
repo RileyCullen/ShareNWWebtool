@@ -54,7 +54,7 @@ class RectangleHeader
      */
     Remove()
     {
-        this._group.destroy();
+        this._group.remove();
     }
 
     UpdateHeader(settings)
