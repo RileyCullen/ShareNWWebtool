@@ -26,7 +26,8 @@ class RibbonHeader
         this._y = 0;
         this._colorOne = colorOne;
         this._colorTwo = colorTwo;
-        this._group = group;
+        this._group = new Konva.Group();
+        this._container = group;
         this._width = hWidth;
         this._height = hHeight;
         this._infogWidth = iWidth;
@@ -38,6 +39,7 @@ class RibbonHeader
      */
     CreateHeader()
     {
+        this._container.add(this._group);
         this._CreateMainRect();
         this._CreateSideRects();
     }

@@ -34,7 +34,7 @@ class ArrowHeader
         this._borderColor = borderColor;
         this._backgroundColor = backgroundColor;
         
-        group.add(this._group);
+        this._container = group;
     }
 
     /**
@@ -67,6 +67,7 @@ class ArrowHeader
             closed: true, 
         })
 
+        this._container.add(this._group);
         this._group.add(border);
         this._group.add(miniBorder);
     }

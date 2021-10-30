@@ -20,7 +20,8 @@ class MessageBubble
      */
     constructor(group, width, height, color, x, y)
     {
-        this._group = group;
+        this._group = new Konva.Group();
+        this._container = group;
         this._width = width;
         this._height = height;
         this._color = color;
@@ -41,6 +42,7 @@ class MessageBubble
     CreateHeader()
     {
         var helper = new Konva.Group(), x = this._x, y = this._y;
+        this._container.add(this._group);
         this._group.add(helper);
 
         helper.add(new Konva.Rect({
