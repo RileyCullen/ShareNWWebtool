@@ -499,45 +499,26 @@ class AInfographic
             this._GraphicHelper(group);
         }
         else if (type === 'image'){
-            /*var imageGroup;
             Konva.Image.fromURL(element, (image) => {
-                imageGroup = this._main.add(image);
+                this._main.add(image);
       
                 image.position({x: 0, y:0});
                 image.draggable(true);
-              });*/
-            /*var imageObj = new Image();
+              });
+            var imageObj = new Image();
             imageObj.src = element;
             let graphic = new Konva.Image({
                 x: 0,
                 y: 0,
                 image: imageObj
             });
-            var imgGroup = this._graphicsHandler.AddGraphic({
-                type: 'header',
-                graphic: graphic,
-                group: group,
-            });
-            this._main.add(imgGroup);*/
-            let imgGroup = new Konva.Group({
-                x: this._chartWidth / 2,
-                y: this._chartHeight / 2,
-            });
-            this._main.add(imgGroup);
-            this._CreateImage({x:this._chartWidth/2,y:this._chartHeight/2,width:150,height:150, source:element, group:imgGroup});
-            console.log("inside image");
-            /*this._graphicsHandler.AddGraphic({
-                type: 'header',
-                graphic: graphic,
-                group: group,
-            });
-            group.on('dblclick', () => {
-                this._GraphicHelper(group);
-            });
-            group.on('dragend', () => {
-                this._SwitchContainerOnDrag(group);
-            });
-            this._GraphicHelper(group);*/
+            var imageHelper = new Konva.Image();
+            imageHelper.cache();
+            imageHelper.filters([
+                Konva.Filters.Contrast,
+                Konva.Filters.Brighten,
+                Konva.Filters.Blur,
+            ]);
         }
         this._main.batchDraw();
     }
