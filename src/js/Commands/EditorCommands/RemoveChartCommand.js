@@ -27,21 +27,33 @@ class RemoveChartCommand extends ACommand
         this._handler.RemoveHandlerElem(this._id);
     }
 
+    /**
+     * @summary Adds the chart back to the infographic.
+     */
     Unexecute()
     {
+        // Re-add infographic's group to the canvas.
         this._parentGroup.add(this._group);
+
+        // Re-add the chart to the handler.
         this._handler.AddChart({
             chart: this._chart,
             group: this._group,
             type: this._type
         });
+
+        // Update the id.
         this._id = this._handler.GetCurrChartID();
+
+        // Re-add the decorators to the handler.
         this._decorators.forEach(decorator => {
             this._handler.AddDecorator({
                 decorator: decorator,
                 id: this._id,
             });
         });
+
+        // Create the chart and draw main.
         if (this._decorators.length !== 0) this._decorators[
             this._decorators.length - 1].CreateChart();
         else this._chart.CreateChart();
