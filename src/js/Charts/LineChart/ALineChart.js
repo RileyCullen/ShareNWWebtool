@@ -68,7 +68,7 @@ class ALineChart
 
     Remove()
     {
-        this._group.destroy();
+        this._group.remove();
     }
 
     GetChartSettings()
