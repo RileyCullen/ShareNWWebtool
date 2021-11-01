@@ -119,6 +119,13 @@ class ChartHandler
      */
     GetType(id) { return this._handler[id].type; }
 
+    /**
+     * @summary Get the decorators assoociated with the chart at id.
+     * @param {int} id 
+     * @returns An array of chart decorators.
+     */
+    GetDecorators(id) { return this._handler[id].decorators; }
+
     GetSettingsArray(id)
     {
         return this._handler[id].chart.GetChartSettings();
