@@ -14,6 +14,7 @@ class RemoveChartCommand extends ACommand
         this._group = this._handler.GetGroup(this._id);
         this._type = this._handler.GetType(this._id);
         this._parentGroup = this._group.getParent();
+        this._decorators = this._handler.GetDecorators(this._id);
     }
 
     /**
@@ -34,8 +35,16 @@ class RemoveChartCommand extends ACommand
             group: this._group,
             type: this._type
         });
-        this._chart.CreateChart();
         this._id = this._handler.GetCurrChartID();
+        this._decorators.forEach(decorator => {
+            this._handler.AddDecorator({
+                decorator: decorator,
+                id: this._id,
+            });
+        });
+        if (this._decorators.length !== 0) this._decorators[
+            this._decorators.length - 1].CreateChart();
+        else this._chart.CreateChart();
         this._main.batchDraw();
     }
 }
