@@ -42,11 +42,13 @@ class ChartHandler
     AddChart({chart, group, type})
     {
         this._curr++;
+        this._type = type;
         this._handler[this._curr] = {
             'chart': chart,
             'decorators': [],
             'decoratorSize': -1,
             'group': group,
+            'type': type,
         };
         group.setAttr('id', this._curr);
         group.setAttr('name', 'Selectable Chart ' + type);
