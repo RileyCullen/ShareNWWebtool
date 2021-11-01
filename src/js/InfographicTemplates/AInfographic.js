@@ -978,45 +978,45 @@ class AInfographic
     _ChartHelper(chart)
     {
         this._selectedChartIndex = parseInt(chart.getAttr('id'));
-                this._tr.nodes([chart]);
-                this._tr.moveToTop();
+        this._tr.nodes([chart]);
+        this._tr.moveToTop();
+        this._main.batchDraw();
+        chart.setAttr('draggable', true);
+
+        let selectedChart = this._chartHandler.GetHandlerElem(this._selectedChartIndex).chart,
+            dSettings = this._chartHandler.GetDecoratorSettingsArray(this._selectedChartIndex);
+        this._chartCallback(selectedChart.GetData(), selectedChart.GetChartSettings(), dSettings);
+
+        if (chart.getAttr('name') === 'Selectable Chart Waffle') {
+            this._editorHandler('waffle-editor');
+        } else if (chart.getAttr('name') === 'Selectable Chart Pie') {
+            this._editorHandler('pie-editor');
+        } else if (chart.getAttr('name') === 'Selectable Chart Bar') {
+            this._editorHandler('bar-editor')
+        } else if (chart.getAttr('name') === 'Selectable Chart Stacked') {
+            this._editorHandler('stacked-bar-editor');
+        } else if (chart.getAttr('name') === 'Selectable Chart Line') {
+            this._editorHandler('line-editor');
+        } else if (chart.getAttr('name') === 'Selectable Chart Icon') {
+            this._editorHandler('icon-bar-editor');
+        } else if (chart.getAttr('name') === 'Selectable Chart Donut') {
+            this._editorHandler('donut-editor');
+        }
+
+        setTimeout(() => {
+            this._stage.on('click', HandleOutsideClick);
+        });
+
+        var HandleOutsideClick = (e) => {
+            if (e.target !== chart) {
+                this._selectedChartIndex = -1;
+                this._editorHandler('none');
+                this._tr.nodes([]);
+                chart.setAttr('draggable', false);
                 this._main.batchDraw();
-                chart.setAttr('draggable', true);
-
-                let selectedChart = this._chartHandler.GetHandlerElem(this._selectedChartIndex).chart,
-                    dSettings = this._chartHandler.GetDecoratorSettingsArray(this._selectedChartIndex);
-                this._chartCallback(selectedChart.GetData(), selectedChart.GetChartSettings(), dSettings);
-
-                if (chart.getAttr('name') === 'Selectable Chart Waffle') {
-                    this._editorHandler('waffle-editor');
-                } else if (chart.getAttr('name') === 'Selectable Chart Pie') {
-                    this._editorHandler('pie-editor');
-                } else if (chart.getAttr('name') === 'Selectable Chart Bar') {
-                    this._editorHandler('bar-editor')
-                } else if (chart.getAttr('name') === 'Selectable Chart Stacked') {
-                    this._editorHandler('stacked-bar-editor');
-                } else if (chart.getAttr('name') === 'Selectable Chart Line') {
-                    this._editorHandler('line-editor');
-                } else if (chart.getAttr('name') === 'Selectable Chart Icon') {
-                    this._editorHandler('icon-bar-editor');
-                } else if (chart.getAttr('name') === 'Selectable Chart Donut') {
-                    this._editorHandler('donut-editor');
-                }
-
-                setTimeout(() => {
-                    this._stage.on('click', HandleOutsideClick);
-                });
-
-                var HandleOutsideClick = (e) => {
-                    if (e.target !== chart) {
-                        this._selectedChartIndex = -1;
-                        this._editorHandler('none');
-                        this._tr.nodes([]);
-                        chart.setAttr('draggable', false);
-                        this._main.batchDraw();
-                        this._stage.off('click', HandleOutsideClick);
-                    }
-                };
+                this._stage.off('click', HandleOutsideClick);
+            }
+        };
     }
 
     _AddGraphicSelection()
