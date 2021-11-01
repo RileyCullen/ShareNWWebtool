@@ -112,6 +112,13 @@ class ChartHandler
      */
     GetHandlerElem(id) { return this._handler[id]; }
 
+    /**
+     * @summary Get the type of chart at index id.
+     * @param {int} id 
+     * @returns A string denoting the type of chart that resides at index id.
+     */
+    GetType(id) { return this._handler[id].type; }
+
     GetSettingsArray(id)
     {
         return this._handler[id].chart.GetChartSettings();
