@@ -771,18 +771,27 @@ class AInfographic
                 y: absPos.y
             });
 
-            textElem.on('dblclick', () => {
-                this._TextHelper(textElem);
-            });
+            this._AddListeners(textElem);
+        });
+    }
 
-            textElem.on('dragstart', () => {
-                this._LogStartingPosition(textElem);
-            });
+    /**
+     * @summary     Adds user defined event listeners to elem.
+     * @param {Konva.Group} elem 
+     */
+    _AddListeners(elem)
+    {
+        elem.on('dblclick', () => {
+            this._TextHelper(elem);
+        });
 
-            textElem.on('dragend', () => {
-                this._SwitchContainerOnDrag(textElem);
-                this._LogEndingPosition(textElem);
-            });
+        elem.on('dragstart', () => {
+            this._LogStartingPosition(elem);
+        });
+
+        elem.on('dragend', () => {
+            this._SwitchContainerOnDrag(elem);
+            this._LogEndingPosition(elem);
         });
     }
 
@@ -963,18 +972,7 @@ class AInfographic
             /**
              * Adds ability to select and edit graphs.
              */
-            chart.on('dblclick', () => {
-                this._ChartHelper(chart);
-            });
-
-            chart.on('dragstart', () => {
-                this._LogStartingPosition(chart);
-            });
-
-            chart.on('dragend', () => {
-                this._SwitchContainerOnDrag(chart);
-                this._LogEndingPosition(chart);
-            });
+            this._AddListeners(chart);
         });
     }
 
@@ -1030,18 +1028,7 @@ class AInfographic
         });
 
         selection.forEach((group) => {
-            group.on('dblclick', () => {
-                this._GraphicHelper(group);
-            });
-
-            group.on('dragstart', () => {
-                this._LogStartingPosition(group);
-            });
-
-            group.on('dragend', () => {
-                this._SwitchContainerOnDrag(group);
-                this._LogEndingPosition(group);
-            });
+            this._AddListeners(group);
         });
     }
 
