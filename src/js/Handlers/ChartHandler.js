@@ -42,11 +42,13 @@ class ChartHandler
     AddChart({chart, group, type})
     {
         this._curr++;
+        this._type = type;
         this._handler[this._curr] = {
             'chart': chart,
             'decorators': [],
             'decoratorSize': -1,
             'group': group,
+            'type': type,
         };
         group.setAttr('id', this._curr);
         group.setAttr('name', 'Selectable Chart ' + type);
@@ -111,6 +113,20 @@ class ChartHandler
      * @returns A JSON object consisting of the handler at index id. 
      */
     GetHandlerElem(id) { return this._handler[id]; }
+
+    /**
+     * @summary Get the type of chart at index id.
+     * @param {int} id 
+     * @returns A string denoting the type of chart that resides at index id.
+     */
+    GetType(id) { return this._handler[id].type; }
+
+    /**
+     * @summary Get the decorators assoociated with the chart at id.
+     * @param {int} id 
+     * @returns An array of chart decorators.
+     */
+    GetDecorators(id) { return this._handler[id].decorators; }
 
     GetSettingsArray(id)
     {

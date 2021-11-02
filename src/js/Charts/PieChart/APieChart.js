@@ -71,7 +71,7 @@ class APieChart
      */
     Remove()
     {
-        this._group.destroy();
+        this._group.remove();
     }
 
     /**

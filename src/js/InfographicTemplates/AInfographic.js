@@ -12,7 +12,7 @@ import { LineChart, LineXAxisDecorator, LineYAxisDecorator } from '../Charts/Lin
 import { DonutChart, PieChart } from '../Charts/PieChart';
 import { RectangleHeader, RibbonHeader } from '../Headers';
 import { MessageBubble } from '../ToolTips';
-import { AutoLayerCommand, CommandManager, PositionCommand, RemoveGraphicCommand } from '../Commands/index'
+import { AutoLayerCommand, CommandManager, PositionCommand, RemoveChartCommand, RemoveGraphicCommand, RemoveTextCommand } from '../Commands/index'
 
 class AInfographic 
 {
@@ -845,14 +845,22 @@ class AInfographic
     {
         // TODO remove entries from handler
         if (this._selectedChartIndex !== -1) {
-            this._tr.nodes([]);
-            this._main.batchDraw();
-            this._chartHandler.RemoveHandlerElem(this._selectedChartIndex);
+            let chartObj = new RemoveChartCommand({
+                id: this._selectedChartIndex,
+                handler: this._chartHandler,
+                transformer: this._tr,
+                main: this._main,
+            });
+            this._commandManager.Execute(chartObj);
             this._selectedChartIndex = -1;
         } else if (this._selectedTextIndex !== -1) {
-            this._tr.nodes([]);
-            this._main.batchDraw();
-            this._textHandler.RemoveHandlerElem(this._selectedTextIndex);
+            let textObj = new RemoveTextCommand({
+                id: this._selectedTextIndex,
+                handler: this._textHandler,
+                transformer: this._tr,
+                main: this._main,
+            });
+            this._commandManager.Execute(textObj);
             this._selectedTextIndex = this._selectedTextHelper = -1;
         } else if (this._selectedGraphicIndex !== -1) {
             let graphicsObj = new RemoveGraphicCommand({
@@ -974,45 +982,45 @@ class AInfographic
     _ChartHelper(chart)
     {
         this._selectedChartIndex = parseInt(chart.getAttr('id'));
-                this._tr.nodes([chart]);
-                this._tr.moveToTop();
+        this._tr.nodes([chart]);
+        this._tr.moveToTop();
+        this._main.batchDraw();
+        chart.setAttr('draggable', true);
+
+        let selectedChart = this._chartHandler.GetHandlerElem(this._selectedChartIndex).chart,
+            dSettings = this._chartHandler.GetDecoratorSettingsArray(this._selectedChartIndex);
+        this._chartCallback(selectedChart.GetData(), selectedChart.GetChartSettings(), dSettings);
+
+        if (chart.getAttr('name') === 'Selectable Chart Waffle') {
+            this._editorHandler('waffle-editor');
+        } else if (chart.getAttr('name') === 'Selectable Chart Pie') {
+            this._editorHandler('pie-editor');
+        } else if (chart.getAttr('name') === 'Selectable Chart Bar') {
+            this._editorHandler('bar-editor')
+        } else if (chart.getAttr('name') === 'Selectable Chart Stacked') {
+            this._editorHandler('stacked-bar-editor');
+        } else if (chart.getAttr('name') === 'Selectable Chart Line') {
+            this._editorHandler('line-editor');
+        } else if (chart.getAttr('name') === 'Selectable Chart Icon') {
+            this._editorHandler('icon-bar-editor');
+        } else if (chart.getAttr('name') === 'Selectable Chart Donut') {
+            this._editorHandler('donut-editor');
+        }
+
+        setTimeout(() => {
+            this._stage.on('click', HandleOutsideClick);
+        });
+
+        var HandleOutsideClick = (e) => {
+            if (e.target !== chart) {
+                this._selectedChartIndex = -1;
+                this._editorHandler('none');
+                this._tr.nodes([]);
+                chart.setAttr('draggable', false);
                 this._main.batchDraw();
-                chart.setAttr('draggable', true);
-
-                let selectedChart = this._chartHandler.GetHandlerElem(this._selectedChartIndex).chart,
-                    dSettings = this._chartHandler.GetDecoratorSettingsArray(this._selectedChartIndex);
-                this._chartCallback(selectedChart.GetData(), selectedChart.GetChartSettings(), dSettings);
-
-                if (chart.getAttr('name') === 'Selectable Chart Waffle') {
-                    this._editorHandler('waffle-editor');
-                } else if (chart.getAttr('name') === 'Selectable Chart Pie') {
-                    this._editorHandler('pie-editor');
-                } else if (chart.getAttr('name') === 'Selectable Chart Bar') {
-                    this._editorHandler('bar-editor')
-                } else if (chart.getAttr('name') === 'Selectable Chart Stacked') {
-                    this._editorHandler('stacked-bar-editor');
-                } else if (chart.getAttr('name') === 'Selectable Chart Line') {
-                    this._editorHandler('line-editor');
-                } else if (chart.getAttr('name') === 'Selectable Chart Icon') {
-                    this._editorHandler('icon-bar-editor');
-                } else if (chart.getAttr('name') === 'Selectable Chart Donut') {
-                    this._editorHandler('donut-editor');
-                }
-
-                setTimeout(() => {
-                    this._stage.on('click', HandleOutsideClick);
-                });
-
-                var HandleOutsideClick = (e) => {
-                    if (e.target !== chart) {
-                        this._selectedChartIndex = -1;
-                        this._editorHandler('none');
-                        this._tr.nodes([]);
-                        chart.setAttr('draggable', false);
-                        this._main.batchDraw();
-                        this._stage.off('click', HandleOutsideClick);
-                    }
-                };
+                this._stage.off('click', HandleOutsideClick);
+            }
+        };
     }
 
     _AddGraphicSelection()
