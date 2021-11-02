@@ -19,11 +19,10 @@ class TextHandler
     }
 
     /**
-     * @summary     Adds a text element to the handler.
-     * @description Adds a handler element at this._curr to the handler. This 
-     *              element includes: the text to be rendered, its associated 
-     *              group, and the Konva.Image element that corresponds to the 
-     *              text.
+     * @summary     Adds a non-rendered text element to the handler.
+     * @description Essentially, this Add method takes in a text element (DOM) 
+     *              and a group. Then, it creates a Konva.Image that will be 
+     *              rendered later (when the html2canvas module is called).
      * 
      * @param {HTML Element} textElem The text we wish to render.
      * @param {Konva.Group}  group    The group we want to add the rendered text
@@ -39,6 +38,29 @@ class TextHandler
             'group': group,
             'image': this._CreateKonvaImage(this._curr, x, y),
             'spanCSS': []
+        };
+        textElem.id = this._curr;
+        textElem.className = 'EditableText';
+        this._handler[this._curr].image.rotate(rotateby);
+        group.add(this._handler[this._curr].image);
+        group.setAttr('id', this._curr);
+    }
+
+    /**
+     * @summary     Adds a converted text element to the handler. 
+     * @description As opposed to the earlier function, this method exists when
+     *              you need to add a text element to the handler that has 
+     *              already been rendered.
+     * @param {*} param0 
+     */
+    AddRenderedTextElem({textElem, group, image, spanCSS, rotateby = 0})
+    {
+        this._curr++;
+        this._handler[this._curr] = {
+            'textElem': textElem,
+            'group': group,
+            'image': image,
+            'spanCSS': spanCSS
         };
         textElem.id = this._curr;
         textElem.className = 'EditableText';
@@ -137,6 +159,8 @@ class TextHandler
      */
     GetImage(id)    { return this._handler[id].image; }
 
+    GetSpanCSS(id) { return this._handler[id].spanCSS; } 
+
     /**
      * @summary Returns a copy of the handler element at id.
      * 
@@ -162,7 +186,7 @@ class TextHandler
      */
     RemoveHandlerElem(id)
     {
-        this._handler[id].image.destroy();
+        this._handler[id].image.remove();
         this._handler.splice(id, 1);
         this._curr--;
         this._UpdateHandlerId();
