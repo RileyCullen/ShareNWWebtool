@@ -1,4 +1,4 @@
-import { ACommand } from '../../ACommand';
+import { ACommand } from '../ACommand';
 
 class InsertChartCommand extends ACommand
 {
