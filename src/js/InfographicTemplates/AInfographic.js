@@ -5,14 +5,10 @@
 import Konva from 'konva';
 import html2canvas from 'html2canvas';
 import { ChartHandler, GraphicsHandler, TextHandler } from '../Handlers/index';
-import { BasicBarChart, StackedBarChart } from '../Charts/BarChart/index';
-import { IconBarChart } from '../Charts/IconBarChart/index';
-import { GenerateIconDataArray, WaffleChart } from '../Charts/WaffleChart';
-import { LineChart, LineXAxisDecorator, LineYAxisDecorator } from '../Charts/LineChart';
-import { DonutChart, PieChart } from '../Charts/PieChart';
 import { RectangleHeader, RibbonHeader } from '../Headers';
 import { MessageBubble } from '../ToolTips';
 import { AutoLayerCommand, CommandManager, PositionCommand, RemoveChartCommand, RemoveGraphicCommand, RemoveTextCommand } from '../Commands/index'
+import { InsertChartCommand } from '../Commands/EditorCommands/InsertChartCommand';
 
 class AInfographic 
 {
@@ -221,193 +217,22 @@ class AInfographic
         let group = new Konva.Group({
             x: this._chartWidth / 2,
             y: this._chartHeight / 2,
-        });
+        }),
+            insertCommand = null;
         this._main.add(group);
         if (type === 'chart') {
-            let chart = 0, 
-                decoratorList = [];
-            switch(element) {
-                case 'Bar':
-                    chart = new BasicBarChart({
-                        data: [
-                            {
-                                category: 'A',
-                                value: 10,
-                                color: this._colorScheme.primary,
-                            },
-                            {
-                                category: 'B',
-                                value: 30,
-                                color: this._colorScheme.primary
-                            }
-                        ],
-                        group: group,
-                        width: 100,
-                        height: 100,
-                        padding: 0.2,
-                    });
-                    break;
-                case 'Stacked':
-                    chart = new StackedBarChart({
-                        data: [
-                            {
-                                category: 'A',
-                                subcategory: 'one',
-                                value: 10,
-                                color: this._colorScheme.primary,
-                            },
-                            {
-                                category: 'A',
-                                subcategory: 'two',
-                                value: 20,
-                                color: this._colorScheme.secondary,
-                            }
-                        ],
-                        group: group,
-                        width: 100,
-                        height: 100, 
-                        padding: 0.2,
-                    });
-                    break;
-                case 'Icon':
-                    chart = new IconBarChart({
-                        data: [
-                            {
-                                category: 'A',
-                                value: 15,
-                                color: this._colorScheme.primary
-                            },
-                            {
-                                category: 'B',
-                                value: 30,
-                                color: this._colorScheme.primary,
-                            }
-                        ],
-                        group: group,
-                        width: 100,
-                        height: 100,
-                        padding: 50,
-                        remainderColor: this._colorScheme.secondary
-                    });
-                    break;
-                case 'Waffle':
-                    chart = new WaffleChart({
-                        numerator: 1,
-                        denominator: 3,
-                        group: group,
-                        presetA: GenerateIconDataArray({
-                            icon: '\uf004',
-                            color: this._colorScheme.primary,
-                            offset: 85,
-                            font: '"Font Awesome 5 Free"'
-                        }),
-                        presetB: GenerateIconDataArray({
-                            icon: '\uf004',
-                            color: this._colorScheme.secondary,
-                            offset: 85,
-                            font: '"Font Awesome 5 Free"'
-                        }),
-                        fontSize: 80,
-                        isDynamicResize: false,
-                    });
-                    break;
-                case 'Line':
-                    let tmpFont = {
-                        fontSize: 14, 
-                        fontFamily: 'Times New Roman, Times, serif', 
-                        textColor: 'black'
-                    };
-                    chart = new LineChart({
-                        data: [
-                            {
-                                category: 'A',
-                                value: 10,
-                            },
-                            {
-                                category: 'B',
-                                value: 20,
-                            }
-                        ],
-                        group: group,
-                        chartWidth: 200,
-                        chartHeight: 200,
-                        lineWidth: 5,
-                        pointRadius: 6,
-                        lineColor: this._colorScheme.primary,
-                        pointColor: this._colorScheme.secondary,
-                    });
-                    decoratorList[0] = new LineXAxisDecorator({
-                        chart: chart,
-                        lineStrokeWidth: 3,
-                        tickStrokeWidth: 1,
-                        font: tmpFont,
-                    });
-                    decoratorList[1] = new LineYAxisDecorator({
-                        chart: decoratorList[0],
-                        lineStrokeWidth: 3,
-                        tickStrokeWidth: 1,
-                        font: tmpFont,
-                    });
-                    break;
-                case 'Pie':
-                    chart = new PieChart({
-                        data: [
-                            {
-                                category: 'A',
-                                value: 10,
-                                color: this._colorScheme.primary,
-                            },
-                            {
-                                category: 'B',
-                                value: 90,
-                                color: this._colorScheme.secondary,
-                            }
-                        ],
-                        group: group,
-                        radius: 50,
-                    });
-                    break;
-                case 'Donut':
-                    chart = new DonutChart({
-                        data: [
-                            {
-                                category: 'A',
-                                value: 20,
-                                color: this._colorScheme.primary,
-                            },
-                            {
-                                category: 'B',
-                                value: 80,
-                                color: this._colorScheme.secondary
-                            }
-                        ],
-                        group: group,
-                        radius: 50,
-                        innerRadius: 35,
-                    });
-                    break;
-                default:
-                    break;
-            }
-            if (chart !== 0) {
-                this._chartHandler.AddChart({
-                    chart: chart,
-                    group: group,
-                    type: element,
-                });
-                decoratorList.forEach(d => {
-                    this._chartHandler.AddDecorator({
-                        decorator: d, 
-                        id: this._chartHandler.GetCurrChartID()
-                    });
-                });
-
-                if (decoratorList.length === 0) chart.CreateChart();
-                else decoratorList[decoratorList.length - 1].CreateChart();
-
-                this._AddListeners(group, 'chart');
-                this._ChartHelper(group);
-            }
+            insertCommand = new InsertChartCommand({
+                chartType: element,
+                group: group,
+                colorScheme: this._colorScheme,
+                handler: this._chartHandler,
+                transformer: this._tr,
+                main: this._main
+            });
+            this._commandManager.Execute(insertCommand);
+            this._AddListeners(group, 'chart');
+            this._ChartHelper(group);
+        
         } else if (type === 'icon') {
             let icon = new Konva.Text({
                 text: String.fromCharCode(parseInt(element, 16)),
