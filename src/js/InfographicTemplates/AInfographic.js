@@ -405,12 +405,7 @@ class AInfographic
                 if (decoratorList.length === 0) chart.CreateChart();
                 else decoratorList[decoratorList.length - 1].CreateChart();
 
-                group.on('dblclick', () => {
-                    this._ChartHelper(group);
-                });
-                group.on('dragend', () => {
-                    this._SwitchContainerOnDrag(group);
-                });
+                this._AddListeners(group, 'chart');
                 this._ChartHelper(group);
             }
         } else if (type === 'icon') {
@@ -427,12 +422,7 @@ class AInfographic
                 group: group,
             });
 
-            group.on('dblclick', () => {
-                this._GraphicHelper(group);
-            });
-            group.on('dragend', () => {
-                this._SwitchContainerOnDrag(group);
-            });
+            this._AddListeners(group, 'graphic');
             this._GraphicHelper(group);
         } else if (type === 'text') {
             // Set up text
@@ -468,12 +458,7 @@ class AInfographic
             helperElem.remove();
 
             let helper = this._textHandler.GetImage(this._textHandler.GetCurrID());
-            helper.on('dblclick', () => {
-                this._TextHelper(helper);
-            });
-            helper.on('dragend', () => {
-                this._SwitchContainerOnDrag(helper);
-            });
+            this._AddListeners(helper, 'text');
             this._TextHelper(helper);
         } else if (type === 'bkg-elem') {
             let graphic = 0;
@@ -511,12 +496,7 @@ class AInfographic
                 graphic: graphic,
                 group: group,
             });
-            group.on('dblclick', () => {
-                this._GraphicHelper(group);
-            });
-            group.on('dragend', () => {
-                this._SwitchContainerOnDrag(group);
-            });
+            this._AddListeners(group, 'graphic');
             this._GraphicHelper(group);
         }
         this._main.batchDraw();
@@ -771,7 +751,7 @@ class AInfographic
                 y: absPos.y
             });
 
-            this._AddListeners(textElem);
+            this._AddListeners(textElem, 'text');
         });
     }
 
@@ -779,10 +759,12 @@ class AInfographic
      * @summary     Adds user defined event listeners to elem.
      * @param {Konva.Group} elem 
      */
-    _AddListeners(elem)
+    _AddListeners(elem, type)
     {
         elem.on('dblclick', () => {
-            this._TextHelper(elem);
+            if (type === 'text') this._TextHelper(elem);
+            else if (type === 'chart') this._ChartHelper(elem);
+            else if (type === 'graphic') this._GraphicHelper(elem);
         });
 
         elem.on('dragstart', () => {
@@ -972,7 +954,7 @@ class AInfographic
             /**
              * Adds ability to select and edit graphs.
              */
-            this._AddListeners(chart);
+            this._AddListeners(chart, 'chart');
         });
     }
 
@@ -1028,7 +1010,7 @@ class AInfographic
         });
 
         selection.forEach((group) => {
-            this._AddListeners(group);
+            this._AddListeners(group, 'graphic');
         });
     }
 
