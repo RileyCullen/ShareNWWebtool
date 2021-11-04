@@ -103,7 +103,11 @@ class AInfographic
      */
     Undo()
     {
-        this._commandManager.Undo();
+        let undoObj = this._commandManager.Undo();
+        // Essentially, there is an edge case in undoing/redoing where if we 
+        // remove an element, undo, select the element, then redo, it will 
+        // cause a runtime error since the editor has not been reset.
+        this._ResetEditor(undoObj)
     }
 
     /**
@@ -112,7 +116,23 @@ class AInfographic
      */
     Redo()
     {
-        this._commandManager.Redo();
+        let redoObj = this._commandManager.Redo();
+        this._ResetEditor(redoObj);
+    }
+
+    /**
+     * @summary Resets element indexes to -1 and removes selected editor.
+     * @param {ACommand} obj 
+     */
+    _ResetEditor(obj)
+    {
+        let isRemoveObj = (obj instanceof RemoveChartCommand || obj instanceof 
+            RemoveGraphicCommand || obj instanceof RemoveTextCommand);
+        let isInsertObj = (obj instanceof InsertChartCommand);
+        if (isRemoveObj || isInsertObj) {
+            this._selectedTextIndex = this._selectedGraphicIndex = this._selectedChartIndex = -1;
+            this._editorHandler('none')
+        }
     }
 
     /**
