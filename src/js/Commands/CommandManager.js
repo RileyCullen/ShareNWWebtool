@@ -58,6 +58,7 @@ class CommandManager
         var elem = this._undoStack.pop();
         elem.Unexecute();
         this._redoStack.push(elem);
+        return elem;
     }
 
     /**
@@ -71,6 +72,7 @@ class CommandManager
         var elem = this._redoStack.pop();
         elem.Execute();
         this._undoStack.push(elem);
+        return elem;
     }
 }
 
