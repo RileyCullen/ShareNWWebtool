@@ -24,6 +24,7 @@ class RemoveChartCommand extends ACommand
     {
         this._tr.nodes([]);
         this._main.batchDraw();
+        this._parentGroup = this._group.getParent();
         this._handler.RemoveHandlerElem(this._id);
     }
 
