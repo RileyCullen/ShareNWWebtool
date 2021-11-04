@@ -499,7 +499,7 @@ class AInfographic
             this._GraphicHelper(group);
         }
         else if (type === 'image'){
-            let imageGroup = new Konva.Group();
+            //let imageGroup = new Konva.Group();
             Konva.Image.fromURL(element, (image) => {
                 this._main.add(image);
       
@@ -520,51 +520,22 @@ class AInfographic
                 Konva.Filters.Brighten,
                 Konva.Filters.Blur,
             ]);
-            imageGroup.add(imageHelper);
-            group.add(imageGroup);
+            group.add(imageHelper);
+            //group.add(imageGroup);
             this._graphicsHandler.AddGraphic({
             type: 'image',
             graphic: imageHelper,
-            group: imageGroup,
+            group: group,
              });
-            
-            /*let image = new Image(), imageHelper = new Konva.Image(),
-            imageGroup = new Konva.Group();
+            console.log(this._graphicsHandler);
 
-        image.onload = () => {
-            imageHelper.setAttrs({
-                x: 0, 
-                y: 0,
-                height: this._chartHeight/2,
-                width: this._chartWidth/2,
-                image: image,
-                opacity: 1,
-                stroke: 'black',
-                strokeWidth: 0
+            group.on('dblclick', () => {
+                this._GraphicHelper(group);
             });
-            imageHelper.cache();
-            imageHelper.filters([
-                Konva.Filters.Contrast,
-                Konva.Filters.Brighten,
-                Konva.Filters.Blur,
-            ]);
-
-            imageHelper.brightness(0);
-            imageHelper.blurRadius(0);
-            imageHelper.contrast(0);
-
-            this._main.batchDraw();
-            image.onload = null;
-        };
-
-        image.src = element;
-        imageGroup.add(imageHelper);
-        group.add(imageGroup);
-        this._graphicsHandler.AddGraphic({
-            type: 'image',
-            graphic: imageHelper,
-            group: imageGroup,
-        });*/
+            group.on('dragend', () => {
+                this._SwitchContainerOnDrag(group);
+            });
+            this._GraphicHelper(group);
         }
         this._main.batchDraw();
     }
@@ -1068,6 +1039,7 @@ class AInfographic
     _GraphicHelper(group)
     {
         this._selectedGraphicIndex = group.getAttr('id');
+        alert(this._selectedGraphicIndex);
         let type = this._graphicsHandler.GetType(this._selectedGraphicIndex);
         this._tr.nodes([group]);
         this._tr.moveToTop();

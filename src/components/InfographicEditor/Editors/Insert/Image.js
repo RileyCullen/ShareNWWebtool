@@ -15,7 +15,6 @@ class Image extends React.Component
                             //URL.createObjectURL(event.target.files[0])
                             var filename = URL.createObjectURL(event.target.files[0]);
                             this.props.toggleInsert('image',filename);
-                            console.log(filename);
                         }
                     }}></input>
                 </div>
