@@ -8,3 +8,4 @@ export { InsertTextCommand } from './EditorCommands/InsertTextCommand';
 export { InsertChartCommand } from './EditorCommands/InsertChartCommand';
 export { InsertIconCommand } from './EditorCommands/InsertIconCommand';
 export { InsertHeaderCommand } from './EditorCommands/InsertHeaderCommand';
+export { LayerCommand } from './EditorCommands/LayerCommand';
