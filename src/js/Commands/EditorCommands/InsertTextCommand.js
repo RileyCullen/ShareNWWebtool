@@ -65,6 +65,7 @@ class InsertTextCommand extends ACommand
             align: 'center',
         });
 
+        this._hasCreated = true;
         this._removeCommand = new RemoveTextCommand({
             id: this._id,
             handler: this._handler,
