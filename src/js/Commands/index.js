@@ -4,3 +4,8 @@ export { AutoLayerCommand } from './CanvasCommands/AutoLayerCommand';
 export { RemoveGraphicCommand } from './EditorCommands/RemoveGraphicCommand';
 export { RemoveChartCommand } from './EditorCommands/RemoveChartCommand';
 export { RemoveTextCommand } from './EditorCommands/RemoveTextCommand';
+export { InsertTextCommand } from './EditorCommands/InsertTextCommand';
+export { InsertChartCommand } from './EditorCommands/InsertChartCommand';
+export { InsertIconCommand } from './EditorCommands/InsertIconCommand';
+export { InsertHeaderCommand } from './EditorCommands/InsertHeaderCommand';
+export { LayerCommand } from './EditorCommands/LayerCommand';
