@@ -7,7 +7,7 @@ import html2canvas from 'html2canvas';
 import { ChartHandler, GraphicsHandler, TextHandler } from '../Handlers/index';
 import { RectangleHeader, RibbonHeader } from '../Headers';
 import { MessageBubble } from '../ToolTips';
-import { AutoLayerCommand, CommandManager, InsertTextCommand, PositionCommand, RemoveChartCommand, RemoveGraphicCommand, RemoveTextCommand } from '../Commands/index'
+import { AutoLayerCommand, CommandManager, InsertIconCommand, InsertTextCommand, PositionCommand, RemoveChartCommand, RemoveGraphicCommand, RemoveTextCommand } from '../Commands/index'
 import { InsertChartCommand } from '../Commands/EditorCommands/InsertChartCommand';
 
 class AInfographic 
@@ -129,7 +129,7 @@ class AInfographic
         let isRemoveObj = (obj instanceof RemoveChartCommand || obj instanceof 
             RemoveGraphicCommand || obj instanceof RemoveTextCommand);
         let isInsertObj = (obj instanceof InsertChartCommand || obj instanceof 
-            InsertTextCommand);
+            InsertTextCommand || obj instanceof InsertIconCommand);
         if (isRemoveObj || isInsertObj) {
             this._selectedTextIndex = this._selectedGraphicIndex = this._selectedChartIndex = -1;
             this._editorHandler('none')
@@ -255,18 +255,15 @@ class AInfographic
             this._ChartHelper(group);
         
         } else if (type === 'icon') {
-            let icon = new Konva.Text({
-                text: String.fromCharCode(parseInt(element, 16)),
-                fontFamily: '"Font Awesome 5 Free"',
-                fontStyle: '900',
-                fill: this._colorScheme.primary,
-                fontSize: 100,
-            });
-            this._graphicsHandler.AddGraphic({
-                type: type,
-                graphic: icon,
+            insertCommand = new InsertIconCommand({
+                element: element,
+                colorScheme: this._colorScheme,
                 group: group,
+                handler: this._graphicsHandler,
+                transformer: this._tr,
+                main: this._main
             });
+            this._commandManager.Execute(insertCommand);
 
             this._AddListeners(group, 'graphic');
             this._GraphicHelper(group);
