@@ -7,7 +7,7 @@ import html2canvas from 'html2canvas';
 import { ChartHandler, GraphicsHandler, TextHandler } from '../Handlers/index';
 import { RectangleHeader, RibbonHeader } from '../Headers';
 import { MessageBubble } from '../ToolTips';
-import { AutoLayerCommand, CommandManager, InsertIconCommand, InsertTextCommand, PositionCommand, RemoveChartCommand, RemoveGraphicCommand, RemoveTextCommand } from '../Commands/index'
+import { AutoLayerCommand, CommandManager, InsertHeaderCommand, InsertIconCommand, InsertTextCommand, PositionCommand, RemoveChartCommand, RemoveGraphicCommand, RemoveTextCommand } from '../Commands/index'
 import { InsertChartCommand } from '../Commands/EditorCommands/InsertChartCommand';
 
 class AInfographic 
@@ -129,7 +129,8 @@ class AInfographic
         let isRemoveObj = (obj instanceof RemoveChartCommand || obj instanceof 
             RemoveGraphicCommand || obj instanceof RemoveTextCommand);
         let isInsertObj = (obj instanceof InsertChartCommand || obj instanceof 
-            InsertTextCommand || obj instanceof InsertIconCommand);
+            InsertTextCommand || obj instanceof InsertIconCommand || obj
+            instanceof InsertHeaderCommand);
         if (isRemoveObj || isInsertObj) {
             this._selectedTextIndex = this._selectedGraphicIndex = this._selectedChartIndex = -1;
             this._editorHandler('none')
@@ -292,41 +293,17 @@ class AInfographic
             this._AddListeners(helper, 'text');
             this._TextHelper(helper);
         } else if (type === 'bkg-elem') {
-            let graphic = 0;
-            switch(element) {
-                case 'ribbon-header':
-                    graphic = new RibbonHeader({
-                        colorOne: this._colorScheme.primary,
-                        colorTwo: this._colorScheme.secondary,
-                        group: group,
-                        hWidth: 300,
-                        hHeight: 25,
-                        iWidth: this._chartWidth,
-                        iHeight: this._chartHeight,
-                    });
-                    break;
-                case 'rectangle-header':
-                    graphic = new RectangleHeader({
-                        x: 0,
-                        y: 0,
-                        width: 300,
-                        height: 200,
-                        cornerRadius: 0,
-                        fill: this._colorScheme.primary,
-                        group: group,
-                    });
-                    break;
-                case 'message-bubble':
-                    graphic = new MessageBubble(group, 200, 100, this._colorScheme.primary, 0, 0);
-                    break;
-                default:
-                    break;
-            }
-            this._graphicsHandler.AddGraphic({
-                type: 'header',
-                graphic: graphic,
+            insertCommand = new InsertHeaderCommand({
+                element: element,
+                colorScheme: this._colorScheme,
                 group: group,
+                handler: this._graphicsHandler,
+                transformer: this._tr,
+                main: this._main,
+                infographicWidth: this._chartWidth,
+                infographicHeight: this._chartHeight,
             });
+            this._commandManager.Execute(insertCommand);
             this._AddListeners(group, 'graphic');
             this._GraphicHelper(group);
         }
