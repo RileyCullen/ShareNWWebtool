@@ -7,7 +7,7 @@ import html2canvas from 'html2canvas';
 import { ChartHandler, GraphicsHandler, TextHandler } from '../Handlers/index';
 import { RectangleHeader, RibbonHeader } from '../Headers';
 import { MessageBubble } from '../ToolTips';
-import { AutoLayerCommand, CommandManager, InsertHeaderCommand, InsertIconCommand, InsertTextCommand, PositionCommand, RemoveChartCommand, RemoveGraphicCommand, RemoveTextCommand } from '../Commands/index'
+import { AutoLayerCommand, CommandManager, InsertHeaderCommand, InsertIconCommand, InsertTextCommand, LayerCommand, PositionCommand, RemoveChartCommand, RemoveGraphicCommand, RemoveTextCommand } from '../Commands/index'
 import { InsertChartCommand } from '../Commands/EditorCommands/InsertChartCommand';
 
 class AInfographic 
@@ -194,12 +194,24 @@ class AInfographic
 
     UpdateLayering(layerAction)
     {
+        let index = -1, handler = null;
         if (this._selectedChartIndex !== -1) {
-            this._chartHandler.UpdateLayering(this._selectedChartIndex, layerAction);
+            index = this._selectedChartIndex;
+            handler = this._chartHandler;
         } else if (this._selectedGraphicIndex !== -1) {
-            this._graphicsHandler.UpdateLayering(this._selectedGraphicIndex, layerAction);
+            index = this._selectedGraphicIndex;
+            handler = this._graphicsHandler;
         } else if (this._selectedTextIndex !== -1) {
-            this._textHandler.UpdateLayering(this._selectedTextIndex, layerAction);
+            index = this._selectedTextIndex;
+            handler = this._textHandler;
+        }
+        if (index !== -1) {
+            let layerCommand = new LayerCommand({
+                handler: handler,
+                id: index,
+                layerAction: layerAction
+            });
+            this._commandManager.Execute(layerCommand);
         }
     }
 
