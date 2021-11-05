@@ -84,7 +84,7 @@ class TextHandler
     UpdateLayering(id, action) 
     {
         let group = this._handler[id].image;
-        console.log(group);
+
         switch(action) {
             case 'move-to-back':
                 group.moveToBottom();

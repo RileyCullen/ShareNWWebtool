@@ -31,7 +31,7 @@ class RemoveTextCommand extends ACommand
             image: this._image,
             spanCSS: this._spanCSS
         });
-        console.log(this._handler)
+
         this._id = this._handler.GetCurrID();
         this._image.id(this._id);
         this._main.batchDraw();
