@@ -128,7 +128,8 @@ class AInfographic
     {
         let isRemoveObj = (obj instanceof RemoveChartCommand || obj instanceof 
             RemoveGraphicCommand || obj instanceof RemoveTextCommand);
-        let isInsertObj = (obj instanceof InsertChartCommand);
+        let isInsertObj = (obj instanceof InsertChartCommand || obj instanceof 
+            InsertTextCommand);
         if (isRemoveObj || isInsertObj) {
             this._selectedTextIndex = this._selectedGraphicIndex = this._selectedChartIndex = -1;
             this._editorHandler('none')
