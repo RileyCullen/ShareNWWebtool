@@ -55,9 +55,13 @@ class InsertChartCommand extends ACommand
     {
         this._removeCommand.Execute();
     }
-    
+   
+    /**
+     * @summary Private helper function that creates a new chart.
+     */
     _CreateNewChart()
     {
+        // Create a chart based on _chartType
         switch(this._chartType) {
             case 'Bar':
                 this._CreateBasicBarChart();
@@ -84,6 +88,11 @@ class InsertChartCommand extends ACommand
                 break;
         }
 
+        // If the chart was successfully created, complete the following:
+        //      1. Add chart to handler
+        //      2. Update this commmand's id 
+        //      3. Add decorators to handler 
+        //      4. Call chart's CreateChart method
         if (this._chart !== null) {
             this._handler.AddChart({
                 chart: this._chart,
