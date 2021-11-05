@@ -7,7 +7,7 @@ import html2canvas from 'html2canvas';
 import { ChartHandler, GraphicsHandler, TextHandler } from '../Handlers/index';
 import { RectangleHeader, RibbonHeader } from '../Headers';
 import { MessageBubble } from '../ToolTips';
-import { AutoLayerCommand, CommandManager, PositionCommand, RemoveChartCommand, RemoveGraphicCommand, RemoveTextCommand } from '../Commands/index'
+import { AutoLayerCommand, CommandManager, InsertTextCommand, PositionCommand, RemoveChartCommand, RemoveGraphicCommand, RemoveTextCommand } from '../Commands/index'
 import { InsertChartCommand } from '../Commands/EditorCommands/InsertChartCommand';
 
 class AInfographic 
@@ -270,31 +270,19 @@ class AInfographic
             this._AddListeners(group, 'graphic');
             this._GraphicHelper(group);
         } else if (type === 'text') {
-            // Set up text
-            let div = document.createElement('div'),
-                textElem = '<p><span style="line-height: 1.2; font-size: 20px; font-family: museo, serif;">' 
-                + element + '</span></p>';
-            div.innerHTML = textElem;
-
-            // Set up text handler 
-            this._textHandler.AddTextElem({
-                textElem: div,
+            insertCommand = new InsertTextCommand({
                 group: group,
-                x: 0,
-                y: 0,
-                rotateBy: 0,
-            });
-            this._textHandler.SetCSSInfo({
-                id: this._textHandler.GetCurrID(),
+                element: element,
                 fontFamily: this._quillMap('museo', 900),
-                fontSize: '20px',
-                textColor: '#000',
-                lineHeight: '1.2',
-                align: 'center',
+                handler: this._textHandler,
+                transformer: this._tr,
+                main: this._main
             });
+            this._commandManager.Execute(insertCommand);
 
             // Render the text 
-            var helperElem = document.createElement('div');
+            let helperElem = document.createElement('div'),
+                div = this._textHandler.GetTextElem(this._textHandler.GetCurrID());
             helperElem.style.position = 'absolute';
             document.getElementById('renderHelper').appendChild(helperElem);
             helperElem.appendChild(div);
