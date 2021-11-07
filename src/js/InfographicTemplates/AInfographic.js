@@ -499,35 +499,40 @@ class AInfographic
             this._GraphicHelper(group);
         }
         else if (type === 'image'){
-            //let imageGroup = new Konva.Group();
-            Konva.Image.fromURL(element, (image) => {
+            /*Konva.Image.fromURL(element, (image) => {
                 this._main.add(image);
-      
                 image.position({x: 0, y:0});
                 image.draggable(true);
-              });
+            });*/
             var imageObj = new Image();
             imageObj.src = element;
-            let graphic = new Konva.Image({
-                x: 0,
-                y: 0,
-                image: imageObj
-            });
             var imageHelper = new Konva.Image();
+            imageHelper.setAttrs({
+                x: 0, 
+                y: 0,
+                height: 200,
+                width: 200,
+                image: imageObj,
+                opacity: 1,
+                stroke: 'black',
+                strokeWidth: 0
+            });
             imageHelper.cache();
             imageHelper.filters([
                 Konva.Filters.Contrast,
                 Konva.Filters.Brighten,
                 Konva.Filters.Blur,
             ]);
+            imageHelper.brightness(0);
+            imageHelper.blurRadius(0);
+            imageHelper.contrast(0);
+
             group.add(imageHelper);
-            //group.add(imageGroup);
             this._graphicsHandler.AddGraphic({
-            type: 'image',
-            graphic: imageHelper,
-            group: group,
+                type: 'image',
+                graphic: imageHelper,
+                group: group,
              });
-            console.log(this._graphicsHandler);
 
             group.on('dblclick', () => {
                 this._GraphicHelper(group);
@@ -1039,7 +1044,6 @@ class AInfographic
     _GraphicHelper(group)
     {
         this._selectedGraphicIndex = group.getAttr('id');
-        alert(this._selectedGraphicIndex);
         let type = this._graphicsHandler.GetType(this._selectedGraphicIndex);
         this._tr.nodes([group]);
         this._tr.moveToTop();

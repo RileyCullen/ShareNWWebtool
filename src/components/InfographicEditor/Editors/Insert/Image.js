@@ -12,7 +12,6 @@ class Image extends React.Component
                 <div id='upper-image-upload-container'>
                     <input id="upload-image-input" type="file" accept="image/png, image/jpeg, image/jpg" onChange={(event) => {
                         if (document.getElementById("upload-image-input").value){
-                            //URL.createObjectURL(event.target.files[0])
                             var filename = URL.createObjectURL(event.target.files[0]);
                             this.props.toggleInsert('image',filename);
                         }
