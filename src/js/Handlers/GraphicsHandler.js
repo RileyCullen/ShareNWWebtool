@@ -37,6 +37,26 @@ class GraphicsHandler
     }
 
     /**
+     * @summary     Adds a graphic to the handler at index.
+     * @description NOTE that this function assumes that index is less than or 
+     *              equal to _curr.
+     * @param {*} param0 
+     */
+    AddGraphicAtIndex({type, graphic, group, index})
+    {
+        let elem = {};
+        this._handler.splice(index, 0, elem);
+        this.UpdateGraphic({
+            id: index,
+            type: type,
+            graphic: graphic,
+            group: group,
+        });
+        this._curr++;
+        this._UpdateHandlerId();
+    }
+
+    /**
      * @summary     Removes the element at id from the handler.
      * @summary     Calls the graphic object's remove (or destroy) function, which
      *              removes the instance from the infographic. Then, the instance

@@ -55,6 +55,28 @@ class ChartHandler
     }
 
     /**
+     * @summary     Adds a chart to the handler at the location specified by 
+     *              index.
+     * @description Note that this function assumes that index is less than or
+     *              equal to _curr.
+     * @param {*} param0 
+     */
+    AddChartAtIndex({chart, group, type, index})
+    {
+        let elem = {
+            chart: chart,
+            decorators: [],
+            decoratorSize: -1,
+            group: group,
+            type: type
+        };
+        this._handler.splice(index, 0, elem);
+        this._UpdateHandlerId();
+        group.setAttr('name', 'Selectable Chart ' + type);
+        this._curr++;
+    }
+
+    /**
      * @summary     Adds a decorator to the chart specified by id.
      * @description See summary. 
      * 
