@@ -504,29 +504,32 @@ class AInfographic
                 image.position({x: 0, y:0});
                 image.draggable(true);
             });*/
-            var imageObj = new Image();
-            imageObj.src = element;
-            var imageHelper = new Konva.Image();
-            imageHelper.setAttrs({
-                x: 0, 
-                y: 0,
-                height: 200,
-                width: 200,
-                image: imageObj,
-                opacity: 1,
-                stroke: 'black',
-                strokeWidth: 0
-            });
-            imageHelper.cache();
-            imageHelper.filters([
-                Konva.Filters.Contrast,
-                Konva.Filters.Brighten,
-                Konva.Filters.Blur,
-            ]);
-            imageHelper.brightness(0);
-            imageHelper.blurRadius(0);
-            imageHelper.contrast(0);
+            var imageObj = new Image(), imageHelper = new Konva.Image();
+            imageObj.onload = () => {
+                imageHelper.setAttrs({
+                    x: 0, 
+                    y: 0,
+                    height: 200,
+                    width: 200,
+                    image: imageObj,
+                    opacity: 1,
+                    stroke: 'black',
+                    strokeWidth: 0
+                });
+                imageHelper.cache();
+                imageHelper.filters([
+                    Konva.Filters.Contrast,
+                    Konva.Filters.Brighten,
+                    Konva.Filters.Blur,
+                ]);
+                imageHelper.brightness(0);
+                imageHelper.blurRadius(0);
+                imageHelper.contrast(0);
+                this._main.batchDraw();
+                imageObj.onload = null;
+            };
 
+            imageObj.src = element;
             group.add(imageHelper);
             this._graphicsHandler.AddGraphic({
                 type: 'image',
