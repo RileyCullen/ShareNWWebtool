@@ -319,6 +319,48 @@ class AInfographic
             this._AddListeners(group, 'graphic');
             this._GraphicHelper(group);
         }
+        else if (type === 'image'){
+            var imageObj = new Image(), imageHelper = new Konva.Image();
+            imageObj.onload = () => {
+                imageHelper.image(imageObj);
+                imageHelper.cache();
+                imageHelper.filters([
+                    Konva.Filters.Contrast,
+                    Konva.Filters.Brighten,
+                    Konva.Filters.Blur,
+                ]);
+                imageHelper.brightness(0);
+                imageHelper.blurRadius(0);
+                imageHelper.contrast(0);
+                this._main.batchDraw();
+                imageObj.onload = null;
+            };
+            imageHelper.setAttrs({
+                x: 0, 
+                y: 0,
+                height: 200,
+                width: 200,
+                opacity: 1,
+                stroke: 'black',
+                strokeWidth: 0
+            });
+
+            imageObj.src = element;
+            group.add(imageHelper);
+            this._graphicsHandler.AddGraphic({
+                type: 'image',
+                graphic: imageHelper,
+                group: group,
+             });
+
+            group.on('dblclick', () => {
+                this._GraphicHelper(group);
+            });
+            group.on('dragend', () => {
+                this._SwitchContainerOnDrag(group);
+            });
+            this._GraphicHelper(group);
+        }
         this._main.batchDraw();
     }
 
