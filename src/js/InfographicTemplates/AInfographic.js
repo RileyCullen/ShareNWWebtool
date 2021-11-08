@@ -499,23 +499,9 @@ class AInfographic
             this._GraphicHelper(group);
         }
         else if (type === 'image'){
-            /*Konva.Image.fromURL(element, (image) => {
-                this._main.add(image);
-                image.position({x: 0, y:0});
-                image.draggable(true);
-            });*/
             var imageObj = new Image(), imageHelper = new Konva.Image();
             imageObj.onload = () => {
-                imageHelper.setAttrs({
-                    x: 0, 
-                    y: 0,
-                    height: 200,
-                    width: 200,
-                    image: imageObj,
-                    opacity: 1,
-                    stroke: 'black',
-                    strokeWidth: 0
-                });
+                imageHelper.image(imageObj);
                 imageHelper.cache();
                 imageHelper.filters([
                     Konva.Filters.Contrast,
@@ -528,6 +514,15 @@ class AInfographic
                 this._main.batchDraw();
                 imageObj.onload = null;
             };
+            imageHelper.setAttrs({
+                x: 0, 
+                y: 0,
+                height: 200,
+                width: 200,
+                opacity: 1,
+                stroke: 'black',
+                strokeWidth: 0
+            });
 
             imageObj.src = element;
             group.add(imageHelper);
