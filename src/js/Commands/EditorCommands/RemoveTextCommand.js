@@ -25,14 +25,14 @@ class RemoveTextCommand extends ACommand
 
     Unexecute()
     {
-        this._handler.AddRenderedTextElem({
+        this._handler.AddRenderedTextElemAtIndex({
             textElem: this._textElem,
             group: this._group,
             image: this._image,
-            spanCSS: this._spanCSS
+            spanCSS: this._spanCSS,
+            index: this._id,
         });
 
-        this._id = this._handler.GetCurrID();
         this._image.id(this._id);
         this._main.batchDraw();
     }

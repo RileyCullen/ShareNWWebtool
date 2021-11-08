@@ -36,12 +36,12 @@ class RemoveGraphicCommand extends ACommand
     {
         if (this._type !== 'header') this._group.add(this._graphic)
         
-        this._handler.AddGraphic({
+        this._handler.AddGraphicAtIndex({
             type: this._type,
             graphic: this._graphic,
             group: this._group,
+            index: this._id,
         });
-        this._id = this._handler.GetId();
         this._main.batchDraw();
     }
 }
