@@ -136,6 +136,7 @@ class InfographicEditor extends React.Component
     {
         this.setState({
             undo: true,
+            chartData: 0,
         });
     }
 
@@ -148,6 +149,7 @@ class InfographicEditor extends React.Component
     {
         this.setState({
             redo: true,
+            chartData: 0,
         });
     }
 
