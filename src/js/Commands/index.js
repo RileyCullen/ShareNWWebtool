@@ -9,3 +9,4 @@ export { InsertChartCommand } from './EditorCommands/InsertChartCommand';
 export { InsertIconCommand } from './EditorCommands/InsertIconCommand';
 export { InsertHeaderCommand } from './EditorCommands/InsertHeaderCommand';
 export { LayerCommand } from './EditorCommands/LayerCommand';
+export { ChartDataCommand } from './EditorCommands/ChartDataCommand';
