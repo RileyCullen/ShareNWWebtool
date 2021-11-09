@@ -7,7 +7,7 @@ import html2canvas from 'html2canvas';
 import { ChartHandler, GraphicsHandler, TextHandler } from '../Handlers/index';
 import { RectangleHeader, RibbonHeader } from '../Headers';
 import { MessageBubble } from '../ToolTips';
-import { AutoLayerCommand, CommandManager, InsertHeaderCommand, InsertIconCommand, InsertTextCommand, LayerCommand, PositionCommand, RemoveChartCommand, RemoveGraphicCommand, RemoveTextCommand } from '../Commands/index'
+import { AutoLayerCommand, ChartDataCommand, CommandManager, InsertHeaderCommand, InsertIconCommand, InsertTextCommand, LayerCommand, PositionCommand, RemoveChartCommand, RemoveGraphicCommand, RemoveTextCommand } from '../Commands/index'
 import { InsertChartCommand } from '../Commands/EditorCommands/InsertChartCommand';
 
 class AInfographic 
@@ -743,25 +743,28 @@ class AInfographic
     UpdateChartData(chartData)
     {
         if (chartData === 0 || this._selectedChartIndex === -1) return;
-        var elem = this._chartHandler.GetHandlerElem(this._selectedChartIndex),
-            name = elem.group.getAttr('name');
-        if (name === 'Selectable Chart Waffle') {
-            // We assume that the data will be formatted as follows
-            // data = {
-            //    numerator: {num}, denominator: {num}
-            // }
-            if (chartData.numerator === 0 || chartData.denominator === 0) return;
-            var numerator = chartData.numerator, denominator = chartData.denominator;
-            elem.chart.UpdateData(parseInt(numerator), parseInt(denominator));
-        } else {
-            // We assume that the data will be formated as follows
-            // data = [
-            //    { category: {string}, value: {float}, color: {string}}, ...   
-            // ]
-            elem.chart.UpdateData(chartData);
-        } 
 
-        this._UpdateDecorators(elem);
+        let currData = this._chartHandler.GetChart(this._selectedChartIndex).GetData(),
+            type = this._chartHandler.GetGroup(this._selectedChartIndex).getAttr('name');
+
+        // Basically, UpdateChartData is called multiple times because it is 
+        // called each time CanvasContainer is rendered. Is this the best design
+        // decision? Maybe not, but to avoid adding too many commands to the
+        // command manager, we need this following check.
+        if (currData === chartData) return; 
+
+        // Same reason as above but case specific to waffle chart type.
+        if (type === 'Selectable Chart Waffle' && 
+            (currData.numerator === chartData.numerator && 
+            currData.denominator === chartData.denominator)) return;
+
+        let updateCommand = new ChartDataCommand({
+            data: chartData,
+            handler: this._chartHandler,
+            id: this._selectedChartIndex,
+        });
+
+        this._commandManager.Execute(updateCommand);
     }
 
     UpdateChartSettings(settings)
