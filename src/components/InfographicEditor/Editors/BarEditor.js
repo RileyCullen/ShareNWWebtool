@@ -85,7 +85,6 @@ class BarEditor extends React.Component
 
     render()
     {        
-        console.log(this._defaultSettings);
         let content = {
             chartSettings: [
                 <Menu 
