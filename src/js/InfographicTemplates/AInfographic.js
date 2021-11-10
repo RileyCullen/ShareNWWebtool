@@ -108,6 +108,7 @@ class AInfographic
         // remove an element, undo, select the element, then redo, it will 
         // cause a runtime error since the editor has not been reset.
         this._ResetEditor(undoObj)
+        this._UpdateEditorUI(undoObj);
     }
 
     /**
@@ -118,6 +119,7 @@ class AInfographic
     {
         let redoObj = this._commandManager.Redo();
         this._ResetEditor(redoObj);
+        this._UpdateEditorUI(redoObj);
     }
 
     /**
@@ -134,6 +136,20 @@ class AInfographic
         if (isRemoveObj || isInsertObj) {
             this._selectedTextIndex = this._selectedGraphicIndex = this._selectedChartIndex = -1;
             this._editorHandler('none')
+        }
+    }
+
+    /**
+     * @summary Updates the editor UI.
+     * @param {ACommand} obj 
+     */
+    _UpdateEditorUI(obj)
+    {
+        if (obj instanceof ChartDataCommand && this._selectedChartIndex !== -1) {
+            alert('_UpdateEditorUI');
+            let chart = this._chartHandler.GetChart(this._selectedChartIndex),
+                dSettings = this._chartHandler.GetDecoratorSettingsArray(this._selectedChartIndex);
+            this._chartCallback(chart.GetData(), chart.GetChartSettings(), dSettings);
         }
     }
 
