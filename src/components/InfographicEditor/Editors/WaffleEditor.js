@@ -125,6 +125,7 @@ class WaffleEditor extends React.Component
      */
     _SetChartData(id, value)
     {
+        if (value === '') return;
         if (id === 0) {
             this._data.numerator = value;
         } else {
