@@ -39,6 +39,7 @@ class InfographicEditor extends React.Component
             backgroundSettings: 0,
             undo: false,
             redo: false,
+            isUpdatingChart: false,
         };
         this._editorTextElem = 0;
         this._infogDimensions = {
@@ -95,6 +96,7 @@ class InfographicEditor extends React.Component
                         backgroundSettings={this.state.backgroundSettings}
                         undo={this.state.undo}
                         redo={this.state.redo}
+                        isUpdatingChart={this.state.isUpdatingChart}
                         style={{flex: 1}}
                     />
                 </div>
@@ -124,6 +126,7 @@ class InfographicEditor extends React.Component
         if (this.state.updateElement !== 'none') this.setState({updateElement: 'none'});
         if (this.state.undo) this.setState({undo: false});
         if (this.state.redo) this.setState({redo: false});
+        if (this.state.isUpdatingChart) this.setState({isUpdatingChart: false});
         this._clearSelection = false;
     }
 
@@ -136,7 +139,6 @@ class InfographicEditor extends React.Component
     {
         this.setState({
             undo: true,
-            chartData: 0,
         });
     }
 
@@ -149,7 +151,6 @@ class InfographicEditor extends React.Component
     {
         this.setState({
             redo: true,
-            chartData: 0,
         });
     }
 
@@ -303,6 +304,7 @@ class InfographicEditor extends React.Component
     {
         this.setState({
             chartData: chartData,
+            isUpdatingChart: true,
         });
     }
 
@@ -310,6 +312,7 @@ class InfographicEditor extends React.Component
     {
         this.setState({
             cSettings: settings,
+            isUpdatingChart: true,
         });
     }
 
@@ -317,6 +320,7 @@ class InfographicEditor extends React.Component
     {
         this.setState({
             dSettings: settings,
+            isUpdatingChart: true,
         });
     }
 
