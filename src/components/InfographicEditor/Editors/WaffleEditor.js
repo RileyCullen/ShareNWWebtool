@@ -9,10 +9,6 @@ class WaffleEditor extends React.Component
     constructor(props)
     {
         super(props);
-        this._data = {
-            numerator: (props.chartData === 0) ? 0 : props.chartData.numerator,
-            denominator: (props.chartData === 0) ? 0 : props.chartData.denominator,
-        };
 
         this._defaultFont = {
             fontFamily: 'Times New Roman, Times, serif',
@@ -40,25 +36,35 @@ class WaffleEditor extends React.Component
 
     render()
     {
-        let rows = 1, cols = 10;
+        let rows = 1, cols = 10, data = {
+            numerator: (this.props.chartData === 0) ? 0 : this.props.chartData.numerator,
+            denominator: (this.props.chartData === 0) ? 1 : this.props.chartData.denominator
+        };
 
+        // NOTE: that index is set to data.numerator and data.denominator 
+        // respectively because without it, undoing/redoing the changing of 
+        // chart data will not be shown in the UI.
+        //
+        // Essentially, if index = 0, 1 respectively (this is how it was origin-
+        // ally), the LabeledTextFields would not rerender when undo/redo is
+        // called.
         let chartDataContent = [
                 <div className='center'>
                     <LabeledTextField 
                         label='Numerator:'
-                        index={0}
-                        initialValue={this._data.numerator}
+                        index={data.numerator}
+                        initialValue={data.numerator}
                         rows={rows}
                         cols={cols}
-                        onChange={(d, i) => { this._SetChartData(i, d); }}
+                        onChange={(d, i) => { this._SetChartData(0, d); }}
                     />
                     <LabeledTextField 
                         label='Denominator:'
-                        index={1}
-                        initialValue={this._data.denominator}
+                        index={data.denominator}
+                        initialValue={data.denominator}
                         rows={rows}
                         cols={cols}
-                        onChange={(d, i) => { this._SetChartData(i, d); }}
+                        onChange={(d, i) => { this._SetChartData(1, d); }}
                     />
                 </div>
         ]
@@ -126,18 +132,13 @@ class WaffleEditor extends React.Component
     _SetChartData(id, value)
     {
         if (value === '') return;
+        let data = this.props.chartData;
         if (id === 0) {
-            this._data.numerator = value;
+            data.numerator = value;
         } else {
-            this._data.denominator = value;
+            data.denominator = value;
         }
-
-        // copy data
-        var tmp = {
-            numerator: this._data.numerator,
-            denominator: this._data.denominator,
-        };
-        this.props.setChartData(tmp);
+        this.props.setChartData(data);
     }
 
     _SetChartSettings(category, key, value)

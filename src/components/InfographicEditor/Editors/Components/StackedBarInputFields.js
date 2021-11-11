@@ -21,7 +21,7 @@ class StackedBarInputFields extends React.Component
         let data = this._ReformatData(), 
             categories = Array.from(new Set(this.props.chartData.map(d => d.category))),
             cols = 10;
-        console.log(this.props.chartData)
+        console.log(data)
         return (
             <div style={{
                 overflow: 'auto'
@@ -95,12 +95,11 @@ class StackedBarInputFields extends React.Component
                                     {
                                         d.data.map((d, i) => {
                                             let content = false;
-                                            console.log(d)
                                             categories.forEach((e, j) => {
                                                 if (e === d.category) {
                                                     content = <TextField 
                                                     key={d.subcategory + '-' + j + '-category'}
-                                                    id={j + '-category'}
+                                                    id={d.value + '-category'}
                                                     index={d.originalIndex}
                                                     initialValue={d.value}
                                                     rows={1}
