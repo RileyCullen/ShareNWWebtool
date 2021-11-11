@@ -47,7 +47,7 @@ class StackedBarInputFields extends React.Component
                                             }}/>
                                         <TextField 
                                             key={this.props.chartData.length + '-category'}
-                                            id={i + '-category'}
+                                            id={d + '-category'}
                                             index={i}
                                             initialValue={d}
                                             rows={1}
@@ -76,7 +76,7 @@ class StackedBarInputFields extends React.Component
                             <div className='stacked-bar-grid-four extra-margin'>
                                 <ColorPicker
                                     key={d.subcategory + '-' + i + '-color'}
-                                    id='stacked-bar-color-picker' 
+                                    id={d.data[0].color + '-stacked-bar-color-picker'}
                                     color={d.data[0].color}
                                     onChange={(color) => { 
                                         this._SetColor(data, color, i);
@@ -84,7 +84,7 @@ class StackedBarInputFields extends React.Component
                                 />
                                 <TextField 
                                     key={d.subcategory + '-' + i + '-subcategory'}
-                                    id={i + '-subcategory'}
+                                    id={d.subcategory + '-subcategory'}
                                     index={i}
                                     initialValue={d.subcategory}
                                     rows={1}
