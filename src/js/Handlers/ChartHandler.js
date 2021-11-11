@@ -198,6 +198,7 @@ class ChartHandler
             elem.decorators = BuildLineChartDecoratorList(elem.chart, dSettings);
         }
         elem.decoratorSize = elem.decorators.length - 1;
+        elem.group.removeChildren();
         elem.decorators[elem.decoratorSize].CreateChart();
     }
 
