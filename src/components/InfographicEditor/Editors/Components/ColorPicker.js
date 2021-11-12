@@ -21,6 +21,15 @@ class ColorPicker extends React.Component
         );
     }
 
+    componentDidUpdate(prevProps)
+    {
+        if (prevProps.color !== this.props.color) {
+            this.setState({
+                value: this.props.color,
+            });
+        }
+    }
+
     _HandleChange(event)
     {
         this.setState({

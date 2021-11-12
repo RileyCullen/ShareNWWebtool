@@ -56,6 +56,15 @@ class FontSelector extends React.Component
         );
     }
 
+    componentDidUpdate(prevProps)
+    {
+        if (prevProps.initialFont !== this.props.initialFont) {
+            this.setState({
+                currentFont: this.props.initialFont,
+            })
+        }
+    }
+
     _HandleChange(key, value)
     {
         let newFont = this.state.currentFont;
