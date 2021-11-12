@@ -5,9 +5,10 @@
 import Konva from 'konva';
 import html2canvas from 'html2canvas';
 import { ChartHandler, GraphicsHandler, TextHandler } from '../Handlers/index';
-import { RectangleHeader, RibbonHeader } from '../Headers';
-import { MessageBubble } from '../ToolTips';
-import { AutoLayerCommand, ChartDataCommand, ChartDecoratorCommand, CommandManager, InsertHeaderCommand, InsertIconCommand, InsertTextCommand, LayerCommand, PositionCommand, RemoveChartCommand, RemoveGraphicCommand, RemoveTextCommand } from '../Commands/index'
+import { AutoLayerCommand, ChartDataCommand, ChartDecoratorCommand, 
+    CommandManager, InsertHeaderCommand, InsertIconCommand, InsertTextCommand, 
+    LayerCommand, PositionCommand, RemoveChartCommand, RemoveGraphicCommand, 
+    RemoveTextCommand } from '../Commands/index'
 import { InsertChartCommand } from '../Commands/EditorCommands/InsertChartCommand';
 
 class AInfographic 
