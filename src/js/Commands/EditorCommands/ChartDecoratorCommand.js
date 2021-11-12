@@ -1,15 +1,16 @@
 import { ACommand } from '../ACommand';
+import Lodash from 'lodash';
 
 class ChartDecoratorCommand extends ACommand
 {
     constructor({decoratorSettings, handler, id})
     {
         super();
-        this._decoratorSettings = decoratorSettings;
+        this._decoratorSettings = Lodash.cloneDeep(decoratorSettings);
         this._handler = handler;
         this._id = id;
 
-        this._originalDecorators = this._handler.GetDecoratorSettingsArray(id);
+        this._originalDecorators = Lodash.cloneDeep(this._handler.GetDecoratorSettingsArray(id));
     }
 
     /**
@@ -25,7 +26,6 @@ class ChartDecoratorCommand extends ACommand
      */
     Unexecute()
     {
-        console.log(this._originalDecorators)
         this._handler.UpdateChartDecorators(this._id, this._originalDecorators);
     }
 }
