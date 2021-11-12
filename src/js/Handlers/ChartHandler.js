@@ -199,7 +199,8 @@ class ChartHandler
         }
         elem.decoratorSize = elem.decorators.length - 1;
         elem.group.removeChildren();
-        elem.decorators[elem.decoratorSize].CreateChart();
+        if (elem.decoratorSize === -1) elem.chart.CreateChart();
+        else elem.decorators[elem.decoratorSize].CreateChart();
     }
 
     UpdateLayering(id, action)
