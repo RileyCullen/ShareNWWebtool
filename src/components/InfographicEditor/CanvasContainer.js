@@ -105,9 +105,11 @@ class CanvasContainer extends React.Component
                 this._infogObj.Undo();
             } else if (this.props.redo){
                 this._infogObj.Redo();
-            } else if (this.props.isUpdatingChart) {
-                this._infogObj.UpdateChartDecorators(this.props.dSettings);
+            } else if (this.props.isUpdatingChartData) {
                 this._infogObj.UpdateChartData(this.props.chartData);
+            } else if (this.props.isUpdatingChartDecorators) {
+                this._infogObj.UpdateChartDecorators(this.props.dSettings);  
+            } else if (this.props.isUpdatingChartSettings) {
                 this._infogObj.UpdateChartSettings(this.props.cSettings);
             } else {
                 this._infogObj.UpdateTextHandler(this.props.textElem);

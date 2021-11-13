@@ -39,7 +39,9 @@ class InfographicEditor extends React.Component
             backgroundSettings: 0,
             undo: false,
             redo: false,
-            isUpdatingChart: false,
+            isUpdatingChartData: false,
+            isUpdatingChartDecorators: false,
+            isUpdatingChartSettings: false,
         };
         this._editorTextElem = 0;
         this._infogDimensions = {
@@ -96,7 +98,9 @@ class InfographicEditor extends React.Component
                         backgroundSettings={this.state.backgroundSettings}
                         undo={this.state.undo}
                         redo={this.state.redo}
-                        isUpdatingChart={this.state.isUpdatingChart}
+                        isUpdatingChartData={this.state.isUpdatingChartData}
+                        isUpdatingChartDecorators={this.state.isUpdatingChartDecorators}
+                        isUpdatingChartSettings={this.state.isUpdatingChartSettings}
                         style={{flex: 1}}
                     />
                 </div>
@@ -126,7 +130,8 @@ class InfographicEditor extends React.Component
         if (this.state.updateElement !== 'none') this.setState({updateElement: 'none'});
         if (this.state.undo) this.setState({undo: false});
         if (this.state.redo) this.setState({redo: false});
-        if (this.state.isUpdatingChart) this.setState({isUpdatingChart: false});
+        if (this.state.isUpdatingChartData) this.setState({isUpdatingChartData: false});
+        if (this.state.isUpdatingChartDecorators) this.setState({isUpdatingChartDecorators: false});
         this._clearSelection = false;
     }
 
@@ -304,7 +309,7 @@ class InfographicEditor extends React.Component
     {
         this.setState({
             chartData: chartData,
-            isUpdatingChart: true,
+            isUpdatingChartData: true,
         });
     }
 
@@ -312,7 +317,7 @@ class InfographicEditor extends React.Component
     {
         this.setState({
             cSettings: settings,
-            isUpdatingChart: true,
+            isUpdatingChartSettings: true,
         });
     }
 
@@ -320,7 +325,7 @@ class InfographicEditor extends React.Component
     {
         this.setState({
             dSettings: settings,
-            isUpdatingChart: true,
+            isUpdatingChartDecorators: true,
         });
     }
 
