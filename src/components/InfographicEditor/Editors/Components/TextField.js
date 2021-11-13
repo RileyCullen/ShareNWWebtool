@@ -29,6 +29,7 @@ class TextField extends React.Component
 
     componentDidUpdate(prevProps)
     {
+        if (isNaN(this.props.initialValue)) return;
         if (prevProps.initialValue !== this.props.initialValue) {
             this.setState({
                 value: this.props.initialValue,
