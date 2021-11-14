@@ -1,4 +1,5 @@
 import React from 'react';
+import Lodash from 'lodash';
 import { Editor, Menu, BarChartInputFields, LabeledColorPicker, LabeledTextField,
     LabeledCheckbox, FontSelector, LabeledDropdown } from './Components/index';
 
@@ -48,7 +49,6 @@ class IconBarEditor extends React.Component
 
     render()
     {
-        console.log(this.props.dSettings);
         let chartDataContent = [
             <BarChartInputFields 
                 chartData={this.props.chartData} 
@@ -106,6 +106,13 @@ class IconBarEditor extends React.Component
                 <Editor content={content}/>
             </div>
         )
+    }
+
+    componentDidUpdate(prevProps)
+    {
+        if (!Lodash.isEqual(prevProps.dSettings, this.props.dSettings)) {
+            this._settingsManager.SetDSettings(this.props.dSettings);
+        }
     }
 
     _SetChartSettings(category, key, value)

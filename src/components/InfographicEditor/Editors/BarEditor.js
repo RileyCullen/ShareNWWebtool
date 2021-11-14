@@ -1,4 +1,5 @@
 import React from 'react';
+import Lodash from 'lodash';
 import { Editor, BarChartInputFields, Menu, LabeledTextField, LabeledColorPicker 
     , FontSelector, LabeledDropdown, StackedBarInputFields} from './Components/index';
 import { LabeledCheckbox } from './Components/LabeledCheckbox';
@@ -209,6 +210,13 @@ class BarEditor extends React.Component
                 <Editor content={content} />
             </div>
         );
+    }
+
+    componentDidUpdate(prevProps)
+    {
+        if (!Lodash.isEqual(prevProps.dSettings, this.props.dSettings)) {
+            this._settingsManager.SetDSettings(this.props.dSettings);
+        }
     }
 
     _SetChartSettings(category, key, value)

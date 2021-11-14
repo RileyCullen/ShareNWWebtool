@@ -1,6 +1,7 @@
 import React from 'react';
-import { Editor, Menu, LabeledTextField, LabeledColorPicker, FontSelector, LabeledDropdown, LineChartInputFields } from './Components/index';
-
+import Lodash from 'lodash';
+import { Editor, Menu, LabeledTextField, LabeledColorPicker, FontSelector, 
+    LabeledDropdown, LineChartInputFields } from './Components/index';
 import '../../../css/React/Editors/ChartEditor.css';
 import { SettingsManager } from '../../Helpers/SettingsManager';
 
@@ -153,6 +154,13 @@ class LineEditor extends React.Component
                 <Editor content={content} />
             </div>
         )
+    }
+
+    componentDidUpdate(prevProps)
+    {
+        if (!Lodash.isEqual(prevProps.dSettings, this.props.dSettings)) {
+            this._settingsManager.SetDSettings(this.props.dSettings);
+        }
     }
 
     _SetChartSettings(category, key, value)

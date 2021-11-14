@@ -1,7 +1,7 @@
 import React from 'react';
+import Lodash from 'lodash';
 import { Editor, FontSelector, LabeledColorPicker, LabeledTextField, Menu, 
     PieChartInputFields } from './Components/index';
-
 import '../../../css/React/Editors/ChartEditor.css';
 import { SettingsManager } from '../../Helpers/SettingsManager';
 

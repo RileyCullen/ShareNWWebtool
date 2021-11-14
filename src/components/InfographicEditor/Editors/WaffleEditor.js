@@ -1,6 +1,6 @@
 import React from 'react';
 import { Menu, Editor, LabeledColorPicker, LabeledTextField, FontSelector, LabeledCheckbox } from './Components/index';
-
+import Lodash from 'lodash';
 import '../../../css/React/Editors/ChartEditor.css';
 import { SettingsManager } from '../../Helpers/SettingsManager';
 
@@ -120,6 +120,13 @@ class WaffleEditor extends React.Component
                 <Editor content={content}/>
             </div>
         );
+    }
+
+    componentDidUpdate(prevProps) 
+    {
+        if (!Lodash.isEqual(prevProps.dSettings, this.props.dSettings)) {
+            this._settingsManager(this.props.dSettings);
+        }
     }
 
     /**
