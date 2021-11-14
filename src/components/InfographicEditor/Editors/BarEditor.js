@@ -552,7 +552,16 @@ class BarEditor extends React.Component
                         initialValue={settings.labelSettings.maxPerRow}
                         rows={1}
                         cols={5}
-                        onChange={(d, i) => { 
+                        onChange={(d, i) => {
+                            // This empty check exists for a very unique and 
+                            // weird edge case when maxPerRow = ''. Since 
+                            // parseFloat('') = NaN, when this gets passed to 
+                            // the ChartDescriptorDecorator, it will basically
+                            // draw all of the labels on one line. When maxPerRows,
+                            // equals # of categories, then it will appear like 
+                            // too many command objects have been pushed to the 
+                            // stack.
+                            if (d === '') return; 
                             this._UpdateDecoratorSettings('chartDescriptor', 'labelSettings', 'maxPerRow', parseFloat(d));
                         }} 
                     />
