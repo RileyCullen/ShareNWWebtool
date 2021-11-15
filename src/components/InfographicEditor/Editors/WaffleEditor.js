@@ -127,6 +127,10 @@ class WaffleEditor extends React.Component
         if (!Lodash.isEqual(prevProps.dSettings, this.props.dSettings)) {
             this._settingsManager(this.props.dSettings);
         }
+
+        if (!Lodash.isEqual(prevProps.cSettings, this.props.cSettings)) {
+            this._settingsManager.SetCSettings(this.props.cSettings);
+        }
     }
 
     /**
