@@ -3,6 +3,7 @@
 // June 28, 2021
 
 import React from 'react';
+import Lodash from 'lodash';
 import {CanvasContainer} from './CanvasContainer';
 import { QuillEditor, WaffleEditor, BarEditor, IconBarEditor, 
     PieEditor, LineEditor, BackgroundElementEditor, ImageEditor, IconEditor, 
@@ -294,6 +295,15 @@ class InfographicEditor extends React.Component
 
     _ChartHandler(data, cSettings, dSettings)
     {
+        // Basically, charts with decorators already defined that use fonts need 
+        // the fonts to be deep copied before use (so we have the following to do 
+        // that).
+        for (const [key, value] of Object.entries(dSettings)) {
+            if (dSettings[key].hasOwnProperty('font')) {
+                dSettings[key].font = Lodash.cloneDeep(dSettings[key].font)
+            }
+        }
+
         this.setState({
             chartData: data,
             cSettings: cSettings,
