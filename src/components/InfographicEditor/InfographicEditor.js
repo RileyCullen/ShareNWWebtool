@@ -43,6 +43,7 @@ class InfographicEditor extends React.Component
             isUpdatingChartData: false,
             isUpdatingChartDecorators: false,
             isUpdatingChartSettings: false,
+            isUpdatingGraphicSettings: false,
         };
         this._editorTextElem = 0;
         this._infogDimensions = {
@@ -102,6 +103,7 @@ class InfographicEditor extends React.Component
                         isUpdatingChartData={this.state.isUpdatingChartData}
                         isUpdatingChartDecorators={this.state.isUpdatingChartDecorators}
                         isUpdatingChartSettings={this.state.isUpdatingChartSettings}
+                        isUpdatingGraphicSettings={this.state.isUpdatingGraphicSettings}
                         style={{flex: 1}}
                     />
                 </div>
@@ -134,6 +136,7 @@ class InfographicEditor extends React.Component
         if (this.state.isUpdatingChartData) this.setState({isUpdatingChartData: false});
         if (this.state.isUpdatingChartDecorators) this.setState({isUpdatingChartDecorators: false});
         if (this.state.isUpdatingChartSettings) this.setState({isUpdatingChartSettings: false});
+        if (this.state.isUpdatingGraphicSettings) this.setState({isUpdatingGraphicSettings: false});
         this._clearSelection = false;
     }
 
@@ -245,10 +248,11 @@ class InfographicEditor extends React.Component
         this._editorTextElem = textElem;
     }
 
-    _GraphicHandler(settings)
+    _GraphicHandler(settings, update = false)
     {
         this.setState({
             graphicSettings: settings,
+            isUpdatingGraphicSettings: update,
         });
     }
 
@@ -382,15 +386,15 @@ class InfographicEditor extends React.Component
         } else if (this.state.currentEditor === 'image-editor') {
             return <ImageEditor 
                 settings={this.state.graphicSettings}
-                setGraphicSettings={(settings) => { this._GraphicHandler(settings); }}/>;
+                setGraphicSettings={(settings) => { this._GraphicHandler(settings, true); }}/>;
         } else if (this.state.currentEditor === 'icon-editor') {
             return <IconEditor 
                 settings={this.state.graphicSettings}
-                setGraphicSettings={(settings) => { this._GraphicHandler(settings); }}/>;
+                setGraphicSettings={(settings) => { this._GraphicHandler(settings, true); }}/>;
         } else if (this.state.currentEditor === 'header-editor') {
             return <BackgroundElementEditor 
                 settings={this.state.graphicSettings}
-                setGraphicSettings={(settings) => { this._GraphicHandler(settings); }}/>;
+                setGraphicSettings={(settings) => { this._GraphicHandler(settings, true); }}/>;
         } else if (this.state.currentEditor === 'line-editor') {
             return <LineEditor 
                 chartData={this.state.chartData}
