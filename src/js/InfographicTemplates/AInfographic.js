@@ -6,6 +6,7 @@ import Konva from 'konva';
 import html2canvas from 'html2canvas';
 import { ChartHandler, GraphicsHandler, TextHandler } from '../Handlers/index';
 import { AutoLayerCommand, ChartDataCommand, ChartDecoratorCommand, 
+    ChartSettingsCommand, 
     CommandManager, InsertHeaderCommand, InsertIconCommand, InsertTextCommand, 
     LayerCommand, PositionCommand, RemoveChartCommand, RemoveGraphicCommand, 
     RemoveTextCommand } from '../Commands/index'
@@ -793,9 +794,12 @@ class AInfographic
     UpdateChartSettings(settings)
     {
         if (settings === 0 || this._selectedChartIndex === -1) return;
-        let elem = this._chartHandler.GetHandlerElem(this._selectedChartIndex);
-        elem.chart.UpdateChartSettings(settings);
-        this._UpdateDecorators(elem);
+        let updateObj = new ChartSettingsCommand({
+            settings: settings,
+            handler: this._chartHandler,
+            id: this._selectedChartIndex,
+        });
+        this._commandManager.Execute(updateObj);
     }
 
     UpdateGraphicSettings(settings)
