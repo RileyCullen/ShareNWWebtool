@@ -148,7 +148,8 @@ class AInfographic
     _UpdateEditorUI(obj)
     {
         let chartExpr = (obj instanceof ChartDataCommand || 
-            obj instanceof ChartDecoratorCommand); 
+            obj instanceof ChartDecoratorCommand || 
+            obj instanceof ChartSettingsCommand); 
         if (chartExpr && this._selectedChartIndex !== -1) {
             let chart = this._chartHandler.GetChart(this._selectedChartIndex),
                 dSettings = this._chartHandler.GetDecoratorSettingsArray(this._selectedChartIndex);
