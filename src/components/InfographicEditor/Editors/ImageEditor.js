@@ -59,7 +59,8 @@ class ImageEditor extends React.Component
                     initialValue={this.props.settings.width}
                     rows={1}
                     cols={5}
-                    onChange={(d, i) => { 
+                    onChange={(d, i) => {
+                        if (d === '') return; 
                         this._SetGraphicSettings('width', parseFloat(d));
                     }}
                 />
@@ -71,6 +72,7 @@ class ImageEditor extends React.Component
                     rows={1}
                     cols={5}
                     onChange={(d, i) => {
+                        if (d === '') return;
                         this._SetGraphicSettings('height', parseFloat(d));    
                     }}
                 />
@@ -110,6 +112,7 @@ class ImageEditor extends React.Component
                     rows={1}
                     cols={5}
                     onChange={(d, i) => { 
+                        if (d === '') return;
                         this._SetGraphicSettings('strokeWidth', parseFloat(d));
                     }}
                 />

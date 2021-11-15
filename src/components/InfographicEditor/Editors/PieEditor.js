@@ -296,7 +296,8 @@ class PieEditor extends React.Component
                         initialValue={chartOutline.size.radius}
                         rows={1}
                         cols={5}
-                        onChange={(d, i) => { 
+                        onChange={(d, i) => {
+                            if (d === '') return;
                             this._UpdateDecoratorSettings('chartOutline', 'size', 'radius', parseFloat(d));
                         }} 
                     />
@@ -307,6 +308,7 @@ class PieEditor extends React.Component
                         rows={1}
                         cols={5}
                         onChange={(d, i) => { 
+                            if (d === '') return;
                             this._UpdateDecoratorSettings('chartOutline', 'size', 'outlineWidth', parseFloat(d));
                         }} 
                     />

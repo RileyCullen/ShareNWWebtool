@@ -264,7 +264,10 @@ class BarEditor extends React.Component
                     initialValue={cSettings.size.chartWidth}
                     rows={1}
                     cols={cols}
-                    onChange={(d, i) => { this._SetChartSettings('size', 'chartWidth', parseFloat(d)); }}
+                    onChange={(d, i) => { 
+                        if (d === '') return;
+                        this._SetChartSettings('size', 'chartWidth', parseFloat(d)); 
+                    }}
                     />
                 <LabeledTextField
                     label='Height:'
@@ -272,7 +275,10 @@ class BarEditor extends React.Component
                     initialValue={cSettings.size.chartHeight}
                     rows={1}
                     cols={cols}
-                    onChange={(d, i) => { this._SetChartSettings('size', 'chartHeight', parseFloat(d)); }} 
+                    onChange={(d, i) => { 
+                        if (d === '') return 
+                        this._SetChartSettings('size', 'chartHeight', parseFloat(d)); 
+                    }} 
                 />
                 <LabeledTextField
                     label='Bar Padding:'
@@ -280,7 +286,10 @@ class BarEditor extends React.Component
                     initialValue={cSettings.size.padding}
                     rows={1}
                     cols={cols}
-                    onChange={(d, i) => { this._SetChartSettings('size', 'padding', parseFloat(d)); }} 
+                    onChange={(d, i) => { 
+                        if (d === '') return;
+                        this._SetChartSettings('size', 'padding', parseFloat(d)); 
+                    }} 
                 />
             </div>
         ];
@@ -397,6 +406,7 @@ class BarEditor extends React.Component
                         rows={1}
                         cols={5}
                         onChange={(d, i) => { 
+                            if (d === '') return;
                             this._UpdateDecoratorSettings('yAxis', 'size', 'lineStrokeWidth', parseFloat(d));
                         }} 
                     />
@@ -407,6 +417,7 @@ class BarEditor extends React.Component
                         rows={1}
                         cols={5}
                         onChange={(d, i) => { 
+                            if (d === '') return;
                             this._UpdateDecoratorSettings('yAxis', 'size', 'tickStrokeWidth', parseFloat(d));
                         }} 
                     />

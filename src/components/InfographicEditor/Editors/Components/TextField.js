@@ -27,6 +27,13 @@ class TextField extends React.Component
         </div>);
     }
 
+    componentDidUpdate(prevProps)
+    {
+        if (prevProps.initialValue !== this.props.initialValue) {
+            this.setState({ value: this.props.initialValue});
+        }
+    }
+
     /**
      * @summary     Event handler that is called when textarea content is change.
      * @description This function updates this component's state and then passes 

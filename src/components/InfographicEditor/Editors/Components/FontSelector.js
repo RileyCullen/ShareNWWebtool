@@ -58,6 +58,7 @@ class FontSelector extends React.Component
 
     _HandleChange(key, value)
     {
+        if (key === 'fontSize' && (isNaN(value) || value === '')) return;
         let newFont = this.state.currentFont;
         newFont[key] = value;
         this.setState({

@@ -279,7 +279,8 @@ class LineEditor extends React.Component
                         initialValue={settings.axis.axisStrokeWidth}
                         rows={1}
                         cols={5}
-                        onChange={(d, i) => { 
+                        onChange={(d, i) => {
+                            if (d === ''); 
                             this._UpdateDecoratorSettings('xAxis', 'axis', 'axisStrokeWidth', parseFloat(d));
                         }} 
                     />
@@ -290,6 +291,7 @@ class LineEditor extends React.Component
                         rows={1}
                         cols={5}
                         onChange={(d, i) => { 
+                            if (d === '') return;
                             this._UpdateDecoratorSettings('xAxis', 'axis', 'axisTickWidth', parseFloat(d));
                         }} 
                     />
@@ -332,6 +334,7 @@ class LineEditor extends React.Component
                         rows={1}
                         cols={5}
                         onChange={(d, i) => { 
+                            if (d === '') return;
                             this._UpdateDecoratorSettings('yAxis', 'axis', 'lineStrokeWidth', parseFloat(d));
                         }} 
                     />
@@ -342,6 +345,7 @@ class LineEditor extends React.Component
                         rows={1}
                         cols={5}
                         onChange={(d, i) => {
+                            if (d === '') return;
                             this._UpdateDecoratorSettings('yAxis', 'axis', 'tickStrokeWidth', parseFloat(d));
                         }} 
                     />
