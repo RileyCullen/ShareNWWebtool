@@ -14,14 +14,19 @@ class ChartSettingsCommand extends ACommand
 
     Execute()
     {
-        let elem = this._handler.GetHandlerElem(this._id);
-        elem.chart.UpdateChartSettings(settings);
-        this._UpdateDecorators();
+        this._UpdateSettings(this._settings);
     }
 
     Unexecute()
     {
-        
+        this._UpdateSettings(this._originalSettings);
+    }
+
+    _UpdateSettings(settings)
+    {
+        let elem = this._handler.GetHandlerElem(this._id);
+        elem.chart.UpdateChartSettings(settings);
+        this._UpdateDecorators();
     }
 
     _UpdateDecorators()
