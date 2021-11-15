@@ -7,7 +7,7 @@ import html2canvas from 'html2canvas';
 import { ChartHandler, GraphicsHandler, TextHandler } from '../Handlers/index';
 import { AutoLayerCommand, ChartDataCommand, ChartDecoratorCommand, 
     ChartSettingsCommand, 
-    CommandManager, InsertHeaderCommand, InsertIconCommand, InsertTextCommand, 
+    CommandManager, GraphicSettingsCommand, InsertHeaderCommand, InsertIconCommand, InsertTextCommand, 
     LayerCommand, PositionCommand, RemoveChartCommand, RemoveGraphicCommand, 
     RemoveTextCommand } from '../Commands/index'
 import { InsertChartCommand } from '../Commands/EditorCommands/InsertChartCommand';
@@ -154,6 +154,12 @@ class AInfographic
             let chart = this._chartHandler.GetChart(this._selectedChartIndex),
                 dSettings = this._chartHandler.GetDecoratorSettingsArray(this._selectedChartIndex);
             this._chartCallback(chart.GetData(), chart.GetChartSettings(), dSettings);
+        }
+
+        if (obj instanceof GraphicSettingsCommand && this._selectedGraphicIndex !== -1) {
+            this._graphicCallback(
+                this._graphicsHandler.GetSettings(this._selectedGraphicIndex)
+            );
         }
     }
 
@@ -806,10 +812,12 @@ class AInfographic
     UpdateGraphicSettings(settings)
     {
         if (settings === 0 || this._selectedGraphicIndex === -1) return;
-        this._graphicsHandler.UpdateGraphicSettings({
-            id: this._selectedGraphicIndex, 
-            settings:settings
-        });
+        this._commandManager.Execute(new GraphicSettingsCommand({
+            settings: settings,
+            handler: this._graphicsHandler,
+            id: this._selectedGraphicIndex,
+        }));
+        console.log(this._commandManager);
         this._tr.forceUpdate();
         this._main.batchDraw();
     }
