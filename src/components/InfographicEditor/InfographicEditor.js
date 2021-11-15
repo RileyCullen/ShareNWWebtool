@@ -133,6 +133,7 @@ class InfographicEditor extends React.Component
         if (this.state.redo) this.setState({redo: false});
         if (this.state.isUpdatingChartData) this.setState({isUpdatingChartData: false});
         if (this.state.isUpdatingChartDecorators) this.setState({isUpdatingChartDecorators: false});
+        if (this.state.isUpdatingChartSettings) this.setState({isUpdatingChartSettings: false});
         this._clearSelection = false;
     }
 
