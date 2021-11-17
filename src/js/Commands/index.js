@@ -13,3 +13,4 @@ export { ChartDataCommand } from './EditorCommands/ChartDataCommand';
 export { ChartDecoratorCommand } from './EditorCommands/ChartDecoratorCommand';
 export { ChartSettingsCommand } from './EditorCommands/ChartSettingsCommand';
 export { GraphicSettingsCommand } from './EditorCommands/GraphicSettingsCommand';
+export { TextContentCommand } from './EditorCommands/TextContentCommand';
