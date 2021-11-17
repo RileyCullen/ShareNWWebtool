@@ -44,6 +44,7 @@ class InfographicEditor extends React.Component
             isUpdatingChartDecorators: false,
             isUpdatingChartSettings: false,
             isUpdatingGraphicSettings: false,
+            isUpdatingTextElem: false,
         };
         this._editorTextElem = 0;
         this._infogDimensions = {
@@ -104,6 +105,7 @@ class InfographicEditor extends React.Component
                         isUpdatingChartDecorators={this.state.isUpdatingChartDecorators}
                         isUpdatingChartSettings={this.state.isUpdatingChartSettings}
                         isUpdatingGraphicSettings={this.state.isUpdatingGraphicSettings}
+                        isUpdatingTextElem={this.state.isUpdatingTextElem}
                         style={{flex: 1}}
                     />
                 </div>
@@ -137,6 +139,7 @@ class InfographicEditor extends React.Component
         if (this.state.isUpdatingChartDecorators) this.setState({isUpdatingChartDecorators: false});
         if (this.state.isUpdatingChartSettings) this.setState({isUpdatingChartSettings: false});
         if (this.state.isUpdatingGraphicSettings) this.setState({isUpdatingGraphicSettings: false});
+        if (this.state.isUpdatingTextElem) this.setState({isUpdatingTextElem: false});
         this._clearSelection = false;
     }
 
@@ -246,6 +249,9 @@ class InfographicEditor extends React.Component
     _SetEditorTextElem(textElem)
     {
         this._editorTextElem = textElem;
+        this.setState({
+            isUpdatingTextElem: true,
+        });
     }
 
     _GraphicHandler(settings, update = false)
