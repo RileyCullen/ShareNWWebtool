@@ -114,7 +114,11 @@ class CanvasContainer extends React.Component
             } else if (this.props.isUpdatingGraphicSettings) {
                 this._infogObj.UpdateGraphicSettings(this.props.graphicSettings);
             } else if (this.props.isUpdatingTextElem) {
-                this._infogObj.UpdateTextHandler(this.props.textElem);
+                this._infogObj.UpdateTextHandler({
+                    domText: this.props.domText,
+                    image: this.props.textImage,
+                    spanCSS: this.props.spanCSS,
+                });
             }
 
             if (this.props.clearSelection === true) {
