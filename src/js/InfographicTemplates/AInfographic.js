@@ -84,7 +84,6 @@ class AInfographic
         this._graphicCallback = graphicCallback;
 
         this._selectedTextIndex = -1;
-        this._selectedTextHelper = -1;
         this._selectedChartIndex = -1;
         this._selectedGraphicIndex = -1;
 
@@ -200,7 +199,7 @@ class AInfographic
         this._tr.nodes([]);
         this._selectedChartIndex = -1;
         this._selectedGraphicIndex = -1;
-        this._selectedTextIndex = this._selectedTextHelper = -1;
+        this._selectedTextIndex = -1;
     }
 
     Download()
@@ -675,7 +674,6 @@ class AInfographic
         this._main.batchDraw();
         
         this._selectedTextIndex = textElem.getAttr('id');
-        this._selectedTextHelper = this._selectedTextIndex;
 
         this._textCallback(this._textHandler.GetHandlerElem(this._selectedTextIndex));
         this._editorHandler('text-editor');
@@ -710,10 +708,9 @@ class AInfographic
             image: image,
             spanCSS: spanCSS,
             handler: this._textHandler,
-            id: this._selectedTextHelper,
+            id: this._selectedTextIndex,
         }));
 
-        this._selectedTextHelper = -1;
         this._main.batchDraw();
     }
 
@@ -737,7 +734,7 @@ class AInfographic
                 main: this._main,
             });
             this._commandManager.Execute(textObj);
-            this._selectedTextIndex = this._selectedTextHelper = -1;
+            this._selectedTextIndex = -1;
         } else if (this._selectedGraphicIndex !== -1) {
             let graphicsObj = new RemoveGraphicCommand({
                 id: this._selectedGraphicIndex,
