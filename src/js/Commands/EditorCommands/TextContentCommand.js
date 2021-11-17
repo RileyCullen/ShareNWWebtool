@@ -20,7 +20,9 @@ class TextContentCommand extends ACommand
         this._id = id;
 
         this._originalDomText = this._handler.GetTextElem(this._id);
-        this._originalImage = this._handler.GetImage(this._id).toCanvas();
+        this._originalImage = this._handler.GetImage(this._id).toCanvas({
+            pixelRatio: window.devicePixelRatio,
+        });
         this._originalSpanCSS = this._handler.GetSpanCSS(this._id);
     }
 
