@@ -2,34 +2,48 @@ import { ACommand } from '../ACommand';
 
 class TextContentCommand extends ACommand
 {
-    constructor({ textElem, handler, id})
+    constructor({ domText, image, spanCSS, handler, id})
     {
         super();
-        this._textElem = textElem;
+        this._domText = domText;
+        this._image = image;
+        this._spanCSS = spanCSS;
+
+        this._textElem = {
+            textElem: this._domText,
+            group: handler.GetGroup(id),
+            image: handler.GetImage(id),
+            spanCSS: this._spanCSS,
+        };
+
         this._handler = handler;
         this._id = id;
 
-        this._originalTextElem = this._handler.GetHandlerElem(this._id);
+        this._originalDomText = this._handler.GetTextElem(this._id);
+        this._originalImage = this._handler.GetImage(this._id).toCanvas();
+        this._originalSpanCSS = this._handler.GetSpanCSS(this._id);
     }
 
     Execute()
     {
-        this._UpdateContent(this._textElem);
+        this._textElem.image.image(this._image);
+        this._UpdateContent(this._domText, this._spanCSS);
     }
 
     Unexecute()
     {
-        this._UpdateContent(this._originalTextElem);
+        this._textElem.image.image(this._originalImage);
+        this._UpdateContent(this._originalDomText, this._originalSpanCSS);
     }
 
-    _UpdateContent(textElem)
+    _UpdateContent(textElem, spanCSS)
     {
         this._handler.UpdateTextElem({
             index: this._id,
-            textElem: textElem.textElem,
-            group: textElem.group,
-            image: textElem.image,
-            spanCSS: textElem.spanCSS,
+            textElem: textElem,
+            group: this._textElem.group,
+            image: this._textElem.image,
+            spanCSS: spanCSS,
         });
     }
 }
