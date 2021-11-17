@@ -127,7 +127,7 @@ function QuillEditor(props)
         }
 
         return () => { }
-    }, [props.textElem, Quill, quill]);
+    }, [Quill, quill]);
 
     return (
         <div className='text-editor-container'>
