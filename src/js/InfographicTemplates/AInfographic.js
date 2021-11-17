@@ -703,16 +703,12 @@ class AInfographic
      * 
      * @param {JSON} textElem A JSON object containing the updated textElem information.
      */
-    UpdateTextHandler(textElem)
-    {
-        if (textElem === undefined || textElem === 0 || textElem.image === undefined || 
-            textElem.textElem === undefined || textElem.group === undefined || 
-            textElem.spanCSS === undefined) {
-            return;
-        } 
-        
+    UpdateTextHandler({domText, image, spanCSS})
+    {        
         this._commandManager.Execute(new TextContentCommand({
-            textElem: textElem,
+            domText: domText,
+            image: image,
+            spanCSS: spanCSS,
             handler: this._textHandler,
             id: this._selectedTextHelper,
         }));
