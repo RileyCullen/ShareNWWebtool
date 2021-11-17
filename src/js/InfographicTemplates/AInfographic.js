@@ -704,9 +704,9 @@ class AInfographic
      */
     UpdateTextHandler(textElem)
     {
-        if (textElem.image === undefined || textElem.textElem === undefined || 
-            textElem.group === undefined || textElem.spanCSS === undefined || 
-            textElem === 0) {
+        if (textElem === undefined || textElem === 0 || textElem.image === undefined || 
+            textElem.textElem === undefined || textElem.group === undefined || 
+            textElem.spanCSS === undefined) {
             return;
         } 
         this._textHandler.UpdateTextElem({
