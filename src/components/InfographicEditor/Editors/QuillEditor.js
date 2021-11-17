@@ -86,7 +86,7 @@ function QuillEditor(props)
                 quillClass: Quill,
                 fontArr: fontArr,
                 textElem: props.textElem,
-                setTextElem: (textElem) => { props.setTextElem(textElem); }
+                setTextElem: (text, image, css) => { props.setTextElem(text, image, css); }
             });
 
             quill.on('selection-change', () => {
@@ -390,7 +390,7 @@ function ReformatQuillFont(quill, lower, upper, useFontArray, _font, fontArr, in
  */
 function AddQuillListeners({quill, sizelist, font, quillClass, fontArr, textElem, setTextElem})
 {
-    AddTextListener(quill, font, fontArr, textElem, (textElem) => {setTextElem(textElem);});
+    AddTextListener(quill, font, fontArr, textElem, (text, image, css) => {setTextElem(text, image, css);});
     AddFontListener(quill, font);
     AddFontColorListener(quill, font);
     AddFontSizeListener(quill, font, sizelist, quillClass);
@@ -471,7 +471,7 @@ function AddTextListener(quill, font, fontArr, textElem, setTextElem)
     var timeout = {timeout: null};
     quill.on('text-change', () => { 
         UpdateQuillFont(quill, false, font.font, fontArr);
-        UpdateTextListener(quill, timeout, textElem, (textElem) => (setTextElem(textElem))); 
+        UpdateTextListener(quill, timeout, textElem, (text, image, css) => (setTextElem(text, image, css))); 
     });
 }
 
@@ -541,16 +541,8 @@ function HTMLToCanvas(quill, textElem, setTextElem)
         // Update the <canvas> with the new text image... NOTE that his occurs
         // as soon as the change is detected while the actual textElement (in
         // infographic) is not updated until the text editor is removed.
-        textElem.image.image(image);
-
-        // Create a new text element and pass it to InfographicEditor
-        var newElem = {
-            textElem: textElem.textElem,
-            group: textElem.group,
-            image: textElem.image,
-            spanCSS: textElem.spanCSS
-        };
-        setTextElem(newElem, image);
+        
+        setTextElem(qlEditor, image, textElem.spanCSS);
     });
     helper.remove();
 }
