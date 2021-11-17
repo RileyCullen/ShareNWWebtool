@@ -46,7 +46,12 @@ class InfographicEditor extends React.Component
             isUpdatingGraphicSettings: false,
             isUpdatingTextElem: false,
         };
-        this._editorTextElem = 0;
+
+        // Text Element Variables 
+        this._domText = null;
+        this._textImage = null;
+        this._spanCSS = null;
+
         this._infogDimensions = {
             width: 582,
             height: 582,
@@ -85,7 +90,9 @@ class InfographicEditor extends React.Component
                         chartHandler={(data, cSettings, dSettings) => { this._ChartHandler(data, cSettings, dSettings); }}
                         graphicHandler={(settings) => { this._GraphicHandler(settings); }}
                         dimensionHandler={(dims) => { this._SetInfogDimensions(dims); }}
-                        textElem={this._editorTextElem}
+                        domText={this._domText}
+                        textImage={this._textImage}
+                        spanCSS={this._spanCSS}
                         chartData={this.state.chartData}
                         cSettings={this.state.cSettings}
                         dSettings={this.state.dSettings}
@@ -242,13 +249,11 @@ class InfographicEditor extends React.Component
         });
     }
 
-    /**
-     * @summary     Updates the current text element.
-     * @param {JSON} textElem The new text element.
-     */
-    _SetEditorTextElem(textElem)
+    _SetUpdatedText({ domText, image, spanCSS })
     {
-        this._editorTextElem = textElem;
+        this._domText = domText;
+        this._textImage = image;
+        this._spanCSS = spanCSS;
         this.setState({
             isUpdatingTextElem: true,
         });
@@ -359,7 +364,13 @@ class InfographicEditor extends React.Component
         if (this.state.currentEditor === 'text-editor') {
             return <QuillEditor 
                 textElem={this.state.infogTextElem}
-                setTextElem={(textElem) => { this._SetEditorTextElem(textElem); }}
+                setTextElem={(domText, image, spanCSS) => { 
+                    this._SetUpdatedText({
+                        domText: domText,
+                        image: image,
+                        spanCSS: spanCSS,
+                    }); 
+                }}
             />;
         } else if (this.state.currentEditor === 'waffle-editor') {
             return <WaffleEditor 
