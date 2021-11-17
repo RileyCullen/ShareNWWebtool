@@ -48,86 +48,10 @@ function QuillEditor(props)
 
     var font = {font: 0}, fontArr = [];
 
-    // Initialize text editor
-    if (Quill && quill) {
-        // Set up font, font sizes, and line heights so Quill recognizes them
-        // and can use them
-        console.log(props.textElem);
-        // RegisterFontSizes(Quill, sizeList);
-        RegisterFontFamilies(Quill, fontList)
-        InitLineHeights(Quill, lineHeightList);
-
-        // Insert the selected text into QuillEditor
-        InitEditor({
-            textElem: props.textElem,
-            quillObj: quill,
-            quillClass: Quill,
-            sizeList: sizeList,
-            font: font,
-            fontList: fontArr,
-        });
-
-        AddQuillListeners({
-            quill: quill,
-            sizeList: sizeList,
-            font: font,
-            quillClass: Quill,
-            fontArr: fontArr,
-            textElem: props.textElem,
-            setTextElem: (textElem) => { props.setTextElem(textElem); }
-        });
-
-        /**
-         * @summary     Updates the UI component for the text's size to accurately
-         *              reflect the font of the current selection.
-         * @description An event handler than runs when the quill editor's 
-         *              selection has changed. When this runs, we manually 
-         *              update the quill editor's UI to accurately reflect
-         *              "custom" font sizes.
-         */
-        quill.on('selection-change', () => {
-            
-            /**
-             * The following (93-96) exists because of the following scenario.
-             * Essentially, for multi-line text, if we select all of the quill 
-             * contents and press any letter (say 'k' for example), then the quill
-             * editor will lose focus and any text that is entered after this will
-             * not be formatted, which will cause us errors when re-selecting the
-             * text. So, we must manually reformat the text here.
-             */
-            if (IsEditorEmpty(quill)) {
-                quill.format('font', '900-museo');
-                return;
-            }
-
-            let selection = quill.getSelection();
-            
-            if (selection === null) {
-                RemoveColorFromSize();
-                return;
-            }
-
-            let format = quill.getFormat(selection),
-                size = format.size;
-            
-            if (!sizeArr.find(elem => elem === size)) {
-                UpdateSizeUI(size);
-            }
-        });
-
-        quill.setSelection(0, 0);
-        let size = quill.getFormat(quill.getSelection()).size;
-        if (!sizeArr.find(elem => elem === size)) {
-            UpdateSizeUI(size);
-        }
-    }
-
-    /**
-     * The function component version of react's lifecycle functions. 
-     */
-    
+    // function component version of componentDidUpdate... this function is called
+    // whenever props.textElem, Quill, or quill change.
     useEffect(() => {
-        if (quill && Quill) {
+        if (Quill && quill) {
             let elem = document.querySelector('.ql-container'),
                 spanCSS = props.textElem.spanCSS;
             
@@ -137,8 +61,74 @@ function QuillEditor(props)
                     return;
                 }
             }
+
+            // Set up font, font sizes, and line heights so Quill recognizes them
+            // and can use them
+            console.log(props.textElem);
+            // RegisterFontSizes(Quill, sizeList);
+            RegisterFontFamilies(Quill, fontList)
+            InitLineHeights(Quill, lineHeightList);
+
+            // Insert the selected text into QuillEditor
+            InitEditor({
+                textElem: props.textElem,
+                quillObj: quill,
+                quillClass: Quill,
+                sizeList: sizeList,
+                font: font,
+                fontList: fontArr,
+            });
+
+            AddQuillListeners({
+                quill: quill,
+                sizeList: sizeList,
+                font: font,
+                quillClass: Quill,
+                fontArr: fontArr,
+                textElem: props.textElem,
+                setTextElem: (textElem) => { props.setTextElem(textElem); }
+            });
+
+            quill.on('selection-change', () => {
+            
+                /**
+                 * The following (93-96) exists because of the following scenario.
+                 * Essentially, for multi-line text, if we select all of the quill 
+                 * contents and press any letter (say 'k' for example), then the quill
+                 * editor will lose focus and any text that is entered after this will
+                 * not be formatted, which will cause us errors when re-selecting the
+                 * text. So, we must manually reformat the text here.
+                 */
+                if (IsEditorEmpty(quill)) {
+                    quill.format('font', '900-museo');
+                    return;
+                }
+    
+                let selection = quill.getSelection();
+                
+                if (selection === null) {
+                    RemoveColorFromSize();
+                    return;
+                }
+    
+                let format = quill.getFormat(selection),
+                    size = format.size;
+                
+                if (!sizeArr.find(elem => elem === size)) {
+                    UpdateSizeUI(size);
+                }
+            });
+    
+            quill.setSelection(0, 0);
+            let size = quill.getFormat(quill.getSelection()).size;
+            if (!sizeArr.find(elem => elem === size)) {
+                UpdateSizeUI(size);
+            }
         }
-    });
+
+        return () => { }
+    }, [props.textElem, Quill, quill]);
+
     return (
         <div className='text-editor-container'>
             <div className='text-editor'>
