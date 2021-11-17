@@ -487,7 +487,7 @@ function UpdateTextListener(quill, timeout, textElem, setTextElem)
     timeout.timeout = setTimeout(() => {
         timeout.timeout = null;
         HTMLToCanvas(quill, textElem, setTextElem);
-    }, 100);
+    }, 500);
 }
 
 /**
