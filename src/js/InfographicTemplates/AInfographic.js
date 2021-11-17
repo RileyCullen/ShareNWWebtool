@@ -9,7 +9,8 @@ import { AutoLayerCommand, ChartDataCommand, ChartDecoratorCommand,
     ChartSettingsCommand, 
     CommandManager, GraphicSettingsCommand, InsertHeaderCommand, InsertIconCommand, InsertTextCommand, 
     LayerCommand, PositionCommand, RemoveChartCommand, RemoveGraphicCommand, 
-    RemoveTextCommand } from '../Commands/index'
+    RemoveTextCommand, 
+    TextContentCommand} from '../Commands/index'
 import { InsertChartCommand } from '../Commands/EditorCommands/InsertChartCommand';
 
 class AInfographic 
@@ -709,13 +710,13 @@ class AInfographic
             textElem.spanCSS === undefined) {
             return;
         } 
-        this._textHandler.UpdateTextElem({
-            index: this._selectedTextHelper,
-            textElem: textElem.textElem,
-            group: textElem.group,
-            image: textElem.image,
-            spanCSS: textElem.spanCSS,
-        });
+        
+        this._commandManager.Execute(new TextContentCommand({
+            textElem: textElem,
+            handler: this._textHandler,
+            id: this._selectedTextHelper,
+        }));
+
         this._selectedTextHelper = -1;
         this._main.batchDraw();
     }
