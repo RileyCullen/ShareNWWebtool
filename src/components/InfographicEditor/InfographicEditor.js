@@ -45,6 +45,7 @@ class InfographicEditor extends React.Component
             isUpdatingChartSettings: false,
             isUpdatingGraphicSettings: false,
             isUpdatingTextElem: false,
+            isUpdatingBackground: false,
         };
 
         // Text Element Variables 
@@ -90,6 +91,7 @@ class InfographicEditor extends React.Component
                         chartHandler={(data, cSettings, dSettings) => { this._ChartHandler(data, cSettings, dSettings); }}
                         graphicHandler={(settings) => { this._GraphicHandler(settings); }}
                         dimensionHandler={(dims) => { this._SetInfogDimensions(dims); }}
+                        backgroundHandler={(backgroundSettings) => { this._ToggleBackgroundSettings(backgroundSettings); }}
                         domText={this._domText}
                         textImage={this._textImage}
                         spanCSS={this._spanCSS}
@@ -113,6 +115,7 @@ class InfographicEditor extends React.Component
                         isUpdatingChartSettings={this.state.isUpdatingChartSettings}
                         isUpdatingGraphicSettings={this.state.isUpdatingGraphicSettings}
                         isUpdatingTextElem={this.state.isUpdatingTextElem}
+                        isUpdatingBackground={this.state.isUpdatingBackground}
                         style={{flex: 1}}
                     />
                 </div>
@@ -137,7 +140,6 @@ class InfographicEditor extends React.Component
         if (this.state.layerAction !== 'none') this.setState({layerAction: 'none'});
         if (this.state.insertElement !== 'none') this.setState({insertElement: 'none'});
         if (this.state.insertType !== 'none') this.setState({insertType: 'none'});
-        if (this.state.backgroundSettings !== 0) this.setState({backgroundSettings: 0});
         if (this.state.updateType !== 'none') this.setState({ updateType: 'none'});
         if (this.state.updateElement !== 'none') this.setState({updateElement: 'none'});
         if (this.state.undo) this.setState({undo: false});
@@ -147,6 +149,7 @@ class InfographicEditor extends React.Component
         if (this.state.isUpdatingChartSettings) this.setState({isUpdatingChartSettings: false});
         if (this.state.isUpdatingGraphicSettings) this.setState({isUpdatingGraphicSettings: false});
         if (this.state.isUpdatingTextElem) this.setState({isUpdatingTextElem: false});
+        if (this.state.isUpdatingBackground) this.setState({isUpdatingBackground: false});
         this._clearSelection = false;
     }
 
@@ -294,6 +297,7 @@ class InfographicEditor extends React.Component
     {
         this.setState({
             backgroundSettings: settings,
+            isUpdatingBackground: true,
         });
     }
 
@@ -450,7 +454,8 @@ class InfographicEditor extends React.Component
             return (<Image 
                 toggleInsert={(type, element) => {this._ToggleInsert(type, element);}}/>);
         } else if (this.state.currentEditor === 'edit-background') {
-            return (<Background 
+            return (<Background
+                settings={this.state.backgroundSettings} 
                 toggleBackgroundSettings={(settings) => { this._ToggleBackgroundSettings(settings); }}/>);
         }
         return false;
