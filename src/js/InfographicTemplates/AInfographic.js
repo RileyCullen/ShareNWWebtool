@@ -7,7 +7,7 @@ import html2canvas from 'html2canvas';
 import { ChartHandler, GraphicsHandler, TextHandler } from '../Handlers/index';
 import { AutoLayerCommand, ChartDataCommand, ChartDecoratorCommand, 
     ChartSettingsCommand, 
-    CommandManager, GraphicSettingsCommand, InsertHeaderCommand, InsertIconCommand, InsertTextCommand, 
+    CommandManager, GraphicSettingsCommand, InsertHeaderCommand, InsertIconCommand, InsertImageCommand, InsertTextCommand, 
     LayerCommand, PositionCommand, RemoveChartCommand, RemoveGraphicCommand, 
     RemoveTextCommand, 
     TextContentCommand} from '../Commands/index'
@@ -350,39 +350,17 @@ class AInfographic
             this._GraphicHelper(group);
         }
         else if (type === 'image'){
-            var imageObj = new Image(), imageHelper = new Konva.Image();
-            imageObj.onload = () => {
-                imageHelper.image(imageObj);
-                imageHelper.cache();
-                imageHelper.filters([
-                    Konva.Filters.Contrast,
-                    Konva.Filters.Brighten,
-                    Konva.Filters.Blur,
-                ]);
-                imageHelper.brightness(0);
-                imageHelper.blurRadius(0);
-                imageHelper.contrast(0);
-                this._main.batchDraw();
-                imageObj.onload = null;
-            };
-            imageHelper.setAttrs({
-                x: 0, 
-                y: 0,
-                height: 200,
-                width: 200,
-                opacity: 1,
-                stroke: 'black',
-                strokeWidth: 0
-            });
-
-            imageObj.src = element;
+            var imageHelper = new Konva.Image();
             group.add(imageHelper);
-            this._graphicsHandler.AddGraphic({
-                type: 'image',
-                graphic: imageHelper,
+            insertCommand = new InsertImageCommand({
+                image: element,
+                imageHelper: imageHelper,
                 group: group,
-             });
-
+                handler: this._graphicsHandler,
+                transformer: this._tr,
+                main: this._main,
+            });
+            this._commandManager.Execute(insertCommand);
             group.on('dblclick', () => {
                 this._GraphicHelper(group);
             });
