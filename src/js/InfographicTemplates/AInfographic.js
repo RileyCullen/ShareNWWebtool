@@ -5,7 +5,7 @@
 import Konva from 'konva';
 import html2canvas from 'html2canvas';
 import { ChartHandler, GraphicsHandler, TextHandler } from '../Handlers/index';
-import { AutoLayerCommand, ChartDataCommand, ChartDecoratorCommand, 
+import { AutoLayerCommand, BackgroundSettingsCommand, ChartDataCommand, ChartDecoratorCommand, 
     ChartSettingsCommand, 
     CommandManager, GraphicSettingsCommand, InsertHeaderCommand, InsertIconCommand, InsertImageCommand, InsertTextCommand, 
     LayerCommand, PositionCommand, RemoveChartCommand, RemoveGraphicCommand, 
@@ -259,9 +259,10 @@ class AInfographic
     UpdateBackground(settings)
     {
         if (settings === 0) return;
-        this._bkg.setAttrs({
-            fill: settings.fill,
-        });
+        this._commandManager.Execute(new BackgroundSettingsCommand({
+            background: this._bkg,
+            settings: settings,
+        }));
     }
 
     UpdateElement({type, element})
