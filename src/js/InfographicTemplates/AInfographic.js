@@ -31,7 +31,8 @@ class AInfographic
      * @param {double} height The height of the canvas element
      * @param {double} width  The width of the canvas element
      */
-    constructor(height, width, editorHandler, textCallback, chartCallback, graphicCallback)
+    constructor(height, width, editorHandler, textCallback, chartCallback, 
+        graphicCallback, backgroundCallback)
     {
         if (AInfographic === this.constructor) {
             throw new TypeError('Abstract class "AInfographic" cannot be instantiated');
@@ -90,6 +91,7 @@ class AInfographic
         this._textCallback = textCallback;
         this._chartCallback = chartCallback;
         this._graphicCallback = graphicCallback;
+        this._backgroundCallback = backgroundCallback;
 
         this._selectedTextIndex = -1;
         this._selectedChartIndex = -1;
@@ -175,6 +177,10 @@ class AInfographic
 
         if (obj instanceof TextContentCommand && this._selectedTextIndex !== -1) {
             this._textCallback(this._textHandler.GetHandlerElem(this._selectedTextIndex));
+        }
+
+        if (obj instanceof BackgroundSettingsCommand) {
+            this._backgroundCallback(this._bkg.getAttrs());
         }
     }
 

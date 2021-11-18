@@ -9,9 +9,9 @@ import Konva from 'konva';
 
 class DiabetesTemplateOne extends AInfographic
 {
-    constructor({editorHandler, textHandler, chartHandler, graphicHandler})
+    constructor({editorHandler, textHandler, chartHandler, graphicHandler, backgroundHandler})
     {
-        super(900, 635, editorHandler, textHandler, chartHandler, graphicHandler);
+        super(900, 635, editorHandler, textHandler, chartHandler, graphicHandler, backgroundHandler);
         this._colorScheme = {
             primary: '#455f06',
             secondary: '#ffffff',

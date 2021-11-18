@@ -141,7 +141,8 @@ class CanvasContainer extends React.Component
                 editorHandler: (editor) => { this.props.editorHandler(editor); },
                 textHandler: (textElem) => { this.props.textHandler(textElem); },
                 chartHandler: (data, cSettings, dSettings) => { this.props.chartHandler(data, cSettings, dSettings); },
-                graphicHandler: (settings) => { this.props.graphicHandler(settings); }
+                graphicHandler: (settings) => { this.props.graphicHandler(settings); },
+                backgroundHandler: (settings) => { this.props.backgroundHandler(settings) },
             };
 
             switch(this.props.infographic) {
