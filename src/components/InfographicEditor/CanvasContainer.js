@@ -99,7 +99,7 @@ class CanvasContainer extends React.Component
                 this._infogObj.UpdateLayering(this.props.layerAction);
             } else if (this.props.isDownloading) { 
                 this._infogObj.Download();
-            } else if (this.props.backgroundSettings !== 0) {
+            } else if (this.props.isUpdatingBackground) {
                 this._infogObj.UpdateBackground(this.props.backgroundSettings);
             } else if (this.props.undo){
                 this._infogObj.Undo();
@@ -164,6 +164,7 @@ class CanvasContainer extends React.Component
             this._infogObj.CreateInfographic();
             this._infogObj.Draw();
             this.props.dimensionHandler(this._infogObj.GetDimensions());
+            this.props.backgroundHandler(this._infogObj.GetBackgroundSettings());
         });
     }
 }
