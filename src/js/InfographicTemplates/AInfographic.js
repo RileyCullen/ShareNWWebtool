@@ -161,6 +161,10 @@ class AInfographic
                 this._graphicsHandler.GetSettings(this._selectedGraphicIndex)
             );
         }
+
+        if (obj instanceof TextContentCommand && this._selectedTextIndex !== -1) {
+            this._textCallback(this._textHandler.GetHandlerElem(this._selectedTextIndex));
+        }
     }
 
     /**
