@@ -60,7 +60,7 @@ class Background extends React.Component
                 <div className='center'>
                     <LabeledColorPicker 
                         label='Fill:'
-                        color='#ffffff'
+                        color={this.props.settings.fill}
                         onChange={(value) => { this._ToggleBackgroundSettings('fill', value) }}
                     />
                 </div>
