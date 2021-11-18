@@ -23,6 +23,7 @@ class Image extends React.Component
                                 }
                             }
                             if (insert){
+                                document.getElementById('image-placeholder').innerHTML("");
                                 sessionStorage.setItem(document.getElementById("upload-image-input").value, filename);
                             }
                         }
