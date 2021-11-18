@@ -69,6 +69,8 @@ function QuillEditor(props)
             RegisterFontFamilies(Quill, fontList)
             InitLineHeights(Quill, lineHeightList);
 
+            RemoveQuillListeners(quill);
+
             // Insert the selected text into QuillEditor
             InitEditor({
                 textElem: props.textElem,
@@ -127,7 +129,7 @@ function QuillEditor(props)
         }
 
         return () => { }
-    }, [Quill, quill]);
+    }, [props.textElem, Quill, quill]);
 
     return (
         <div className='text-editor-container'>
@@ -396,6 +398,11 @@ function AddQuillListeners({quill, sizelist, font, quillClass, fontArr, textElem
     AddFontSizeListener(quill, font, sizelist, quillClass);
 }
 
+function RemoveQuillListeners(quill)
+{
+    quill.off('text-change');
+}
+
 /**
  * @summary     Custom event listener that is triggered when the font option
  *              on Quill toolbar is selected.
@@ -487,7 +494,7 @@ function UpdateTextListener(quill, timeout, textElem, setTextElem)
     timeout.timeout = setTimeout(() => {
         timeout.timeout = null;
         HTMLToCanvas(quill, textElem, setTextElem);
-    }, 500);
+    }, 100);
 }
 
 /**
