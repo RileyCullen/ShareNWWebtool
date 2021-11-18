@@ -91,7 +91,7 @@ class InfographicEditor extends React.Component
                         chartHandler={(data, cSettings, dSettings) => { this._ChartHandler(data, cSettings, dSettings); }}
                         graphicHandler={(settings) => { this._GraphicHandler(settings); }}
                         dimensionHandler={(dims) => { this._SetInfogDimensions(dims); }}
-                        backgroundHandler={(backgroundSettings) => { this._ToggleBackgroundSettings(backgroundSettings); }}
+                        backgroundHandler={(backgroundSettings) => { this._ToggleBackgroundSettings(backgroundSettings, false); }}
                         domText={this._domText}
                         textImage={this._textImage}
                         spanCSS={this._spanCSS}
@@ -293,11 +293,11 @@ class InfographicEditor extends React.Component
         });
     }
 
-    _ToggleBackgroundSettings(settings)
+    _ToggleBackgroundSettings(settings, updateBkg = true)
     {
         this.setState({
             backgroundSettings: settings,
-            isUpdatingBackground: true,
+            isUpdatingBackground: updateBkg,
         });
     }
 
