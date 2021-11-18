@@ -75,7 +75,15 @@ class AInfographic
         this._mouseX1 = 0, this._mouseX2 = 0, this._mouseY1 = 0, this._mouseY2 = 0;*/
 
         this._main = new Konva.Layer();
-        this._bkg = 0;
+        this._bkg = new Konva.Rect({
+            x: 0,
+            y: 0,
+            width: this._stage.width(),
+            height: this._stage.height(),
+            fill: '#FF0000',
+            stroke: 'black',
+        });
+        this._main.add(this._bkg);
         // this._UIAdder = new UIAdder(this._chartWidth, this._chartHeight);
 
         this._editorHandler = editorHandler;
@@ -95,8 +103,11 @@ class AInfographic
         this._stage.add(this._main);
 
         this._main.add(this._tr);
+    }
 
-        this._AddStageBorder();
+    GetBackgroundSettings()
+    {
+        return this._bkg.getAttrs();
     }
 
     /**
@@ -483,23 +494,6 @@ class AInfographic
                 default: return '100-Roboto';
             }
         }
-    }
-
-    /**
-     * @summary     Adds a black border around the edges of the canvas element.
-     */
-    _AddStageBorder()
-    {
-        this._bkg = new Konva.Rect({
-            x: 0,
-            y: 0,
-            width: this._stage.width(),
-            height: this._stage.height(),
-            fill: 'white',
-            stroke: 'black',
-        });
-        this._main.add(this._bkg);
-        this._bkg.moveToBottom();
     }
 
     /**
