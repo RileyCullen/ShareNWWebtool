@@ -81,7 +81,7 @@ class AInfographic
             y: 0,
             width: this._stage.width(),
             height: this._stage.height(),
-            fill: '#FF0000',
+            fill: '#ffffff',
             stroke: 'black',
         });
         this._main.add(this._bkg);
