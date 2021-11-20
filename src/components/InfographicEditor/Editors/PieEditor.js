@@ -113,7 +113,7 @@ class PieEditor extends React.Component
     componentDidUpdate(prevProps) 
     {
         if (!Lodash.isEqual(prevProps.dSettings, this.props.dSettings)) {
-            this._settingsManager(this.props.dSettings);
+            this._settingsManager.SetDSettings(this.props.dSettings);
         }
 
         if (!Lodash.isEqual(prevProps.cSettings, this.props.cSettings)) {
