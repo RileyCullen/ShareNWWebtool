@@ -282,7 +282,6 @@ class AInfographic
             this._graphicCallback(
                 this._graphicsHandler.GetSettings(this._selectedGraphicIndex)
             );
-            console.log(this._graphicsHandler);
         } else if (this._selectedChartIndex !== -1) {
             this._chartHandler.ReplaceChart(this._selectedChartIndex, element);
             let data = this._chartHandler.GetHandlerElem(this._selectedChartIndex)
@@ -794,7 +793,6 @@ class AInfographic
             handler: this._graphicsHandler,
             id: this._selectedGraphicIndex,
         }));
-        console.log(this._commandManager);
         this._tr.forceUpdate();
         this._main.batchDraw();
     }
@@ -1067,7 +1065,6 @@ class AInfographic
             var selected = elems.filter((elem) =>
                 Konva.Util.haveIntersection(box, elem.getClientRect())
             );
-            console.log(selected)
 
             this._tr.nodes(selected);
             this._tr.moveToTop();
