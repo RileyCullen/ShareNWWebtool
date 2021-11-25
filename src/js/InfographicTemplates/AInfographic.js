@@ -163,10 +163,15 @@ class AInfographic
     {
         let chartExpr = (obj instanceof ChartDataCommand || 
             obj instanceof ChartDecoratorCommand || 
-            obj instanceof ChartSettingsCommand); 
+            obj instanceof ChartSettingsCommand || 
+            obj instanceof ReplaceChartCommand); 
         if (chartExpr && this._selectedChartIndex !== -1) {
             let chart = this._chartHandler.GetChart(this._selectedChartIndex),
                 dSettings = this._chartHandler.GetDecoratorSettingsArray(this._selectedChartIndex);
+            if (obj instanceof ReplaceChartCommand) {
+                let group = this._chartHandler.GetGroup(this._selectedChartIndex);
+                this._UpdateChartEditorUI(group);
+            }
             this._chartCallback(chart.GetData(), chart.GetChartSettings(), dSettings);
         }
 
