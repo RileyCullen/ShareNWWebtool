@@ -108,7 +108,7 @@ class InsertChartCommand extends ACommand
                     chart: this._chart,
                     group: this._group,
                     type: this._chartType,
-                    index: this._index,
+                    index: this._id,
                 });
             }
             this._decoratorList.forEach(d => {
