@@ -864,21 +864,7 @@ class AInfographic
             dSettings = this._chartHandler.GetDecoratorSettingsArray(this._selectedChartIndex);
         this._chartCallback(selectedChart.GetData(), selectedChart.GetChartSettings(), dSettings);
 
-        if (chart.getAttr('name') === 'Selectable Chart Waffle') {
-            this._editorHandler('waffle-editor');
-        } else if (chart.getAttr('name') === 'Selectable Chart Pie') {
-            this._editorHandler('pie-editor');
-        } else if (chart.getAttr('name') === 'Selectable Chart Bar') {
-            this._editorHandler('bar-editor')
-        } else if (chart.getAttr('name') === 'Selectable Chart Stacked') {
-            this._editorHandler('stacked-bar-editor');
-        } else if (chart.getAttr('name') === 'Selectable Chart Line') {
-            this._editorHandler('line-editor');
-        } else if (chart.getAttr('name') === 'Selectable Chart Icon') {
-            this._editorHandler('icon-bar-editor');
-        } else if (chart.getAttr('name') === 'Selectable Chart Donut') {
-            this._editorHandler('donut-editor');
-        }
+        this._UpdateChartEditorUI(chart);
 
         setTimeout(() => {
             this._stage.on('click', HandleOutsideClick);
@@ -894,6 +880,30 @@ class AInfographic
                 this._stage.off('click', HandleOutsideClick);
             }
         };
+    }
+
+    /**
+     * @description Updates the editor UI to reflect the chart type specified by
+     *              group.
+     * @param {Konva.Group} group 
+     */
+    _UpdateChartEditorUI(group)
+    {
+        if (group.getAttr('name') === 'Selectable Chart Waffle') {
+            this._editorHandler('waffle-editor');
+        } else if (group.getAttr('name') === 'Selectable Chart Pie') {
+            this._editorHandler('pie-editor');
+        } else if (group.getAttr('name') === 'Selectable Chart Bar') {
+            this._editorHandler('bar-editor')
+        } else if (group.getAttr('name') === 'Selectable Chart Stacked') {
+            this._editorHandler('stacked-bar-editor');
+        } else if (group.getAttr('name') === 'Selectable Chart Line') {
+            this._editorHandler('line-editor');
+        } else if (group.getAttr('name') === 'Selectable Chart Icon') {
+            this._editorHandler('icon-bar-editor');
+        } else if (group.getAttr('name') === 'Selectable Chart Donut') {
+            this._editorHandler('donut-editor');
+        }
     }
 
     _AddGraphicSelection()
