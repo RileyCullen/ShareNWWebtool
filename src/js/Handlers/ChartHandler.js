@@ -390,7 +390,7 @@ class ChartHandler
     _GetCommonAttributes(chart)
     {
         let attrs = chart.GetAttrs();
-        if (chart instanceof ABarChart) {
+        if (chart instanceof ABarChart || chart instanceof AIconBar) {
             return {
                 width: attrs.width,
                 height: attrs.height,
