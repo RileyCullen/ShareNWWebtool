@@ -16,3 +16,4 @@ export { GraphicSettingsCommand } from './EditorCommands/GraphicSettingsCommand'
 export { TextContentCommand } from './EditorCommands/TextContentCommand';
 export { InsertImageCommand } from './EditorCommands/InsertImageCommand';
 export { BackgroundSettingsCommand } from './EditorCommands/BackgroundSettingsCommand';
+export { ReplaceChartCommand } from './EditorCommands/ReplaceChartCommand';
