@@ -10,6 +10,7 @@ import { AutoLayerCommand, BackgroundSettingsCommand, ChartDataCommand, ChartDec
     CommandManager, GraphicSettingsCommand, InsertHeaderCommand, InsertIconCommand, InsertImageCommand, InsertTextCommand, 
     LayerCommand, PositionCommand, RemoveChartCommand, RemoveGraphicCommand, 
     RemoveTextCommand, 
+    ReplaceChartCommand, 
     TextContentCommand} from '../Commands/index'
 import { InsertChartCommand } from '../Commands/EditorCommands/InsertChartCommand';
 
@@ -283,7 +284,23 @@ class AInfographic
                 this._graphicsHandler.GetSettings(this._selectedGraphicIndex)
             );
         } else if (this._selectedChartIndex !== -1) {
-            this._chartHandler.ReplaceChart(this._selectedChartIndex, element);
+            // Replace chart using ReplaceChartCommand object
+            this._commandManager.Execute(new ReplaceChartCommand({
+                targetType: element,
+                id: this._selectedChartIndex,
+                handler: this._chartHandler,
+                transformer: this._tr,
+                main: this._main,
+                colorScheme: this._colorScheme,
+            }));
+
+            // Add event-listeners to new Konva.Group
+            let group = this._chartHandler.GetGroup(this._selectedChartIndex);
+            this._AddListeners(group, 'chart');
+            this._ChartHelper(group);            
+
+            // Get data, chart settings, and decorator settings and send it to
+            // InfographicEditor so the UI components can be updated.
             let data = this._chartHandler.GetHandlerElem(this._selectedChartIndex)
                     .chart.GetData(),
                 cSettings = this._chartHandler.GetSettingsArray(this._selectedChartIndex),
