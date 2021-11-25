@@ -224,6 +224,24 @@ class ChartHandler
         }
     }
 
+    /**
+     *          
+     * @param {int} id             The id of the current chart we wish to access.
+     * @param {string} desiredType The string name of the desired type we wish
+     *                             to obtain the attributes of.
+     * @returns 
+     */
+    GetConvertedAttrs(id, desiredType)
+    {
+        return this._ConvertChartAttributes(this._handler[id].chart, desiredType);
+    }
+
+    /**
+     * @deprecated
+     * @param {*} id 
+     * @param {*} type 
+     * @returns 
+     */
     ReplaceChart(id, type)
     {
         let elem = this._handler[id], attrs = {};
