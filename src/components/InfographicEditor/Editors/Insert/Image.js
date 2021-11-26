@@ -12,23 +12,45 @@ class Image extends React.Component
             <div className='editor-insert-container'>
                 <div id='upper-image-upload-container'>
                     <input id="upload-image-input" type="file" accept="image/png, image/jpeg, image/jpg" onChange={(event) => {
-                        if (document.getElementById("upload-image-input").value){
+                        var inputValue = document.getElementById("upload-image-input").value;
+                        if (inputValue){
                             var filename = URL.createObjectURL(event.target.files[0]);
                             this.props.toggleInsert('image',filename);
                             var insert = true;
                             for (var i=0; i<sessionStorage.length; i++){
-                                if (sessionStorage.key(i)===document.getElementById("upload-image-input").value){
+                                if (sessionStorage.key(i)===inputValue){
                                     insert = false;
                                     i = sessionStorage.length;
                                 }
                             }
                             if (insert){
-                                document.getElementById('image-placeholder').innerHTML("");
-                                sessionStorage.setItem(document.getElementById("upload-image-input").value, filename);
+                                console.log("Inserting image in library");
+                                document.getElementById('image-placeholder').innerHTML = "";
+                                sessionStorage.setItem(inputValue, filename);
+
+                                function LibraryElement(props) {
+                                    const entry = <div>
+                                            <img src={sessionStorage.getItem(props.key)}></img>
+                                            <button onClick={() => {sessionStorage.removeItem(props.key);
+                                                                    MakeLibrary();}}>Remove</button>
+                                        </div>
+                                    return entry;
+                                  }
+
+                                function MakeLibrary() {
+                                    var library = [];
+                                    for (var i = 0; i < sessionStorage.length; i++)
+                                        library.push(<LibraryElement key={sessionStorage.key(i)} />);
+                                    var element = <div>{library}</div>;
+
+                                    ReactDOM.render(element, document.getElementById('image-placeholder'));
+                                }
+                                
+                                MakeLibrary();
                             }
                         }
                         for (var i=0; i<sessionStorage.length; i++)
-                            console.log(sessionStorage.getItem(sessionStorage.key(i)));
+                            console.log("In SESSION STORAGE: " + sessionStorage.getItem(sessionStorage.key(i)));
                     }}></input>
                 </div>
                 <div id='image-placeholder' className='editor-placeholder-text'>Click upload to add an image to the library!</div>
