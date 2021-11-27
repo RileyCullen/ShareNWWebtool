@@ -123,7 +123,7 @@ class XAxisDecorator extends ABarChartDecorator
                 fontFamily: this._font.fontFamily,
                 x: (this._xScale(d) + this._xScale.bandwidth() / 2) - (textWidth / 2),
                 y: this._chartHeight + (textHeight),
-                fill: this._font.color,
+                fill: this._font.textColor,
             }) 
             helper.add(text);
             if (this._rotateBy === 90) {
