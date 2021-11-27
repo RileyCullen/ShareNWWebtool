@@ -55,6 +55,28 @@ class ChartHandler
     }
 
     /**
+     * @summary     Adds a chart to the handler at the location specified by 
+     *              index.
+     * @description Note that this function assumes that index is less than or
+     *              equal to _curr.
+     * @param {*} param0 
+     */
+    AddChartAtIndex({chart, group, type, index})
+    {
+        let elem = {
+            chart: chart,
+            decorators: [],
+            decoratorSize: -1,
+            group: group,
+            type: type
+        };
+        this._handler.splice(index, 0, elem);
+        this._UpdateHandlerId();
+        group.setAttr('name', 'Selectable Chart ' + type);
+        this._curr++;
+    }
+
+    /**
      * @summary     Adds a decorator to the chart specified by id.
      * @description See summary. 
      * 
@@ -176,7 +198,9 @@ class ChartHandler
             elem.decorators = BuildLineChartDecoratorList(elem.chart, dSettings);
         }
         elem.decoratorSize = elem.decorators.length - 1;
-        // elem.decorators[elem.decoratorSize].CreateChart();
+        elem.group.removeChildren();
+        if (elem.decoratorSize === -1) elem.chart.CreateChart();
+        else elem.decorators[elem.decoratorSize].CreateChart();
     }
 
     UpdateLayering(id, action)
@@ -200,6 +224,24 @@ class ChartHandler
         }
     }
 
+    /**
+     *          
+     * @param {int} id             The id of the current chart we wish to access.
+     * @param {string} desiredType The string name of the desired type we wish
+     *                             to obtain the attributes of.
+     * @returns 
+     */
+    GetConvertedAttrs(id, desiredType)
+    {
+        return this._ConvertChartAttributes(this._handler[id].chart, desiredType);
+    }
+
+    /**
+     * @deprecated
+     * @param {*} id 
+     * @param {*} type 
+     * @returns 
+     */
     ReplaceChart(id, type)
     {
         let elem = this._handler[id], attrs = {};
@@ -348,7 +390,7 @@ class ChartHandler
     _GetCommonAttributes(chart)
     {
         let attrs = chart.GetAttrs();
-        if (chart instanceof ABarChart) {
+        if (chart instanceof ABarChart || chart instanceof AIconBar) {
             return {
                 width: attrs.width,
                 height: attrs.height,

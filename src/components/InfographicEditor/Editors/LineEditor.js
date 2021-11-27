@@ -1,6 +1,7 @@
 import React from 'react';
-import { Editor, Menu, LabeledTextField, LabeledColorPicker, FontSelector, LabeledDropdown, LineChartInputFields } from './Components/index';
-
+import Lodash from 'lodash';
+import { Editor, Menu, LabeledTextField, LabeledColorPicker, FontSelector, 
+    LabeledDropdown, LineChartInputFields } from './Components/index';
 import '../../../css/React/Editors/ChartEditor.css';
 import { SettingsManager } from '../../Helpers/SettingsManager';
 
@@ -155,6 +156,17 @@ class LineEditor extends React.Component
         )
     }
 
+    componentDidUpdate(prevProps)
+    {
+        if (!Lodash.isEqual(prevProps.dSettings, this.props.dSettings)) {
+            this._settingsManager.SetDSettings(this.props.dSettings);
+        }
+
+        if (!Lodash.isEqual(prevProps.cSettings, this.props.cSettings)) {
+            this._settingsManager.SetCSettings(this.props.cSettings);
+        }
+    }
+
     _SetChartSettings(category, key, value)
     {
         this._settingsManager.SetChartSettings(category, key, value);
@@ -271,7 +283,8 @@ class LineEditor extends React.Component
                         initialValue={settings.axis.axisStrokeWidth}
                         rows={1}
                         cols={5}
-                        onChange={(d, i) => { 
+                        onChange={(d, i) => {
+                            if (d === ''); 
                             this._UpdateDecoratorSettings('xAxis', 'axis', 'axisStrokeWidth', parseFloat(d));
                         }} 
                     />
@@ -282,6 +295,7 @@ class LineEditor extends React.Component
                         rows={1}
                         cols={5}
                         onChange={(d, i) => { 
+                            if (d === '') return;
                             this._UpdateDecoratorSettings('xAxis', 'axis', 'axisTickWidth', parseFloat(d));
                         }} 
                     />
@@ -324,6 +338,7 @@ class LineEditor extends React.Component
                         rows={1}
                         cols={5}
                         onChange={(d, i) => { 
+                            if (d === '') return;
                             this._UpdateDecoratorSettings('yAxis', 'axis', 'lineStrokeWidth', parseFloat(d));
                         }} 
                     />
@@ -334,6 +349,7 @@ class LineEditor extends React.Component
                         rows={1}
                         cols={5}
                         onChange={(d, i) => {
+                            if (d === '') return;
                             this._UpdateDecoratorSettings('yAxis', 'axis', 'tickStrokeWidth', parseFloat(d));
                         }} 
                     />

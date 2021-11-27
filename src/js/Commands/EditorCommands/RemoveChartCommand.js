@@ -37,14 +37,12 @@ class RemoveChartCommand extends ACommand
         this._parentGroup.add(this._group);
 
         // Re-add the chart to the handler.
-        this._handler.AddChart({
+        this._handler.AddChartAtIndex({
             chart: this._chart,
             group: this._group,
-            type: this._type
+            type: this._type,
+            index: this._id,
         });
-
-        // Update the id.
-        this._id = this._handler.GetCurrChartID();
 
         // Re-add the decorators to the handler.
         this._decorators.forEach(decorator => {

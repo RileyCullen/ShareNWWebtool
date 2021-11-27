@@ -2,6 +2,7 @@
 // GraphicsHandler.js
 // July 19, 2021
 
+import Lodash from 'lodash';
 import { ArrowHeader, RectangleHeader, RibbonHeader } from "../Headers";
 import { MessageBubble } from "../ToolTips";
 
@@ -34,6 +35,26 @@ class GraphicsHandler
             graphic: graphic,
             group: group
         });
+    }
+
+    /**
+     * @summary     Adds a graphic to the handler at index.
+     * @description NOTE that this function assumes that index is less than or 
+     *              equal to _curr.
+     * @param {*} param0 
+     */
+    AddGraphicAtIndex({type, graphic, group, index})
+    {
+        let elem = {};
+        this._handler.splice(index, 0, elem);
+        this.UpdateGraphic({
+            id: index,
+            type: type,
+            graphic: graphic,
+            group: group,
+        });
+        this._curr++;
+        this._UpdateHandlerId();
     }
 
     /**
@@ -97,9 +118,9 @@ class GraphicsHandler
         let obj = this._handler[id];
         switch(obj.type) {
             case 'icon':
-                return obj.graphic.getAttrs();
+                return Lodash.cloneDeep(obj.graphic.getAttrs());
             case 'image':
-                return obj.graphic.getAttrs();
+                return Lodash.cloneDeep(obj.graphic.getAttrs());
             case 'header':
                 return obj.graphic.GetSettings();
             default:
@@ -138,7 +159,7 @@ class GraphicsHandler
 
     UpdateGraphicSettings({id, settings})
     {
-        let elem = this._handler[id];
+        let elem = this._handler[id]; 
         switch(elem.type) {
             case 'header':
                 elem.graphic.UpdateHeader(settings);
@@ -146,8 +167,8 @@ class GraphicsHandler
                 break;
             case 'image':
                 elem.graphic.clearCache();
-                elem.graphic.cache();
                 elem.graphic.setAttrs(settings);
+                elem.graphic.cache();
                 break;
             case 'icon':
                 elem.graphic.setAttrs(settings);

@@ -3,6 +3,7 @@
 // June 28, 2021
 
 import React from 'react';
+import Lodash from 'lodash';
 import {CanvasContainer} from './CanvasContainer';
 import { QuillEditor, WaffleEditor, BarEditor, IconBarEditor, 
     PieEditor, LineEditor, BackgroundElementEditor, ImageEditor, IconEditor, 
@@ -39,8 +40,19 @@ class InfographicEditor extends React.Component
             backgroundSettings: 0,
             undo: false,
             redo: false,
+            isUpdatingChartData: false,
+            isUpdatingChartDecorators: false,
+            isUpdatingChartSettings: false,
+            isUpdatingGraphicSettings: false,
+            isUpdatingTextElem: false,
+            isUpdatingBackground: false,
         };
-        this._editorTextElem = 0;
+
+        // Text Element Variables 
+        this._domText = null;
+        this._textImage = null;
+        this._spanCSS = null;
+
         this._infogDimensions = {
             width: 582,
             height: 582,
@@ -79,7 +91,10 @@ class InfographicEditor extends React.Component
                         chartHandler={(data, cSettings, dSettings) => { this._ChartHandler(data, cSettings, dSettings); }}
                         graphicHandler={(settings) => { this._GraphicHandler(settings); }}
                         dimensionHandler={(dims) => { this._SetInfogDimensions(dims); }}
-                        textElem={this._editorTextElem}
+                        backgroundHandler={(backgroundSettings) => { this._ToggleBackgroundSettings(backgroundSettings, false); }}
+                        domText={this._domText}
+                        textImage={this._textImage}
+                        spanCSS={this._spanCSS}
                         chartData={this.state.chartData}
                         cSettings={this.state.cSettings}
                         dSettings={this.state.dSettings}
@@ -95,6 +110,12 @@ class InfographicEditor extends React.Component
                         backgroundSettings={this.state.backgroundSettings}
                         undo={this.state.undo}
                         redo={this.state.redo}
+                        isUpdatingChartData={this.state.isUpdatingChartData}
+                        isUpdatingChartDecorators={this.state.isUpdatingChartDecorators}
+                        isUpdatingChartSettings={this.state.isUpdatingChartSettings}
+                        isUpdatingGraphicSettings={this.state.isUpdatingGraphicSettings}
+                        isUpdatingTextElem={this.state.isUpdatingTextElem}
+                        isUpdatingBackground={this.state.isUpdatingBackground}
                         style={{flex: 1}}
                     />
                 </div>
@@ -119,11 +140,16 @@ class InfographicEditor extends React.Component
         if (this.state.layerAction !== 'none') this.setState({layerAction: 'none'});
         if (this.state.insertElement !== 'none') this.setState({insertElement: 'none'});
         if (this.state.insertType !== 'none') this.setState({insertType: 'none'});
-        if (this.state.backgroundSettings !== 0) this.setState({backgroundSettings: 0});
         if (this.state.updateType !== 'none') this.setState({ updateType: 'none'});
         if (this.state.updateElement !== 'none') this.setState({updateElement: 'none'});
         if (this.state.undo) this.setState({undo: false});
         if (this.state.redo) this.setState({redo: false});
+        if (this.state.isUpdatingChartData) this.setState({isUpdatingChartData: false});
+        if (this.state.isUpdatingChartDecorators) this.setState({isUpdatingChartDecorators: false});
+        if (this.state.isUpdatingChartSettings) this.setState({isUpdatingChartSettings: false});
+        if (this.state.isUpdatingGraphicSettings) this.setState({isUpdatingGraphicSettings: false});
+        if (this.state.isUpdatingTextElem) this.setState({isUpdatingTextElem: false});
+        if (this.state.isUpdatingBackground) this.setState({isUpdatingBackground: false});
         this._clearSelection = false;
     }
 
@@ -226,19 +252,21 @@ class InfographicEditor extends React.Component
         });
     }
 
-    /**
-     * @summary     Updates the current text element.
-     * @param {JSON} textElem The new text element.
-     */
-    _SetEditorTextElem(textElem)
+    _SetUpdatedText({ domText, image, spanCSS })
     {
-        this._editorTextElem = textElem;
+        this._domText = domText;
+        this._textImage = image;
+        this._spanCSS = spanCSS;
+        this.setState({
+            isUpdatingTextElem: true,
+        });
     }
 
-    _GraphicHandler(settings)
+    _GraphicHandler(settings, update = false)
     {
         this.setState({
             graphicSettings: settings,
+            isUpdatingGraphicSettings: update,
         });
     }
 
@@ -265,10 +293,11 @@ class InfographicEditor extends React.Component
         });
     }
 
-    _ToggleBackgroundSettings(settings)
+    _ToggleBackgroundSettings(settings, updateBkg = true)
     {
         this.setState({
             backgroundSettings: settings,
+            isUpdatingBackground: updateBkg,
         });
     }
 
@@ -286,6 +315,15 @@ class InfographicEditor extends React.Component
 
     _ChartHandler(data, cSettings, dSettings)
     {
+        // Basically, charts with decorators already defined that use fonts need 
+        // the fonts to be deep copied before use (so we have the following to do 
+        // that).
+        for (const [key, value] of Object.entries(dSettings)) {
+            if (dSettings[key].hasOwnProperty('font')) {
+                dSettings[key].font = Lodash.cloneDeep(dSettings[key].font)
+            }
+        }
+
         this.setState({
             chartData: data,
             cSettings: cSettings,
@@ -301,6 +339,7 @@ class InfographicEditor extends React.Component
     {
         this.setState({
             chartData: chartData,
+            isUpdatingChartData: true,
         });
     }
 
@@ -308,6 +347,7 @@ class InfographicEditor extends React.Component
     {
         this.setState({
             cSettings: settings,
+            isUpdatingChartSettings: true,
         });
     }
 
@@ -315,6 +355,7 @@ class InfographicEditor extends React.Component
     {
         this.setState({
             dSettings: settings,
+            isUpdatingChartDecorators: true,
         });
     }
 
@@ -327,7 +368,13 @@ class InfographicEditor extends React.Component
         if (this.state.currentEditor === 'text-editor') {
             return <QuillEditor 
                 textElem={this.state.infogTextElem}
-                setTextElem={(textElem) => { this._SetEditorTextElem(textElem); }}
+                setTextElem={(domText, image, spanCSS) => { 
+                    this._SetUpdatedText({
+                        domText: domText,
+                        image: image,
+                        spanCSS: spanCSS,
+                    }); 
+                }}
             />;
         } else if (this.state.currentEditor === 'waffle-editor') {
             return <WaffleEditor 
@@ -360,15 +407,15 @@ class InfographicEditor extends React.Component
         } else if (this.state.currentEditor === 'image-editor') {
             return <ImageEditor 
                 settings={this.state.graphicSettings}
-                setGraphicSettings={(settings) => { this._GraphicHandler(settings); }}/>;
+                setGraphicSettings={(settings) => { this._GraphicHandler(settings, true); }}/>;
         } else if (this.state.currentEditor === 'icon-editor') {
             return <IconEditor 
                 settings={this.state.graphicSettings}
-                setGraphicSettings={(settings) => { this._GraphicHandler(settings); }}/>;
+                setGraphicSettings={(settings) => { this._GraphicHandler(settings, true); }}/>;
         } else if (this.state.currentEditor === 'header-editor') {
             return <BackgroundElementEditor 
                 settings={this.state.graphicSettings}
-                setGraphicSettings={(settings) => { this._GraphicHandler(settings); }}/>;
+                setGraphicSettings={(settings) => { this._GraphicHandler(settings, true); }}/>;
         } else if (this.state.currentEditor === 'line-editor') {
             return <LineEditor 
                 chartData={this.state.chartData}
@@ -407,7 +454,8 @@ class InfographicEditor extends React.Component
             return (<Image 
                 toggleInsert={(type, element) => {this._ToggleInsert(type, element);}}/>);
         } else if (this.state.currentEditor === 'edit-background') {
-            return (<Background 
+            return (<Background
+                settings={this.state.backgroundSettings} 
                 toggleBackgroundSettings={(settings) => { this._ToggleBackgroundSettings(settings); }}/>);
         }
         return false;

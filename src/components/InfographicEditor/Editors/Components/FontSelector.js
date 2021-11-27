@@ -1,4 +1,5 @@
 import React from 'react';
+import Lodash from 'lodash';
 import { DropdownList, TextField, ColorPicker } from './index';
 
 import '../../../../css/React/Editors/FontSelector.css';
@@ -56,8 +57,16 @@ class FontSelector extends React.Component
         );
     }
 
+    componentDidUpdate(prevProps)
+    {
+        if (!Lodash.isEqual(prevProps.initialFont, this.props.initialFont)) {
+            this.setState({ currentFont: this.props.initialFont });
+        }
+    }
+
     _HandleChange(key, value)
     {
+        if (key === 'fontSize' && (isNaN(value) || value === '')) return;
         let newFont = this.state.currentFont;
         newFont[key] = value;
         this.setState({

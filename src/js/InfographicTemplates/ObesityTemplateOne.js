@@ -10,9 +10,9 @@ import { DonutChart, ChartOutlineDecorator,FirstStatisticDecorator } from '../Ch
 
 class ObesityTemplateOne extends AInfographic
 {
-    constructor({editorHandler, textHandler, chartHandler, graphicHandler})
+    constructor({editorHandler, textHandler, chartHandler, graphicHandler, backgroundHandler})
     {
-        super(1181, 564, editorHandler, textHandler, chartHandler, graphicHandler);
+        super(1181, 564, editorHandler, textHandler, chartHandler, graphicHandler, backgroundHandler);
         this._colorScheme = {
             primary: '#ffffff',
             secondary: '#12578a'

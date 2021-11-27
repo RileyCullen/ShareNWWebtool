@@ -1,4 +1,5 @@
 import React from 'react';
+import Lodash from 'lodash';
 import { Editor, BarChartInputFields, Menu, LabeledTextField, LabeledColorPicker 
     , FontSelector, LabeledDropdown, StackedBarInputFields} from './Components/index';
 import { LabeledCheckbox } from './Components/LabeledCheckbox';
@@ -85,7 +86,6 @@ class BarEditor extends React.Component
 
     render()
     {        
-        console.log(this._defaultSettings);
         let content = {
             chartSettings: [
                 <Menu 
@@ -212,6 +212,17 @@ class BarEditor extends React.Component
         );
     }
 
+    componentDidUpdate(prevProps)
+    {
+        if (!Lodash.isEqual(prevProps.dSettings, this.props.dSettings)) {
+            this._settingsManager.SetDSettings(this.props.dSettings);
+        }
+
+        if (!Lodash.isEqual(prevProps.cSettings, this.props.cSettings)) {
+            this._settingsManager.SetCSettings(this.props.cSettings);
+        }
+    }
+
     _SetChartSettings(category, key, value)
     {
         this._settingsManager.SetChartSettings(category, key, value);
@@ -257,7 +268,10 @@ class BarEditor extends React.Component
                     initialValue={cSettings.size.chartWidth}
                     rows={1}
                     cols={cols}
-                    onChange={(d, i) => { this._SetChartSettings('size', 'chartWidth', parseFloat(d)); }}
+                    onChange={(d, i) => { 
+                        if (d === '') return;
+                        this._SetChartSettings('size', 'chartWidth', parseFloat(d)); 
+                    }}
                     />
                 <LabeledTextField
                     label='Height:'
@@ -265,7 +279,10 @@ class BarEditor extends React.Component
                     initialValue={cSettings.size.chartHeight}
                     rows={1}
                     cols={cols}
-                    onChange={(d, i) => { this._SetChartSettings('size', 'chartHeight', parseFloat(d)); }} 
+                    onChange={(d, i) => { 
+                        if (d === '') return 
+                        this._SetChartSettings('size', 'chartHeight', parseFloat(d)); 
+                    }} 
                 />
                 <LabeledTextField
                     label='Bar Padding:'
@@ -273,7 +290,10 @@ class BarEditor extends React.Component
                     initialValue={cSettings.size.padding}
                     rows={1}
                     cols={cols}
-                    onChange={(d, i) => { this._SetChartSettings('size', 'padding', parseFloat(d)); }} 
+                    onChange={(d, i) => { 
+                        if (d === '') return;
+                        this._SetChartSettings('size', 'padding', parseFloat(d)); 
+                    }} 
                 />
             </div>
         ];
@@ -390,6 +410,7 @@ class BarEditor extends React.Component
                         rows={1}
                         cols={5}
                         onChange={(d, i) => { 
+                            if (d === '') return;
                             this._UpdateDecoratorSettings('yAxis', 'size', 'lineStrokeWidth', parseFloat(d));
                         }} 
                     />
@@ -400,6 +421,7 @@ class BarEditor extends React.Component
                         rows={1}
                         cols={5}
                         onChange={(d, i) => { 
+                            if (d === '') return;
                             this._UpdateDecoratorSettings('yAxis', 'size', 'tickStrokeWidth', parseFloat(d));
                         }} 
                     />
@@ -553,7 +575,16 @@ class BarEditor extends React.Component
                         initialValue={settings.labelSettings.maxPerRow}
                         rows={1}
                         cols={5}
-                        onChange={(d, i) => { 
+                        onChange={(d, i) => {
+                            // This empty check exists for a very unique and 
+                            // weird edge case when maxPerRow = ''. Since 
+                            // parseFloat('') = NaN, when this gets passed to 
+                            // the ChartDescriptorDecorator, it will basically
+                            // draw all of the labels on one line. When maxPerRows,
+                            // equals # of categories, then it will appear like 
+                            // too many command objects have been pushed to the 
+                            // stack.
+                            if (d === '') return; 
                             this._UpdateDecoratorSettings('chartDescriptor', 'labelSettings', 'maxPerRow', parseFloat(d));
                         }} 
                     />

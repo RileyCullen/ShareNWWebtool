@@ -51,6 +51,16 @@ class Menu extends React.Component
         );
     }
 
+    componentDidUpdate()
+    {
+        // Call needed to update checkbox status on undo/redo
+        if (this.props.checkbox.isChecked !== this.state.isChecked) {
+            this.setState({
+                isChecked: this.props.checkbox.isChecked
+            });
+        }
+    }
+
     _ToggleOpen()
     {
         this.setState({

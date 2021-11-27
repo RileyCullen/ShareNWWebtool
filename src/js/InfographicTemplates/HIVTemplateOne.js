@@ -7,9 +7,9 @@ import CDCLogo from '../../Media/cdclogo.png';
 
 class HIVTemplateOne extends AInfographic
 {
-    constructor({editorHandler, textHandler, chartHandler, graphicHandler})
+    constructor({editorHandler, textHandler, chartHandler, graphicHandler, backgroundHandler})
     {
-        super(582, 582, editorHandler, textHandler, chartHandler, graphicHandler);
+        super(582, 582, editorHandler, textHandler, chartHandler, graphicHandler, backgroundHandler);
         this._colorScheme = {
             primary: '#F9ab7c',
             secondary: '#ee5d25'

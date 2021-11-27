@@ -1,7 +1,7 @@
 import React from 'react';
+import Lodash from 'lodash';
 import { Editor, FontSelector, LabeledColorPicker, LabeledTextField, Menu, 
     PieChartInputFields } from './Components/index';
-
 import '../../../css/React/Editors/ChartEditor.css';
 import { SettingsManager } from '../../Helpers/SettingsManager';
 
@@ -108,6 +108,17 @@ class PieEditor extends React.Component
                 <Editor content={content}/>
             </div>
         )
+    }
+
+    componentDidUpdate(prevProps) 
+    {
+        if (!Lodash.isEqual(prevProps.dSettings, this.props.dSettings)) {
+            this._settingsManager.SetDSettings(this.props.dSettings);
+        }
+
+        if (!Lodash.isEqual(prevProps.cSettings, this.props.cSettings)) {
+            this._settingsManager.SetCSettings(this.props.cSettings);
+        }
     }
 
     _SetCurrentTab(state)
@@ -296,7 +307,8 @@ class PieEditor extends React.Component
                         initialValue={chartOutline.size.radius}
                         rows={1}
                         cols={5}
-                        onChange={(d, i) => { 
+                        onChange={(d, i) => {
+                            if (d === '') return;
                             this._UpdateDecoratorSettings('chartOutline', 'size', 'radius', parseFloat(d));
                         }} 
                     />
@@ -307,6 +319,7 @@ class PieEditor extends React.Component
                         rows={1}
                         cols={5}
                         onChange={(d, i) => { 
+                            if (d === '') return;
                             this._UpdateDecoratorSettings('chartOutline', 'size', 'outlineWidth', parseFloat(d));
                         }} 
                     />

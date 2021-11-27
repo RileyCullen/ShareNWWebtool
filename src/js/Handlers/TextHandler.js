@@ -47,6 +47,31 @@ class TextHandler
     }
 
     /**
+     * @summary     Adds a text element at the location specified by index.
+     * @description NOTE that this function assumes that index is less than or
+     *              equal to _curr.
+     * @param {*} param0 
+     */
+    AddRenderedTextElemAtIndex({textElem, group, index, image, spanCSS, x = 0, 
+        y = 0, rotateby = 0})
+    {
+        let elem = {
+            textElem: textElem,
+            group: group,
+            image: image,
+            spanCSS: spanCSS,
+        };
+        this._handler.splice(index, 0, elem);
+        this._curr++;
+        this._UpdateHandlerId();
+        textElem.id = index;
+        textElem.className = 'EditableText';
+        this._handler[index].image.rotate(rotateby);
+        group.add(this._handler[index].image);
+        group.setAttr('id', index);
+    }
+
+    /**
      * @summary     Adds a converted text element to the handler. 
      * @description As opposed to the earlier function, this method exists when
      *              you need to add a text element to the handler that has 

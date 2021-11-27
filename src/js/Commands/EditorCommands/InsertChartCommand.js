@@ -8,7 +8,8 @@ import { ACommand } from '../ACommand';
 
 class InsertChartCommand extends ACommand
 {
-    constructor({chartType, group, colorScheme, handler, transformer, main})
+    constructor({chartType, group, colorScheme, handler, transformer, main, 
+        chartAttrs = null, index = -1})
     {
         super();
         this._chartType = chartType;
@@ -17,10 +18,11 @@ class InsertChartCommand extends ACommand
         this._handler = handler;
         this._tr = transformer;
         this._main = main;
+        this._chartAttrs = chartAttrs;
 
         this._chart = null;
         this._decoratorList = [];
-        this._id = -1;
+        this._id = index;
 
         this._removeCommand = null;
     }
@@ -94,12 +96,21 @@ class InsertChartCommand extends ACommand
         //      3. Add decorators to handler 
         //      4. Call chart's CreateChart method
         if (this._chart !== null) {
-            this._handler.AddChart({
-                chart: this._chart,
-                group: this._group,
-                type: this._chartType,
-            });
-            this._id = this._handler.GetCurrChartID();
+            if (this._id === -1) {
+                this._handler.AddChart({
+                    chart: this._chart,
+                    group: this._group,
+                    type: this._chartType,
+                });
+                this._id = this._handler.GetCurrChartID();
+            } else {
+                this._handler.AddChartAtIndex({
+                    chart: this._chart,
+                    group: this._group,
+                    type: this._chartType,
+                    index: this._id,
+                });
+            }
             this._decoratorList.forEach(d => {
                 this._handler.AddDecorator({
                     decorator: d,
@@ -115,7 +126,7 @@ class InsertChartCommand extends ACommand
 
     _CreateBasicBarChart()
     {
-        this._chart = new BasicBarChart({
+        let attrs = (this._chartAttrs === null) ? {
             data: [
                 {
                     category: 'A',
@@ -132,12 +143,13 @@ class InsertChartCommand extends ACommand
             width: 100,
             height: 100,
             padding: 0.2,
-        });
+        } : this._chartAttrs;
+        this._chart = new BasicBarChart(attrs);
     }
 
     _CreateStackedBarChart()
     {
-        this._chart = new StackedBarChart({
+        let attrs = (this._chartAttrs === null) ? {
             data: [
                 {
                     category: 'A',
@@ -156,12 +168,13 @@ class InsertChartCommand extends ACommand
             width: 100,
             height: 100, 
             padding: 0.2,
-        });
+        } : this._chartAttrs;
+        this._chart = new StackedBarChart(attrs);
     }
 
     _CreateIconBarChart()
     {
-        this._chart = new IconBarChart({
+        let attrs = (this._chartAttrs === null) ? {
             data: [
                 {
                     category: 'A',
@@ -179,12 +192,13 @@ class InsertChartCommand extends ACommand
             height: 100,
             padding: 50,
             remainderColor: this._colorScheme.secondary
-        });
+        }: this._chartAttrs;
+        this._chart = new IconBarChart(attrs);
     }
     
     _CreateWaffleChart()
     {
-        this._chart = new WaffleChart({
+        let attrs = (this._chartAttrs === null) ? {
             numerator: 1,
             denominator: 3,
             group: this._group,
@@ -202,7 +216,8 @@ class InsertChartCommand extends ACommand
             }),
             fontSize: 80,
             isDynamicResize: false,
-        });
+        } : this._chartAttrs;
+        this._chart = new WaffleChart(attrs);
     }
 
     _CreateLineChart()
@@ -212,7 +227,7 @@ class InsertChartCommand extends ACommand
             fontFamily: 'Times New Roman, Times, serif', 
             textColor: 'black'
         };
-        this._chart = new LineChart({
+        let attrs = (this._chartAttrs === null) ? {
             data: [
                 {
                     category: 'A',
@@ -230,7 +245,8 @@ class InsertChartCommand extends ACommand
             pointRadius: 6,
             lineColor: this._colorScheme.primary,
             pointColor: this._colorScheme.secondary,
-        });
+        } : this._chartAttrs;
+        this._chart = new LineChart(attrs);
         this._decoratorList[0] = new LineXAxisDecorator({
             chart: this._chart,
             lineStrokeWidth: 3,
@@ -247,7 +263,7 @@ class InsertChartCommand extends ACommand
 
     _CreatePieChart()
     {
-        this._chart = new PieChart({
+        let attrs = (this._chartAttrs === null) ? {
             data: [
                 {
                     category: 'A',
@@ -262,12 +278,13 @@ class InsertChartCommand extends ACommand
             ],
             group: this._group,
             radius: 50,
-        });
+        } : this._chartAttrs;
+        this._chart = new PieChart(attrs);
     }
 
     _CreateDonutChart()
     {
-        this._chart = new DonutChart({
+        let attrs = (this._chartAttrs === null) ? {
             data: [
                 {
                     category: 'A',
@@ -283,7 +300,8 @@ class InsertChartCommand extends ACommand
             group: this._group,
             radius: 50,
             innerRadius: 35,
-        });
+        } : this._chartAttrs;
+        this._chart = new DonutChart(attrs);
     }
 }
 

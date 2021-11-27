@@ -14,6 +14,8 @@ class RemoveTextCommand extends ACommand
         this._group = this._handler.GetGroup(this._id);
         this._image = this._handler.GetImage(this._id);
         this._spanCSS = this._handler.GetSpanCSS(this._id);
+
+        this._imagePos = this._image.absolutePosition();
     }
 
     Execute()
@@ -25,15 +27,17 @@ class RemoveTextCommand extends ACommand
 
     Unexecute()
     {
-        this._handler.AddRenderedTextElem({
+        this._handler.AddRenderedTextElemAtIndex({
             textElem: this._textElem,
             group: this._group,
             image: this._image,
-            spanCSS: this._spanCSS
+            spanCSS: this._spanCSS,
+            index: this._id,
         });
 
-        this._id = this._handler.GetCurrID();
         this._image.id(this._id);
+        
+        this._image.absolutePosition(this._imagePos);
         this._main.batchDraw();
     }
 }

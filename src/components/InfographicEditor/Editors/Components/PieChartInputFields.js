@@ -54,6 +54,15 @@ class PieChartInputFields extends React.Component
         );
     }
 
+    componentDidUpdate()
+    {
+        // Basically, we need the following block for updating the UI when
+        // undo/redo is called for updating chart data.
+        if (this.props.value !== this.state.value) {
+            this.setState({ value: this.props.value, });
+        }
+    }
+
     _HandleChange(value)
     {
         if (value > 100) value = 100;
