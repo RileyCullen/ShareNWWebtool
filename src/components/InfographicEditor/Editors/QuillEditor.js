@@ -58,7 +58,7 @@ function QuillEditor(props)
             for (let i = 0; i < spanCSS.length; i++) {
                 if (spanCSS[i].textColor === '#ffffff' || spanCSS[i].textColor === 'white') {
                     elem.style.backgroundColor = '#000';
-                    return;
+                    break;
                 }
             }
 
