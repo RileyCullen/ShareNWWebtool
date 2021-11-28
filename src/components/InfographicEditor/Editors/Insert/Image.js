@@ -13,9 +13,10 @@ class Image extends React.Component
     }
 
     LibraryElement(key){
-        const entry = <div>
+        const entry = <div className="image-entry">
             <img src={sessionStorage.getItem(key)}></img>
-            <button onClick={() => {sessionStorage.removeItem(key); this._MakeLibrary();}}>Remove</button>
+            <button id="insert-image" onClick={() => {this.props.toggleInsert('image', sessionStorage.getItem(key));}}>Insert</button>
+            <button id="remove-image" onClick={() => {sessionStorage.removeItem(key); this._MakeLibrary();}}>Remove</button>
             </div>
         return entry;
     }
@@ -51,7 +52,6 @@ class Image extends React.Component
                                 }
                             }
                             if (insert){
-                                console.log("Inserting image in library");
                                 sessionStorage.setItem(inputValue, objURL);
                                 this._MakeLibrary();
                             }
