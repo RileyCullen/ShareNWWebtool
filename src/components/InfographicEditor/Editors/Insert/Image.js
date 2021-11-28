@@ -7,12 +7,33 @@ class Image extends React.Component
 {
     constructor(props){
         super(props);
-        this._library = [];
+        this.state = {
+            library: [],
+        };
+    }
+
+    LibraryElement(props){
+        const entry = <div>
+            <img src={sessionStorage.getItem(props.key)}></img>
+            <button onClick={() => {sessionStorage.removeItem(props.key); this._MakeLibrary();}}>Remove</button>
+            </div>
+        return entry;
+    }
+
+    _MakeLibrary(){
+        this.state.library = [];
+        for (var i = 0; i < sessionStorage.length; i++)
+            this.state.library.push(<this.LibraryElement key={sessionStorage.key(i)} />);
     }
 
     render()
     {
         sessionStorage.clear();
+        var uploadMessage;
+        if (this.state.library.length ===0 )
+            uploadMessage = <div>Click upload to add an image to the library!</div>;
+        else
+            uploadMessage = <div></div>;
         return (
             <div className='editor-insert-container'>
                 <div id='upper-image-upload-container'>
@@ -30,10 +51,9 @@ class Image extends React.Component
                             }
                             if (insert){
                                 console.log("Inserting image in library");
-                                document.getElementById('image-placeholder').innerHTML = "";
                                 sessionStorage.setItem(inputValue, filename);
 
-                                function LibraryElement(props) {
+                                /*function LibraryElement(props) {
                                     const entry = <div>
                                             <img src={sessionStorage.getItem(props.key)}></img>
                                             <button onClick={() => {sessionStorage.removeItem(props.key); MakeLibrary();}}>Remove</button>
@@ -42,20 +62,19 @@ class Image extends React.Component
                                   }
 
                                 function MakeLibrary() {
-                                    this._library = [];
+                                    var library = [];
                                     for (var i = 0; i < sessionStorage.length; i++)
-                                        this._library.push(<LibraryElement key={sessionStorage.key(i)} />);
-                                }
+                                        library.push(<LibraryElement key={sessionStorage.key(i)} />);
+                                    return library;
+                                }*/
                                 
-                                MakeLibrary();
+                                this._MakeLibrary();
                             }
                         }
-                        //for (var i=0; i<sessionStorage.length; i++)
-                            //console.log("In SESSION STORAGE: " + sessionStorage.getItem(sessionStorage.key(i)));
                     }}></input>
                 </div>
-                <div id='image-placeholder' className='editor-placeholder-text'>Click upload to add an image to the library!</div>
-                <div id='image-library'>{this._library.map((d) => {return d})}</div>
+                <div id='image-placeholder' className='editor-placeholder-text'>{uploadMessage}</div>
+                <div id='image-library'>{this.state.library.map((d) => {return d})}</div>
             </div>
         );
     }
