@@ -1,5 +1,5 @@
 # Change Log
-## [v0.2] - 2021-11-
+## [v0.2] - 2021-11-26
 ### 
 * Undo/redo module finished
 * Replace chart process updated to use command objects
