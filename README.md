@@ -1,23 +1,72 @@
-# Florence
-Florence is an infographic webtool designed to give public health professionals in rural areas the ability to create effective infographics for professional use. 
-In its current form, Florence provides the user with four distinct infographic templates that they can edit. Florence currently supports inserting, modifying, and removing all chart elements. 
-# Browser Support
-Currently, this webtool only supports the Google Chrome browser; however, browser support will be extended to other browsers in the future.
-# Getting Started
-## Dependencies
-This tool requires Node Package Manager (npm) to work properly. For installation instructions, see the npm documentation.
-## Installation
-1. Pull this repository
-2. In the terminal, type `npm install` to install Florence's npm dependencies
-## Running the webtool
-To run this tool on your local machine, enter `npm start`. This starts a NodeJS server on localhost:3000. To exit the server, simply click on the terminal window you used to start the server and press the keys ctrl and c in conjunction to terminate the process. 
-# Built Using 
-1. Konva.js
-2. D3.js
-3. Quill.js
-4. html2canvas
-5. ReactJS
-# Authors
-* Dr. Hidy Kong (Project Lead)
-* Riley Cullen (Developer)
-* Mia Lee (Developer) 
+# Getting Started with Create React App
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+To run this project, you need to download two things: (1) this project and (2) 
+NodeJS, which comes with NPM. Once both this project and NPM are installed, open the 
+command line (or terminal) and type in 'npm install' which will install all of the 
+dependencies needed to run this tool. Once this is done, type in 'npm start' to 
+run the application in development mode. 
+
+## Available Scripts
+
+In the project directory, you can run:
+
+### `npm start`
+
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
+
+### `npm test`
+
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+### `npm run build`
+
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### `npm run eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+
+### Analyzing the Bundle Size
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `npm run build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
