@@ -1,6 +1,7 @@
 #image-placeholder {
     position: relative;
     top: 200px;
+    z-index: -1;
 }
 
 #upper-image-upload-container {
@@ -17,25 +18,4 @@
     background-color: white;
     padding: 10px;
     border: 2px solid #B6472A;
-}
-
-img {
-    width: 150px;
-    height: 150px;
-}
-
-#image-library {
-    padding: 60px;
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.image-entry {
-    flex: 0 0 auto;
-    width: 170px;
-    padding: 10px;
-}
-
-#remove-image {
-    float: right;
 }

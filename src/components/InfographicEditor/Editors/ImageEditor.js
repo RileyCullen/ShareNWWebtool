@@ -1,5 +1,6 @@
 import React from 'react';
 import { Menu, LabeledTextField, LabeledSlider, LabeledColorPicker } from './Components/index';
+
 import '../../../css/React/Editors/Tabless.css';
 
 class ImageEditor extends React.Component
