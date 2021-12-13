@@ -13,6 +13,10 @@ class Image extends React.Component
     }
 
     LibraryElement(key){
+        /*var url = URL.createObjectURL(new Blob([key]));
+        console.log(url);
+        sessionStorage.removeItem(key);
+        sessionStorage.setItem(key, url);*/
         const entry = <div className="image-entry">
             <img src={sessionStorage.getItem(key)}></img>
             <button id="insert-image" onClick={() => {this.props.toggleInsert('image', sessionStorage.getItem(key));}}>Insert</button>
@@ -30,7 +34,6 @@ class Image extends React.Component
 
     render()
     {
-        //sessionStorage.clear();
         var uploadMessage;
         if (this.state.library.length === 0)
             uploadMessage = <div id='image-placeholder' className='editor-placeholder-text'>Click upload to add an image to the library!</div>;
