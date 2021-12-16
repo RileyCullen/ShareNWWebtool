@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faDownload } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faDownload, faUndo, faRedo } from '@fortawesome/free-solid-svg-icons';
 
 import '../../../css/React/EditorToolbar.css';
 
@@ -13,10 +13,29 @@ class ToolbarOptions extends React.Component
                 <div className='toolbar-options-left'>
                     <div className='button-container'>
                         <button 
-                            className='toolbar-home-button'
+                            id='home'
+                            className='toolbar-button'
                             onClick={() => { this.props.displayHome(); }}>
-                            <FontAwesomeIcon className='toolbar-home-icon' icon={faHome} />
+                            <FontAwesomeIcon className='toolbar-icon' icon={faHome} />
                         </button>
+                        <button 
+                            id='undo'
+                            className='toolbar-button'
+                            onClick={() => { this.props.toggleUndo(); }}>
+                            <FontAwesomeIcon 
+                                id='undo-redo-icon'
+                                className='toolbar-icon' 
+                                icon={faUndo}/>
+                        </button>
+                        <button 
+                            id='redo'
+                            className='toolbar-button'
+                            onClick={() => { this.props.toggleRedo(); }}>
+                            <FontAwesomeIcon 
+                                id='undo-redo-icon'
+                                className='toolbar-icon' 
+                                icon={faRedo}/>
+                        </button> 
                     </div>
                     <div className='vertical-divider'></div>
                     <button

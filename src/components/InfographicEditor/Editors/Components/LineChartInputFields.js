@@ -50,7 +50,7 @@ class LineChartInputFields extends React.Component
                                 />
                                 <TextField 
                                     key={this.props.chartData.length + '-data'}
-                                    id={i + '-data'}
+                                    id={d.value + '-data'}
                                     index={i}
                                     initialValue={d.value}
                                     rows={1}

@@ -7,9 +7,9 @@ import CDCLogo from '../../Media/cdclogo.png';
 
 class HIVTemplateOne extends AInfographic
 {
-    constructor({editorHandler, textHandler, chartHandler, graphicHandler})
+    constructor({editorHandler, textHandler, chartHandler, graphicHandler, backgroundHandler})
     {
-        super(582, 582, editorHandler, textHandler, chartHandler, graphicHandler);
+        super(582, 582, editorHandler, textHandler, chartHandler, graphicHandler, backgroundHandler);
         this._colorScheme = {
             primary: '#F9ab7c',
             secondary: '#ee5d25'
@@ -91,11 +91,14 @@ class HIVTemplateOne extends AInfographic
         
         const WOMAN = '\uf182', LIGHT_ORANGE = '#f9ab7d', ORANGE = '#ee5d26',
             DEFAULT_OFFSET = 30;
-        var orangeBackground = new ArrowHeader(0, 0, 400, 125, sectionOne, ORANGE, 'white');
+        let orangeBackgroundContainer = new Konva.Group();
+        sectionOne.add(orangeBackgroundContainer);
+        var orangeBackground = new ArrowHeader(0, 0, 400, 125, 
+            orangeBackgroundContainer, ORANGE, 'white');
         this._graphicsHandler.AddGraphic({
             type: 'header',
             graphic: orangeBackground,
-            group: orangeBackground.GetGroup(),
+            group: orangeBackgroundContainer,
         });
         
         var textGroupOne = new Konva.Group({
@@ -170,11 +173,14 @@ class HIVTemplateOne extends AInfographic
         });
         this._chartHandler.GetChart(this._chartHandler.GetCurrChartID()).CreateChart();
         
-        var redBackground = new ArrowHeader(0, 0, 400, 125, sectionTwo, '#e71b32', 'white');
+        let redBackgroundGroup = new Konva.Group();
+        sectionTwo.add(redBackgroundGroup);
+        var redBackground = new ArrowHeader(0, 0, 400, 125, redBackgroundGroup, 
+            '#e71b32', 'white');
         this._graphicsHandler.AddGraphic({
             type: 'header',
             graphic: redBackground,
-            group: redBackground.GetGroup(),
+            group: redBackgroundGroup,
         });
 
         var textGroupTwo = new Konva.Group();
@@ -300,11 +306,14 @@ class HIVTemplateOne extends AInfographic
         }).CreateChart();
 
         const LIGHT_BLUE = '#a0b8d2', BLUE = '#1670ac';
-        var blueBackground = new ArrowHeader(0, 0, 400, 125, sectionThree, BLUE, 'white');
+        let blueBackgroundGroup = new Konva.Group();
+        sectionThree.add(blueBackgroundGroup);
+        var blueBackground = new ArrowHeader(0, 0, 400, 125, blueBackgroundGroup
+            , BLUE, 'white');
         this._graphicsHandler.AddGraphic({
             type: 'header',
             graphic: blueBackground,
-            group: blueBackground.GetGroup(),
+            group: blueBackgroundGroup,
         });
 
         var helper = new Konva.Group();

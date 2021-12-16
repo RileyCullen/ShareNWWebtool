@@ -27,15 +27,11 @@ class TextField extends React.Component
         </div>);
     }
 
-    static getDerivedStateFromProps(props, state)
+    componentDidUpdate(prevProps)
     {
-        if (props.id !== state.id) {
-            return {
-                value: props.initialValue,
-                id: props.id
-            };
+        if (prevProps.initialValue !== this.props.initialValue) {
+            this.setState({ value: this.props.initialValue});
         }
-        return null;
     }
 
     /**

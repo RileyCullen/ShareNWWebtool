@@ -26,6 +26,13 @@ class DropdownList extends React.Component
         );
     }
 
+    componentDidUpdate(prevProps)
+    {
+        if (prevProps.selected !== this.props.selected) {
+            this.setState({ value: this.props.selected });
+        }
+    }
+
     _HandleChange(event)
     {
         this.setState({

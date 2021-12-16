@@ -99,16 +99,26 @@ class CanvasContainer extends React.Component
                 this._infogObj.UpdateLayering(this.props.layerAction);
             } else if (this.props.isDownloading) { 
                 this._infogObj.Download();
-            } else if (this.props.backgroundSettings !== 0) {
+            } else if (this.props.isUpdatingBackground) {
                 this._infogObj.UpdateBackground(this.props.backgroundSettings);
-            } else {
-                this._infogObj.UpdateTextHandler(this.props.textElem);
-
-                this._infogObj.UpdateChartDecorators(this.props.dSettings);
+            } else if (this.props.undo){
+                this._infogObj.Undo();
+            } else if (this.props.redo){
+                this._infogObj.Redo();
+            } else if (this.props.isUpdatingChartData) {
                 this._infogObj.UpdateChartData(this.props.chartData);
+            } else if (this.props.isUpdatingChartDecorators) {
+                this._infogObj.UpdateChartDecorators(this.props.dSettings);  
+            } else if (this.props.isUpdatingChartSettings) {
                 this._infogObj.UpdateChartSettings(this.props.cSettings);
-
+            } else if (this.props.isUpdatingGraphicSettings) {
                 this._infogObj.UpdateGraphicSettings(this.props.graphicSettings);
+            } else if (this.props.isUpdatingTextElem) {
+                this._infogObj.UpdateTextHandler({
+                    domText: this.props.domText,
+                    image: this.props.textImage,
+                    spanCSS: this.props.spanCSS,
+                });
             }
 
             if (this.props.clearSelection === true) {
@@ -131,7 +141,8 @@ class CanvasContainer extends React.Component
                 editorHandler: (editor) => { this.props.editorHandler(editor); },
                 textHandler: (textElem) => { this.props.textHandler(textElem); },
                 chartHandler: (data, cSettings, dSettings) => { this.props.chartHandler(data, cSettings, dSettings); },
-                graphicHandler: (settings) => { this.props.graphicHandler(settings); }
+                graphicHandler: (settings) => { this.props.graphicHandler(settings); },
+                backgroundHandler: (settings) => { this.props.backgroundHandler(settings) },
             };
 
             switch(this.props.infographic) {
@@ -154,6 +165,7 @@ class CanvasContainer extends React.Component
             this._infogObj.CreateInfographic();
             this._infogObj.Draw();
             this.props.dimensionHandler(this._infogObj.GetDimensions());
+            this.props.backgroundHandler(this._infogObj.GetBackgroundSettings());
         });
     }
 }

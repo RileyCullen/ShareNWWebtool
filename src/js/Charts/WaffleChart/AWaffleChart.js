@@ -119,7 +119,7 @@ class AWaffleChart
      */
     Remove()
     {
-        this._group.destroy();
+        this._group.remove();
     }
 
     /**

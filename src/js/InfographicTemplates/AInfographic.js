@@ -5,13 +5,14 @@
 import Konva from 'konva';
 import html2canvas from 'html2canvas';
 import { ChartHandler, GraphicsHandler, TextHandler } from '../Handlers/index';
-import { BasicBarChart, StackedBarChart } from '../Charts/BarChart/index';
-import { IconBarChart } from '../Charts/IconBarChart/index';
-import { GenerateIconDataArray, WaffleChart } from '../Charts/WaffleChart';
-import { LineChart, LineXAxisDecorator, LineYAxisDecorator } from '../Charts/LineChart';
-import { DonutChart, PieChart } from '../Charts/PieChart';
-import { RectangleHeader, RibbonHeader } from '../Headers';
-import { MessageBubble } from '../ToolTips';
+import { AutoLayerCommand, BackgroundSettingsCommand, ChartDataCommand, ChartDecoratorCommand, 
+    ChartSettingsCommand, 
+    CommandManager, GraphicSettingsCommand, InsertHeaderCommand, InsertIconCommand, InsertImageCommand, InsertTextCommand, 
+    LayerCommand, PositionCommand, RemoveChartCommand, RemoveGraphicCommand, 
+    RemoveTextCommand, 
+    ReplaceChartCommand, 
+    TextContentCommand} from '../Commands/index'
+import { InsertChartCommand } from '../Commands/EditorCommands/InsertChartCommand';
 
 class AInfographic 
 {
@@ -31,7 +32,8 @@ class AInfographic
      * @param {double} height The height of the canvas element
      * @param {double} width  The width of the canvas element
      */
-    constructor(height, width, editorHandler, textCallback, chartCallback, graphicCallback)
+    constructor(height, width, editorHandler, textCallback, chartCallback, 
+        graphicCallback, backgroundCallback)
     {
         if (AInfographic === this.constructor) {
             throw new TypeError('Abstract class "AInfographic" cannot be instantiated');
@@ -48,6 +50,8 @@ class AInfographic
         this._chartHandler = new ChartHandler();
         this._textHandler = new TextHandler();
         this._graphicsHandler = new GraphicsHandler();
+
+        this._commandManager = new CommandManager();
 
         this._tr = new Konva.Transformer({
             nodes: [],
@@ -73,16 +77,24 @@ class AInfographic
         this._mouseX1 = 0, this._mouseX2 = 0, this._mouseY1 = 0, this._mouseY2 = 0;*/
 
         this._main = new Konva.Layer();
-        this._bkg = 0;
+        this._bkg = new Konva.Rect({
+            x: 0,
+            y: 0,
+            width: this._stage.width(),
+            height: this._stage.height(),
+            fill: '#ffffff',
+            stroke: 'black',
+        });
+        this._main.add(this._bkg);
         // this._UIAdder = new UIAdder(this._chartWidth, this._chartHeight);
 
         this._editorHandler = editorHandler;
         this._textCallback = textCallback;
         this._chartCallback = chartCallback;
         this._graphicCallback = graphicCallback;
+        this._backgroundCallback = backgroundCallback;
 
         this._selectedTextIndex = -1;
-        this._selectedTextHelper = -1;
         this._selectedChartIndex = -1;
         this._selectedGraphicIndex = -1;
 
@@ -94,8 +106,88 @@ class AInfographic
         this._stage.add(this._main);
 
         this._main.add(this._tr);
+    }
 
-        this._AddStageBorder();
+    GetBackgroundSettings()
+    {
+        return this._bkg.getAttrs();
+    }
+
+    /**
+     * @summary     Undo the most recent action.
+     * @description Wrapper function that calls _commandManager's Undo method.
+     */
+    Undo()
+    {
+        let undoObj = this._commandManager.Undo();
+        // Essentially, there is an edge case in undoing/redoing where if we 
+        // remove an element, undo, select the element, then redo, it will 
+        // cause a runtime error since the editor has not been reset.
+        this._ResetEditor(undoObj)
+        this._UpdateEditorUI(undoObj);
+    }
+
+    /**
+     * @summary     Redo the most recent action.
+     * @description Wrapper function that calls _commandManager's Redo method.
+     */
+    Redo()
+    {
+        let redoObj = this._commandManager.Redo();
+        this._ResetEditor(redoObj);
+        this._UpdateEditorUI(redoObj);
+    }
+
+    /**
+     * @summary Resets element indexes to -1 and removes selected editor.
+     * @param {ACommand} obj 
+     */
+    _ResetEditor(obj)
+    {
+        let isRemoveObj = (obj instanceof RemoveChartCommand || obj instanceof 
+            RemoveGraphicCommand || obj instanceof RemoveTextCommand);
+        let isInsertObj = (obj instanceof InsertChartCommand || obj instanceof 
+            InsertTextCommand || obj instanceof InsertIconCommand || obj
+            instanceof InsertHeaderCommand);
+        if (isRemoveObj || isInsertObj) {
+            this._selectedTextIndex = this._selectedGraphicIndex = this._selectedChartIndex = -1;
+            this._editorHandler('none')
+        }
+    }
+
+    /**
+     * @summary Updates the editor UI.
+     * @param {ACommand} obj 
+     */
+    _UpdateEditorUI(obj)
+    {
+        let chartExpr = (obj instanceof ChartDataCommand || 
+            obj instanceof ChartDecoratorCommand || 
+            obj instanceof ChartSettingsCommand || 
+            obj instanceof ReplaceChartCommand); 
+        if (chartExpr && this._selectedChartIndex !== -1) {
+            let chart = this._chartHandler.GetChart(this._selectedChartIndex),
+                dSettings = this._chartHandler.GetDecoratorSettingsArray(this._selectedChartIndex);
+            if (obj instanceof ReplaceChartCommand) {
+                let group = this._chartHandler.GetGroup(this._selectedChartIndex);
+                this._UpdateChartEditorUI(group);
+            }
+            this._chartCallback(chart.GetData(), chart.GetChartSettings(), dSettings);
+        }
+
+        if (obj instanceof GraphicSettingsCommand && this._selectedGraphicIndex !== -1) {
+            this._graphicCallback(
+                this._graphicsHandler.GetSettings(this._selectedGraphicIndex)
+            );
+        }
+
+        if (obj instanceof TextContentCommand && this._selectedTextIndex !== -1) {
+            this._textCallback(this._textHandler.GetHandlerElem(this._selectedTextIndex));
+        }
+
+        if (obj instanceof BackgroundSettingsCommand) {
+            this._backgroundCallback(this._bkg.getAttrs());
+        }
     }
 
     /**
@@ -134,7 +226,7 @@ class AInfographic
         this._tr.nodes([]);
         this._selectedChartIndex = -1;
         this._selectedGraphicIndex = -1;
-        this._selectedTextIndex = this._selectedTextHelper = -1;
+        this._selectedTextIndex = -1;
     }
 
     Download()
@@ -155,21 +247,34 @@ class AInfographic
 
     UpdateLayering(layerAction)
     {
+        let index = -1, handler = null;
         if (this._selectedChartIndex !== -1) {
-            this._chartHandler.UpdateLayering(this._selectedChartIndex, layerAction);
+            index = this._selectedChartIndex;
+            handler = this._chartHandler;
         } else if (this._selectedGraphicIndex !== -1) {
-            this._graphicsHandler.UpdateLayering(this._selectedGraphicIndex, layerAction);
+            index = this._selectedGraphicIndex;
+            handler = this._graphicsHandler;
         } else if (this._selectedTextIndex !== -1) {
-            this._textHandler.UpdateLayering(this._selectedTextIndex, layerAction);
+            index = this._selectedTextIndex;
+            handler = this._textHandler;
+        }
+        if (index !== -1) {
+            let layerCommand = new LayerCommand({
+                handler: handler,
+                id: index,
+                layerAction: layerAction
+            });
+            this._commandManager.Execute(layerCommand);
         }
     }
 
     UpdateBackground(settings)
     {
         if (settings === 0) return;
-        this._bkg.setAttrs({
-            fill: settings.fill,
-        });
+        this._commandManager.Execute(new BackgroundSettingsCommand({
+            background: this._bkg,
+            settings: settings,
+        }));
     }
 
     UpdateElement({type, element})
@@ -183,9 +288,24 @@ class AInfographic
             this._graphicCallback(
                 this._graphicsHandler.GetSettings(this._selectedGraphicIndex)
             );
-            console.log(this._graphicsHandler);
         } else if (this._selectedChartIndex !== -1) {
-            this._chartHandler.ReplaceChart(this._selectedChartIndex, element);
+            // Replace chart using ReplaceChartCommand object
+            this._commandManager.Execute(new ReplaceChartCommand({
+                targetType: element,
+                id: this._selectedChartIndex,
+                handler: this._chartHandler,
+                transformer: this._tr,
+                main: this._main,
+                colorScheme: this._colorScheme,
+            }));
+
+            // Add event-listeners to new Konva.Group
+            let group = this._chartHandler.GetGroup(this._selectedChartIndex);
+            this._AddListeners(group, 'chart');
+            this._ChartHelper(group);            
+
+            // Get data, chart settings, and decorator settings and send it to
+            // InfographicEditor so the UI components can be updated.
             let data = this._chartHandler.GetHandlerElem(this._selectedChartIndex)
                     .chart.GetData(),
                 cSettings = this._chartHandler.GetSettingsArray(this._selectedChartIndex),
@@ -200,245 +320,49 @@ class AInfographic
         let group = new Konva.Group({
             x: this._chartWidth / 2,
             y: this._chartHeight / 2,
-        });
+        }),
+            insertCommand = null;
         this._main.add(group);
         if (type === 'chart') {
-            let chart = 0, 
-                decoratorList = [];
-            switch(element) {
-                case 'Bar':
-                    chart = new BasicBarChart({
-                        data: [
-                            {
-                                category: 'A',
-                                value: 10,
-                                color: this._colorScheme.primary,
-                            },
-                            {
-                                category: 'B',
-                                value: 30,
-                                color: this._colorScheme.primary
-                            }
-                        ],
-                        group: group,
-                        width: 100,
-                        height: 100,
-                        padding: 0.2,
-                    });
-                    break;
-                case 'Stacked':
-                    chart = new StackedBarChart({
-                        data: [
-                            {
-                                category: 'A',
-                                subcategory: 'one',
-                                value: 10,
-                                color: this._colorScheme.primary,
-                            },
-                            {
-                                category: 'A',
-                                subcategory: 'two',
-                                value: 20,
-                                color: this._colorScheme.secondary,
-                            }
-                        ],
-                        group: group,
-                        width: 100,
-                        height: 100, 
-                        padding: 0.2,
-                    });
-                    break;
-                case 'Icon':
-                    chart = new IconBarChart({
-                        data: [
-                            {
-                                category: 'A',
-                                value: 15,
-                                color: this._colorScheme.primary
-                            },
-                            {
-                                category: 'B',
-                                value: 30,
-                                color: this._colorScheme.primary,
-                            }
-                        ],
-                        group: group,
-                        width: 100,
-                        height: 100,
-                        padding: 50,
-                        remainderColor: this._colorScheme.secondary
-                    });
-                    break;
-                case 'Waffle':
-                    chart = new WaffleChart({
-                        numerator: 1,
-                        denominator: 3,
-                        group: group,
-                        presetA: GenerateIconDataArray({
-                            icon: '\uf004',
-                            color: this._colorScheme.primary,
-                            offset: 85,
-                            font: '"Font Awesome 5 Free"'
-                        }),
-                        presetB: GenerateIconDataArray({
-                            icon: '\uf004',
-                            color: this._colorScheme.secondary,
-                            offset: 85,
-                            font: '"Font Awesome 5 Free"'
-                        }),
-                        fontSize: 80,
-                        isDynamicResize: false,
-                    });
-                    break;
-                case 'Line':
-                    let tmpFont = {
-                        fontSize: 14, 
-                        fontFamily: 'Times New Roman, Times, serif', 
-                        textColor: 'black'
-                    };
-                    chart = new LineChart({
-                        data: [
-                            {
-                                category: 'A',
-                                value: 10,
-                            },
-                            {
-                                category: 'B',
-                                value: 20,
-                            }
-                        ],
-                        group: group,
-                        chartWidth: 200,
-                        chartHeight: 200,
-                        lineWidth: 5,
-                        pointRadius: 6,
-                        lineColor: this._colorScheme.primary,
-                        pointColor: this._colorScheme.secondary,
-                    });
-                    decoratorList[0] = new LineXAxisDecorator({
-                        chart: chart,
-                        lineStrokeWidth: 3,
-                        tickStrokeWidth: 1,
-                        font: tmpFont,
-                    });
-                    decoratorList[1] = new LineYAxisDecorator({
-                        chart: decoratorList[0],
-                        lineStrokeWidth: 3,
-                        tickStrokeWidth: 1,
-                        font: tmpFont,
-                    });
-                    break;
-                case 'Pie':
-                    chart = new PieChart({
-                        data: [
-                            {
-                                category: 'A',
-                                value: 10,
-                                color: this._colorScheme.primary,
-                            },
-                            {
-                                category: 'B',
-                                value: 90,
-                                color: this._colorScheme.secondary,
-                            }
-                        ],
-                        group: group,
-                        radius: 50,
-                    });
-                    break;
-                case 'Donut':
-                    chart = new DonutChart({
-                        data: [
-                            {
-                                category: 'A',
-                                value: 20,
-                                color: this._colorScheme.primary,
-                            },
-                            {
-                                category: 'B',
-                                value: 80,
-                                color: this._colorScheme.secondary
-                            }
-                        ],
-                        group: group,
-                        radius: 50,
-                        innerRadius: 35,
-                    });
-                    break;
-                default:
-                    break;
-            }
-            if (chart !== 0) {
-                this._chartHandler.AddChart({
-                    chart: chart,
-                    group: group,
-                    type: element,
-                });
-                decoratorList.forEach(d => {
-                    this._chartHandler.AddDecorator({
-                        decorator: d, 
-                        id: this._chartHandler.GetCurrChartID()
-                    });
-                });
-
-                if (decoratorList.length === 0) chart.CreateChart();
-                else decoratorList[decoratorList.length - 1].CreateChart();
-
-                group.on('dblclick', () => {
-                    this._ChartHelper(group);
-                });
-                group.on('dragend', () => {
-                    this._SwitchContainerOnDrag(group);
-                });
-                this._ChartHelper(group);
-            }
-        } else if (type === 'icon') {
-            let icon = new Konva.Text({
-                text: String.fromCharCode(parseInt(element, 16)),
-                fontFamily: '"Font Awesome 5 Free"',
-                fontStyle: '900',
-                fill: this._colorScheme.primary,
-                fontSize: 100,
-            });
-            this._graphicsHandler.AddGraphic({
-                type: type,
-                graphic: icon,
+            insertCommand = new InsertChartCommand({
+                chartType: element,
                 group: group,
+                colorScheme: this._colorScheme,
+                handler: this._chartHandler,
+                transformer: this._tr,
+                main: this._main
             });
+            this._commandManager.Execute(insertCommand);
+            this._AddListeners(group, 'chart');
+            this._ChartHelper(group);
+        
+        } else if (type === 'icon') {
+            insertCommand = new InsertIconCommand({
+                element: element,
+                colorScheme: this._colorScheme,
+                group: group,
+                handler: this._graphicsHandler,
+                transformer: this._tr,
+                main: this._main
+            });
+            this._commandManager.Execute(insertCommand);
 
-            group.on('dblclick', () => {
-                this._GraphicHelper(group);
-            });
-            group.on('dragend', () => {
-                this._SwitchContainerOnDrag(group);
-            });
+            this._AddListeners(group, 'graphic');
             this._GraphicHelper(group);
         } else if (type === 'text') {
-            // Set up text
-            let div = document.createElement('div'),
-                textElem = '<p><span style="line-height: 1.2; font-size: 20px; font-family: museo, serif;">' 
-                + element + '</span></p>';
-            div.innerHTML = textElem;
-
-            // Set up text handler 
-            this._textHandler.AddTextElem({
-                textElem: div,
+            insertCommand = new InsertTextCommand({
                 group: group,
-                x: 0,
-                y: 0,
-                rotateBy: 0,
-            });
-            this._textHandler.SetCSSInfo({
-                id: this._textHandler.GetCurrID(),
+                element: element,
                 fontFamily: this._quillMap('museo', 900),
-                fontSize: '20px',
-                textColor: '#000',
-                lineHeight: '1.2',
-                align: 'center',
+                handler: this._textHandler,
+                transformer: this._tr,
+                main: this._main
             });
+            this._commandManager.Execute(insertCommand);
 
             // Render the text 
-            var helperElem = document.createElement('div');
+            let helperElem = document.createElement('div'),
+                div = this._textHandler.GetTextElem(this._textHandler.GetCurrID());
             helperElem.style.position = 'absolute';
             document.getElementById('renderHelper').appendChild(helperElem);
             helperElem.appendChild(div);
@@ -447,91 +371,35 @@ class AInfographic
             helperElem.remove();
 
             let helper = this._textHandler.GetImage(this._textHandler.GetCurrID());
-            helper.on('dblclick', () => {
-                this._TextHelper(helper);
-            });
-            helper.on('dragend', () => {
-                this._SwitchContainerOnDrag(helper);
-            });
+            this._AddListeners(helper, 'text');
             this._TextHelper(helper);
         } else if (type === 'bkg-elem') {
-            let graphic = 0;
-            switch(element) {
-                case 'ribbon-header':
-                    graphic = new RibbonHeader({
-                        colorOne: this._colorScheme.primary,
-                        colorTwo: this._colorScheme.secondary,
-                        group: group,
-                        hWidth: 300,
-                        hHeight: 25,
-                        iWidth: this._chartWidth,
-                        iHeight: this._chartHeight,
-                    });
-                    break;
-                case 'rectangle-header':
-                    graphic = new RectangleHeader({
-                        x: 0,
-                        y: 0,
-                        width: 300,
-                        height: 200,
-                        cornerRadius: 0,
-                        fill: this._colorScheme.primary,
-                        group: group,
-                    });
-                    break;
-                case 'message-bubble':
-                    graphic = new MessageBubble(group, 200, 100, this._colorScheme.primary, 0, 0);
-                    break;
-                default:
-                    break;
-            }
-            this._graphicsHandler.AddGraphic({
-                type: 'header',
-                graphic: graphic,
+            insertCommand = new InsertHeaderCommand({
+                element: element,
+                colorScheme: this._colorScheme,
                 group: group,
+                handler: this._graphicsHandler,
+                transformer: this._tr,
+                main: this._main,
+                infographicWidth: this._chartWidth,
+                infographicHeight: this._chartHeight,
             });
-            group.on('dblclick', () => {
-                this._GraphicHelper(group);
-            });
-            group.on('dragend', () => {
-                this._SwitchContainerOnDrag(group);
-            });
+            this._commandManager.Execute(insertCommand);
+            this._AddListeners(group, 'graphic');
             this._GraphicHelper(group);
         }
         else if (type === 'image'){
-            var imageObj = new Image(), imageHelper = new Konva.Image();
-            imageObj.onload = () => {
-                imageHelper.image(imageObj);
-                imageHelper.cache();
-                imageHelper.filters([
-                    Konva.Filters.Contrast,
-                    Konva.Filters.Brighten,
-                    Konva.Filters.Blur,
-                ]);
-                imageHelper.brightness(0);
-                imageHelper.blurRadius(0);
-                imageHelper.contrast(0);
-                this._main.batchDraw();
-                imageObj.onload = null;
-            };
-            imageHelper.setAttrs({
-                x: 0, 
-                y: 0,
-                height: 200,
-                width: 200,
-                opacity: 1,
-                stroke: 'black',
-                strokeWidth: 0
-            });
-
-            imageObj.src = element;
+            var imageHelper = new Konva.Image();
             group.add(imageHelper);
-            this._graphicsHandler.AddGraphic({
-                type: 'image',
-                graphic: imageHelper,
+            insertCommand = new InsertImageCommand({
+                image: element,
+                imageHelper: imageHelper,
                 group: group,
-             });
-
+                handler: this._graphicsHandler,
+                transformer: this._tr,
+                main: this._main,
+            });
+            this._commandManager.Execute(insertCommand);
             group.on('dblclick', () => {
                 this._GraphicHelper(group);
             });
@@ -657,23 +525,6 @@ class AInfographic
     }
 
     /**
-     * @summary     Adds a black border around the edges of the canvas element.
-     */
-    _AddStageBorder()
-    {
-        this._bkg = new Konva.Rect({
-            x: 0,
-            y: 0,
-            width: this._stage.width(),
-            height: this._stage.height(),
-            fill: 'white',
-            stroke: 'black',
-        });
-        this._main.add(this._bkg);
-        this._bkg.moveToBottom();
-    }
-
-    /**
      * @summary     Returns the width of a text element given the text's font.
      * @description Using canvas' measureText function, _GetTextWidth returns the
      *              width in pixels of a given piece of text.
@@ -792,13 +643,29 @@ class AInfographic
                 y: absPos.y
             });
 
-            textElem.on('dblclick', () => {
-                this._TextHelper(textElem);
-            });
+            this._AddListeners(textElem, 'text');
+        });
+    }
 
-            textElem.on('dragend', () => {
-                this._SwitchContainerOnDrag(textElem);
-            });
+    /**
+     * @summary     Adds user defined event listeners to elem.
+     * @param {Konva.Group} elem 
+     */
+    _AddListeners(elem, type)
+    {
+        elem.on('dblclick', () => {
+            if (type === 'text') this._TextHelper(elem);
+            else if (type === 'chart') this._ChartHelper(elem);
+            else if (type === 'graphic') this._GraphicHelper(elem);
+        });
+
+        elem.on('dragstart', () => {
+            this._LogStartingPosition(elem);
+        });
+
+        elem.on('dragend', () => {
+            this._SwitchContainerOnDrag(elem);
+            this._LogEndingPosition(elem);
         });
     }
 
@@ -811,7 +678,6 @@ class AInfographic
         this._main.batchDraw();
         
         this._selectedTextIndex = textElem.getAttr('id');
-        this._selectedTextHelper = this._selectedTextIndex;
 
         this._textCallback(this._textHandler.GetHandlerElem(this._selectedTextIndex));
         this._editorHandler('text-editor');
@@ -839,21 +705,16 @@ class AInfographic
      * 
      * @param {JSON} textElem A JSON object containing the updated textElem information.
      */
-    UpdateTextHandler(textElem)
-    {
-        if (textElem.image === undefined || textElem.textElem === undefined || 
-            textElem.group === undefined || textElem.spanCSS === undefined || 
-            textElem === 0) {
-            return;
-        } 
-        this._textHandler.UpdateTextElem({
-            index: this._selectedTextHelper,
-            textElem: textElem.textElem,
-            group: textElem.group,
-            image: textElem.image,
-            spanCSS: textElem.spanCSS,
-        });
-        this._selectedTextHelper = -1;
+    UpdateTextHandler({domText, image, spanCSS})
+    {        
+        this._commandManager.Execute(new TextContentCommand({
+            domText: domText,
+            image: image,
+            spanCSS: spanCSS,
+            handler: this._textHandler,
+            id: this._selectedTextIndex,
+        }));
+
         this._main.batchDraw();
     }
 
@@ -861,19 +722,31 @@ class AInfographic
     {
         // TODO remove entries from handler
         if (this._selectedChartIndex !== -1) {
-            this._tr.nodes([]);
-            this._main.batchDraw();
-            this._chartHandler.RemoveHandlerElem(this._selectedChartIndex);
+            let chartObj = new RemoveChartCommand({
+                id: this._selectedChartIndex,
+                handler: this._chartHandler,
+                transformer: this._tr,
+                main: this._main,
+            });
+            this._commandManager.Execute(chartObj);
             this._selectedChartIndex = -1;
         } else if (this._selectedTextIndex !== -1) {
-            this._tr.nodes([]);
-            this._main.batchDraw();
-            this._textHandler.RemoveHandlerElem(this._selectedTextIndex);
-            this._selectedTextIndex = this._selectedTextHelper = -1;
+            let textObj = new RemoveTextCommand({
+                id: this._selectedTextIndex,
+                handler: this._textHandler,
+                transformer: this._tr,
+                main: this._main,
+            });
+            this._commandManager.Execute(textObj);
+            this._selectedTextIndex = -1;
         } else if (this._selectedGraphicIndex !== -1) {
-            this._tr.nodes([]);
-            this._main.batchDraw();
-            this._graphicsHandler.RemoveHandlerElem(this._selectedGraphicIndex);
+            let graphicsObj = new RemoveGraphicCommand({
+                id: this._selectedGraphicIndex,
+                handler: this._graphicsHandler,
+                transformer: this._tr,
+                main: this._main
+            });
+            this._commandManager.Execute(graphicsObj);
             this._selectedGraphicIndex = -1;
         }
     }
@@ -881,7 +754,12 @@ class AInfographic
     UpdateChartDecorators(settings)
     {
         if (settings === 0 || this._selectedChartIndex === -1) return;
-        this._chartHandler.UpdateChartDecorators(this._selectedChartIndex, settings);
+        let updateObj = new ChartDecoratorCommand({
+            decoratorSettings: settings,
+            handler: this._chartHandler,
+            id: this._selectedChartIndex,
+        });
+        this._commandManager.Execute(updateObj);
     }
 
     /**
@@ -894,42 +772,49 @@ class AInfographic
     UpdateChartData(chartData)
     {
         if (chartData === 0 || this._selectedChartIndex === -1) return;
-        var elem = this._chartHandler.GetHandlerElem(this._selectedChartIndex),
-            name = elem.group.getAttr('name');
-        if (name === 'Selectable Chart Waffle') {
-            // We assume that the data will be formatted as follows
-            // data = {
-            //    numerator: {num}, denominator: {num}
-            // }
-            if (chartData.numerator === 0 || chartData.denominator === 0) return;
-            var numerator = chartData.numerator, denominator = chartData.denominator;
-            elem.chart.UpdateData(parseInt(numerator), parseInt(denominator));
-        } else {
-            // We assume that the data will be formated as follows
-            // data = [
-            //    { category: {string}, value: {float}, color: {string}}, ...   
-            // ]
-            elem.chart.UpdateData(chartData);
-        } 
 
-        this._UpdateDecorators(elem);
+        let currData = this._chartHandler.GetChart(this._selectedChartIndex).GetData(),
+            type = this._chartHandler.GetGroup(this._selectedChartIndex).getAttr('name');
+
+        // Basically, UpdateChartData is called multiple times because it is 
+        // called each time CanvasContainer is rendered. Is this the best design
+        // decision? Maybe not, but to avoid adding too many commands to the
+        // command manager, we need this following check.
+        if (currData === chartData) return; 
+
+        // Same reason as above but case specific to waffle chart type.
+        if (type === 'Selectable Chart Waffle' && 
+            (currData.numerator === chartData.numerator && 
+            currData.denominator === chartData.denominator)) return;
+
+        let updateCommand = new ChartDataCommand({
+            data: chartData,
+            handler: this._chartHandler,
+            id: this._selectedChartIndex,
+        });
+
+        this._commandManager.Execute(updateCommand);
     }
 
     UpdateChartSettings(settings)
     {
         if (settings === 0 || this._selectedChartIndex === -1) return;
-        let elem = this._chartHandler.GetHandlerElem(this._selectedChartIndex);
-        elem.chart.UpdateChartSettings(settings);
-        this._UpdateDecorators(elem);
+        let updateObj = new ChartSettingsCommand({
+            settings: settings,
+            handler: this._chartHandler,
+            id: this._selectedChartIndex,
+        });
+        this._commandManager.Execute(updateObj);
     }
 
     UpdateGraphicSettings(settings)
     {
         if (settings === 0 || this._selectedGraphicIndex === -1) return;
-        this._graphicsHandler.UpdateGraphicSettings({
-            id: this._selectedGraphicIndex, 
-            settings:settings
-        });
+        this._commandManager.Execute(new GraphicSettingsCommand({
+            settings: settings,
+            handler: this._graphicsHandler,
+            id: this._selectedGraphicIndex,
+        }));
         this._tr.forceUpdate();
         this._main.batchDraw();
     }
@@ -967,13 +852,7 @@ class AInfographic
             /**
              * Adds ability to select and edit graphs.
              */
-            chart.on('dblclick', () => {
-                this._ChartHelper(chart);
-            });
-
-            chart.on('dragend', () => {
-                this._SwitchContainerOnDrag(chart);
-            });
+            this._AddListeners(chart, 'chart');
         });
     }
 
@@ -981,45 +860,55 @@ class AInfographic
     _ChartHelper(chart)
     {
         this._selectedChartIndex = parseInt(chart.getAttr('id'));
-                this._tr.nodes([chart]);
-                this._tr.moveToTop();
+        this._tr.nodes([chart]);
+        this._tr.moveToTop();
+        this._main.batchDraw();
+        chart.setAttr('draggable', true);
+
+        let selectedChart = this._chartHandler.GetHandlerElem(this._selectedChartIndex).chart,
+            dSettings = this._chartHandler.GetDecoratorSettingsArray(this._selectedChartIndex);
+        this._chartCallback(selectedChart.GetData(), selectedChart.GetChartSettings(), dSettings);
+
+        this._UpdateChartEditorUI(chart);
+
+        setTimeout(() => {
+            this._stage.on('click', HandleOutsideClick);
+        });
+
+        var HandleOutsideClick = (e) => {
+            if (e.target !== chart) {
+                this._selectedChartIndex = -1;
+                this._editorHandler('none');
+                this._tr.nodes([]);
+                chart.setAttr('draggable', false);
                 this._main.batchDraw();
-                chart.setAttr('draggable', true);
+                this._stage.off('click', HandleOutsideClick);
+            }
+        };
+    }
 
-                let selectedChart = this._chartHandler.GetHandlerElem(this._selectedChartIndex).chart,
-                    dSettings = this._chartHandler.GetDecoratorSettingsArray(this._selectedChartIndex);
-                this._chartCallback(selectedChart.GetData(), selectedChart.GetChartSettings(), dSettings);
-
-                if (chart.getAttr('name') === 'Selectable Chart Waffle') {
-                    this._editorHandler('waffle-editor');
-                } else if (chart.getAttr('name') === 'Selectable Chart Pie') {
-                    this._editorHandler('pie-editor');
-                } else if (chart.getAttr('name') === 'Selectable Chart Bar') {
-                    this._editorHandler('bar-editor')
-                } else if (chart.getAttr('name') === 'Selectable Chart Stacked') {
-                    this._editorHandler('stacked-bar-editor');
-                } else if (chart.getAttr('name') === 'Selectable Chart Line') {
-                    this._editorHandler('line-editor');
-                } else if (chart.getAttr('name') === 'Selectable Chart Icon') {
-                    this._editorHandler('icon-bar-editor');
-                } else if (chart.getAttr('name') === 'Selectable Chart Donut') {
-                    this._editorHandler('donut-editor');
-                }
-
-                setTimeout(() => {
-                    this._stage.on('click', HandleOutsideClick);
-                });
-
-                var HandleOutsideClick = (e) => {
-                    if (e.target !== chart) {
-                        this._selectedChartIndex = -1;
-                        this._editorHandler('none');
-                        this._tr.nodes([]);
-                        chart.setAttr('draggable', false);
-                        this._main.batchDraw();
-                        this._stage.off('click', HandleOutsideClick);
-                    }
-                };
+    /**
+     * @description Updates the editor UI to reflect the chart type specified by
+     *              group.
+     * @param {Konva.Group} group 
+     */
+    _UpdateChartEditorUI(group)
+    {
+        if (group.getAttr('name') === 'Selectable Chart Waffle') {
+            this._editorHandler('waffle-editor');
+        } else if (group.getAttr('name') === 'Selectable Chart Pie') {
+            this._editorHandler('pie-editor');
+        } else if (group.getAttr('name') === 'Selectable Chart Bar') {
+            this._editorHandler('bar-editor')
+        } else if (group.getAttr('name') === 'Selectable Chart Stacked') {
+            this._editorHandler('stacked-bar-editor');
+        } else if (group.getAttr('name') === 'Selectable Chart Line') {
+            this._editorHandler('line-editor');
+        } else if (group.getAttr('name') === 'Selectable Chart Icon') {
+            this._editorHandler('icon-bar-editor');
+        } else if (group.getAttr('name') === 'Selectable Chart Donut') {
+            this._editorHandler('donut-editor');
+        }
     }
 
     _AddGraphicSelection()
@@ -1029,13 +918,7 @@ class AInfographic
         });
 
         selection.forEach((group) => {
-            group.on('dblclick', () => {
-                this._GraphicHelper(group);
-            });
-
-            group.on('dragend', () => {
-                this._SwitchContainerOnDrag(group);
-            });
+            this._AddListeners(group, 'graphic');
         });
     }
 
@@ -1079,16 +962,10 @@ class AInfographic
         
         selection = selection.filter(d => parent !== d)
     
-        selection.forEach(group => {
-            if (Konva.Util.haveIntersection(group.getClientRect(), elem.getClientRect())) {
-                let absPos = elem.getAbsolutePosition();
-                elem.moveTo(group);
-                elem.absolutePosition({
-                    x: absPos.x,
-                    y: absPos.y
-                });
-            }
-        });
+        new AutoLayerCommand({
+            containers: selection,
+            element: elem
+        }).Execute();
     }
 
     _FindTopContainer(elem)
@@ -1098,6 +975,52 @@ class AInfographic
             parent = parent.getParent();
         }
         return parent;
+    }
+
+    /**
+     * @summary     Creates a PositionCommand object to save the position of a 
+     *              given object.
+     * @description Creates a PositionCommand object that holds the target 
+     *              object's current position. This object is then added to
+     *              the command manager.
+     * @param {*} konvaElement 
+     */
+    _LogStartingPosition(konvaElement)
+    {
+        let absPos = konvaElement.absolutePosition(),
+            selection = this._stage.find((node) => {
+                return node.hasName('Switchable') && node.hasName('Container');
+            });
+        
+        let currPosition = new PositionCommand({
+            element: konvaElement,
+            x: absPos.x,
+            y: absPos.y,
+            z: konvaElement.zIndex(),
+            containers: selection,
+        });
+        this._commandManager.Add(currPosition);
+    }
+
+    /**
+     * @summary     Pops the top object in CommandManager and (assuming the 
+     *              object is a PositionCommand object) sets the current 
+     *              coordinates.
+     * @assumptions This assumes that the top object in CommandManager is a 
+     *              PositionCommand object. It is recommended that this be used
+     *              in conjunction with _LogStartingPosition. 
+     * @param {*} konvaElement 
+     */
+    _LogEndingPosition(konvaElement)
+    {
+        let absPos = konvaElement.absolutePosition();
+        let currPosition = this._commandManager.RemoveFromUndoStack();
+        currPosition.SetCurrentCoordinates({
+            x: absPos.x,
+            y: absPos.y,
+            z: konvaElement.zIndex(),
+        });
+        this._commandManager.Add(currPosition);
     }
 
     _AddMultipleElementSelector()
@@ -1174,7 +1097,6 @@ class AInfographic
             var selected = elems.filter((elem) =>
                 Konva.Util.haveIntersection(box, elem.getClientRect())
             );
-            console.log(selected)
 
             this._tr.nodes(selected);
             this._tr.moveToTop();

@@ -8,6 +8,28 @@ class SettingsManager
         this._setDecoratorSettings = setDecoratorSettings;
     }
 
+    /**
+     * @summary Directly updates the _cSettings member. Typically used to keep
+     *          state consistent after an undo/redo operation.
+     *              
+     * @param {JSON} cSettings 
+     */
+    SetCSettings(cSettings)
+    {
+        this._cSettings = cSettings;
+    }
+
+    /**
+     * @summary Directly updates the _dSettings member. Typically used to keep
+     *          state consistent after an undo/redo operation.
+     *              
+     * @param {JSON} cSettings 
+     */
+    SetDSettings(dSettings)
+    {
+        this._dSettings = dSettings;
+    }
+
     SetChartSettings(category, key, value)
     {
         let settings = this._cSettings;

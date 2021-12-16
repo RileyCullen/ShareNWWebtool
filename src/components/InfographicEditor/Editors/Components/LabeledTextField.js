@@ -14,7 +14,7 @@ class LabeledTextField extends React.Component
                 <div className='labeled-text-field'>
                     <TextField 
                         id={this.props.index}
-                        index={this.props.index}
+                        index={this.props.initialValue}
                         initialValue={this.props.initialValue}
                         rows={this.props.rows}
                         cols={this.props.cols}

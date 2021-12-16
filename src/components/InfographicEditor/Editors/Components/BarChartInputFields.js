@@ -34,7 +34,7 @@ class BarChartInputFields extends React.Component
                     <div className='data-input-container'>
                         <ColorPicker
                             key={d.value + '-' + i + 'color'}
-                            id='bar-data-color-picker' 
+                            id={d.color + '-bar-data-color-picker'} 
                             color={d.color}
                             onChange={(color) => {
                                 let index = i;
@@ -42,7 +42,7 @@ class BarChartInputFields extends React.Component
                             }
                         }/>
                         <TextField 
-                            id={d.value + '-' + i + '-category'}
+                            id={d.category + '-' + i + '-category'}
                             index={i}
                             initialValue={category}
                             rows={rows}

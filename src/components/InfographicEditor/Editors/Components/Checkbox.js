@@ -27,6 +27,15 @@ class Checkbox extends React.Component
         );
     }
 
+    componentDidUpdate(prevProps)
+    {
+        if (prevProps.initialValue !== this.props.initialValue) {
+            this.setState({
+                isSelected: this.props.initialValue,
+            });
+        }
+    }
+
     _HandleChange()
     {
         this.setState({

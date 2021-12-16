@@ -55,6 +55,22 @@ class AIconBar
         }
     }
  
+    GetAttrs()
+    {
+        return {
+            data: this._data,
+            group: this._group,
+            width: this._chartWidth,
+            height: this._chartHeight,
+            padding: this._padding,
+            angleOffset: this._angleOffset,
+            icon: this._icon, 
+            remainderColor: this._remainderColor, 
+            iconSize: this._iconSize, 
+            dynamicFont: this._dynamicFont
+        };
+    }
+
      /**
       * @summary     Updates data array.
       * @description Updates data array as well as the yScale since a given BarChart's
@@ -98,7 +114,7 @@ class AIconBar
       */
      Remove()
      {
-         this._group.destroy();
+         this._group.remove();
      }
  
      /**

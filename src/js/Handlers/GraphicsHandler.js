@@ -2,6 +2,7 @@
 // GraphicsHandler.js
 // July 19, 2021
 
+import Lodash from 'lodash';
 import { ArrowHeader, RectangleHeader, RibbonHeader } from "../Headers";
 import { MessageBubble } from "../ToolTips";
 
@@ -37,6 +38,26 @@ class GraphicsHandler
     }
 
     /**
+     * @summary     Adds a graphic to the handler at index.
+     * @description NOTE that this function assumes that index is less than or 
+     *              equal to _curr.
+     * @param {*} param0 
+     */
+    AddGraphicAtIndex({type, graphic, group, index})
+    {
+        let elem = {};
+        this._handler.splice(index, 0, elem);
+        this.UpdateGraphic({
+            id: index,
+            type: type,
+            graphic: graphic,
+            group: group,
+        });
+        this._curr++;
+        this._UpdateHandlerId();
+    }
+
+    /**
      * @summary     Removes the element at id from the handler.
      * @summary     Calls the graphic object's remove (or destroy) function, which
      *              removes the instance from the infographic. Then, the instance
@@ -51,10 +72,10 @@ class GraphicsHandler
                 this._handler[id].graphic.Remove();
                 break;
             case 'image':
-                this._handler[id].graphic.destroy();
+                this._handler[id].graphic.remove();
                 break;
             case 'icon':
-                this._handler[id].group.destroy();
+                this._handler[id].graphic.remove();
                 break;
             default: 
                 break;
@@ -80,14 +101,26 @@ class GraphicsHandler
      */
     GetType(id) { return this._handler[id].type; }
 
+    /**
+     * @summary Get the graphic element at id.
+     * @param {int} id 
+     */
+    GetGraphic(id) { return this._handler[id].graphic; }
+
+    /**
+     * @summary Get the group at id.
+     * @param {*} id 
+     */
+    GetGroup(id) { return this._handler[id].group; }
+
     GetSettings(id)
     {
         let obj = this._handler[id];
         switch(obj.type) {
             case 'icon':
-                return obj.graphic.getAttrs();
+                return Lodash.cloneDeep(obj.graphic.getAttrs());
             case 'image':
-                return obj.graphic.getAttrs();
+                return Lodash.cloneDeep(obj.graphic.getAttrs());
             case 'header':
                 return obj.graphic.GetSettings();
             default:
@@ -126,7 +159,7 @@ class GraphicsHandler
 
     UpdateGraphicSettings({id, settings})
     {
-        let elem = this._handler[id];
+        let elem = this._handler[id]; 
         switch(elem.type) {
             case 'header':
                 elem.graphic.UpdateHeader(settings);
@@ -134,8 +167,8 @@ class GraphicsHandler
                 break;
             case 'image':
                 elem.graphic.clearCache();
-                elem.graphic.cache();
                 elem.graphic.setAttrs(settings);
+                elem.graphic.cache();
                 break;
             case 'icon':
                 elem.graphic.setAttrs(settings);

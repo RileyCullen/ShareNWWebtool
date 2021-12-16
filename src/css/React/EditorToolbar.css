@@ -50,19 +50,35 @@
     height: 95px;
 }
 
-.toolbar-home-button {
+.toolbar-button {
     position: relative;
-    top: 7px;
-    left: 10px;
     background-color: #B6472A;
     border: none;
 }
 
-.toolbar-home-button:hover {
+#home{
+    top: 7px;
+    left: 10px;
+}
+
+#undo {
+    top: 8px;
+    left: 17px;
+}
+#undo-redo-icon {
+    font-size: 19px;
+}
+
+#redo {
+    top: 8px;
+    left: 21px;
+}
+
+.toolbar-button:hover {
     background-color: #9b3c24; 
 }
 
-.toolbar-home-icon {
+.toolbar-icon {
     color: white;
     font-size: 22px;
 }
@@ -91,10 +107,10 @@
     margin-left: 10px;
     position: relative;
     top: 7.5px;
-    left: 15px;
+    left: 20px;
 }
 
-.toolbar-insert, .toolbar-home-button, .vertical-divider {
+.toolbar-insert, .toolbar-button, .vertical-divider {
     float: left;
 }
 

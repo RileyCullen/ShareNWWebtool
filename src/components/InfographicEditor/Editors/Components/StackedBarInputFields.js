@@ -21,7 +21,7 @@ class StackedBarInputFields extends React.Component
         let data = this._ReformatData(), 
             categories = Array.from(new Set(this.props.chartData.map(d => d.category))),
             cols = 10;
-        console.log(this.props.chartData)
+        console.log(data)
         return (
             <div style={{
                 overflow: 'auto'
@@ -47,7 +47,7 @@ class StackedBarInputFields extends React.Component
                                             }}/>
                                         <TextField 
                                             key={this.props.chartData.length + '-category'}
-                                            id={i + '-category'}
+                                            id={d + '-category'}
                                             index={i}
                                             initialValue={d}
                                             rows={1}
@@ -76,7 +76,7 @@ class StackedBarInputFields extends React.Component
                             <div className='stacked-bar-grid-four extra-margin'>
                                 <ColorPicker
                                     key={d.subcategory + '-' + i + '-color'}
-                                    id='stacked-bar-color-picker' 
+                                    id={d.data[0].color + '-stacked-bar-color-picker'}
                                     color={d.data[0].color}
                                     onChange={(color) => { 
                                         this._SetColor(data, color, i);
@@ -84,7 +84,7 @@ class StackedBarInputFields extends React.Component
                                 />
                                 <TextField 
                                     key={d.subcategory + '-' + i + '-subcategory'}
-                                    id={i + '-subcategory'}
+                                    id={d.subcategory + '-subcategory'}
                                     index={i}
                                     initialValue={d.subcategory}
                                     rows={1}
@@ -95,12 +95,11 @@ class StackedBarInputFields extends React.Component
                                     {
                                         d.data.map((d, i) => {
                                             let content = false;
-                                            console.log(d)
                                             categories.forEach((e, j) => {
                                                 if (e === d.category) {
                                                     content = <TextField 
                                                     key={d.subcategory + '-' + j + '-category'}
-                                                    id={j + '-category'}
+                                                    id={d.value + '-category'}
                                                     index={d.originalIndex}
                                                     initialValue={d.value}
                                                     rows={1}

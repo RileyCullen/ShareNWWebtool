@@ -139,7 +139,7 @@ class ABarChart
      */
     Remove()
     {
-        this._group.destroy();
+        this._group.remove();
     }
 
     GetChartSettings()
