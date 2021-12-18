@@ -24,7 +24,7 @@
 .preview {
     z-index: 1;
     position: fixed;
-    width: 50%;
+    width: 800px;
     height: 90%;
     top: 5%;
     left: 25%;
