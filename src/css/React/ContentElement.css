@@ -89,11 +89,11 @@
     background-color: white;
 }
 
-#preview-button {
+#use-template-button {
     background-color: #B6472A;
     color: white;
 }
 
-#preview-button:hover {
+#use-template-button:hover {
     background-color: #9b3c25;
 }

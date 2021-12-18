@@ -27,7 +27,7 @@ class ContentElement extends React.Component
                     </div>
                     <div className='content-buttons'>
                         <input 
-                            id='preview-button'
+                            id='use-template-button'
                             className='use-template'
                             type='button' 
                             value='Use Template' 
