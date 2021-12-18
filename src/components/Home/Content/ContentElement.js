@@ -15,6 +15,7 @@ class ContentElement extends React.Component
                 <div className='content-image'>
                     <img className='content-translate' src={this.props.image} alt='An infographic about HIV'/>
                     <input 
+                        id='preview-button'
                         type='button' 
                         value='Preview'
                         onClick={previewHandler}>    

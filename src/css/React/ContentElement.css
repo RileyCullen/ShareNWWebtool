@@ -97,3 +97,9 @@
 #use-template-button:hover {
     background-color: #9b3c25;
 }
+
+#preview-button {
+    width: 125px;
+    left: 50%;
+    transform: translateX(-50%);
+}
