@@ -72,7 +72,8 @@
     width: 125px;
     height: 35px;
     position: relative;
-    left: 25%;
+    left: 50%;
+    transform: translateX(-50%);
     top: -12px;
 }
 
