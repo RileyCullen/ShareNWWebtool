@@ -1,4 +1,5 @@
 import React from 'react';
+import '../../css/React/Home.css'
 import { Toolbar } from './Toolbar/Toolbar';
 import { Content } from './Content/Content';
 import { InfographicEditor } from '../InfographicEditor/InfographicEditor';

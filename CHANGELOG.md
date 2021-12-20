@@ -1,4 +1,7 @@
 # Change Log
+## [v0.2.2] - 2021-12-17
+### Added
+* Responsive CSS added to home page and preview popups
 ## [v0.2.1] - 2021-12-15
 ### Added
 * Image upload capabilities
