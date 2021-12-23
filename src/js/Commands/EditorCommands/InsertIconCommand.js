@@ -4,7 +4,7 @@ import Konva from 'konva';
 
 class InsertIconCommand extends ACommand 
 {
-    constructor({element, colorScheme, group, handler, transformer, main})
+    constructor({element, colorScheme, group, handler, transformer, main, absPos = null})
     {
         super();
         this._element = element;
@@ -13,6 +13,7 @@ class InsertIconCommand extends ACommand
         this._handler = handler;
         this._tr = transformer;
         this._main = main;
+        this._absPos = absPos;
 
         this._id = -1;
         this._hasCreated = false;
@@ -51,6 +52,8 @@ class InsertIconCommand extends ACommand
             graphic: icon,
             group: this._group,
         });
+
+        if (this._absPos) icon.absolutePosition(this._absPos);
 
         // Update command object
         this._id = this._handler.GetId();

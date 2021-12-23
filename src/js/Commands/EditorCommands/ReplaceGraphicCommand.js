@@ -27,6 +27,8 @@ class ReplaceGraphicCommand extends ACommand
 
         this._removeObj = null;
         this._insertObj = null;
+
+        this._absPos = this._GetAbsPos();
     }
 
     Execute()
@@ -53,7 +55,7 @@ class ReplaceGraphicCommand extends ACommand
     _CreateInsertObject()
     {
         switch(this._handler.GetType(this._id)) {
-            case 'icon': 
+            case 'icon':
                 return new InsertIconCommand({
                     element: this._element,
                     colorScheme: this._colorScheme,
@@ -61,6 +63,7 @@ class ReplaceGraphicCommand extends ACommand
                     handler: this._handler,
                     transformer: this._tr,
                     main: this._main,
+                    absPos: this._absPos,
                 });
             case 'header':
                 return new InsertHeaderCommand({
@@ -73,6 +76,14 @@ class ReplaceGraphicCommand extends ACommand
                     infographicHeight: this._infogHeight,
                     infographicWidth: this._infogWidth
                 });
+            default: return null;
+        }
+    }
+
+    _GetAbsPos()
+    {
+        switch(this._handler.GetType(this._id)) {
+            case 'icon': return this._handler.GetGraphic(this._id).absolutePosition();
             default: return null;
         }
     }
