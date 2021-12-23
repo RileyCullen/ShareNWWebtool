@@ -11,6 +11,7 @@ import { AutoLayerCommand, BackgroundSettingsCommand, ChartDataCommand, ChartDec
     LayerCommand, PositionCommand, RemoveChartCommand, RemoveGraphicCommand, 
     RemoveTextCommand, 
     ReplaceChartCommand, 
+    ReplaceGraphicCommand, 
     TextContentCommand} from '../Commands/index'
 import { InsertChartCommand } from '../Commands/EditorCommands/InsertChartCommand';
 
@@ -280,11 +281,16 @@ class AInfographic
     UpdateElement({type, element})
     {
         if (this._selectedGraphicIndex !== -1) {
-            this._graphicsHandler.UpdateDisplayContent(this._selectedGraphicIndex, element, 
-                {
-                    width: this._chartWidth,
-                    height: this._chartHeight,
-            });
+            this._commandManager.Execute(new ReplaceGraphicCommand({
+                id: this._selectedGraphicIndex,
+                handler: this._graphicsHandler,
+                transformer: this._tr,
+                main: this._main,
+                element: element,
+                colorScheme: this._colorScheme,
+                infogWidth: this._chartWidth,
+                infogHeight: this._chartHeight,
+            }));
             this._graphicCallback(
                 this._graphicsHandler.GetSettings(this._selectedGraphicIndex)
             );
