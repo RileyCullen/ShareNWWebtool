@@ -17,3 +17,4 @@ export { TextContentCommand } from './EditorCommands/TextContentCommand';
 export { InsertImageCommand } from './EditorCommands/InsertImageCommand';
 export { BackgroundSettingsCommand } from './EditorCommands/BackgroundSettingsCommand';
 export { ReplaceChartCommand } from './EditorCommands/ReplaceChartCommand';
+export { ReplaceGraphicCommand } from './EditorCommands/ReplaceGraphicCommand';
