@@ -1,4 +1,10 @@
 # Change Log
+## [v0.2.3] - 2021-12-23
+### Added
+* Replace header and replace icon functionality added
+* Insertion at specific indexes added to InsertIconCommand and InsertHeaderCommand objects
+### Fixed
+* Misalignment of replaced icons
 ## [v0.2.2] - 2021-12-17
 ### Added
 * Responsive CSS added to home page and preview popups
