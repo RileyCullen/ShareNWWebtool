@@ -64,6 +64,7 @@ class ReplaceGraphicCommand extends ACommand
                     transformer: this._tr,
                     main: this._main,
                     absPos: this._absPos,
+                    index: this._id,
                 });
             case 'header':
                 return new InsertHeaderCommand({
@@ -74,7 +75,8 @@ class ReplaceGraphicCommand extends ACommand
                     transformer: this._tr,
                     main: this._main,
                     infographicHeight: this._infogHeight,
-                    infographicWidth: this._infogWidth
+                    infographicWidth: this._infogWidth,
+                    index: this._id,
                 });
             default: return null;
         }
