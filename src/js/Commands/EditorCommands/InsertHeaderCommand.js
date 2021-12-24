@@ -6,7 +6,7 @@ import { ACommand } from "../ACommand";
 class InsertHeaderCommand extends ACommand 
 {
     constructor({element, colorScheme, group, handler, transformer, main, 
-        infographicWidth = 200, infographicHeight = 200, })
+        infographicWidth = 200, infographicHeight = 200, index = -1})
     {
         super();
         this._element = element;
@@ -18,13 +18,13 @@ class InsertHeaderCommand extends ACommand
         this._width = infographicWidth;
         this._height = infographicHeight;
 
-        this._id = -1;
+        this._id = index;
         this._removeCommand = null;
     }
 
     Execute()
     {
-        if (this._id === -1) this._CreateHeader()
+        if (!this._removeCommand) this._CreateHeader()
         else                 this._removeCommand.Unexecute();
     }
 
@@ -65,11 +65,20 @@ class InsertHeaderCommand extends ACommand
             default:
                 break;
         }
-        this._handler.AddGraphic({
-            type: 'header',
-            graphic: graphic,
-            group: this._group,
-        });
+        if (this._id === -1) {
+            this._handler.AddGraphic({
+                type: 'header',
+                graphic: graphic,
+                group: this._group,
+            });
+        } else {
+            this._handler.AddGraphicAtIndex({
+                type: 'header',
+                graphic: graphic,
+                group: this._group,
+                index: this._id,
+            });
+        }
         this._id = this._handler.GetId();
         this._removeCommand = new RemoveGraphicCommand({
             id: this._id,
