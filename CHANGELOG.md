@@ -1,5 +1,8 @@
 # Change Log
-## [v0.2.4] - 2021-12-23
+## [v0.2.5] - 2021-12-27
+### Fixed
+* Bug where replacing any chart with a pie/donut chart causes undefined behavior when changing data
+## [v0.2.4] - 2021-12-27
 ### Fixed
 * Bug where program crashes when UpdateDecoratorSettings called on unselected decorator
 ## [v0.2.3] - 2021-12-23
