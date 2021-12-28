@@ -263,7 +263,7 @@ class InsertChartCommand extends ACommand
 
     _CreatePieChart()
     {
-        let attrs = (this._chartAttrs === null) ? {
+        let attrs = {
             data: [
                 {
                     category: 'A',
@@ -278,13 +278,13 @@ class InsertChartCommand extends ACommand
             ],
             group: this._group,
             radius: 50,
-        } : this._chartAttrs;
+        };
         this._chart = new PieChart(attrs);
     }
 
     _CreateDonutChart()
     {
-        let attrs = (this._chartAttrs === null) ? {
+        let attrs = {
             data: [
                 {
                     category: 'A',
@@ -300,7 +300,7 @@ class InsertChartCommand extends ACommand
             group: this._group,
             radius: 50,
             innerRadius: 35,
-        } : this._chartAttrs;
+        };
         this._chart = new DonutChart(attrs);
     }
 }
