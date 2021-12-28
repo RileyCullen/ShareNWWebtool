@@ -40,6 +40,7 @@ class SettingsManager
     UpdateDecoratorSettings(decorator, category, key, value)
     {
         let settings = this._dSettings;
+        if (!(decorator in settings)) return; 
         settings[decorator][category][key] = value;
         this._setDecoratorSettings(settings);
     }

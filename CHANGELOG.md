@@ -1,4 +1,7 @@
 # Change Log
+## [v0.2.4] - 2021-12-23
+### Fixed
+* Bug where program crashes when UpdateDecoratorSettings called on unselected decorator
 ## [v0.2.3] - 2021-12-23
 ### Added
 * Replace header and replace icon functionality added
