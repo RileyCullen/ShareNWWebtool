@@ -33,13 +33,13 @@ class StackedBarInputFields extends React.Component
                     }}>Color</p>
                     <p style={{
                         position: 'relative',
-                        left: '19px',
+                        left: (categories.length > 2) ? '35px' : '19px',
                         width: 'max-content',
                     }}>Subcategory</p>
                     <div className='stacked-bar-grid-auto' style={{
                         width: 'max-content',
                         position: 'relative',
-                        left: '25px'
+                        left: (categories.length > 2) ? '62px' : '28px',
                     }}>
                         {
                             categories.map((d, i)=> {
