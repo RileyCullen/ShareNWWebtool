@@ -68,7 +68,7 @@ class StackedBarInputFields extends React.Component
                     <FontAwesomeIcon style={{
                         fontSize: '20px',
                         position: 'relative',
-                        left: '10px',
+                        left: (categories.length > 2) ? '66px' : '14px',
                         top: '18px'
                     }}icon={faPlusSquare} 
                     onClick={() => { this._AddCategory(); }}/>
