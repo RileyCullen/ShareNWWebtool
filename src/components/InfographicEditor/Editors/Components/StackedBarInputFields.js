@@ -26,10 +26,15 @@ class StackedBarInputFields extends React.Component
                 overflow: 'auto'
             }}>
                 <div className='stacked-bar-grid-four'>
-                    <p>Color</p>
                     <p style={{
                         position: 'relative',
-                        left: '15px'
+                        width: 'max-content',
+                        left: '3px'
+                    }}>Color</p>
+                    <p style={{
+                        position: 'relative',
+                        left: '19px',
+                        width: 'max-content',
                     }}>Subcategory</p>
                     <div className='stacked-bar-grid-auto' style={{
                         width: 'max-content',
