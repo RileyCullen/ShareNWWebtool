@@ -21,7 +21,6 @@ class StackedBarInputFields extends React.Component
         let data = this._ReformatData(), 
             categories = Array.from(new Set(this.props.chartData.map(d => d.category))),
             cols = 10;
-        console.log(data)
         return (
             <div style={{
                 overflow: 'auto'
