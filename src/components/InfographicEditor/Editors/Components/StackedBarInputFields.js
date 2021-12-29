@@ -21,21 +21,25 @@ class StackedBarInputFields extends React.Component
         let data = this._ReformatData(), 
             categories = Array.from(new Set(this.props.chartData.map(d => d.category))),
             cols = 10;
-        console.log(data)
         return (
             <div style={{
                 overflow: 'auto'
             }}>
                 <div className='stacked-bar-grid-four'>
-                    <p>Color</p>
                     <p style={{
                         position: 'relative',
-                        left: '15px'
+                        width: 'max-content',
+                        left: '3px'
+                    }}>Color</p>
+                    <p style={{
+                        position: 'relative',
+                        left: (categories.length > 2) ? '35px' : '19px',
+                        width: 'max-content',
                     }}>Subcategory</p>
                     <div className='stacked-bar-grid-auto' style={{
                         width: 'max-content',
                         position: 'relative',
-                        left: '25px'
+                        left: (categories.length > 2) ? '62px' : '28px',
                     }}>
                         {
                             categories.map((d, i)=> {
@@ -64,7 +68,7 @@ class StackedBarInputFields extends React.Component
                     <FontAwesomeIcon style={{
                         fontSize: '20px',
                         position: 'relative',
-                        left: '10px',
+                        left: (categories.length > 2) ? '66px' : '14px',
                         top: '18px'
                     }}icon={faPlusSquare} 
                     onClick={() => { this._AddCategory(); }}/>

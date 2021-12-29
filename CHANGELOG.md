@@ -1,4 +1,8 @@
 # Change Log
+## [v0.2.6] - 2021-12-28
+### Fixed 
+* Alignment of stack bar chart inputs and labels updated to look nice when more than 2 categories are present
+* Alignment of "Add category" button updated to be aligned with the rest of the UI when more than 2 categories are present
 ## [v0.2.5] - 2021-12-27
 ### Fixed
 * Bug where replacing any chart with a pie/donut chart causes undefined behavior when changing data
