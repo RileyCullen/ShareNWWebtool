@@ -570,7 +570,53 @@ class AInfographic
         this._AddGraphSelection();
         this._AddTextSelection();
         this._AddGraphicSelection();
+        this._AddDataLabelSelection();
         // this._AddMultipleElementSelector();
+    }
+
+    /**
+     * @summary Adds selection capabilities to the data labels on charts (if 
+     *          they exist).
+     */
+    _AddDataLabelSelection()
+    {
+        let selection = this._stage.find((node) => {
+            return node.hasName('Selectable') && node.hasName('Decorator');
+        }); 
+
+        selection.forEach((group) => {
+            group.on('dblclick', () => {
+                let parent = group.getParent();
+                parent.off('dblclick');
+                parent.off('dragstart');
+                parent.off('dragend');
+
+                this._tr.nodes([group]);
+                this._tr.moveToTop();
+                this._main.batchDraw();
+                group.setAttr('draggable', true);
+
+                setTimeout(() => {
+                    this._stage.on('click', HandleOutsideClick);
+                });
+
+                var HandleOutsideClick = (e) => {
+                    if (e.target !== group) {
+                        parent.on('dblclick', () => { this._ChartHelper(parent) });
+                        parent.on('dragstart', () => { this._LogStartingPosition(parent) });
+                        parent.on('dragend', () => { 
+                            this._SwitchContainerOnDrag(parent);
+                            this._LogEndingPosition(parent);
+                        });
+
+                        this._tr.nodes([]);
+                        group.setAttr('draggable', false);
+                        this._main.batchDraw();
+                        this._stage.off('click', HandleOutsideClick);
+                    }
+                };
+            });
+        });
     }
 
     /**
