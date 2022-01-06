@@ -26,7 +26,9 @@ class FirstStatisticDecorator extends APieChartDecorator
         'textColor' : 'black'}, x = 0, y = 0})
     {
         super(chart);
-        this._top = new Konva.Group();
+        this._top = new Konva.Group({
+            name: 'Selectable Decorator',
+        });
         this._font = Lodash.cloneDeep(font);
         this._x = x;
         this._y = y;
