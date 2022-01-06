@@ -389,9 +389,8 @@ class ObesityTemplateOne extends AInfographic
                 'fontFamily': titleFont, 
                 'textColor': 'white',
             }, 
-            x: 5, 
-            y: 0, 
-            group: textGroupArr[2]
+            x: 125, 
+            y: -50, 
         });
 
         this._chartHandler.AddChart({
