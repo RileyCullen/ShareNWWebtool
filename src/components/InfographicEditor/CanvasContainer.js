@@ -53,7 +53,6 @@ class CanvasContainer extends React.Component
         } else {
             // move this around to (preferrably after the else statement so that
             // else and isRemoving and the update selection clauses run)
-            console.log(this.props);
             if (this.props.isRemoving) {
                 this._infogObj.Remove();
             } else if (this.props.insertType !== 'none') {
