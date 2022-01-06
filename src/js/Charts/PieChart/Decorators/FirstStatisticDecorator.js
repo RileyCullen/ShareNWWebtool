@@ -21,17 +21,15 @@ class FirstStatisticDecorator extends APieChartDecorator
      * @param {string} font       The font of the statistic.
      * @param {double} x          The x position of the statistic.
      * @param {double} y          The y position of the statistic.
-     * @param {Konva.Group} group The group we want to add the statistic to.
      */
     constructor({chart, font =  {'fontSize' : 8, 'fontFamily' : 'Times New Roman, Times, serif', 'fontStyle' : 400,
-        'textColor' : 'black'}, x = 0, y = 0, group = 0})
+        'textColor' : 'black'}, x = 0, y = 0})
     {
         super(chart);
         this._top = new Konva.Group();
         this._font = Lodash.cloneDeep(font);
         this._x = x;
         this._y = y;
-        this._helper = group;
     }
 
     /**
@@ -88,8 +86,7 @@ class FirstStatisticDecorator extends APieChartDecorator
             fill: this._font.textColor,
         }));
         this._top.moveToTop();
-        if (this._helper === 0) this._group.add(this._top);
-        else this._helper.add(this._top);
+        this._group.add(this._top);
     }
 
     /**
