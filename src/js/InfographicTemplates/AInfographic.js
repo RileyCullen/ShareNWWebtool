@@ -585,6 +585,7 @@ class AInfographic
         }); 
 
         selection.forEach((group) => {
+            group.off('dblclick');
             group.on('dblclick', () => {
                 this._DecoratorHelper(group);
             });
@@ -817,6 +818,7 @@ class AInfographic
             id: this._selectedChartIndex,
         });
         this._commandManager.Execute(updateObj);
+        this._AddDataLabelSelection();
     }
 
     /**
