@@ -30,8 +30,8 @@ class FirstStatisticDecorator extends APieChartDecorator
             name: 'Selectable Decorator',
         });
         this._font = Lodash.cloneDeep(font);
-        this._x = x;
-        this._y = y;
+        this._x0 = x;
+        this._y0 = y;
     }
 
     /**
@@ -53,8 +53,8 @@ class FirstStatisticDecorator extends APieChartDecorator
             statistic: { 
                 font: this._font,
                 position: {
-                    x: this._x,
-                    y: this._y
+                    x: this._top.x(),
+                    y: this._top.y()
                 }
             }
         };
@@ -80,8 +80,8 @@ class FirstStatisticDecorator extends APieChartDecorator
     {
         var text = this._data[0].value + '%';
         this._top.add(new Konva.Text({
-            x: this._x -(this._GetFontWidth(text) / 2),
-            y: this._y -(this._GetFontWidth('M') / 2),
+            x: this._x0 -(this._GetFontWidth(text) / 2),
+            y: this._y0 -(this._GetFontWidth('M') / 2),
             text: text,
             fontSize: this._font.fontSize,
             fontFamily: this._font.fontFamily,
