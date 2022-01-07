@@ -29,6 +29,10 @@ class WaffleEditor extends React.Component
                 display: {
                     middleText: '',
                     lockToChart: true
+                },
+                position: {
+                    x: 0, 
+                    y: 0,
                 }
             }
         }
