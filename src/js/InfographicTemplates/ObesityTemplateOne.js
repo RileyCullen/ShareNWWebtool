@@ -205,7 +205,6 @@ class ObesityTemplateOne extends AInfographic
         var waffleOneStat = new StatisticDecorator({
             chart: waffleOne, 
             middleText: 'in', 
-            group: textGroupArr[0], 
             font: {
                 'fontSize': statisticFontSize,
                 'fontFamily': titleFont,
@@ -289,7 +288,6 @@ class ObesityTemplateOne extends AInfographic
         var waffleTwoStat = new StatisticDecorator({
             chart: waffleTwo, 
             middleText: 'out of', 
-            group: textGroupArr[1], 
             font: {
                 'fontSize': statisticFontSize,
                 'fontFamily': titleFont,
