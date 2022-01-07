@@ -21,14 +21,13 @@ class StatisticDecorator extends AWaffleChartDecorator
      * @param {*} group      The group we want to add the statistic to.
      * @param {*} font       Font of the text statistic.
      */
-    constructor({chart, middleText, group = 0, font =  {'fontSize' : 8, 
+    constructor({chart, middleText, font =  {'fontSize' : 8, 
         'fontFamily' : 'Times New Roman, Times, serif', 'fontStyle' : 400,
         'textColor' : 'black'}})
     {
         super(chart);
         this._top = new Konva.Group();
         this._middleText = middleText;
-        this._helper = group;
         this._font = Lodash.cloneDeep(font);
     }
 
@@ -83,8 +82,8 @@ class StatisticDecorator extends AWaffleChartDecorator
             fill: this._font.textColor,
         }));
 
-        if (this._helper === 0) this._group.add(this._top);
-        else this._helper.add(this._top);
+        this._top.moveToTop();
+        this._group.add(this._top);
     }
 }
 
