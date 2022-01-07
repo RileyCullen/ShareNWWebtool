@@ -3,6 +3,8 @@
 ### Added
 * FirstStatisticDecorator and StatisticDecorator updated to add data label to chart's group instead of a separate, user defined group that was passed in as a parameter
 * FirstStatisticDecorator updated to return current x and y position when GetDecoratorSettings is called
+* StatisticDecorator updated to return _top's position
+* Default settings for StatisticDecorator updated
 * Logic for clicking on "Selectable Decorator"s added
 ### Changed
 * CreateChart in WaffleChart type no longer waits for document fonts to load
