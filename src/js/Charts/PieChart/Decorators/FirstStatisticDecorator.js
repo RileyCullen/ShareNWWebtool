@@ -21,17 +21,18 @@ class FirstStatisticDecorator extends APieChartDecorator
      * @param {string} font       The font of the statistic.
      * @param {double} x          The x position of the statistic.
      * @param {double} y          The y position of the statistic.
-     * @param {Konva.Group} group The group we want to add the statistic to.
      */
     constructor({chart, font =  {'fontSize' : 8, 'fontFamily' : 'Times New Roman, Times, serif', 'fontStyle' : 400,
-        'textColor' : 'black'}, x = 0, y = 0, group = 0})
+        'textColor' : 'black'}, x = 0, y = 0})
     {
         super(chart);
-        this._top = new Konva.Group();
+        this._top = new Konva.Group({
+            name: 'Selectable Decorator',
+        });
         this._font = Lodash.cloneDeep(font);
-        this._x = x;
-        this._y = y;
-        this._helper = group;
+        this._x0 = x;
+        this._y0 = y;
+        this._text = '';
     }
 
     /**
@@ -53,8 +54,8 @@ class FirstStatisticDecorator extends APieChartDecorator
             statistic: { 
                 font: this._font,
                 position: {
-                    x: this._x,
-                    y: this._y
+                    x: this._top.x() + (this._GetFontWidth(this._text) / 2),
+                    y: this._top.y() + (this._GetFontWidth('M') / 2)
                 }
             }
         };
@@ -78,18 +79,17 @@ class FirstStatisticDecorator extends APieChartDecorator
      */
     _AddMajorStatistic()
     {
-        var text = this._data[0].value + '%';
+        this._text = this._data[0].value + '%';
+        this._top.x(this._x0 -(this._GetFontWidth(this._text) / 2));
+        this._top.y(this._y0 -(this._GetFontWidth('M') / 2));
         this._top.add(new Konva.Text({
-            x: this._x -(this._GetFontWidth(text) / 2),
-            y: this._y -(this._GetFontWidth('M') / 2),
-            text: text,
+            text: this._text,
             fontSize: this._font.fontSize,
             fontFamily: this._font.fontFamily,
             fill: this._font.textColor,
         }));
         this._top.moveToTop();
-        if (this._helper === 0) this._group.add(this._top);
-        else this._helper.add(this._top);
+        this._group.add(this._top);
     }
 
     /**

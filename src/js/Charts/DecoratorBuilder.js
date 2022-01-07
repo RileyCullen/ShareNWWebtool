@@ -82,6 +82,8 @@ function BuildWaffleChartDecoratorList(chart, dSettings)
                     chart: prevChart,
                     middleText: dSettings.statistic.display.middleText,
                     font: dSettings.statistic.font,
+                    x: parseFloat(dSettings.statistic.position.x),
+                    y: parseFloat(dSettings.statistic.position.y)
                 });
                 break;
             default:
@@ -110,6 +112,8 @@ function BuildPieChartDecoratorList(chart, dSettings)
                 decoratorList[size] = new FirstStatisticDecorator({
                     chart: prevChart,
                     font: dSettings.statistic.font,
+                    x: parseFloat(dSettings.statistic.position.x),
+                    y: parseFloat(dSettings.statistic.position.y)
                 });
                 break;
             default:

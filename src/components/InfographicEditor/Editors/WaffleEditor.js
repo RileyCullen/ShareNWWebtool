@@ -12,7 +12,7 @@ class WaffleEditor extends React.Component
 
         this._defaultFont = {
             fontFamily: 'Times New Roman, Times, serif',
-            fontSize: 10,
+            fontSize: 30,
             textColor: '#000'
         };
 
@@ -27,8 +27,12 @@ class WaffleEditor extends React.Component
             statistic: {
                 font: this._defaultFont,
                 display: {
-                    middleText: '',
+                    middleText: 'out of',
                     lockToChart: true
+                },
+                position: {
+                    x: 0, 
+                    y: 0,
                 }
             }
         }

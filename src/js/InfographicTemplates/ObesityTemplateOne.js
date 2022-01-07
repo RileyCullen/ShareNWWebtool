@@ -204,8 +204,9 @@ class ObesityTemplateOne extends AInfographic
         });
         var waffleOneStat = new StatisticDecorator({
             chart: waffleOne, 
+            x: 200,
+            y: -20,
             middleText: 'in', 
-            group: textGroupArr[0], 
             font: {
                 'fontSize': statisticFontSize,
                 'fontFamily': titleFont,
@@ -288,8 +289,9 @@ class ObesityTemplateOne extends AInfographic
         });
         var waffleTwoStat = new StatisticDecorator({
             chart: waffleTwo, 
+            x: 200,
+            y: -20,
             middleText: 'out of', 
-            group: textGroupArr[1], 
             font: {
                 'fontSize': statisticFontSize,
                 'fontFamily': titleFont,
@@ -389,9 +391,8 @@ class ObesityTemplateOne extends AInfographic
                 'fontFamily': titleFont, 
                 'textColor': 'white',
             }, 
-            x: 5, 
-            y: 0, 
-            group: textGroupArr[2]
+            x: 125, 
+            y: -50, 
         });
 
         this._chartHandler.AddChart({

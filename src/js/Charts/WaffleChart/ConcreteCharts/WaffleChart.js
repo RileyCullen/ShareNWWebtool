@@ -36,20 +36,18 @@ class WaffleChart extends AWaffleChart
      */
     CreateChart()
     {
-        document.fonts.ready.then(() => {
-            var virtualCanvas = document.createElement('custom');
-            var custom = d3.select(virtualCanvas);
-    
-            this._RemoveWaffleChart(custom);
-    
-            if (this._isDynamicResize) {
-                this._fontSize = this._DetermineFontSize();
-            }
-            var data = this._GenerateWaffleDataArr();
-    
-            this._BindData(custom, data);
-            this._Draw(custom, false)
-        });
+        var virtualCanvas = document.createElement('custom');
+        var custom = d3.select(virtualCanvas);
+
+        this._RemoveWaffleChart(custom);
+
+        if (this._isDynamicResize) {
+            this._fontSize = this._DetermineFontSize();
+        }
+        var data = this._GenerateWaffleDataArr();
+
+        this._BindData(custom, data);
+        this._Draw(custom, false)
     }
 
     /**
