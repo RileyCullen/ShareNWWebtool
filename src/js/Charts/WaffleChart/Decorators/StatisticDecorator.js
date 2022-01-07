@@ -26,7 +26,9 @@ class StatisticDecorator extends AWaffleChartDecorator
         'textColor' : 'black'}})
     {
         super(chart);
-        this._top = new Konva.Group();
+        this._top = new Konva.Group({
+            name: 'Selectable Decorator',
+        });
         this._middleText = middleText;
         this._font = Lodash.cloneDeep(font);
         this._x0 = x;
