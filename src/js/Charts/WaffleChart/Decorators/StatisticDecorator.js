@@ -56,6 +56,10 @@ class StatisticDecorator extends AWaffleChartDecorator
                 display: {
                     middleText: this._middleText,
                     lockToChart: true,
+                },
+                position: {
+                    x: this._top.x(),
+                    y: this._top.y(),
                 }
             }
         }
@@ -78,9 +82,9 @@ class StatisticDecorator extends AWaffleChartDecorator
     _AddStatistic()
     {  
         var text = this._numerator + ' ' + this._middleText + ' ' + this._denominator;
+        this._top.x(this._x0);
+        this._top.y(this._y0);
         this._top.add(new Konva.Text({
-            x: this._x0,
-            y: this._y0,
             text: text,
             fontSize: this._font.fontSize,
             fontFamily: this._font.fontFamily,
