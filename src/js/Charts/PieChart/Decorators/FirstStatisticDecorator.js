@@ -32,6 +32,7 @@ class FirstStatisticDecorator extends APieChartDecorator
         this._font = Lodash.cloneDeep(font);
         this._x0 = x;
         this._y0 = y;
+        this._text = '';
     }
 
     /**
@@ -53,8 +54,8 @@ class FirstStatisticDecorator extends APieChartDecorator
             statistic: { 
                 font: this._font,
                 position: {
-                    x: this._top.x(),
-                    y: this._top.y()
+                    x: this._top.x() + (this._GetFontWidth(this._text) / 2),
+                    y: this._top.y() + (this._GetFontWidth('M') / 2)
                 }
             }
         };
@@ -78,11 +79,11 @@ class FirstStatisticDecorator extends APieChartDecorator
      */
     _AddMajorStatistic()
     {
-        var text = this._data[0].value + '%';
+        this._text = this._data[0].value + '%';
+        this._top.x(this._x0 -(this._GetFontWidth(this._text) / 2));
+        this._top.y(this._y0 -(this._GetFontWidth('M') / 2));
         this._top.add(new Konva.Text({
-            x: this._x0 -(this._GetFontWidth(text) / 2),
-            y: this._y0 -(this._GetFontWidth('M') / 2),
-            text: text,
+            text: this._text,
             fontSize: this._font.fontSize,
             fontFamily: this._font.fontFamily,
             fill: this._font.textColor,
