@@ -204,6 +204,8 @@ class ObesityTemplateOne extends AInfographic
         });
         var waffleOneStat = new StatisticDecorator({
             chart: waffleOne, 
+            x: 200,
+            y: -20,
             middleText: 'in', 
             font: {
                 'fontSize': statisticFontSize,
@@ -287,6 +289,8 @@ class ObesityTemplateOne extends AInfographic
         });
         var waffleTwoStat = new StatisticDecorator({
             chart: waffleTwo, 
+            x: 200,
+            y: -20,
             middleText: 'out of', 
             font: {
                 'fontSize': statisticFontSize,
