@@ -130,7 +130,7 @@ class ToolbarContent extends React.Component
             return this._CreateTextIcons();
         } else if (this.props.options === 'header-editor') {
             return this._CreateHeaderIcons();
-        } else if (this.props.options === 'image-editor') {
+        } else if (this.props.options === 'image-editor' || this.props.options === 'insert-image') {
             return this._CreateImageIcons();
         } else if (this.props.options === 'icon-editor') {
             return this._CreateIconIcons();
@@ -287,7 +287,8 @@ class ToolbarContent extends React.Component
     _CreateImageIcons()
     {
         let editorClassName = 'insert-button' + (this.props.currentEditor === 
-            'image-editor') ? ' selected-editor' : '';
+            'image-editor' ? ' selected-editor' : ''),
+            replaceImageClassName = 'insert-button' + (this.props.currentEditor === 'update-image' ? ' selected-editor' : '');
         return (
             <div className='chart-container'>
                 {this._CreateCanvasSettings()}
@@ -296,7 +297,7 @@ class ToolbarContent extends React.Component
                         id='editor-button' 
                         className={editorClassName}
                         onClick={() => { 
-                            if (this.props.currentEditor === 'insert-image') {
+                            if (this.props.currentEditor === 'update-image') {
                                 this.props.editorHandler('image-editor');
                             }
                         }}>
@@ -307,10 +308,10 @@ class ToolbarContent extends React.Component
                     </button>
                     <button 
                         id='replace-image-button' 
-                        className='insert-button'
+                        className={replaceImageClassName}
                         onClick={() => { 
                             if (this.props.currentEditor === 'image-editor') {
-                                this.props.editorHandler('insert-image');
+                                this.props.editorHandler('update-image');
                             }
                         }}>
                         <FontAwesomeIcon 
