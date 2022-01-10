@@ -295,7 +295,11 @@ class ToolbarContent extends React.Component
                     <button 
                         id='editor-button' 
                         className={editorClassName}
-                        onClick={() => { }}>
+                        onClick={() => { 
+                            if (this.props.currentEditor === 'insert-image') {
+                                this.props.editorHandler('image-editor');
+                            }
+                        }}>
                         <FontAwesomeIcon 
                             className='insert-icon'
                             icon={faList}/>
@@ -304,7 +308,11 @@ class ToolbarContent extends React.Component
                     <button 
                         id='replace-image-button' 
                         className='insert-button'
-                        onClick={() => { }}>
+                        onClick={() => { 
+                            if (this.props.currentEditor === 'image-editor') {
+                                this.props.editorHandler('insert-image');
+                            }
+                        }}>
                         <FontAwesomeIcon 
                             className='insert-icon'
                             icon={faFileImage}/>
