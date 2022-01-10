@@ -286,12 +286,15 @@ class ToolbarContent extends React.Component
 
     _CreateImageIcons()
     {
+        let editorClassName = 'insert-button' + (this.props.currentEditor === 
+            'image-editor') ? ' selected-editor' : '';
         return (
             <div className='chart-container'>
                 {this._CreateCanvasSettings()}
                 <div className='editor-settings'>
                     <button 
                         id='editor-button' 
+                        className={editorClassName}
                         onClick={() => { }}>
                         <FontAwesomeIcon 
                             className='insert-icon'
