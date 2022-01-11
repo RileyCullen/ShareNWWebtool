@@ -450,7 +450,7 @@ class InfographicEditor extends React.Component
                 (type, element) => { this._ToggleUpdate(type, element); };
             return (<BackgroundElement 
                 toggleInsert={(type, element) => { handler(type, element); }}/>);
-        } else if (this.state.currentEditor === 'insert-image') {
+        } else if (this.state.currentEditor === 'insert-image' || this.state.currentEditor === 'update-image') {
             return (<Image 
                 toggleInsert={(type, element) => {this._ToggleInsert(type, element);}}/>);
         } else if (this.state.currentEditor === 'edit-background') {
