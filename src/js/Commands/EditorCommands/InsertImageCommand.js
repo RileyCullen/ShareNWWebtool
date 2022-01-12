@@ -4,7 +4,7 @@ import { ACommand } from '../ACommand';
 
 class InsertImageCommand extends ACommand
 {
-    constructor({ image, imageHelper, group, handler, transformer, main})
+    constructor({ image, imageHelper, group, handler, transformer, main, absPos = null})
     {
         super();
         this._image = image;
@@ -14,6 +14,7 @@ class InsertImageCommand extends ACommand
         this._id = -1;
         this._tr = transformer;
         this._main = main;
+        this._absPos = absPos;
 
         this._removeCommand = null;
     }
@@ -54,6 +55,10 @@ class InsertImageCommand extends ACommand
             stroke: 'black',
             strokeWidth: 0
         });
+
+        if (this._absPos !== null) {
+            this._imageHelper.absolutePosition(this._absPos)
+        }
 
         imageObj.src = this._image;
         
