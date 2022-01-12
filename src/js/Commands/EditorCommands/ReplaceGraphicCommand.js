@@ -89,6 +89,7 @@ class ReplaceGraphicCommand extends ACommand
                     handler: this._handler,
                     transformer: this._tr,
                     main: this._main,
+                    absPos: this._absPos
                 });
             default: return null;
         }
@@ -98,6 +99,7 @@ class ReplaceGraphicCommand extends ACommand
     {
         switch(this._handler.GetType(this._id)) {
             case 'icon': return this._handler.GetGraphic(this._id).absolutePosition();
+            case 'image': return this._handler.GetGraphic(this._id).absolutePosition();
             default: return null;
         }
     }
