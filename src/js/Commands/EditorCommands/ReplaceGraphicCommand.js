@@ -1,4 +1,5 @@
-import { InsertHeaderCommand, InsertIconCommand, RemoveGraphicCommand } from "..";
+import Konva from "konva";
+import { InsertHeaderCommand, InsertIconCommand, InsertImageCommand, RemoveGraphicCommand } from "..";
 import { ACommand } from "../ACommand";
 
 class ReplaceGraphicCommand extends ACommand
@@ -77,6 +78,17 @@ class ReplaceGraphicCommand extends ACommand
                     infographicHeight: this._infogHeight,
                     infographicWidth: this._infogWidth,
                     index: this._id,
+                });
+            case 'image':
+                let imageHelper = new Konva.Image();
+                this._group.add(imageHelper);
+                return new InsertImageCommand({
+                    image: this._element,
+                    imageHelper: imageHelper,
+                    group: this._group,
+                    handler: this._handler,
+                    transformer: this._tr,
+                    main: this._main,
                 });
             default: return null;
         }
