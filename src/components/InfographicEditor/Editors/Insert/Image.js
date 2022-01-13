@@ -2,6 +2,8 @@ import React from 'react';
 
 import '../../../../css/React/Editors/Insert/Insert.css';
 import '../../../../css/React/Editors/Insert/Image.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFileUpload } from '@fortawesome/free-solid-svg-icons';
 
 class Image extends React.Component 
 {
@@ -43,6 +45,14 @@ class Image extends React.Component
         return (
             <div className='editor-insert-container'>
                 <div id='upper-image-upload-container'>
+                    <label 
+                        id='image-upload-label'
+                        for='upload-image-input'>
+                        <FontAwesomeIcon 
+                            icon={faFileUpload}
+                        />
+                        Upload Image
+                    </label>
                     <input id="upload-image-input" 
                         type="file" 
                         accept="image/png, image/jpeg, image/jpg" 
