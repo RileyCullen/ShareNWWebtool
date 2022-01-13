@@ -26,6 +26,11 @@
     transform: translateX(-50%);
 }
 
+#upload-image-label:hover {
+    background-color: #9b3c25;
+    cursor: pointer;
+}
+
 #upload-image-icon {
     font-size: 22px;
     position: relative;
