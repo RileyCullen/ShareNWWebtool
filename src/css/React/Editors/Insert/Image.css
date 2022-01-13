@@ -9,6 +9,29 @@
     top: 50px;
 }
 
+#upload-image-label {
+    padding: 10px;
+    border: 2px solid #B6472A;
+    color: #fff;
+    background-color: #B6472A;
+
+    display: grid;
+    grid-template-columns: 20px 100px;
+    grid-column-gap: 10px;
+    align-content: center;
+    width: max-content;
+
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#upload-image-icon {
+    font-size: 22px;
+    position: relative;
+    top: -15%;
+}
+
 #upload-image-input {
     opacity: 0;
     position: absolute;
