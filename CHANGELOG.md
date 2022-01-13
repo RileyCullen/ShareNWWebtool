@@ -1,4 +1,8 @@
 # Change Log
+## [v0.3.1] - 2022-01-12
+### Added
+* CSS added to "Editor" and "Replace Image" buttons in image editor to show when one has been selected
+* Replace image functionality added
 ## [v0.3.0] - 2022-01-05
 ### Added
 * FirstStatisticDecorator and StatisticDecorator updated to add data label to chart's group instead of a separate, user defined group that was passed in as a parameter
@@ -8,7 +12,6 @@
 * Logic for clicking on "Selectable Decorator"s added
 ### Changed
 * CreateChart in WaffleChart type no longer waits for document fonts to load
-### Updated
 ## [v0.2.6] - 2021-12-28
 ### Fixed 
 * Alignment of stack bar chart inputs and labels updated to look nice when more than 2 categories are present
