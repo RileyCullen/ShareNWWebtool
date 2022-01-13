@@ -10,6 +10,7 @@ class Image extends React.Component
         this.state = {
             library: [],
         };
+        this._handleChange = this._HandleChange.bind(this);
     }
 
     LibraryElement(key){
@@ -42,24 +43,10 @@ class Image extends React.Component
         return (
             <div className='editor-insert-container'>
                 <div id='upper-image-upload-container'>
-                    <input id="upload-image-input" type="file" accept="image/png, image/jpeg, image/jpg" onChange={(event) => {
-                        var inputValue = document.getElementById("upload-image-input").value;
-                        if (inputValue){
-                            var objURL = URL.createObjectURL(event.target.files[0]);
-                            this.props.toggleInsert('image', objURL);
-                            var insert = true;
-                            for (var i=0; i<sessionStorage.length; i++){
-                                if (sessionStorage.key(i)===inputValue){
-                                    insert = false;
-                                    i = sessionStorage.length;
-                                }
-                            }
-                            if (insert){
-                                sessionStorage.setItem(inputValue, objURL);
-                                this._MakeLibrary();
-                            }
-                        }
-                    }}></input>
+                    <input id="upload-image-input" 
+                        type="file" 
+                        accept="image/png, image/jpeg, image/jpg" 
+                        onChange={this._handleChange}></input>
                 </div>
                 {uploadMessage}
             </div>
@@ -69,6 +56,26 @@ class Image extends React.Component
     componentDidMount()
     {
         if (this.state.library.length === 0) this._MakeLibrary();
+    }
+
+    _HandleChange(event)
+    {
+        var inputValue = document.getElementById("upload-image-input").value;
+        if (inputValue){
+            var objURL = URL.createObjectURL(event.target.files[0]);
+            this.props.toggleInsert('image', objURL);
+            var insert = true;
+            for (var i=0; i<sessionStorage.length; i++){
+                if (sessionStorage.key(i)===inputValue){
+                    insert = false;
+                    i = sessionStorage.length;
+                }
+            }
+            if (insert){
+                sessionStorage.setItem(inputValue, objURL);
+                this._MakeLibrary();
+            }
+        }
     }
 }
 
