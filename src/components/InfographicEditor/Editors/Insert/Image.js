@@ -46,9 +46,11 @@ class Image extends React.Component
             <div className='editor-insert-container'>
                 <div id='upper-image-upload-container'>
                     <label 
-                        id='image-upload-label'
+                        id='upload-image-label'
                         for='upload-image-input'>
                         <FontAwesomeIcon 
+                            id='upload-image-icon'
+                            color='#fff'
                             icon={faFileUpload}
                         />
                         Upload Image
