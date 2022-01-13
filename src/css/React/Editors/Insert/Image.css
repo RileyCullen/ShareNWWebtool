@@ -10,13 +10,9 @@
 }
 
 #upload-image-input {
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-    color: #B6472A;
-    background-color: white;
-    padding: 10px;
-    border: 2px solid #B6472A;
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
 }
 
 img {
