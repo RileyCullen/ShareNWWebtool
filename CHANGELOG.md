@@ -1,4 +1,7 @@
 # Change Log
+## [v0.3.2] - 2022-01-12
+### Added
+* Custom "Upload Image" button added to image library
 ## [v0.3.1] - 2022-01-12
 ### Added
 * CSS added to "Editor" and "Replace Image" buttons in image editor to show when one has been selected
