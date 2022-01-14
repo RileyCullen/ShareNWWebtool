@@ -71,5 +71,10 @@ img {
 }
 
 .remove-image {
-    float: right;
+    padding: 5px;
+    margin: 7px 0px 7px 0px;
+    width: max-content;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
 }
