@@ -49,10 +49,16 @@ img {
 }
 
 #image-library {
-    padding: 60px;
     display: grid;
     grid-template-columns: auto auto;
     row-gap: 30px;
+    column-gap: 30px;
+
+    width: max-content;
+    position: relative;
+    top: 75px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .image-entry {
