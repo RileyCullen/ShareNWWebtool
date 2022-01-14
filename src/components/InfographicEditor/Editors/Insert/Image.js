@@ -22,8 +22,9 @@ class Image extends React.Component
         sessionStorage.setItem(key, url);*/
         const entry = (
             <div className="image-entry">
-                <img className="image-library-entry" src={sessionStorage.getItem(key)}></img>
-                <button className="insert-image" onClick={() => {this.props.toggleInsert('image', sessionStorage.getItem(key));}}>Insert</button>
+                <img className="image-library-entry" 
+                    src={sessionStorage.getItem(key)} 
+                    onClick={() => {this.props.toggleInsert('image', sessionStorage.getItem(key));}}></img>
                 <button className="remove-image" onClick={() => {sessionStorage.removeItem(key); this._MakeLibrary();}}>Remove</button>
             </div>);
         return entry;
