@@ -20,11 +20,12 @@ class Image extends React.Component
         console.log(url);
         sessionStorage.removeItem(key);
         sessionStorage.setItem(key, url);*/
-        const entry = <div className="image-entry">
-            <img src={sessionStorage.getItem(key)}></img>
-            <button id="insert-image" onClick={() => {this.props.toggleInsert('image', sessionStorage.getItem(key));}}>Insert</button>
-            <button id="remove-image" onClick={() => {sessionStorage.removeItem(key); this._MakeLibrary();}}>Remove</button>
-            </div>
+        const entry = (
+            <div className="image-entry">
+                <img className="image-library-entry" src={sessionStorage.getItem(key)}></img>
+                <button className="insert-image" onClick={() => {this.props.toggleInsert('image', sessionStorage.getItem(key));}}>Insert</button>
+                <button className="remove-image" onClick={() => {sessionStorage.removeItem(key); this._MakeLibrary();}}>Remove</button>
+            </div>);
         return entry;
     }
 
