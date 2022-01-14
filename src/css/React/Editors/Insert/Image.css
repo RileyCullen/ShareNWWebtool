@@ -50,8 +50,9 @@ img {
 
 #image-library {
     padding: 60px;
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: auto auto;
+    row-gap: 30px;
 }
 
 .image-entry {
