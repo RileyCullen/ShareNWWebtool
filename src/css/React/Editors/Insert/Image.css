@@ -70,11 +70,22 @@ img {
     box-shadow: 0px 0px 5px #a3a3a3;
 }
 
+.image-entry:hover {
+    background-color: #e2e2e2;
+}
+
 .remove-image {
-    padding: 5px;
+    padding: 5px 10px 5px 10px;
     margin: 7px 0px 7px 0px;
     width: max-content;
     position: relative;
     left: 50%;
     transform: translateX(-50%);
+    
+    background-color: #B6472A; 
+    color: white;
+    border: none;
+}
+.remove-image:hover {
+    background-color: #9b3c25;
 }
