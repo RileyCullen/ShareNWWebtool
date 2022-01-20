@@ -4,16 +4,17 @@
     position: relative;
 
     border-top: 2px solid #CCCBCC;
+    height: 100%;
 }
 
 .tab-container {
     display: grid;
     grid-template-columns: auto auto;
     align-content: center;
-
     position: relative;
     top: -67px;
     left: -10px;
+    z-index: 1;
 }
 
 .editor-settings-content {
@@ -23,9 +24,17 @@
 
 .editor-content {
     position: relative;
-    top: -40px;
-    left: -10px;
-
+    top: -220px;
+    left: -21px;
+    height: 100%;
+    width: 550px;
     overflow-y: auto;
-    height: 50vh;
+    overflow-x: hidden;
+    z-index: 0;
+}
+
+.editor-menu-container {
+    position: relative;
+    top: 180px;
+    left: 11px;
 }
