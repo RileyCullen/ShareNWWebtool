@@ -1,4 +1,7 @@
 # Change Log
+## [v0.3.3] - 2022-01-22
+### Changed
+* Styles handing the overflow-y for all editors updated to scale properly with webpage height changes
 ## [v0.3.2] - 2022-01-13
 ### Added
 * Custom "Upload Image" button added to image library

@@ -183,10 +183,14 @@ class InfographicEditor extends React.Component
             case 'none':
                 return '100%';
             case 'insert-chart':
+            case 'update-chart':
             case 'insert-icon':
+            case 'update-icon':
             case 'insert-text':
             case 'insert-image':
+            case 'update-image':
             case 'insert-background-elem':
+            case 'update-background-elem':
             case 'edit-background':
             case 'header-editor':
             case 'image-editor':

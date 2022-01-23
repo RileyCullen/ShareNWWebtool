@@ -4,8 +4,10 @@
     grid-row-gap: 20px;
 
     position: relative;
-    top: 20px;
+    top: 120px;
     left: 55px;
+
+    padding-bottom: 20px;
 }
 
 .editor-bkg-elem {
@@ -14,7 +16,7 @@
 }
 
 .editor-bkg-elem-svg-container {
-    background-color: #ECECEC;
+    background-color: #ffffff;
     height: 150px;
     border-bottom: 3px solid #cccbcc;
 }

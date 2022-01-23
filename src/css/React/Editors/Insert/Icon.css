@@ -6,6 +6,8 @@
     
     position: relative;
     left: 50%;
+    top: 120px;
+    padding-bottom: 30px;
     transform: translateX(-50%);
 }
 

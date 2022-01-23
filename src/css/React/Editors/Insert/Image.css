@@ -6,7 +6,7 @@
 #upper-image-upload-container {
     position: relative;
     height: 50px;
-    top: 50px;
+    top: 130px;
 }
 
 #upload-image-label {
@@ -56,7 +56,7 @@ img {
 
     width: max-content;
     position: relative;
-    top: 75px;
+    top: 160px;
     left: 50%;
     transform: translateX(-50%);
 }

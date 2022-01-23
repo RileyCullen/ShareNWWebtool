@@ -104,7 +104,7 @@ class PieEditor extends React.Component
         }
 
         return (
-            <div>
+            <div style={{height: '100%'}}>
                 <Editor content={content}/>
             </div>
         )

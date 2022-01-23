@@ -206,7 +206,7 @@ class BarEditor extends React.Component
             ]
         }
         return (
-            <div style={{height: 'inherit'}}>
+            <div style={{height: '100%'}}>
                 <Editor content={content} />
             </div>
         );
