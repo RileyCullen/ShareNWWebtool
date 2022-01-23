@@ -1,9 +1,9 @@
 .editor-insert-container {
     position: relative;
-    left: 2px;
+    top: -101px;
     border-top: 2px solid #CCCBCC;
     width: inherit;
+    height: 100%;
 
     overflow-y: auto;
-    height: 565px;
 }

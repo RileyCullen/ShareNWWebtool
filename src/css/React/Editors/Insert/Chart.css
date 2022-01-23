@@ -4,6 +4,10 @@
     grid-column-gap: 25px;
     grid-row-gap: 25px;
     margin: 30px;
+    
+    position: relative;
+    top: 120px;
+    padding-bottom: 30px;
 
     align-content: center;
 }
