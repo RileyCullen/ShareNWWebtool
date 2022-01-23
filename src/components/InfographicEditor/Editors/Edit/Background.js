@@ -23,7 +23,7 @@ class Background extends React.Component
                 <div style={{
                     position: 'relative',
                     left: '5px',
-                    top: '5px'
+                    top: '120px'
                 }}>
                 <Menu 
                     key='background-fill'
