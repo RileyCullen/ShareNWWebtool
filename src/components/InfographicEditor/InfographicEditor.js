@@ -188,6 +188,7 @@ class InfographicEditor extends React.Component
             case 'update-icon':
             case 'insert-text':
             case 'insert-image':
+            case 'update-image':
             case 'insert-background-elem':
             case 'update-background-elem':
             case 'edit-background':
