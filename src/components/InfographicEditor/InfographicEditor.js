@@ -179,14 +179,18 @@ class InfographicEditor extends React.Component
 
     _DetermineEditorMenuHeight()
     {
+        alert(this.state.currentEditor)
         switch(this.state.currentEditor) {
             case 'none':
                 return '100%';
             case 'insert-chart':
+            case 'update-chart':
             case 'insert-icon':
+            case 'update-icon':
             case 'insert-text':
             case 'insert-image':
             case 'insert-background-elem':
+            case 'update-background-elem':
             case 'edit-background':
             case 'header-editor':
             case 'image-editor':
