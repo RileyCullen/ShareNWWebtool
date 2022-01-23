@@ -179,7 +179,6 @@ class InfographicEditor extends React.Component
 
     _DetermineEditorMenuHeight()
     {
-        alert(this.state.currentEditor)
         switch(this.state.currentEditor) {
             case 'none':
                 return '100%';
