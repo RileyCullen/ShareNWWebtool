@@ -45,6 +45,7 @@ class LineChart extends ALineChart
         var virtualCanvas = document.createElement('custom');
         var custom = d3.select(virtualCanvas);
 
+        this._AddBackgroundRect();
         this._BindData(custom);
         var orderedPairList = this._CreateOrderedPairList(custom)
         this._DrawGraph(custom, orderedPairList)
@@ -148,6 +149,23 @@ class LineChart extends ALineChart
         });
 
         this._group.add(helper);
+    }
+
+    /**
+     * @description This method is responsible for adding a background rectangle
+     *              to the line chart type.
+     */
+    _AddBackgroundRect()
+    {
+        let bkgRect = new Konva.Rect({
+            fill: '#ffffff', 
+            y: -this._internalOffsetY,
+            x: -this._internalOffsetX,
+            width: this._chartWidth + 4 * this._internalOffsetX, 
+            height: this._chartHeight,
+        });
+        this._group.add(bkgRect);
+        bkgRect.moveToBottom();
     }
 }
 
