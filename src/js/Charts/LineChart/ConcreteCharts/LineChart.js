@@ -31,8 +31,8 @@ class LineChart extends ALineChart
             pointColor: pointColor, 
             internalOffsetX: internalOffsetX,
             internalOffsetY: internalOffsetY,
+            backgroundColor: backgroundColor,
         });
-        this._backgroundColor = backgroundColor;
     }
 
     /**

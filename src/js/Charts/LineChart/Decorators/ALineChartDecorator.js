@@ -27,6 +27,7 @@ class ALineChartDecorator extends ALineChart
             lineColor: chart._lineColor,
             internalOffsetX: chart._internalOffsetX,
             internalOffsetY: chart._internalOffsetY,
+            backgroundColor: chart._backgroundColor,
         });
         this._chart = chart;
         

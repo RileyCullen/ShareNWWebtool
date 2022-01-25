@@ -35,7 +35,7 @@ class ALineChart
      */
     constructor({data, group, chartWidth, chartHeight, lineWidth = 1, 
         pointRadius = 1, pointColor = 'none', lineColor = 'black', internalOffsetX = 0,
-        internalOffsetY = 0, paddingInner = 0.9})
+        internalOffsetY = 0, paddingInner = 0.9, backgroundColor = '#ffffff'})
     {
         if (ALineChart === this.constructor) {
             throw new TypeError('Abstract class "ALineChart" cannot be instantiated.')
@@ -55,6 +55,7 @@ class ALineChart
         this._internalOffsetX = internalOffsetX;
         this._internalOffsetY = internalOffsetY;
         this._paddingInner = paddingInner;
+        this._backgroundColor = backgroundColor;
         this._xScale = d3.scaleBand();
         this._yScale = d3.scaleLinear();
 
