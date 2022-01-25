@@ -84,6 +84,7 @@ class ALineChart
             color: {
                 lineColor: this._lineColor,
                 pointColor: this._pointColor,
+                backgroundColor: this._backgroundColor,
             },
             spacing: {
                 internalOffsetX: this._internalOffsetX,
