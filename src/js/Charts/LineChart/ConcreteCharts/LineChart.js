@@ -17,7 +17,7 @@ class LineChart extends ALineChart
      */
     constructor({data, group, chartWidth, chartHeight, lineWidth = 3, 
         pointRadius = 5, pointColor = 'none', lineColor = 'black', internalOffsetX = 0,
-        internalOffsetY = 0,
+        internalOffsetY = 0, backgroundColor = '#ffffff'
     })
     {
         super({ 
@@ -32,6 +32,7 @@ class LineChart extends ALineChart
             internalOffsetX: internalOffsetX,
             internalOffsetY: internalOffsetY,
         });
+        this._backgroundColor = backgroundColor;
     }
 
     /**
@@ -158,7 +159,7 @@ class LineChart extends ALineChart
     _AddBackgroundRect()
     {
         let bkgRect = new Konva.Rect({
-            fill: '#ffffff', 
+            fill: this._backgroundColor, 
             y: -this._internalOffsetY,
             x: -this._internalOffsetX,
             width: this._chartWidth + 4 * this._internalOffsetX, 
