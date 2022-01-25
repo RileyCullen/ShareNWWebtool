@@ -1,4 +1,7 @@
 # Change Log
+## [v0.3.4] - 2022-01-24
+# Changed
+* Feature toggle added to "Replace Icons" button
 ## [v0.3.3] - 2022-01-22
 ### Changed
 * Styles handing the overflow-y for all editors updated to scale properly with webpage height changes

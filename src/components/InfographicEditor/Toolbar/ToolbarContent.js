@@ -359,7 +359,7 @@ class ToolbarContent extends React.Component
 
     _CreateIconBarIcons()
     {
-        let selected = 0;
+        let selected = 0, displayReplaceIcons = false;
         if (this.props.currentEditor === 'update-chart') selected = 1;
         return (
             <div className='chart-container'>
@@ -367,7 +367,8 @@ class ToolbarContent extends React.Component
                 <div
                     style={{
                         display: 'grid',
-                        gridTemplateColumns: '60px 60px 60px',
+                        gridTemplateColumns: (displayReplaceIcons) ? '60px 60px 60px'
+                            : '60px 60px',
                         gridColumnGap: '20px',
                         float: 'right',
                         marginRight: '0px'}}>
@@ -393,6 +394,7 @@ class ToolbarContent extends React.Component
                             icon={faChartBar}/>
                         <p id='replace-chart-text' className='insert-text'>Replace Chart</p>
                     </button>
+                    {displayReplaceIcons && 
                     <button 
                         id='replace-chart-icon-button' 
                         className='insert-button'
@@ -401,7 +403,7 @@ class ToolbarContent extends React.Component
                             className='insert-icon'
                             icon={faIcons}/>
                         <p id='replace-chart-icon-text' className='insert-text'>Replace Icons</p>
-                    </button>
+                    </button>}
                 </div>
             </div>
         );
