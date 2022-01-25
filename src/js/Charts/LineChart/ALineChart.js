@@ -125,6 +125,7 @@ class ALineChart
 
         this._lineColor = settings.color.lineColor;
         this._pointColor = settings.color.pointColor;
+        this._backgroundColor = settings.color.backgroundColor;
 
         this._internalOffsetX = parseFloat(settings.spacing.internalOffsetX);
 
