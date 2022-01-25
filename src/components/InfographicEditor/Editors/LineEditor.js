@@ -238,6 +238,11 @@ class LineEditor extends React.Component
                     color={colorSettings.pointColor}
                     onChange={(value) => { this._SetChartSettings('color', 'pointColor', value); }}
                 />
+                <LabeledColorPicker 
+                    label='Background Color:'
+                    color={colorSettings.backgroundColor}
+                    onChange={(value) => { this._SetChartSettings('color', 'backgroundColor', value); }}
+                />
             </div>
         ];
     }

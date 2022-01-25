@@ -261,6 +261,7 @@ class DiabetesTemplateOne extends AInfographic
             pointColor: textColor,
             internalOffsetX: 16,
             internalOffsetY: 13,
+            backgroundColor: '#94bd31',
         });
         var xAxisDecorator = new LineXAxisDecorator({
             chart: chart,
