@@ -1,6 +1,9 @@
 # Change Log
 ## [v0.3.4] - 2022-01-24
-# Changed
+### Added
+* Background color attribute added to LineChart type
+* UI color picker and label for updating background color added
+### Changed
 * Feature toggle added to "Replace Icons" button
 ## [v0.3.3] - 2022-01-22
 ### Changed
