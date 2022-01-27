@@ -174,6 +174,7 @@ class ImageEditor extends React.Component
                         this.setState({contrast: value});
                         this._SetGraphicSettings('contrast', parseFloat(value));
                     },
+                    templateColumns: '50px auto'
                 })}
                 {this._CreateSlider({
                     label: 'Brightness:',
@@ -187,6 +188,7 @@ class ImageEditor extends React.Component
                         this.setState({brightness: value});
                         this._SetGraphicSettings('brightness', parseFloat(value));
                     },
+                    templateColumns: '50px auto'
                 })}
                 {this._CreateSlider({
                     label: 'Blur:',
@@ -200,17 +202,18 @@ class ImageEditor extends React.Component
                         this.setState({blur: value});
                         this._SetGraphicSettings('blurRadius', parseFloat(value));
                     },
+                    templateColumns: '50px auto'
                 })}
             </div>
         ];
     }
 
-    _CreateSlider({label, min, max, step, value, width, onChange})
+    _CreateSlider({label, min, max, step, value, width, onChange, templateColumns = 'auto auto'})
     {
         return (
             <div className='image-editor-slider' style={{
                 display: 'grid',
-                gridTemplateColumns: 'auto auto',
+                gridTemplateColumns: templateColumns,
                 gridColumnGap: '40px',
                 alignItems: 'center'
             }}>
