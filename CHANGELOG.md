@@ -1,4 +1,7 @@
 # Change Log
+## [v0.3.5] - 2022-01-26
+### Changed
+* Sliders in ImageEditor and IconEditors are now custom defined (i.e. they no longer use the LabeledSlider type)
 ## [v0.3.4] - 2022-01-24
 ### Added
 * Background color attribute added to LineChart type

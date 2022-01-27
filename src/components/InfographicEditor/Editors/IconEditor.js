@@ -5,6 +5,14 @@ import '../../../css/React/Editors/Tabless.css'
 
 class IconEditor extends React.Component 
 {
+    constructor(props)
+    {
+        super(props);
+        this.state = {
+            opacity: this.props.settings.opacity,
+        }
+    }
+
     render()
     {
         if (this.props.settings === 0) return false;
@@ -30,6 +38,13 @@ class IconEditor extends React.Component
                 </div>
             </div>
         )
+    }
+
+    componentDidUpdate(prevProps)
+    {
+        if (prevProps.settings.opacity !== this.props.settings.opacity) {
+            this.setState({opacity: this.props.settings.opacity});
+        }
     }
 
     _SetGraphicSettings(key, value)
@@ -63,18 +78,23 @@ class IconEditor extends React.Component
     {
         return [   
             <div className='center'>
-                <LabeledSlider 
-                    key={'icon-opacity'}
-                    label='Opacity:'
-                    value={this.props.settings.opacity}
-                    min={0}
-                    max={1}
-                    step={0.1}
-                    onChange={(event) => { 
-                        this._SetGraphicSettings('opacity', event);
-                    }}
-                    width='150px'
-                />
+                <div id='icon-opacity-slider' style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'auto auto',
+                    gridColumnGap: '40px',
+                    alignItems: 'center'
+                }}>
+                    <label>Opacity:</label>
+                    <input type='range'
+                        min={0}
+                        max={1}
+                        step={0.1}
+                        value={this.state.opacity}
+                        style={{width: '150px'}}
+                        onChange={(event) => { this._HandleSliderChange(event); }}
+                    >
+                    </input>
+                </div>
                 <LabeledColorPicker 
                     key={'icon-color'}
                     label='Color:'
@@ -85,6 +105,14 @@ class IconEditor extends React.Component
                 />
             </div>
         ];
+    }
+
+    _HandleSliderChange(event)
+    {
+        this.setState({
+            opacity: event.target.value,
+        })
+        this._SetGraphicSettings('opacity', event.target.value);
     }
 }
 

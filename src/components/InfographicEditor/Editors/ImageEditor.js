@@ -5,9 +5,20 @@ import '../../../css/React/Editors/Tabless.css';
 
 class ImageEditor extends React.Component
 {
+    constructor(props)
+    {
+        super(props);
+
+        this.state = {
+            opacity: this.props.settings.opacity,
+            contrast: this.props.settings.contrast,
+            brightness: this.props.settings.brightness,
+            blur: this.props.settings.blurRadius,
+        }
+    }
+
     render()
     {
-        console.log(this.props.settings)
         if (this.props.settings === 0) return false;
         return (
             <div className='tabless-container'>
@@ -39,6 +50,33 @@ class ImageEditor extends React.Component
                 </div>
             </div>
         );
+    }
+
+    componentDidUpdate(prevProps) 
+    {
+        if (prevProps.settings.opacity !== this.props.settings.opacity) {
+            this.setState({
+                opacity: this.props.settings.opacity,
+            });
+        } 
+        
+        if (prevProps.settings.contrast !== this.props.settings.contrast) {
+            this.setState({
+                contrast: this.props.settings.contrast,
+            });
+        }
+
+        if (prevProps.settings.brightness !== this.props.settings.brightness) {
+            this.setState({
+                brightness: this.props.settings.brightness,
+            });
+        }
+
+        if (prevProps.settings.blurRadius !== this.props.settings.blurRadius) {
+            this.setState({
+                blur: this.props.settings.blurRadius,
+            });
+        }
     }
 
     _SetGraphicSettings(key, value)
@@ -84,18 +122,19 @@ class ImageEditor extends React.Component
     {
         return [
             <div className='center'>
-                <LabeledSlider
-                    key={'image-opacity'} 
-                    label='Opacity:'
-                    value={parseFloat(this.props.settings.opacity)}
-                    min={0}
-                    max={1}
-                    step={0.1}
-                    onChange={(event) => { 
-                        this._SetGraphicSettings('opacity', event);
-                    }}
-                    width='150px'
-                />
+                {this._CreateSlider({
+                    label: 'Opacity:',
+                    min: 0,
+                    max: 1,
+                    step: 0.1,
+                    value: this.state.opacity,
+                    width: '150px',
+                    onChange: (event) => {
+                        let value = event.target.value;
+                        this.setState({opacity: value});
+                        this._SetGraphicSettings('opacity', parseFloat(value));
+                    },
+                })}
                 <LabeledColorPicker 
                     key={'image-stroke-color'}
                     label='Stroke Color:'
@@ -123,44 +162,73 @@ class ImageEditor extends React.Component
     {
         return [
             <div className='center'>
-                <LabeledSlider 
-                    key={'image-contrast'}
-                    label='Contrast:'
-                    value={this.props.settings.contrast}
-                    min={-100}
-                    max={100}
-                    step={1}
-                    onChange={(event) => { 
-                        this._SetGraphicSettings('contrast', parseFloat(event));
-                    }}
-                    width='150px' 
-                />
-                <LabeledSlider 
-                    key={'image-brightness'}
-                    label='Brightness:'
-                    value={this.props.settings.brightness}
-                    min={-1}
-                    max={1}
-                    step={0.1}
-                    onChange={(event) => { 
-                        this._SetGraphicSettings('brightness', parseFloat(event));
-                    }}
-                    width='150px' 
-                />
-                <LabeledSlider 
-                    key={'image-blur'}
-                    label='Blur:'
-                    value={this.props.settings.blurRadius}
-                    min={0}
-                    max={40}
-                    step={1}
-                    onChange={(event) => { 
-                        this._SetGraphicSettings('blurRadius', parseFloat(event));
-                    }}
-                    width='150px' 
-                />
+                {this._CreateSlider({
+                    label: 'Contrast:',
+                    min: -100,
+                    max: 100,
+                    step: 1,
+                    value: this.state.contrast,
+                    width: '150px',
+                    onChange: (event) => {
+                        let value = event.target.value;
+                        this.setState({contrast: value});
+                        this._SetGraphicSettings('contrast', parseFloat(value));
+                    },
+                    templateColumns: '50px auto'
+                })}
+                {this._CreateSlider({
+                    label: 'Brightness:',
+                    min: -1,
+                    max: 1,
+                    step: 0.1,
+                    value: this.state.brightness,
+                    width: '150px',
+                    onChange: (event) => {
+                        let value = event.target.value;
+                        this.setState({brightness: value});
+                        this._SetGraphicSettings('brightness', parseFloat(value));
+                    },
+                    templateColumns: '50px auto'
+                })}
+                {this._CreateSlider({
+                    label: 'Blur:',
+                    min: 0,
+                    max: 40,
+                    step: 1,
+                    value: this.state.blur,
+                    width: '150px',
+                    onChange: (event) => {
+                        let value = event.target.value;
+                        this.setState({blur: value});
+                        this._SetGraphicSettings('blurRadius', parseFloat(value));
+                    },
+                    templateColumns: '50px auto'
+                })}
             </div>
         ];
+    }
+
+    _CreateSlider({label, min, max, step, value, width, onChange, templateColumns = 'auto auto'})
+    {
+        return (
+            <div className='image-editor-slider' style={{
+                display: 'grid',
+                gridTemplateColumns: templateColumns,
+                gridColumnGap: '40px',
+                alignItems: 'center'
+            }}>
+                <label>{label}</label>
+                <input type='range'
+                    min={min}
+                    max={max}
+                    step={step}
+                    value={value}
+                    style={{width: width}}
+                    onChange={(event) => { onChange(event); }}
+                >
+                </input>
+            </div>
+        );
     }
 }
 
