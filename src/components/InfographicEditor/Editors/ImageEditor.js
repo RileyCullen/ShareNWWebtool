@@ -13,7 +13,7 @@ class ImageEditor extends React.Component
             opacity: this.props.settings.opacity,
             contrast: this.props.settings.contrast,
             brightness: this.props.settings.brightness,
-            blur: this.props.settings.blur,
+            blur: this.props.settings.blurRadius,
         }
     }
 
@@ -72,9 +72,9 @@ class ImageEditor extends React.Component
             });
         }
 
-        if (prevProps.settings.blur !== this.props.settings.blur) {
+        if (prevProps.settings.blurRadius !== this.props.settings.blurRadius) {
             this.setState({
-                blur: this.props.settings.blur,
+                blur: this.props.settings.blurRadius,
             });
         }
     }
@@ -132,7 +132,7 @@ class ImageEditor extends React.Component
                     onChange: (event) => {
                         let value = event.target.value;
                         this.setState({opacity: value});
-                        this._SetGraphicSettings('opacity', value);
+                        this._SetGraphicSettings('opacity', parseFloat(value));
                     },
                 })}
                 <LabeledColorPicker 
@@ -172,7 +172,7 @@ class ImageEditor extends React.Component
                     onChange: (event) => {
                         let value = event.target.value;
                         this.setState({contrast: value});
-                        this._SetGraphicSettings('contrast', value);
+                        this._SetGraphicSettings('contrast', parseFloat(value));
                     },
                 })}
                 {this._CreateSlider({
@@ -185,7 +185,7 @@ class ImageEditor extends React.Component
                     onChange: (event) => {
                         let value = event.target.value;
                         this.setState({brightness: value});
-                        this._SetGraphicSettings('brightness', value);
+                        this._SetGraphicSettings('brightness', parseFloat(value));
                     },
                 })}
                 {this._CreateSlider({
@@ -198,7 +198,7 @@ class ImageEditor extends React.Component
                     onChange: (event) => {
                         let value = event.target.value;
                         this.setState({blur: value});
-                        this._SetGraphicSettings('blur', value);
+                        this._SetGraphicSettings('blurRadius', parseFloat(value));
                     },
                 })}
             </div>
