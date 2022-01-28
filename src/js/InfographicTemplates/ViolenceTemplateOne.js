@@ -9,6 +9,7 @@ import { MessageBubble } from '../ToolTips/index';
 import { WaffleChart, GenerateWafflePreset } from '../Charts/WaffleChart/index';
 import Virgina from '../../Media/States/virginia.png';
 import { DonutChart } from "../Charts/PieChart/ConcreteCharts/DonutChart";
+import { RectangleHeader } from "../Headers";
 
 class ViolenceTemplateOne extends AInfographic
 {
@@ -31,14 +32,7 @@ class ViolenceTemplateOne extends AInfographic
         background.moveToBottom();
         this._main.add(background);
 
-       var backgroundRect = new Konva.Rect({
-            x: 1,
-            y: 1,
-            width: this._chartWidth - 2,
-            height: this._chartHeight - 2,
-            fill: lightBlue,
-        });
-        background.add(backgroundRect);
+        this._bkg.setAttr('fill', lightBlue);
 
         var header = this._CreateSwitchableContainer();
         this._main.add(header);
@@ -62,14 +56,22 @@ class ViolenceTemplateOne extends AInfographic
             lineHeight: '1.0',
         });
 
-        var descBackground = new Konva.Rect({
+        let descBackgroundGroup = new Konva.Group();
+        header.add(descBackgroundGroup);
+        let descBackground = new RectangleHeader({
             x: 1,
             y: 40 + this._GetTextWidth('M', 50, roboto) + 5,
             width: this._chartWidth - 2,
             height: 80,
             fill: blueishGray,
+            cornerRadius: 0,
+            group: descBackgroundGroup,
         });
-        header.add(descBackground);
+        this._graphicsHandler.AddGraphic({
+            type: 'header',
+            graphic: descBackground,
+            group: descBackgroundGroup
+        });
 
         var roboto300 = this._quillMap('Roboto', 300);
         var descFontSize = 20;
@@ -82,7 +84,7 @@ class ViolenceTemplateOne extends AInfographic
             textElem: descDiv, 
             group: header, 
             x: 40, 
-            y: descBackground.getAttr('y') + descBackground.getAttr('height') / 2 - 1.5 * this._GetTextWidth('M', descFontSize, roboto)
+            y: 105,
         });
         this._textHandler.SetCSSInfo({
             id: this._textHandler.GetCurrID(),
@@ -99,14 +101,22 @@ class ViolenceTemplateOne extends AInfographic
             lineHeight: '1.2',
         });
 
-        var yellowStrip = new Konva.Rect({
+        let yellowStripGroup = new Konva.Group();
+        header.add(yellowStripGroup);
+        let yellowStrip = new RectangleHeader({
             x: 1,
-            y: descBackground.getAttr('y') + descBackground.getAttr('height'),
+            y: 165,
             width: this._chartWidth - 2,
             height: 4,
-            fill: yellow
+            fill: yellow,
+            cornerRadius: 0,
+            group: yellowStripGroup,
+        })
+        this._graphicsHandler.AddGraphic({
+            type: 'header',
+            graphic: yellowStrip,
+            group: yellowStripGroup,
         });
-        header.add(yellowStrip);
 
         this._CreateImage({
             x: this._chartWidth - 275, 
@@ -119,7 +129,7 @@ class ViolenceTemplateOne extends AInfographic
 
         var introHelper = new Konva.Group({
             x: 1,
-            y: yellowStrip.getAttr('y'),
+            y: 165,
         });
         this._main.add(introHelper);
 
@@ -161,16 +171,26 @@ class ViolenceTemplateOne extends AInfographic
 
         var sectionOne = this._CreateSwitchableContainer({
             x: 1,
-            y: yellowStrip.getAttr('y') + yellowStrip.getAttr('height') + 70,
+            y: 239,
         });
         this._main.add(sectionOne);
 
-        var whiteBackground = new Konva.Rect({
+        let whiteBackgroundContainer = new Konva.Group();
+        sectionOne.add(whiteBackgroundContainer);
+        let whiteBackground = new RectangleHeader({
+            x: 0,
+            y: 0,
             width: this._chartWidth - 2,
             height: 425,
-            fill: 'white',
+            cornerRadius: 0,
+            fill: '#ffffff',
+            group: whiteBackgroundContainer,
         });
-        sectionOne.add(whiteBackground);
+        this._graphicsHandler.AddGraphic({
+            type: 'header',
+            graphic: whiteBackground,
+            group: whiteBackgroundContainer,
+        });
 
         /* STACKED BAR CHART CODE */
         var stackedBarChartData = [];
@@ -539,7 +559,7 @@ class ViolenceTemplateOne extends AInfographic
             bluePersonPreset = GenerateWafflePreset(PERSON, mediumBlue, 25, ICON_FONT);
         var waffleChartGroup = this._CreateSwitchableContainer({
             x: 20,
-            y: whiteBackground.getAttr('y') + 1.6 * whiteBackground.getAttr('height') + 30,
+            y: 720,
             width: 1000,
             height: 300,
         });
