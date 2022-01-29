@@ -470,13 +470,26 @@ class ObesityTemplateOne extends AInfographic
 
         textGroupArr[3].setAttr('y', textGroupArr[3].getAttr('y') + 10);
 
-        var sectionThreeStatistic = '7 hours';
-        textGroupArr[3].add(new Konva.Text({
-            text: sectionThreeStatistic,
-            fill: 'white',
-            fontFamily: titleFont,
-            fontSize: statisticFontSize,
-        }));
+        let sectionFourStatisticDiv = document.createElement('div'),
+            sectionFourStatisticText = ('<p style="margin: 0px;">' +
+                '<span style="font-family: Open Sans, sans-serif; ' + 
+                'font-size: 47.5px; line-height: 1.0;">7 hours</span></p>');
+        sectionFourStatisticDiv.style.color = '#ffffff';
+        sectionFourStatisticDiv.innerHTML = sectionFourStatisticText;
+
+        this._textHandler.AddTextElem({
+            textElem: sectionFourStatisticDiv,
+            group: textGroupArr[3],
+            x: 0,
+            y: -15,
+        });
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
+            fontFamily: openSans,
+            fontSize: '47.5px',
+            textColor: '#ffffff',
+            lineHeight: '1.0',
+        });
 
         var sectionFourTextDiv = document.createElement('div');
         sectionFourTextDiv.style.color = '#5f9400';

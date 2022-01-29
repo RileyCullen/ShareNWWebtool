@@ -1,4 +1,8 @@
 # Change Log
+## [v0.3.6] - 2022-01-27
+### Changed
+* Obesity infographic template updated so that all text is editable
+* Violence infographic template updated so that background color can be changed. Infographic also uses RectangleHeader type for background elements instead of Konva.Rect type
 ## [v0.3.5] - 2022-01-26
 ### Changed
 * Sliders in ImageEditor and IconEditors are now custom defined (i.e. they no longer use the LabeledSlider type)
