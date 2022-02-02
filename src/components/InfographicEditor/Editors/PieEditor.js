@@ -238,7 +238,10 @@ class PieEditor extends React.Component
                      initialValue={size.chartRadius}
                      rows={1}
                      cols={5}
-                     onChange={(d, i) => { this._SetRadius(d); }}
+                     onChange={(d, i) => { 
+                        if (d === '' || isNaN(d) || d < 0) return;
+                        this._SetRadius(d); 
+                    }}
                 />
                 {innerRadiusContent}
             </div>
