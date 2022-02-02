@@ -151,7 +151,7 @@ class IconBarEditor extends React.Component
                     rows={1}
                     cols={5}
                     onChange={(d, i) => {
-                        if (d === '') return;
+                        if (d === '' || parseFloat(d) === 0) return;
                         this._SetChartSettings('iconSettings', 'iconSize', d); }}
                 />
                 <LabeledTextField 
