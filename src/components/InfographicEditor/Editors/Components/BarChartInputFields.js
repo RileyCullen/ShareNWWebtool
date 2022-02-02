@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { TextField, ColorPicker } from './index';
+import { TextField, ColorPicker, NumericTextField } from './index';
 import { CategoryGenerator } from '../../../Helpers/CategoryGenerator';
 
 import '../../../../css/React/Editors/BarChartInputFields.css';
@@ -49,12 +49,13 @@ class BarChartInputFields extends React.Component
                             cols={cols}
                             onChange={(d, i) => { this._SetChartData(d, i, 'category')}}
                             />
-                        <TextField
+                        <NumericTextField
                             id={d.value + '-' + i + '-value'}
                             index={i}
                             initialValue={value} 
                             rows={rows}
                             cols={cols}
+                            onlyPositive={false}
                             onChange={(d, i) => { this._SetChartData(d, i, 'value') }}/>
                         <FontAwesomeIcon className='remove-row-icon' icon={faTimesCircle}
                             onClick={() => { this._RemoveEntry(i); }}/>

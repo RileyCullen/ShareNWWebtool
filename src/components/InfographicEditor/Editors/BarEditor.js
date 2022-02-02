@@ -1,7 +1,7 @@
 import React from 'react';
 import Lodash from 'lodash';
 import { Editor, BarChartInputFields, Menu, LabeledTextField, LabeledColorPicker 
-    , FontSelector, LabeledDropdown, StackedBarInputFields} from './Components/index';
+    , FontSelector, LabeledDropdown, StackedBarInputFields, LabeledNumericTextField} from './Components/index';
 import { LabeledCheckbox } from './Components/LabeledCheckbox';
 import { SettingsManager } from '../../Helpers/SettingsManager';
 
@@ -262,36 +262,36 @@ class BarEditor extends React.Component
         let cSettings = this.props.cSettings, cols = 15;
         return [
             <div className='center'>
-                <LabeledTextField 
+                <LabeledNumericTextField 
                     label='Width:'
                     index={'c-width'}
                     initialValue={cSettings.size.chartWidth}
                     rows={1}
                     cols={cols}
+                    onlyPositive={true}
                     onChange={(d, i) => { 
-                        if (d === '') return;
                         this._SetChartSettings('size', 'chartWidth', parseFloat(d)); 
                     }}
                     />
-                <LabeledTextField
+                <LabeledNumericTextField
                     label='Height:'
                     index={'c-height'}
                     initialValue={cSettings.size.chartHeight}
                     rows={1}
                     cols={cols}
+                    onlyPositive={true}
                     onChange={(d, i) => { 
-                        if (d === '') return 
                         this._SetChartSettings('size', 'chartHeight', parseFloat(d)); 
                     }} 
                 />
-                <LabeledTextField
+                <LabeledNumericTextField
                     label='Bar Padding:'
                     index={'c-padding'}
                     initialValue={cSettings.size.padding}
                     rows={1}
                     cols={cols}
-                    onChange={(d, i) => { 
-                        if (d === '') return;
+                    onlyPositive={true}
+                    onChange={(d, i) => {
                         this._SetChartSettings('size', 'padding', parseFloat(d)); 
                     }} 
                 />
@@ -353,22 +353,24 @@ class BarEditor extends React.Component
                             this._UpdateDecoratorSettings('xAxis', 'color', 'lineColor', value);
                         }}
                     />
-                    <LabeledTextField
+                    <LabeledNumericTextField
                         label='Line width:'
                         index={'x-axis'}
                         initialValue={xAxisSettings.size.lineStrokeWidth}
                         rows={1}
                         cols={5}
+                        onlyPositive={true}
                         onChange={(d, i) => { 
                             this._UpdateDecoratorSettings('xAxis', 'size', 'lineStrokeWidth', d);
                         }} 
                     />
-                    <LabeledTextField
+                    <LabeledNumericTextField
                         label='Tick width:'
                         index={'x-axis'}
                         initialValue={xAxisSettings.size.tickStrokeWidth}
                         rows={1}
                         cols={5}
+                        onlyPositive={true}
                         onChange={(d, i) => { 
                             this._UpdateDecoratorSettings('xAxis', 'size', 'tickStrokeWidth', d);
                         }} 
@@ -403,25 +405,25 @@ class BarEditor extends React.Component
                             this._UpdateDecoratorSettings('yAxis', 'color', 'lineColor', value);
                         }}
                     />
-                    <LabeledTextField
+                    <LabeledNumericTextField
                         label='Line width:'
                         index={'y-axis'}
                         initialValue={yAxisSettings.size.lineStrokeWidth}
                         rows={1}
                         cols={5}
+                        onlyPositive={true}
                         onChange={(d, i) => { 
-                            if (d === '') return;
                             this._UpdateDecoratorSettings('yAxis', 'size', 'lineStrokeWidth', parseFloat(d));
                         }} 
                     />
-                    <LabeledTextField
+                    <LabeledNumericTextField
                         label='Tick width:'
                         index={'y-axis'}
                         initialValue={yAxisSettings.size.tickStrokeWidth}
                         rows={1}
                         cols={5}
+                        onlyPositive={true}
                         onChange={(d, i) => { 
-                            if (d === '') return;
                             this._UpdateDecoratorSettings('yAxis', 'size', 'tickStrokeWidth', parseFloat(d));
                         }} 
                     />
@@ -569,22 +571,14 @@ class BarEditor extends React.Component
                             this._UpdateDecoratorSettings('chartDescriptor', 'location', 'isTop', location)
                         }}
                     /> 
-                    <LabeledTextField 
+                    <LabeledNumericTextField 
                         label='Max per row:'
                         index={'maxPerRow'}
                         initialValue={settings.labelSettings.maxPerRow}
                         rows={1}
                         cols={5}
+                        onlyPositive={true}
                         onChange={(d, i) => {
-                            // This empty check exists for a very unique and 
-                            // weird edge case when maxPerRow = ''. Since 
-                            // parseFloat('') = NaN, when this gets passed to 
-                            // the ChartDescriptorDecorator, it will basically
-                            // draw all of the labels on one line. When maxPerRows,
-                            // equals # of categories, then it will appear like 
-                            // too many command objects have been pushed to the 
-                            // stack.
-                            if (d === '') return; 
                             this._UpdateDecoratorSettings('chartDescriptor', 'labelSettings', 'maxPerRow', parseFloat(d));
                         }} 
                     />

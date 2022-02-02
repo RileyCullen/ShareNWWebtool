@@ -1,5 +1,5 @@
 import React from 'react';
-import { LabeledTextField, LabeledSlider, LabeledColorPicker, Menu } from './Components/index';
+import { LabeledColorPicker, Menu, LabeledNumericTextField } from './Components/index';
 
 import '../../../css/React/Editors/Tabless.css'
 
@@ -58,15 +58,15 @@ class IconEditor extends React.Component
     {
         return [
             <div className='center'>
-                <LabeledTextField 
+                <LabeledNumericTextField 
                     key={'icon-size'}
                     label='Size:'
                     index={'font-size'}
                     initialValue={this.props.settings.fontSize}
                     rows={1}
                     cols={5}
-                    onChange={(d, i) => { 
-                        if (d === '') return;
+                    onlyPositive={true}
+                    onChange={(d, i) => {
                         this._SetGraphicSettings('fontSize', parseFloat(d));
                     }}
                 />

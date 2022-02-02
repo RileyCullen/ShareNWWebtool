@@ -1,7 +1,7 @@
 import React from 'react';
 import Lodash from 'lodash';
 import { Editor, FontSelector, LabeledColorPicker, LabeledTextField, Menu, 
-    PieChartInputFields } from './Components/index';
+    PieChartInputFields, LabeledNumericTextField } from './Components/index';
 import '../../../css/React/Editors/ChartEditor.css';
 import { SettingsManager } from '../../Helpers/SettingsManager';
 
@@ -222,7 +222,7 @@ class PieEditor extends React.Component
     {
         let size = this.props.cSettings.size;
         let innerRadiusContent = (this.props.type === 'pie-editor') ? false : 
-            ( <LabeledTextField 
+            ( <LabeledNumericTextField 
                 label='Thickness:'
                 index='donut-radius'
                 initialValue={parseFloat(size.chartRadius) - parseFloat(size.innerRadius)}
@@ -232,14 +232,14 @@ class PieEditor extends React.Component
             />);
         return [
             <div className='center'>
-                <LabeledTextField 
+                <LabeledNumericTextField 
                      label='Radius:'
                      index='chart-radius'
                      initialValue={size.chartRadius}
                      rows={1}
                      cols={5}
+                     onlyPositive={true}
                      onChange={(d, i) => { 
-                        if (d === '' || isNaN(d) || d < 0) return;
                         this._SetRadius(d); 
                     }}
                 />
@@ -304,23 +304,24 @@ class PieEditor extends React.Component
             <div className='center'>
                 <div>
                     <h5>Size Settings:</h5>
-                    <LabeledTextField 
+                    <LabeledNumericTextField 
                         label='Radius:'
                         index='outline-radius'
                         initialValue={chartOutline.size.radius}
                         rows={1}
                         cols={5}
+                        onlyPositive={true}
                         onChange={(d, i) => {
-                            if (d === '') return;
                             this._UpdateDecoratorSettings('chartOutline', 'size', 'radius', parseFloat(d));
                         }} 
                     />
-                    <LabeledTextField 
+                    <LabeledNumericTextField 
                         label='Stroke Width:'
                         index='stroke-width'
                         initialValue={chartOutline.size.outlineWidth}
                         rows={1}
                         cols={5}
+                        onlyPositive={true}
                         onChange={(d, i) => { 
                             if (d === '') return;
                             this._UpdateDecoratorSettings('chartOutline', 'size', 'outlineWidth', parseFloat(d));

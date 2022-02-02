@@ -1,7 +1,7 @@
 import React from 'react';
 import Lodash from 'lodash';
 import { Editor, Menu, BarChartInputFields, LabeledColorPicker, LabeledTextField,
-    LabeledCheckbox, FontSelector, LabeledDropdown } from './Components/index';
+    LabeledCheckbox, FontSelector, LabeledDropdown, LabeledNumericTextField } from './Components/index';
 
 import '../../../css/React/Editors/ChartEditor.css';
 import { SettingsManager } from '../../Helpers/SettingsManager';
@@ -144,24 +144,24 @@ class IconBarEditor extends React.Component
                     color={iconSettings.iconColor}
                     onChange={(value) => { this._SetChartSettings('iconSettings', 'iconColor', value); }}
                 />
-                <LabeledTextField 
+                <LabeledNumericTextField 
                     label='Icon Size:'
                     index='icon-size'
                     initialValue={iconSettings.iconSize}
                     rows={1}
                     cols={5}
+                    onlyPositive={true}
                     onChange={(d, i) => {
-                        if (d === '' || parseFloat(d) === 0) return;
                         this._SetChartSettings('iconSettings', 'iconSize', d); }}
                 />
-                <LabeledTextField 
+                <LabeledNumericTextField 
                     label='Padding'
                     index='padding'
                     initialValue={iconSettings.padding}
                     rows={1}
                     cols={5}
+                    onlyPositive={true}
                     onChange={(d, i) => { 
-                        if (d === '') return;
                         this._SetChartSettings('iconSettings', 'padding', d); 
                     }}
                 />

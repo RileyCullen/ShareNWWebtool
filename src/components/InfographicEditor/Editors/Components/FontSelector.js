@@ -1,6 +1,6 @@
 import React from 'react';
 import Lodash from 'lodash';
-import { DropdownList, TextField, ColorPicker } from './index';
+import { DropdownList, TextField, NumericTextField, ColorPicker } from './index';
 
 import '../../../../css/React/Editors/FontSelector.css';
 
@@ -33,12 +33,13 @@ class FontSelector extends React.Component
                 </div>
                 <p>Font Size:</p>
                 <div className='element-right'>  
-                    <TextField 
+                    <NumericTextField 
                         id='font-size'
                         index={0}
                         initialValue={this.state.currentFont.fontSize}
                         rows={1}
                         cols={5}
+                        onlyPositive={true}
                         onChange={(d, i) => { 
                             this._HandleChange('fontSize', d);
                         }}
@@ -66,7 +67,6 @@ class FontSelector extends React.Component
 
     _HandleChange(key, value)
     {
-        if (key === 'fontSize' && (isNaN(value) || value === '')) return;
         let newFont = this.state.currentFont;
         newFont[key] = value;
         this.setState({
