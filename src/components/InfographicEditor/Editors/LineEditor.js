@@ -289,7 +289,7 @@ class LineEditor extends React.Component
                         rows={1}
                         cols={5}
                         onChange={(d, i) => {
-                            if (d === ''); 
+                            if (d === '') return; 
                             this._UpdateDecoratorSettings('xAxis', 'axis', 'axisStrokeWidth', parseFloat(d));
                         }} 
                     />
