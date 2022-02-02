@@ -3,6 +3,7 @@
 ### Changed
 * Empty x-axis width for LineChart type bug fixed
 * Empty icon size for IconBar type bug fixed
+* Empty icon padding for IconBar type bug fixed
 ## [v0.3.6] - 2022-01-27
 ### Changed
 * Obesity infographic template updated so that all text is editable

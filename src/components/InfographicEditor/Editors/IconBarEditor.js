@@ -160,7 +160,10 @@ class IconBarEditor extends React.Component
                     initialValue={iconSettings.padding}
                     rows={1}
                     cols={5}
-                    onChange={(d, i) => { this._SetChartSettings('iconSettings', 'padding', d); }}
+                    onChange={(d, i) => { 
+                        if (d === '') return;
+                        this._SetChartSettings('iconSettings', 'padding', d); 
+                    }}
                 />
             </div>
         ]
