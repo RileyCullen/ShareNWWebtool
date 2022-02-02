@@ -42,6 +42,8 @@ class TextField extends React.Component
      */
     _HandleChange(event)
     {
+        let regex = event.target.value.match("\n+| +");
+        if (regex && regex.length >= 1) return;
         this.setState({
             value: event.target.value
         });
