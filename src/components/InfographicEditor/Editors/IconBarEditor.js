@@ -52,7 +52,12 @@ class IconBarEditor extends React.Component
         let chartDataContent = [
             <BarChartInputFields 
                 chartData={this.props.chartData} 
-                setChartData={(d, i) => { this.props.setChartData(d, i); }}/>,
+                setChartData={(d, i) => { 
+                    for (let j = 0; j < d.length; j++) {
+                        if (d[j].value < 0) return;
+                    }
+                    this.props.setChartData(d, i); 
+                }}/>,
         ];
         let content = {
             chartSettings: [
