@@ -1,9 +1,10 @@
 # Change Log
-## [v0.3.7] - 2022-02-01
+## [v0.4.0] - 2022-02-01
+### Added
+* NumericTextField and LabeledNumericTextField types defined
 ### Changed
-* Empty x-axis width for LineChart type bug fixed
-* Empty icon size for IconBar type bug fixed
-* Empty icon padding for IconBar type bug fixed
+* TextField type updated so that new lines and lone whitespace not permitted
+* All previous TextField and LabeledTextField objects that handled numeric data updated to use new types
 ## [v0.3.6] - 2022-01-27
 ### Changed
 * Obesity infographic template updated so that all text is editable
