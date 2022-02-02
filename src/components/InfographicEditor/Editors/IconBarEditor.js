@@ -150,7 +150,9 @@ class IconBarEditor extends React.Component
                     initialValue={iconSettings.iconSize}
                     rows={1}
                     cols={5}
-                    onChange={(d, i) => { this._SetChartSettings('iconSettings', 'iconSize', d); }}
+                    onChange={(d, i) => {
+                        if (d === '') return;
+                        this._SetChartSettings('iconSettings', 'iconSize', d); }}
                 />
                 <LabeledTextField 
                     label='Padding'
