@@ -1,4 +1,7 @@
 # Change Log
+## [v0.3.7] - 2022-02-01
+### Changed
+* Empty x-axis width for LineChart type bug fixed
 ## [v0.3.6] - 2022-01-27
 ### Changed
 * Obesity infographic template updated so that all text is editable
