@@ -4,7 +4,7 @@ import React from 'react';
 
 import '../../../../css/React/Editors/StackedBarInputFields.css';
 
-import { ColorPicker, TextField } from './index';
+import { ColorPicker, TextField, NumericTextField } from './index';
 import { CategoryGenerator } from '../../../Helpers/CategoryGenerator';
 import Lodash from 'lodash';
 
@@ -101,13 +101,14 @@ class StackedBarInputFields extends React.Component
                                             let content = false;
                                             categories.forEach((e, j) => {
                                                 if (e === d.category) {
-                                                    content = <TextField 
+                                                    content = <NumericTextField 
                                                     key={d.subcategory + '-' + j + '-category'}
                                                     id={d.value + '-category'}
                                                     index={d.originalIndex}
                                                     initialValue={d.value}
                                                     rows={1}
                                                     cols={cols}
+                                                    onlyPositive={true}
                                                     onChange={(d, i) => { 
                                                         this._SetChartData(
                                                             d, i, 'value'
@@ -221,7 +222,6 @@ class StackedBarInputFields extends React.Component
 
     _SetChartData(d, i, type)
     {
-        if (d === '') return;
         let data = this._CreateDataCopy();
 
         if (type === 'value') data[i].value = parseFloat(d);

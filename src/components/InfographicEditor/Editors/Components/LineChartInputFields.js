@@ -1,5 +1,5 @@
 import React from 'react'
-import { TextField } from './index';
+import { TextField, NumericTextField } from './index';
 import { CategoryGenerator } from '../../../Helpers/CategoryGenerator';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -48,13 +48,14 @@ class LineChartInputFields extends React.Component
                                     cols={20}
                                     onChange={(d, i) => { this._SetChartData(d, i, 'category')}}
                                 />
-                                <TextField 
+                                <NumericTextField 
                                     key={this.props.chartData.length + '-data'}
                                     id={d.value + '-data'}
                                     index={i}
                                     initialValue={d.value}
                                     rows={1}
                                     cols={10}
+                                    onlyPositive={false}
                                     onChange={(d, i) => { this._SetChartData(d, i, 'value')}}
                                 />
                                 <FontAwesomeIcon className='remove-row-icon' icon={faTimesCircle}
@@ -80,7 +81,6 @@ class LineChartInputFields extends React.Component
     
     _SetChartData(d, i, type) 
     {
-        if (d === '') return;
         let data = this.props.chartData.map(d => {
             return {
                 category: d.category,

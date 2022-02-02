@@ -1,7 +1,7 @@
 import React from 'react';
 import Lodash from 'lodash';
 import { Editor, Menu, LabeledTextField, LabeledColorPicker, FontSelector, 
-    LabeledDropdown, LineChartInputFields } from './Components/index';
+    LabeledDropdown, LineChartInputFields, LabeledNumericTextField } from './Components/index';
 import '../../../css/React/Editors/ChartEditor.css';
 import { SettingsManager } from '../../Helpers/SettingsManager';
 
@@ -187,36 +187,40 @@ class LineEditor extends React.Component
         let sizeSettings = this.props.cSettings.size;
         return [
             <div className='center'>
-                <LabeledTextField 
+                <LabeledNumericTextField 
                     label='Chart Width:'
                     index='c-width'
                     initialValue={sizeSettings.chartWidth}
                     rows={1}
                     cols={5}
+                    onlyPositive={true}
                     onChange={(d, i) => { this._SetChartSettings('size', 'chartWidth', d); }}
                 />
-                <LabeledTextField 
+                <LabeledNumericTextField 
                     label='Chart Height:'
                     index='c-height'
                     initialValue={sizeSettings.chartHeight}
                     rows={1}
                     cols={5}
+                    onlyPositive={true}
                     onChange={(d, i) => { this._SetChartSettings('size', 'chartHeight', d); }}
                 />
-                <LabeledTextField 
+                <LabeledNumericTextField 
                     label='Line Width:'
                     index='l-width'
                     initialValue={sizeSettings.lineWidth}
                     rows={1}
                     cols={5}
+                    onlyPositive={true}
                     onChange={(d, i) => { this._SetChartSettings('size', 'lineWidth', d); }}
                 />
-                <LabeledTextField 
+                <LabeledNumericTextField 
                     label='Point Radius:'
                     index='p-radius'
                     initialValue={sizeSettings.pointRadius}
                     rows={1}
                     cols={5}
+                    onlyPositive={true}
                     onChange={(d, i) => { this._SetChartSettings('size', 'pointRadius', d); }}
                 />
             </div>
@@ -252,12 +256,13 @@ class LineEditor extends React.Component
         let spacingSettings = this.props.cSettings.spacing;
         return [
             <div className='center'>
-                <LabeledTextField 
+                <LabeledNumericTextField 
                     label='Space between chart and y-axis:'
                     index='x-offset'
                     initialValue={spacingSettings.internalOffsetX}
                     rows={1}
                     cols={5}
+                    onlyPositive={true}
                     onChange={(d, i) => { this._SetChartSettings('spacing', 'internalOffsetX', d); }}
                 />
             </div>
@@ -282,25 +287,25 @@ class LineEditor extends React.Component
                             this._UpdateDecoratorSettings('xAxis', 'axis', 'label', d);
                         }}
                     />
-                    <LabeledTextField 
+                    <LabeledNumericTextField 
                         label='Axis Width:'
                         index={'x-stroke'}
                         initialValue={settings.axis.axisStrokeWidth}
                         rows={1}
                         cols={5}
+                        onlyPositive={true}
                         onChange={(d, i) => {
-                            if (d === '') return; 
                             this._UpdateDecoratorSettings('xAxis', 'axis', 'axisStrokeWidth', parseFloat(d));
                         }} 
                     />
-                    <LabeledTextField 
+                    <LabeledNumericTextField 
                         label='Tick Width:'
                         index={'x-tick'}
                         initialValue={settings.axis.axisTickWidth}
                         rows={1}
                         cols={5}
+                        onlyPositive={true}
                         onChange={(d, i) => { 
-                            if (d === '') return;
                             this._UpdateDecoratorSettings('xAxis', 'axis', 'axisTickWidth', parseFloat(d));
                         }} 
                     />
@@ -336,25 +341,25 @@ class LineEditor extends React.Component
                             this._UpdateDecoratorSettings('yAxis', 'axis', 'label', d);
                         }}
                     />
-                    <LabeledTextField 
+                    <LabeledNumericTextField 
                         label='Axis Width:'
                         index={'y-stroke'}
                         initialValue={settings.axis.lineStrokeWidth}
                         rows={1}
                         cols={5}
+                        onlyPositive={true}
                         onChange={(d, i) => { 
-                            if (d === '') return;
                             this._UpdateDecoratorSettings('yAxis', 'axis', 'lineStrokeWidth', parseFloat(d));
                         }} 
                     />
-                    <LabeledTextField 
+                    <LabeledNumericTextField 
                         label='Tick Width:'
                         index={'y-tick'}
                         initialValue={settings.axis.tickStrokeWidth}
                         rows={1}
                         cols={5}
+                        onlyPositive={true}
                         onChange={(d, i) => {
-                            if (d === '') return;
                             this._UpdateDecoratorSettings('yAxis', 'axis', 'tickStrokeWidth', parseFloat(d));
                         }} 
                     />

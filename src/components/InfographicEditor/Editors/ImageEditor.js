@@ -1,5 +1,5 @@
 import React from 'react';
-import { Menu, LabeledTextField, LabeledSlider, LabeledColorPicker } from './Components/index';
+import { Menu, LabeledTextField, LabeledSlider, LabeledColorPicker, LabeledNumericTextField } from './Components/index';
 
 import '../../../css/React/Editors/Tabless.css';
 
@@ -90,27 +90,27 @@ class ImageEditor extends React.Component
     {
         return [
             <div className='center'>
-                <LabeledTextField 
+                <LabeledNumericTextField 
                     key={'image-width'}
                     label='Width:'
                     index={'width'}
                     initialValue={this.props.settings.width}
                     rows={1}
                     cols={5}
-                    onChange={(d, i) => {
-                        if (d === '') return; 
+                    onlyPositive={true}
+                    onChange={(d, i) => { 
                         this._SetGraphicSettings('width', parseFloat(d));
                     }}
                 />
-                <LabeledTextField 
+                <LabeledNumericTextField 
                     key={'image-height-' + this.props.settings.height}
                     label='Height:'
                     index={'height'}
                     initialValue={this.props.settings.height}
                     rows={1}
                     cols={5}
+                    onlyPositive={true}
                     onChange={(d, i) => {
-                        if (d === '') return;
                         this._SetGraphicSettings('height', parseFloat(d));    
                     }}
                 />
@@ -143,15 +143,15 @@ class ImageEditor extends React.Component
                         this._SetGraphicSettings('stroke', value);
                     }}
                 />
-                <LabeledTextField 
+                <LabeledNumericTextField 
                     key={'image-stroke-width'}
                     label='Stroke Width:'
                     index={'stroke'}
                     initialValue={this.props.settings.strokeWidth}
                     rows={1}
                     cols={5}
+                    onlyPositive={true}
                     onChange={(d, i) => { 
-                        if (d === '') return;
                         this._SetGraphicSettings('strokeWidth', parseFloat(d));
                     }}
                 />

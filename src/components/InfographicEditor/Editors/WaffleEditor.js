@@ -1,5 +1,6 @@
 import React from 'react';
-import { Menu, Editor, LabeledColorPicker, LabeledTextField, FontSelector, LabeledCheckbox } from './Components/index';
+import { Menu, Editor, LabeledColorPicker, LabeledTextField, FontSelector, LabeledCheckbox,
+    LabeledNumericTextField } from './Components/index';
 import Lodash from 'lodash';
 import '../../../css/React/Editors/ChartEditor.css';
 import { SettingsManager } from '../../Helpers/SettingsManager';
@@ -54,12 +55,13 @@ class WaffleEditor extends React.Component
         // called.
         let chartDataContent = [
                 <div className='center'>
-                    <LabeledTextField 
+                    <LabeledNumericTextField 
                         label='Numerator:'
                         index={data.numerator}
                         initialValue={data.numerator}
                         rows={rows}
                         cols={cols}
+                        onlyPositive={true}
                         onChange={(d, i) => { this._SetChartData(0, d); }}
                     />
                     <LabeledTextField 
@@ -68,6 +70,7 @@ class WaffleEditor extends React.Component
                         initialValue={data.denominator}
                         rows={rows}
                         cols={cols}
+                        onlyPositive={true}
                         onChange={(d, i) => { this._SetChartData(1, d); }}
                     />
                 </div>
@@ -186,28 +189,31 @@ class WaffleEditor extends React.Component
                     color={iconSettings.bColor}
                     onChange={(value) => { this._SetChartSettings('icon', 'bColor', value); }}
                 />
-                <LabeledTextField 
+                <LabeledNumericTextField 
                     label='Icon Size: '
                     index='max'
                     initialValue={iconSettings.size}
                     rows={1}
                     cols={5}
+                    onlyPositive={true}
                     onChange={(d, i) => { this._SetChartSettings('icon', 'size', d)}}
                 />
-                <LabeledTextField 
+                <LabeledNumericTextField 
                     label='Padding: '
                     index='max'
                     initialValue={iconSettings.padding}
                     rows={1}
                     cols={5}
+                    onlyPositive={true}
                     onChange={(d, i) => { this._SetChartSettings('icon', 'padding', d)}}
                 />
-                <LabeledTextField 
+                <LabeledNumericTextField 
                     label='Max icons per row: '
                     index='max'
                     initialValue={iconSettings.maxIconsPerRow}
                     rows={1}
                     cols={5}
+                    onlyPositive={true}
                     onChange={(d, i) => { this._SetChartSettings('icon', 'maxIconsPerRow', d)}}
                 />
             </div>
@@ -219,20 +225,22 @@ class WaffleEditor extends React.Component
         let resize = this.props.cSettings.dynamicResize;
         return [
             <div className='center'>
-                <LabeledTextField 
+                <LabeledNumericTextField 
                     label='Width'
                     index='c-width'
                     initialValue={resize.width}
                     rows={1}
                     cols={5}
+                    onlyPositive={true}
                     onChange={(d, i) => { this._SetChartSettings('dynamicResize', 'width', d); }} 
                 />
-                <LabeledTextField 
+                <LabeledNumericTextField 
                     label='Height'
                     index='c-height'
                     initialValue={resize.height}
                     rows={1}
                     cols={5}
+                    onlyPositive={true}
                     onChange={(d, i) => { this._SetChartSettings('dynamicResize', 'height', d); }} 
                 />
             </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { LabeledTextField, Menu, LabeledColorPicker } from './Components/index';
+import { LabeledTextField, Menu, LabeledColorPicker, LabeledNumericTextField } from './Components/index';
 
 import '../../../css/React/Editors/Tabless.css';
 
@@ -44,21 +44,29 @@ class BackgroundElementEditor extends React.Component
     {
         return [
             <div className='center'>
-                <LabeledTextField 
+                <LabeledNumericTextField 
                     label='Width:'
                     index={'width'}
                     initialValue={this.props.settings.size.width}
                     rows={1}
                     cols={5}
-                    onChange={(d, i) => { this._SetSizeSettings('size', 'width', d); }}
+                    onlyPositive={true}
+                    onChange={(d, i) => { 
+                        if (d < 0) return;
+                        this._SetSizeSettings('size', 'width', d); 
+                    }}
                 />
-                <LabeledTextField 
+                <LabeledNumericTextField 
                     label='Height:'
                     index={'height'}
                     initialValue={this.props.settings.size.height}
                     rows={1}
                     cols={5}
-                    onChange={(d, i) => { this._SetSizeSettings('size', 'height', d); }}
+                    onlyPositive={true}
+                    onChange={(d, i) => { 
+                        if (d < 0) return;
+                        this._SetSizeSettings('size', 'height', d); 
+                    }}
                 /> 
             </div>
         ];
@@ -90,13 +98,16 @@ class BackgroundElementEditor extends React.Component
                                 );
                             case 'text-field':
                                 return (
-                                    <LabeledTextField 
+                                    <LabeledNumericTextField 
                                         label={tmp.name}
                                         index={tmp.type}
                                         initialValue={tmp.value}
                                         rows={1}
                                         cols={5}
-                                        onChange={(d, i) => { this._SetDisplaySettings(key, d); }}
+                                        onlyPositive={true}
+                                        onChange={(d, i) => { 
+                                            this._SetDisplaySettings(key, parseFloat(d)); 
+                                        }}
                                     />
                                 );
                             default: 
