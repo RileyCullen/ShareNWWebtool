@@ -42,12 +42,19 @@ class TextField extends React.Component
      */
     _HandleChange(event)
     {
-        let regex = event.target.value.match("\n+| +");
+        let value = event.target.value;
+
+        // Prevents multiple lines from being inputted
+        let regex = value.match("\n+");
         if (regex && regex.length >= 1) return;
+
+        // Prevents multiple whitespace characters
+        if (value.trim().length === 0 && value !== '') return;
+
         this.setState({
-            value: event.target.value
+            value: value
         });
-        this.props.onChange(event.target.value, this.props.index);
+        this.props.onChange(value, this.props.index);
     }
 }
 
