@@ -1,0 +1,32 @@
+{
+  "files": {
+    "main.css": "/ShareNWWebtool/static/css/main.1e2b83b7.chunk.css",
+    "main.js": "/ShareNWWebtool/static/js/main.69907ed4.chunk.js",
+    "main.js.map": "/ShareNWWebtool/static/js/main.69907ed4.chunk.js.map",
+    "runtime-main.js": "/ShareNWWebtool/static/js/runtime-main.1c53af49.js",
+    "runtime-main.js.map": "/ShareNWWebtool/static/js/runtime-main.1c53af49.js.map",
+    "static/css/2.59dee6c0.chunk.css": "/ShareNWWebtool/static/css/2.59dee6c0.chunk.css",
+    "static/js/2.0af43ab9.chunk.js": "/ShareNWWebtool/static/js/2.0af43ab9.chunk.js",
+    "static/js/2.0af43ab9.chunk.js.map": "/ShareNWWebtool/static/js/2.0af43ab9.chunk.js.map",
+    "index.html": "/ShareNWWebtool/index.html",
+    "static/css/2.59dee6c0.chunk.css.map": "/ShareNWWebtool/static/css/2.59dee6c0.chunk.css.map",
+    "static/css/main.1e2b83b7.chunk.css.map": "/ShareNWWebtool/static/css/main.1e2b83b7.chunk.css.map",
+    "static/js/2.0af43ab9.chunk.js.LICENSE.txt": "/ShareNWWebtool/static/js/2.0af43ab9.chunk.js.LICENSE.txt",
+    "static/media/DiabetesInfog.8a619169.png": "/ShareNWWebtool/static/media/DiabetesInfog.8a619169.png",
+    "static/media/HIVInfog.8ead0744.png": "/ShareNWWebtool/static/media/HIVInfog.8ead0744.png",
+    "static/media/LGBTInfog.9499d95c.png": "/ShareNWWebtool/static/media/LGBTInfog.9499d95c.png",
+    "static/media/ObesityInfog.0515778a.png": "/ShareNWWebtool/static/media/ObesityInfog.0515778a.png",
+    "static/media/california.dd9b480c.svg": "/ShareNWWebtool/static/media/california.dd9b480c.svg",
+    "static/media/cdclogo.7b55d379.png": "/ShareNWWebtool/static/media/cdclogo.7b55d379.png",
+    "static/media/florida.bfe23522.svg": "/ShareNWWebtool/static/media/florida.bfe23522.svg",
+    "static/media/texas.847edac0.svg": "/ShareNWWebtool/static/media/texas.847edac0.svg",
+    "static/media/virginia.7fa209f9.png": "/ShareNWWebtool/static/media/virginia.7fa209f9.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.1c53af49.js",
+    "static/css/2.59dee6c0.chunk.css",
+    "static/js/2.0af43ab9.chunk.js",
+    "static/css/main.1e2b83b7.chunk.css",
+    "static/js/main.69907ed4.chunk.js"
+  ]
+}
