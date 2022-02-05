@@ -1,4 +1,7 @@
 # Change Log
+## [v0.4.1] - 2022-02-05
+### Changed
+* ClearSelection is now called before text elements are inserted instead of afterwards
 ## [v0.4.0] - 2022-02-01
 ### Added
 * NumericTextField and LabeledNumericTextField types defined
