@@ -51,11 +51,10 @@ class CanvasContainer extends React.Component
             this.props.editorHandler('none');
             this._DrawInfographic();
         } else {
-            // move this around to (preferrably after the else statement so that
-            // else and isRemoving and the update selection clauses run)
             if (this.props.isRemoving) {
                 this._infogObj.Remove();
             } else if (this.props.insertType !== 'none') {
+                if (this.props.insertType === 'text') this._infogObj.ClearSelection();
                 this._infogObj.InsertElement({
                     type: this.props.insertType,
                     element: this.props.insertElement,
@@ -120,7 +119,7 @@ class CanvasContainer extends React.Component
                 });
             }
 
-            if (this.props.clearSelection === true) {
+            if (this.props.clearSelection === true && this.props.insertType !== 'text') {
                 this._infogObj.ClearSelection();
             }
         }
