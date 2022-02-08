@@ -87,6 +87,8 @@ class AInfographic
             stroke: 'black',
         });
         this._main.add(this._bkg);
+        this._elementHolder = new Konva.Group();
+        this._main.add(this._elementHolder);
         // this._UIAdder = new UIAdder(this._chartWidth, this._chartHeight);
 
         this._editorHandler = editorHandler;
@@ -589,7 +591,7 @@ class AInfographic
         });
         selection.forEach(group => {
             let absPos = group.absolutePosition();
-            group.moveTo(this._main);
+            group.moveTo(this._elementHolder);
             group.absolutePosition(absPos);
         });
     }
