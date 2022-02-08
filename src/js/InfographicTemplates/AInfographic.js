@@ -722,7 +722,6 @@ class AInfographic
         });
 
         elem.on('dragend', () => {
-            this._SwitchContainerOnDrag(elem);
             this._LogEndingPosition(elem);
         });
     }
@@ -1010,21 +1009,6 @@ class AInfographic
                 this._stage.off('click', HandleOutsideClick);
             }
         };
-    }
-
-    _SwitchContainerOnDrag(elem)
-    {
-        let selection = this._stage.find((node) => {
-            return node.hasName('Switchable') && node.hasName('Container');
-        }),
-            parent = this._FindTopContainer(elem);
-        
-        selection = selection.filter(d => parent !== d)
-    
-        new AutoLayerCommand({
-            containers: selection,
-            element: elem
-        }).Execute();
     }
 
     _FindTopContainer(elem)
