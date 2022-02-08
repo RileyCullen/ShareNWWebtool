@@ -572,6 +572,26 @@ class AInfographic
         this._AddGraphicSelection();
         this._AddDataLabelSelection();
         // this._AddMultipleElementSelector();
+        this._MoveToMain();
+    }
+
+    /**
+     * @description Moves all of the infographic elements into the main group. 
+     *              This allows us to perform layering functions.
+     */
+    _MoveToMain()
+    {
+        let selection = this._stage.find(node => {
+            let isChart = (node.hasName('Selectable') && node.hasName('Chart'));
+            let isGraphic = node.hasName('Graphic');
+            let isText = (node.hasName('Selectable') && node.hasName('EditableText'));
+            return isChart || isGraphic || isText;
+        });
+        selection.forEach(group => {
+            let absPos = group.absolutePosition();
+            group.moveTo(this._main);
+            group.absolutePosition(absPos);
+        });
     }
 
     /**
