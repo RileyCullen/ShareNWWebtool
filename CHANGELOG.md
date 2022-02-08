@@ -1,5 +1,5 @@
 # Change Log
-## [v0.4.1] - 2022-02-05
+## [v0.4.1] - 2022-02-07
 ### Changed
 * ClearSelection is now called before text elements are inserted instead of afterwards
 * When attempting to replace an IconBar type with another chart, a constant padding is written in place of the IconBar's padding
