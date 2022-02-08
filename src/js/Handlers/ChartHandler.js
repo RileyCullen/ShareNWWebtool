@@ -391,10 +391,11 @@ class ChartHandler
     {
         let attrs = chart.GetAttrs();
         if (chart instanceof ABarChart || chart instanceof AIconBar) {
+            let padding = (chart instanceof AIconBar) ? 0.1 : attrs.padding;
             return {
                 width: attrs.width,
                 height: attrs.height,
-                padding: attrs.padding,
+                padding: padding,
                 rotateBy: attrs.rotateBy,
             };
         } else if (chart instanceof ALineChart) {
