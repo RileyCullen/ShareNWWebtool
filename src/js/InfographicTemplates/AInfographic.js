@@ -412,7 +412,6 @@ class AInfographic
                 this._GraphicHelper(group);
             });
             group.on('dragend', () => {
-                this._SwitchContainerOnDrag(group);
             });
             this._GraphicHelper(group);
         }
@@ -635,7 +634,6 @@ class AInfographic
                 parent.on('dblclick', () => { this._ChartHelper(parent) });
                 parent.on('dragstart', () => { this._LogStartingPosition(parent) });
                 parent.on('dragend', () => { 
-                    this._SwitchContainerOnDrag(parent);
                     this._LogEndingPosition(parent);
                 });
 
