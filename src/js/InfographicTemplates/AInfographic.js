@@ -330,7 +330,7 @@ class AInfographic
             y: this._chartHeight / 2,
         }),
             insertCommand = null;
-        this._main.add(group);
+        this._elementHolder.add(group);
         if (type === 'chart') {
             insertCommand = new InsertChartCommand({
                 chartType: element,
