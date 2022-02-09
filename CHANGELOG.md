@@ -1,5 +1,5 @@
 # Change Log
-## [v0.5.0] - 2022-02-07
+## [v0.5.0] - 2022-02-08
 Relatively signficant update: Layering system updated to draw all elements in one group and use a global z-index, instead of many separate local z-indexes that elements will switch to.
 ### Added
 * Infographic elements are now all drawn in main group, instead of being grouped into subgroups
