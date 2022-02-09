@@ -7,7 +7,7 @@ import { ACommand } from "../ACommand";
 
 class PositionCommand extends ACommand
 {
-    constructor({element, x, y, z, containers})
+    constructor({element, x, y})
     {
         super();
         this._element = element;
@@ -15,23 +15,16 @@ class PositionCommand extends ACommand
         this._y0 = y; // starting y
         this._x1 = x; // ending (current) x
         this._y1 = y; // ending (current) y
-        this._z0 = z;
-        this._z1 = z;
-        this._layerCommand = new AutoLayerCommand({
-            containers: containers,
-            element: this._element
-        });
     }
 
     /**
      * @summary Sets the current coordinates.
      * @param {*} param0 
      */
-    SetCurrentCoordinates({x, y, z}) 
+    SetCurrentCoordinates({x, y}) 
     { 
         this._x1 = x;
         this._y1 = y;
-        this._z1 = z;
     }
      
     /**
@@ -43,8 +36,6 @@ class PositionCommand extends ACommand
             x: this._x1,
             y: this._y1,
         });
-        this._layerCommand.Execute();
-        this._element.setZIndex(this._z1);
     }
 
     /**
@@ -56,8 +47,6 @@ class PositionCommand extends ACommand
             x: this._x0,
             y: this._y0,
         });
-        this._layerCommand.Execute();
-        this._element.setZIndex(this._z0);
     }
 }
 

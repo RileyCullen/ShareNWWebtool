@@ -87,6 +87,8 @@ class AInfographic
             stroke: 'black',
         });
         this._main.add(this._bkg);
+        this._elementHolder = new Konva.Group();
+        this._main.add(this._elementHolder);
         // this._UIAdder = new UIAdder(this._chartWidth, this._chartHeight);
 
         this._editorHandler = editorHandler;
@@ -328,7 +330,7 @@ class AInfographic
             y: this._chartHeight / 2,
         }),
             insertCommand = null;
-        this._main.add(group);
+        this._elementHolder.add(group);
         if (type === 'chart') {
             insertCommand = new InsertChartCommand({
                 chartType: element,
@@ -410,7 +412,6 @@ class AInfographic
                 this._GraphicHelper(group);
             });
             group.on('dragend', () => {
-                this._SwitchContainerOnDrag(group);
             });
             this._GraphicHelper(group);
         }
@@ -572,6 +573,26 @@ class AInfographic
         this._AddGraphicSelection();
         this._AddDataLabelSelection();
         // this._AddMultipleElementSelector();
+        this._MoveToMain();
+    }
+
+    /**
+     * @description Moves all of the infographic elements into the main group. 
+     *              This allows us to perform layering functions.
+     */
+    _MoveToMain()
+    {
+        let selection = this._stage.find(node => {
+            let isChart = (node.hasName('Selectable') && node.hasName('Chart'));
+            let isGraphic = node.hasName('Graphic');
+            let isText = (node.hasName('Selectable') && node.hasName('EditableText'));
+            return isChart || isGraphic || isText;
+        });
+        selection.forEach(group => {
+            let absPos = group.absolutePosition();
+            group.moveTo(this._elementHolder);
+            group.absolutePosition(absPos);
+        });
     }
 
     /**
@@ -613,7 +634,6 @@ class AInfographic
                 parent.on('dblclick', () => { this._ChartHelper(parent) });
                 parent.on('dragstart', () => { this._LogStartingPosition(parent) });
                 parent.on('dragend', () => { 
-                    this._SwitchContainerOnDrag(parent);
                     this._LogEndingPosition(parent);
                 });
 
@@ -722,7 +742,6 @@ class AInfographic
         });
 
         elem.on('dragend', () => {
-            this._SwitchContainerOnDrag(elem);
             this._LogEndingPosition(elem);
         });
     }
@@ -1012,21 +1031,6 @@ class AInfographic
         };
     }
 
-    _SwitchContainerOnDrag(elem)
-    {
-        let selection = this._stage.find((node) => {
-            return node.hasName('Switchable') && node.hasName('Container');
-        }),
-            parent = this._FindTopContainer(elem);
-        
-        selection = selection.filter(d => parent !== d)
-    
-        new AutoLayerCommand({
-            containers: selection,
-            element: elem
-        }).Execute();
-    }
-
     _FindTopContainer(elem)
     {
         let parent = elem.getParent();
@@ -1046,17 +1050,12 @@ class AInfographic
      */
     _LogStartingPosition(konvaElement)
     {
-        let absPos = konvaElement.absolutePosition(),
-            selection = this._stage.find((node) => {
-                return node.hasName('Switchable') && node.hasName('Container');
-            });
+        let absPos = konvaElement.absolutePosition();
         
         let currPosition = new PositionCommand({
             element: konvaElement,
             x: absPos.x,
             y: absPos.y,
-            z: konvaElement.zIndex(),
-            containers: selection,
         });
         this._commandManager.Add(currPosition);
     }
@@ -1077,7 +1076,6 @@ class AInfographic
         currPosition.SetCurrentCoordinates({
             x: absPos.x,
             y: absPos.y,
-            z: konvaElement.zIndex(),
         });
         this._commandManager.Add(currPosition);
     }

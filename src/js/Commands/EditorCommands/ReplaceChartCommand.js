@@ -47,6 +47,7 @@ class ReplaceChartCommand extends ACommand
         let attrs = this._handler.GetConvertedAttrs(this._id, this._targetType);
         attrs['group'] = this._newGroup;
         this._parent.add(this._newGroup);
+        this._newGroup.absolutePosition(this._originalGroup.absolutePosition());
         this._removeCommand = new RemoveChartCommand({
             id: this._id,
             handler: this._handler,
