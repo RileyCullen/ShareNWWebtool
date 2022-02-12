@@ -240,6 +240,7 @@ class WaffleEditor extends React.Component
                     cols={5}
                     onlyPositive={true}
                     onChange={(d, i) => { this._SetChartSettings('icon', 'size', d)}}
+                    isDisabled={this.props.cSettings.dynamicResize.isChecked}
                 />
                 <LabeledNumericTextField 
                     label='Padding: '
@@ -249,6 +250,7 @@ class WaffleEditor extends React.Component
                     cols={5}
                     onlyPositive={true}
                     onChange={(d, i) => { this._SetChartSettings('icon', 'padding', d)}}
+                    isDisabled={this.props.cSettings.dynamicResize.isChecked}
                 />
             </div>
         ];
