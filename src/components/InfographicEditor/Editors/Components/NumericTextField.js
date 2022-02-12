@@ -16,9 +16,14 @@ class NumericTextField extends React.Component
                     if (d === '' || isNaN(d) || (this.props.onlyPositive && d < 0)) return; 
                     this.props.onChange(d, i); 
                 }}
+                isDisabled={this.props.isDisabled}
             />
         )
     }
+}
+
+NumericTextField.defaultProps = {
+    isDisabled: false,
 }
 
 export { NumericTextField };

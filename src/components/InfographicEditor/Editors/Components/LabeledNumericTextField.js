@@ -17,10 +17,16 @@ class LabeledNumericTextField extends React.Component
                         rows={this.props.rows}
                         cols={this.props.cols}
                         onlyPositive={this.props.onlyPositive}
-                        onChange={(d, i) => { this.props.onChange(d, i); }}/>
+                        onChange={(d, i) => { this.props.onChange(d, i); }}
+                        isDisabled={this.props.isDisabled}/>
                 </div>
             </div>
         );
     }
 }
+
+LabeledNumericTextField.defaultProps = {
+    isDisabled: false,
+}
+
 export { LabeledNumericTextField };

@@ -18,11 +18,16 @@ class LabeledTextField extends React.Component
                         initialValue={this.props.initialValue}
                         rows={this.props.rows}
                         cols={this.props.cols}
-                        onChange={(d, i) => { this.props.onChange(d, i); }}/>
+                        onChange={(d, i) => { this.props.onChange(d, i); }}
+                        isDisabled={this.props.isDisabled}/>
                 </div>
             </div>
         );
     }
+}
+
+LabeledTextField.defaultProps = {
+    isDisabled: false,
 }
 
 export { LabeledTextField };
