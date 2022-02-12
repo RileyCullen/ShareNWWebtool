@@ -1,14 +1,16 @@
 import React from 'react';
 
 import { NumericTextField } from './NumericTextField';
+import { Color } from './Colors';
 
 class LabeledNumericTextField extends React.Component
 {
     render()
     {
+        let labelColor = (this.props.isDisabled) ? Color.DisabledText : Color.EnabledText;
         return (
             <div className='labeled-text-field-container'>
-                <label>{this.props.label}</label>
+                <label style={{color: labelColor}}>{this.props.label}</label>
                 <div className='labeled-text-field'>
                     <NumericTextField 
                         id={this.props.id}

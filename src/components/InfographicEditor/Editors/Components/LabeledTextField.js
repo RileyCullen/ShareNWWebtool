@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { TextField } from './TextField';
+import { Color } from './Colors'; 
 
 import '../../../../css/React/Editors/LabeledTextField.css';
 
@@ -8,9 +9,10 @@ class LabeledTextField extends React.Component
 {
     render()
     {
+        let labelColor = (this.props.isDisabled) ? Color.DisabledText : Color.EnabledText;
         return (
             <div className='labeled-text-field-container'>
-                <label>{this.props.label}</label>
+                <label style={{color: labelColor}}>{this.props.label}</label>
                 <div className='labeled-text-field'>
                     <TextField 
                         id={this.props.index}
