@@ -88,20 +88,20 @@ class WaffleEditor extends React.Component
                     }}
                 />,
                 <Menu 
-                    key='icon-settings'
-                    name='Icon Settings'
+                    key='color-settings'
+                    name='Color Settings'
                     isOpen={false}
-                    content={this._GetIconContent()}
+                    content={this._GetColorContent()}
                     checkbox={{
                         displayCheckbox: false
                     }} />,
                 <Menu 
-                    key='automatic-resizing'
-                    name='Automatic Resizing'
+                    key='size-settings'
+                    name='Size settings'
                     isOpen={false}
                     content={this._GetResizeContent()} 
                     checkbox={{
-                        displayCheckbox: true,
+                        displayCheckbox: false,
                         isChecked: this.props.cSettings.dynamicResize.isChecked,
                         checkboxHandler: (d) => { this._SetChartSettings('dynamicResize', 'isChecked', d); }
                     }}/>
@@ -174,7 +174,7 @@ class WaffleEditor extends React.Component
         this._settingsManager.DecoratorToggle(checkboxValue, key, decoratorSettings);
     }
 
-    _GetIconContent()
+    _GetColorContent()
     {
         let iconSettings = this.props.cSettings.icon;
         return [
@@ -189,40 +189,14 @@ class WaffleEditor extends React.Component
                     color={iconSettings.bColor}
                     onChange={(value) => { this._SetChartSettings('icon', 'bColor', value); }}
                 />
-                <LabeledNumericTextField 
-                    label='Icon Size: '
-                    index='max'
-                    initialValue={iconSettings.size}
-                    rows={1}
-                    cols={5}
-                    onlyPositive={true}
-                    onChange={(d, i) => { this._SetChartSettings('icon', 'size', d)}}
-                />
-                <LabeledNumericTextField 
-                    label='Padding: '
-                    index='max'
-                    initialValue={iconSettings.padding}
-                    rows={1}
-                    cols={5}
-                    onlyPositive={true}
-                    onChange={(d, i) => { this._SetChartSettings('icon', 'padding', d)}}
-                />
-                <LabeledNumericTextField 
-                    label='Max icons per row: '
-                    index='max'
-                    initialValue={iconSettings.maxIconsPerRow}
-                    rows={1}
-                    cols={5}
-                    onlyPositive={true}
-                    onChange={(d, i) => { this._SetChartSettings('icon', 'maxIconsPerRow', d)}}
-                />
             </div>
         ]
     }
 
     _GetResizeContent()
     {
-        let resize = this.props.cSettings.dynamicResize;
+        let resize = this.props.cSettings.dynamicResize,
+            iconSettings = this.props.cSettings.icon;
         return [
             <div className='center'>
                 <LabeledNumericTextField 
@@ -242,6 +216,39 @@ class WaffleEditor extends React.Component
                     cols={5}
                     onlyPositive={true}
                     onChange={(d, i) => { this._SetChartSettings('dynamicResize', 'height', d); }} 
+                />
+                <LabeledNumericTextField 
+                    label='Max icons per row: '
+                    index='max'
+                    initialValue={iconSettings.maxIconsPerRow}
+                    rows={1}
+                    cols={5}
+                    onlyPositive={true}
+                    onChange={(d, i) => { this._SetChartSettings('icon', 'maxIconsPerRow', d)}}
+                />
+                <hr />
+                <LabeledCheckbox 
+                    label="Check box for automatic resizing:"
+                    initialValue={this.props.cSettings.dynamicResize.isChecked}
+                    onClick={(d) => { this._SetChartSettings('dynamicResize', 'isChecked', d); }} 
+                />
+                <LabeledNumericTextField 
+                    label='Icon Size: '
+                    index='max'
+                    initialValue={iconSettings.size}
+                    rows={1}
+                    cols={5}
+                    onlyPositive={true}
+                    onChange={(d, i) => { this._SetChartSettings('icon', 'size', d)}}
+                />
+                <LabeledNumericTextField 
+                    label='Padding: '
+                    index='max'
+                    initialValue={iconSettings.padding}
+                    rows={1}
+                    cols={5}
+                    onlyPositive={true}
+                    onChange={(d, i) => { this._SetChartSettings('icon', 'padding', d)}}
                 />
             </div>
         ];
