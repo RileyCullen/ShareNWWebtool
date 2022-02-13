@@ -176,8 +176,8 @@ class IconBarEditor extends React.Component
 
     _GetDataLabelsContent()
     {
-        let settings = (this.props.dSettings.dataValue === undefined) ? 
-            this._defaultSettings.dataValue : this.props.dSettings.dataValue;
+        let isDisabled = this.props.dSettings.dataValue === undefined;
+        let settings = (isDisabled) ? this._defaultSettings.dataValue : this.props.dSettings.dataValue;
         return [
             <div className='center'>
                 <div>
@@ -188,6 +188,7 @@ class IconBarEditor extends React.Component
                         onClick={(d) => { 
                             this._UpdateDecoratorSettings('dataValue', 'display', 'category', d);
                         }}
+                        isDisabled={isDisabled}
                     />
                     <LabeledCheckbox 
                         label='Display Percentage:'
@@ -195,6 +196,7 @@ class IconBarEditor extends React.Component
                         onClick={(d) => { 
                             this._UpdateDecoratorSettings('dataValue', 'display', 'percentage', d);
                         }}
+                        isDisabled={isDisabled}
                     />
                     <LabeledDropdown 
                         label='Location:'
@@ -205,6 +207,7 @@ class IconBarEditor extends React.Component
                             if (value === 'Middle') location = true;
                             this._UpdateDecoratorSettings('dataValue', 'display', 'isMiddle', location);
                          }}
+                         isDisabled={isDisabled}
                     />
                 </div>
                 <div>
@@ -215,6 +218,7 @@ class IconBarEditor extends React.Component
                         onChange={(value) => { 
                             this._UpdateDecoratorSettings('dataValue', 'backgroundColor', 'stroke', value)
                         }}
+                        isDisabled={isDisabled}
                     />
                     <LabeledColorPicker 
                         label='Fill Color:'
@@ -222,6 +226,7 @@ class IconBarEditor extends React.Component
                         onChange={(value) => { 
                             this._UpdateDecoratorSettings('dataValue', 'backgroundColor', 'fill', value);
                         }}
+                        isDisabled={isDisabled}
                     />
                 </div>
                 <div>
@@ -237,6 +242,7 @@ class IconBarEditor extends React.Component
                         updateTextColor={(d) => {
                             this._UpdateDecoratorSettings('dataValue', 'font', 'textColor', d);
                         }}
+                        isDisabled={isDisabled}
                     />
                 </div>
             </div>
@@ -245,8 +251,8 @@ class IconBarEditor extends React.Component
 
     _GetCategoryLabelsContent()
     {
-        let settings = (this.props.dSettings.category === undefined) ? 
-            this._defaultSettings.category : this.props.dSettings.category;
+        let isDisabled = this.props.dSettings.category === undefined;
+        let settings = (isDisabled) ? this._defaultSettings.category : this.props.dSettings.category;
         return [
             <div className='center'>
                 <div>
@@ -260,6 +266,7 @@ class IconBarEditor extends React.Component
                             if (value === 'Top') location = true;
                             this._UpdateDecoratorSettings('category', 'location', 'isTop', location);
                         }}
+                        isDisabled={isDisabled}
                     />
                     <LabeledCheckbox 
                         label='Display inside bars:'
@@ -267,6 +274,7 @@ class IconBarEditor extends React.Component
                         onClick={(d) => { 
                             this._UpdateDecoratorSettings('category', 'location', 'isWithinBars', d);
                         }}
+                        isDisabled={isDisabled}
                     /> 
                 </div>
                 <div>
@@ -283,6 +291,7 @@ class IconBarEditor extends React.Component
                         updateTextColor={(d) => {
                             this._UpdateDecoratorSettings('category', 'font', 'textColor', d);
                         }}
+                        isDisabled={isDisabled}
                     />
                 </div>
             </div>

@@ -258,8 +258,8 @@ class WaffleEditor extends React.Component
 
     _GetDataLabelsContent()
     {
-        let statistic = (this.props.dSettings.statistic === undefined) ? 
-            this._defaultSettings.statistic : this.props.dSettings.statistic;
+        let isDisabled = this.props.dSettings.statistic === undefined;
+        let statistic = (isDisabled) ? this._defaultSettings.statistic : this.props.dSettings.statistic;
         return [
             <div className='center'>
                 <div>
@@ -273,6 +273,7 @@ class WaffleEditor extends React.Component
                         onChange={(d, i) => { 
                             this._UpdateDecoratorSettings('statistic', 'display', 'middleText', d);
                         }} 
+                        isDisabled={isDisabled}
                     />
                     <LabeledCheckbox 
                         label='Lock to Chart'
@@ -280,6 +281,7 @@ class WaffleEditor extends React.Component
                         onClick={(d) => { 
                             this._UpdateDecoratorSettings('statistic', 'display', 'lockToChart', d);
                         }}
+                        isDisabled={isDisabled}
                     />
                 </div>
                 <div>
@@ -295,6 +297,7 @@ class WaffleEditor extends React.Component
                         updateTextColor={(d) => {
                             this._UpdateDecoratorSettings('statistic', 'font', 'textColor', d);
                         }}
+                        isDisabled={isDisabled}
                     />
                 </div>
             </div>

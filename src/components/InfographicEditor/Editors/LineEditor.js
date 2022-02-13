@@ -271,8 +271,8 @@ class LineEditor extends React.Component
 
     _GetXAxisContent()
     {
-        let settings = (this.props.dSettings.xAxis === undefined) ? 
-            this._defaultSettings.xAxis : this.props.dSettings.xAxis;
+        let isDisabled = this.props.dSettings.xAxis === undefined;
+        let settings = (isDisabled) ? this._defaultSettings.xAxis : this.props.dSettings.xAxis;
         return [
             <div className='center'>
                 <div>
@@ -286,6 +286,7 @@ class LineEditor extends React.Component
                         onChange={(d, i) => { 
                             this._UpdateDecoratorSettings('xAxis', 'axis', 'label', d);
                         }}
+                        isDisabled={isDisabled}
                     />
                     <LabeledNumericTextField 
                         label='Axis Width:'
@@ -297,6 +298,7 @@ class LineEditor extends React.Component
                         onChange={(d, i) => {
                             this._UpdateDecoratorSettings('xAxis', 'axis', 'axisStrokeWidth', parseFloat(d));
                         }} 
+                        isDisabled={isDisabled}
                     />
                     <LabeledNumericTextField 
                         label='Tick Width:'
@@ -308,6 +310,7 @@ class LineEditor extends React.Component
                         onChange={(d, i) => { 
                             this._UpdateDecoratorSettings('xAxis', 'axis', 'axisTickWidth', parseFloat(d));
                         }} 
+                        isDisabled={isDisabled}
                     />
                     <LabeledColorPicker 
                         label='Axis Color: '
@@ -315,6 +318,7 @@ class LineEditor extends React.Component
                         onChange={(value) => { 
                             this._UpdateDecoratorSettings('xAxis', 'axis', 'color', value);
                         }} 
+                        isDisabled={isDisabled}
                     />
                 </div>
             </div>
@@ -324,9 +328,8 @@ class LineEditor extends React.Component
 
     _GetYAxisContent()
     {
-        let settings = (this.props.dSettings.yAxis === undefined) ? 
-            this._defaultSettings.yAxis : this.props.dSettings.yAxis;
-            console.log(settings);
+        let isDisabled = this.props.dSettings.yAxis === undefined;
+        let settings = (isDisabled) ? this._defaultSettings.yAxis : this.props.dSettings.yAxis;
         return [
             <div className='center'>
                 <div>
@@ -340,6 +343,7 @@ class LineEditor extends React.Component
                         onChange={(d, i) => { 
                             this._UpdateDecoratorSettings('yAxis', 'axis', 'label', d);
                         }}
+                        isDisabled={isDisabled}
                     />
                     <LabeledNumericTextField 
                         label='Axis Width:'
@@ -351,6 +355,7 @@ class LineEditor extends React.Component
                         onChange={(d, i) => { 
                             this._UpdateDecoratorSettings('yAxis', 'axis', 'lineStrokeWidth', parseFloat(d));
                         }} 
+                        isDisabled={isDisabled}
                     />
                     <LabeledNumericTextField 
                         label='Tick Width:'
@@ -362,6 +367,7 @@ class LineEditor extends React.Component
                         onChange={(d, i) => {
                             this._UpdateDecoratorSettings('yAxis', 'axis', 'tickStrokeWidth', parseFloat(d));
                         }} 
+                        isDisabled={isDisabled}
                     />
                     <LabeledColorPicker 
                         label='Axis Color: '
@@ -369,6 +375,7 @@ class LineEditor extends React.Component
                         onChange={(value) => { 
                             this._UpdateDecoratorSettings('yAxis', 'axis', 'color', value);
                         }} 
+                        isDisabled={isDisabled}
                     />
                 </div>
             </div>
@@ -377,7 +384,8 @@ class LineEditor extends React.Component
 
     _GetFontContent(decoratorType)
     {
-        let settings = (this.props.dSettings[decoratorType] === undefined) ?
+        let isDisabled = this.props.dSettings[decoratorType] === undefined;
+        let settings = (isDisabled) ?
             this._defaultSettings[decoratorType] : this.props.dSettings[decoratorType];
         return [
             <div className='center'>
@@ -393,6 +401,7 @@ class LineEditor extends React.Component
                         updateTextColor={(d) => {
                             this._UpdateDecoratorSettings(decoratorType, 'font', 'textColor', d);
                         }}
+                        isDisabled={isDisabled}
                     />
             </div>
         ]
@@ -400,9 +409,8 @@ class LineEditor extends React.Component
 
     _GetDataLabelContent()
     {
-        let settings = (this.props.dSettings.dataValue === undefined) ? 
-            this._defaultSettings.dataValue : this.props.dSettings.dataValue;
-
+        let isDisabled = this.props.dSettings.dataValue === undefined;
+        let settings = (isDisabled) ? this._defaultSettings.dataValue : this.props.dSettings.dataValue;
         return [
             <div className='center'>
                 <div>
@@ -414,6 +422,7 @@ class LineEditor extends React.Component
                         onChange={(value) => { 
                             this._UpdateDecoratorSettings('dataValue', 'location', 'location', value);
                         }}
+                        isDisabled={isDisabled}
                     />
                 </div>
                 <div>
@@ -429,6 +438,7 @@ class LineEditor extends React.Component
                         updateTextColor={(d) => {
                             this._UpdateDecoratorSettings('dataValue', 'font', 'textColor', d);
                         }}
+                        isDisabled={isDisabled}
                     />
                 </div>
             </div>

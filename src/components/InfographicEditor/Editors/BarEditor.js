@@ -314,6 +314,7 @@ class BarEditor extends React.Component
 
     _GetRemainderContent()
     {
+        let isSelected = this.props.dSettings.remainder === undefined;
         let color = (this.props.dSettings.remainder === undefined) ? '#000' 
             : this.props.dSettings.remainder.color.barColor;
         return [
@@ -323,6 +324,7 @@ class BarEditor extends React.Component
                     label='Bar Color:'
                     color={color}
                     onChange={(value) => { this._UpdateDecoratorSettings('remainder', 'color', 'barColor', value); }} 
+                    isDisabled={isSelected}
                 />
             </div>
         ];
@@ -330,8 +332,8 @@ class BarEditor extends React.Component
 
     _GetXAxisContent()
     {
-        let xAxisSettings = (this.props.dSettings.xAxis === undefined) ? 
-            this._defaultSettings.xAxis : this.props.dSettings.xAxis;
+        let isDisabled = this.props.dSettings.xAxis === undefined;
+        let xAxisSettings = (isDisabled) ? this._defaultSettings.xAxis : this.props.dSettings.xAxis;
         return [
             <div className='center'>
                 <div>
@@ -345,6 +347,7 @@ class BarEditor extends React.Component
                         onChange={(d, i) => { 
                             this._UpdateDecoratorSettings('xAxis', 'axis', 'label', d);
                         }} 
+                        isDisabled={isDisabled}
                     />
                     <LabeledColorPicker 
                         label='Axis Color:'
@@ -352,6 +355,7 @@ class BarEditor extends React.Component
                         onChange={(value) => { 
                             this._UpdateDecoratorSettings('xAxis', 'color', 'lineColor', value);
                         }}
+                        isDisabled={isDisabled}
                     />
                     <LabeledNumericTextField
                         label='Line width:'
@@ -363,6 +367,7 @@ class BarEditor extends React.Component
                         onChange={(d, i) => { 
                             this._UpdateDecoratorSettings('xAxis', 'size', 'lineStrokeWidth', d);
                         }} 
+                        isDisabled={isDisabled}
                     />
                     <LabeledNumericTextField
                         label='Tick width:'
@@ -374,6 +379,7 @@ class BarEditor extends React.Component
                         onChange={(d, i) => { 
                             this._UpdateDecoratorSettings('xAxis', 'size', 'tickStrokeWidth', d);
                         }} 
+                        isDisabled={isDisabled}
                     />
                 </div>
             </div>
@@ -382,8 +388,8 @@ class BarEditor extends React.Component
 
     _GetYAxisContent()
     {
-        let yAxisSettings = (this.props.dSettings.yAxis === undefined) ? 
-            this._defaultSettings.yAxis : this.props.dSettings.yAxis;
+        let isDisabled = (this.props.dSettings.yAxis === undefined);
+        let yAxisSettings = (isDisabled) ? this._defaultSettings.yAxis : this.props.dSettings.yAxis;
         return [
             <div className='center'>
                 <div>
@@ -397,6 +403,7 @@ class BarEditor extends React.Component
                         onChange={(d, i) => { 
                             this._UpdateDecoratorSettings('yAxis', 'axis', 'label', d);
                         }} 
+                        isDisabled={isDisabled}
                     />
                     <LabeledColorPicker 
                         label='Axis Color:'
@@ -404,6 +411,7 @@ class BarEditor extends React.Component
                         onChange={(value) => { 
                             this._UpdateDecoratorSettings('yAxis', 'color', 'lineColor', value);
                         }}
+                        isDisabled={isDisabled}
                     />
                     <LabeledNumericTextField
                         label='Line width:'
@@ -415,6 +423,7 @@ class BarEditor extends React.Component
                         onChange={(d, i) => { 
                             this._UpdateDecoratorSettings('yAxis', 'size', 'lineStrokeWidth', parseFloat(d));
                         }} 
+                        isDisabled={isDisabled}
                     />
                     <LabeledNumericTextField
                         label='Tick width:'
@@ -426,6 +435,7 @@ class BarEditor extends React.Component
                         onChange={(d, i) => { 
                             this._UpdateDecoratorSettings('yAxis', 'size', 'tickStrokeWidth', parseFloat(d));
                         }} 
+                        isDisabled={isDisabled}
                     />
                 </div>
             </div>
@@ -434,8 +444,8 @@ class BarEditor extends React.Component
 
     _GetFontContent(decoratorType)
     {
-        let settings = (this.props.dSettings[decoratorType] === undefined) ?
-            this._defaultSettings[decoratorType] : this.props.dSettings[decoratorType];
+        let isDisabled = (this.props.dSettings[decoratorType] === undefined);
+        let settings = (isDisabled) ? this._defaultSettings[decoratorType] : this.props.dSettings[decoratorType];
         return [
             <div className='center'>
                 <h5>Font Settings:</h5>
@@ -450,6 +460,7 @@ class BarEditor extends React.Component
                         updateTextColor={(d) => {
                             this._UpdateDecoratorSettings(decoratorType, 'font', 'textColor', d);
                         }}
+                        isDisabled={isDisabled}
                     />
             </div>
         ]
@@ -457,8 +468,8 @@ class BarEditor extends React.Component
 
     _GetDataLabelsContent()
     {
-        let settings = (this.props.dSettings.dataValue === undefined) ? 
-            this._defaultSettings.dataValue : this.props.dSettings.dataValue;
+        let isDisabled = this.props.dSettings.dataValue === undefined;
+        let settings = isDisabled ? this._defaultSettings.dataValue : this.props.dSettings.dataValue;
         return [
             <div className='center'>
                 <div>
@@ -469,6 +480,7 @@ class BarEditor extends React.Component
                         onClick={(d) => { 
                             this._UpdateDecoratorSettings('dataValue', 'display', 'isCategory', d);
                         }}
+                        isDisabled={isDisabled}
                     />
                     <LabeledCheckbox 
                         label='Display Percentage:'
@@ -476,6 +488,7 @@ class BarEditor extends React.Component
                         onClick={(d) => { 
                             this._UpdateDecoratorSettings('dataValue', 'display', 'isPercentage', d);
                         }}
+                        isDisabled={isDisabled}
                     />
                     <LabeledDropdown 
                         label='Location:'
@@ -486,6 +499,7 @@ class BarEditor extends React.Component
                             if (value === 'Middle') location = true;
                             this._UpdateDecoratorSettings('dataValue', 'location', 'isMiddle', location);
                         }}
+                        isDisabled={isDisabled}
                     />
                 </div>
                 <div>
@@ -501,6 +515,7 @@ class BarEditor extends React.Component
                         updateTextColor={(d) => {
                             this._UpdateDecoratorSettings('dataValue', 'font', 'textColor', d);
                         }}
+                        isDisabled={isDisabled}
                     />
                 </div>
             </div>
@@ -509,8 +524,8 @@ class BarEditor extends React.Component
 
     _GetCategoryContent()
     {
-        let settings = (this.props.dSettings.categoryLabel === undefined) ? 
-            this._defaultSettings.categoryLabel : this.props.dSettings.categoryLabel;
+        let isDisabled = this.props.dSettings.categoryLabel === undefined;
+        let settings = (isDisabled) ? this._defaultSettings.categoryLabel : this.props.dSettings.categoryLabel;
         return [
             <div className='center'>
                 <div>
@@ -524,6 +539,7 @@ class BarEditor extends React.Component
                             if (value === 'Top') location = true;
                             this._UpdateDecoratorSettings('categoryLabel', 'location', 'isTop', location);
                         }}
+                        isDisabled={isDisabled}
                     />
                     <LabeledCheckbox 
                         label='Display inside bars:'
@@ -531,6 +547,7 @@ class BarEditor extends React.Component
                         onClick={(d) => { 
                             this._UpdateDecoratorSettings('categoryLabel', 'location', 'isWithinBars', d);
                         }}
+                        isDisabled={isDisabled}
                     /> 
                 </div>
                 <div>
@@ -546,6 +563,7 @@ class BarEditor extends React.Component
                         updateTextColor={(d) => {
                             this._UpdateDecoratorSettings('categoryLabel', 'font', 'textColor', d);
                         }}
+                        isDisabled={isDisabled}
                     />
                 </div>
             </div>
@@ -554,9 +572,8 @@ class BarEditor extends React.Component
 
     _GetDescriptionContent()
     {
-        let settings = (this.props.dSettings.chartDescriptor === undefined) ? 
-            this._defaultSettings.chartDescriptor : this.props.dSettings.chartDescriptor;
-
+        let isDisabled = this.props.dSettings.chartDescriptor === undefined;
+        let settings = (isDisabled) ? this._defaultSettings.chartDescriptor : this.props.dSettings.chartDescriptor;
         return [
             <div className='center'>
                 <div>
@@ -570,6 +587,7 @@ class BarEditor extends React.Component
                             if (value === 'Top') location = true;
                             this._UpdateDecoratorSettings('chartDescriptor', 'location', 'isTop', location)
                         }}
+                        isDisabled={isDisabled}
                     /> 
                     <LabeledNumericTextField 
                         label='Max per row:'
@@ -581,6 +599,7 @@ class BarEditor extends React.Component
                         onChange={(d, i) => {
                             this._UpdateDecoratorSettings('chartDescriptor', 'labelSettings', 'maxPerRow', parseFloat(d));
                         }} 
+                        isDisabled={isDisabled}
                     />
                 </div>
                 <div>
@@ -596,6 +615,7 @@ class BarEditor extends React.Component
                         updateTextColor={(d) => {
                             this._UpdateDecoratorSettings('chartDescriptor', 'font', 'textColor', d);
                         }}
+                        isDisabled={isDisabled}
                     />
                 </div>
             </div>
