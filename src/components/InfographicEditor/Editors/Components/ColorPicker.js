@@ -12,7 +12,6 @@ class ColorPicker extends React.Component
         this.state = {
             value: this.props.color,
             id: this.props.id,
-            isDisabled: this.props.isDisabled,
         }
         this._handleChange = this._HandleChange.bind(this);
     }
@@ -23,7 +22,7 @@ class ColorPicker extends React.Component
             <div className='color-picker'>
                 <input type='color' value={this.state.value} 
                     onChange={this._handleChange}
-                    disabled={this.state.isDisabled}></input>
+                    disabled={this.props.isDisabled}></input>
             </div>
         );
     }
@@ -42,7 +41,6 @@ class ColorPicker extends React.Component
             return {
                 value: props.color,
                 id: props.id,
-                isDisabled: props.isDisabled
             };
         }
         return null;
