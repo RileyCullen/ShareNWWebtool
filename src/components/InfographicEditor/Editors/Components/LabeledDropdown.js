@@ -15,7 +15,7 @@ class LabeledDropdown extends React.Component
         let color = (this.props.isDisabled) ? Color.DisabledText : Color.EnabledText;
         return (
             <div className='labeled-container'>
-                <label>{this.props.label}</label>
+                <label style={{color: color}}>{this.props.label}</label>
                 <div className='labeled-element'>
                     <DropdownList 
                         options={this.props.options}
