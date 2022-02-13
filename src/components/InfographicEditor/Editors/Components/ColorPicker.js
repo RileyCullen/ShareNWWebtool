@@ -2,6 +2,10 @@ import React from 'react';
 
 class ColorPicker extends React.Component 
 {
+    static defaultProps = {
+        isDisabled: false,
+    }
+
     constructor(props)
     {
         super(props);
@@ -16,7 +20,9 @@ class ColorPicker extends React.Component
     {
         return (
             <div className='color-picker'>
-                <input type='color' value={this.state.value} onChange={this._handleChange}></input>
+                <input type='color' value={this.state.value} 
+                    onChange={this._handleChange}
+                    disabled={this.props.isDisabled}></input>
             </div>
         );
     }

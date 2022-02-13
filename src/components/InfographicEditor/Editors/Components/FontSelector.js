@@ -1,11 +1,15 @@
 import React from 'react';
 import Lodash from 'lodash';
-import { DropdownList, TextField, NumericTextField, ColorPicker } from './index';
+import { DropdownList, NumericTextField, ColorPicker } from './index';
 
 import '../../../../css/React/Editors/FontSelector.css';
+import { Color } from './Colors';
 
 class FontSelector extends React.Component 
 {
+    static defaultProps = {
+        isDisabled: false, 
+    }
     constructor(props)
     {
         super(props);
@@ -19,9 +23,10 @@ class FontSelector extends React.Component
 
     render()
     {
+        let color = (this.props.isDisabled) ? Color.DisabledText : Color.EnabledText;
         return (
             <div className='font-selector-container'>
-                <p>Font Family:</p>
+                <p style={{color: color}}>Font Family:</p>
                 <div className='element-right'>
                     <DropdownList 
                         options={this._fontList} 
@@ -29,9 +34,10 @@ class FontSelector extends React.Component
                         onChange={(value) => { 
                             this._HandleChange('fontFamily', value);
                         }}
+                        isDisabled={this.props.isDisabled}
                     />
                 </div>
-                <p>Font Size:</p>
+                <p style={{color: color}}>Font Size:</p>
                 <div className='element-right'>  
                     <NumericTextField 
                         id='font-size'
@@ -43,15 +49,17 @@ class FontSelector extends React.Component
                         onChange={(d, i) => { 
                             this._HandleChange('fontSize', d);
                         }}
+                        isDisabled={this.props.isDisabled}
                     />
                 </div>
-                <p>Text Color:</p>
+                <p style={{color: color}}>Text Color:</p>
                 <div className='element-right'>
                     <ColorPicker 
                         color={this.state.currentFont.textColor}
                         onChange={(value) => { 
                             this._HandleChange('textColor', value);
                         }}    
+                        isDisabled={this.props.isDisabled}
                     />
                 </div>
             </div>

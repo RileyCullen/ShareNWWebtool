@@ -250,8 +250,8 @@ class PieEditor extends React.Component
 
     _GetDataLabelContents()
     {
-        let statistic = (this.props.dSettings.statistic === undefined) ? 
-            this._defaultSettings.statistic : this.props.dSettings.statistic;
+        let isDisabled = this.props.dSettings.statistic === undefined;
+        let statistic = (isDisabled) ? this._defaultSettings.statistic : this.props.dSettings.statistic;
         return [
             <div className='center'>
                 <div>
@@ -265,6 +265,7 @@ class PieEditor extends React.Component
                         onChange={(d, i) => { 
                             this._UpdateDecoratorSettings('statistic', 'position', 'x', d);
                         }} 
+                        isDisabled={isDisabled}
                     />
                     <LabeledTextField 
                         label='Y:'
@@ -275,6 +276,7 @@ class PieEditor extends React.Component
                         onChange={(d, i) => { 
                             this._UpdateDecoratorSettings('statistic', 'position', 'y', d);
                         }} 
+                        isDisabled={isDisabled}
                     />
                 </div>
                 <div>
@@ -290,6 +292,7 @@ class PieEditor extends React.Component
                         updateTextColor={(d) => {
                             this._UpdateDecoratorSettings('statistic', 'font', 'textColor', d);
                         }}
+                        isDisabled={isDisabled}
                     />
                 </div>
             </div>
@@ -298,8 +301,8 @@ class PieEditor extends React.Component
 
     _GetChartOutlineContents()
     {
-        let chartOutline = (this.props.dSettings.chartOutline === undefined) ? 
-            this._defaultSettings.chartOutline : this.props.dSettings.chartOutline;
+        let isDisabled = this.props.dSettings.chartOutline === undefined;
+        let chartOutline = (isDisabled) ? this._defaultSettings.chartOutline : this.props.dSettings.chartOutline;
         return [
             <div className='center'>
                 <div>
@@ -314,6 +317,7 @@ class PieEditor extends React.Component
                         onChange={(d, i) => {
                             this._UpdateDecoratorSettings('chartOutline', 'size', 'radius', parseFloat(d));
                         }} 
+                        isDisabled={isDisabled}
                     />
                     <LabeledNumericTextField 
                         label='Stroke Width:'
@@ -326,6 +330,7 @@ class PieEditor extends React.Component
                             if (d === '') return;
                             this._UpdateDecoratorSettings('chartOutline', 'size', 'outlineWidth', parseFloat(d));
                         }} 
+                        isDisabled={isDisabled}
                     />
                 </div>
                 <div>
@@ -336,6 +341,7 @@ class PieEditor extends React.Component
                         onChange={(value) => { 
                             this._UpdateDecoratorSettings('chartOutline', 'color', 'outlineColor', value);
                         }}
+                        isDisabled={isDisabled}
                     />
                 </div>
             </div>

@@ -2,11 +2,16 @@ import React from 'react';
 
 class Checkbox extends React.Component
 {
+    static defaultProps = {
+        isDisabled: false,
+    };
+
     constructor(props)
     {
         super(props);
         this.state = {
             isSelected: this.props.initialValue,
+            isDisabled: this.props.isDisabled,
         }
         this.handleChange = this._HandleChange.bind(this);
     }
@@ -22,7 +27,8 @@ class Checkbox extends React.Component
                         height: size
                     }}
                     onChange={() => { this._HandleChange(); }}
-                    checked={this.state.isSelected}></input>
+                    checked={this.state.isSelected}
+                    disabled={this.state.isDisabled}></input>
             </div>
         );
     }
@@ -32,6 +38,12 @@ class Checkbox extends React.Component
         if (prevProps.initialValue !== this.props.initialValue) {
             this.setState({
                 isSelected: this.props.initialValue,
+            });
+        } 
+
+        if (prevProps.isDisabled !== this.props.isDisabled) {
+            this.setState({
+                isDisabled: this.props.isDisabled,
             });
         }
     }

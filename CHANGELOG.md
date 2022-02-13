@@ -1,8 +1,9 @@
 # Change Log
 ## [v0.5.1] - 2022-02-11
 ### Changed
-* TextField types updated to support being disabled for changed. Default prop types also defined so that this property is optional
+* TextField, Checkbox, ColorPicker, DropDownList, and FontSelector types updated to support being disabled for changed. Default prop types also defined so that this property is optional
 * UI for waffle editor updated. Setting options now grouped by color and size settings
+* Decorator options disabled when not selected
 ## [v0.5.0] - 2022-02-08
 Relatively signficant update: Layering system updated to draw all elements in one group and use a global z-index, instead of many separate local z-indexes that elements will switch to.
 ### Added
