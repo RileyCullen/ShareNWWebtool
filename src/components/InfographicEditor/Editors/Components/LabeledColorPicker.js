@@ -8,7 +8,7 @@ import '../../../../css/React/Editors/LabeledColorPicker.css';
 class LabeledColorPicker extends React.Component 
 {
     static defaultProps = {
-        isDisabled: true,
+        isDisabled: false,
     }
 
     render() 
