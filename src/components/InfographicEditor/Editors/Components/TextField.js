@@ -7,7 +7,8 @@ class TextField extends React.Component
         super(props);
         this.state = {
             value: this.props.initialValue,
-            id: this.props.id
+            id: this.props.id,
+            isDisabled: this.props.isDisabled
         };
         this._handleChange = this._HandleChange.bind(this);
     }
@@ -23,6 +24,7 @@ class TextField extends React.Component
                 style={{resize: 'none', textAlign: 'center'}}
                 onChange={this._handleChange}
                 value={this.state.value}
+                disabled={this.state.isDisabled}
             />
         </div>);
     }
@@ -31,6 +33,9 @@ class TextField extends React.Component
     {
         if (prevProps.initialValue !== this.props.initialValue) {
             this.setState({ value: this.props.initialValue});
+        }
+        if (prevProps.isDisabled !== this.props.isDisabled) {
+            this.setState({isDisabled: this.props.isDisabled });
         }
     }
 
@@ -56,6 +61,10 @@ class TextField extends React.Component
         });
         this.props.onChange(value, this.props.index);
     }
+}
+
+TextField.defaultProps = {
+    isDisabled: false,
 }
 
 export { TextField };

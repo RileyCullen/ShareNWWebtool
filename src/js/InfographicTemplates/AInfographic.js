@@ -883,6 +883,7 @@ class AInfographic
             id: this._selectedChartIndex,
         });
         this._commandManager.Execute(updateObj);
+        this._UpdateEditorUI(updateObj);
     }
 
     UpdateGraphicSettings(settings)
