@@ -408,11 +408,7 @@ class AInfographic
                 main: this._main,
             });
             this._commandManager.Execute(insertCommand);
-            group.on('dblclick', () => {
-                this._GraphicHelper(group);
-            });
-            group.on('dragend', () => {
-            });
+            this._AddListeners(group, 'graphic');
             this._GraphicHelper(group);
         }
         this._main.batchDraw();
