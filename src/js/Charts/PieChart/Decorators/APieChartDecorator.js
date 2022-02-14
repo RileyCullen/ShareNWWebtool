@@ -39,6 +39,7 @@ class APieChartDecorator extends APieChart
     {
         this._data = chart._data;
         this._chart = chart;
+        this._radius = chart._radius;
     }
 }
 
