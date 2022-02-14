@@ -25,7 +25,7 @@ class ChartOutlineDecorator extends APieChartDecorator
         super(chart);
         this._outlineWidth = outlineWidth;
         this._outlineColor = outlineColor;
-        this._startingRadius = radius;
+        this._startingRadius = this._radius;
     }
 
     /**
@@ -52,6 +52,18 @@ class ChartOutlineDecorator extends APieChartDecorator
                 }
             }
         };
+    }
+
+    /**
+     * @description Overrides APieChartDecorator's UpdateDecorator method, 
+     *              adding the additional step to update the outline's radius 
+     *              to match the new chart.
+     * @param {APieChart} chart 
+     */
+    UpdateDecorator(chart)
+    {
+        super.UpdateDecorator(chart);
+        this._startingRadius = chart._radius;
     }
 
     /**
