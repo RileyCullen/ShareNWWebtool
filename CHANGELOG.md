@@ -1,4 +1,9 @@
 # Change Log
+## [v0.5.2] - 2022-02-14
+### Changed
+* Transition time when hovering over ContentElement images made faster
+* Chart outline type now locks to chart (i.e. radius can no longer be updated)
+* Konva event listeners added to inserted images
 ## [v0.5.1] - 2022-02-11
 ### Changed
 * TextField, Checkbox, ColorPicker, DropDownList, and FontSelector types updated to support being disabled for changed. Default prop types also defined so that this property is optional
