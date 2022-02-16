@@ -29,7 +29,6 @@ class PieEditor extends React.Component
         this._defaultSettings = {
             chartOutline: {
                 size: {
-                    radius: 100,
                     outlineWidth: 2,
                 },
                 color: {
@@ -307,18 +306,6 @@ class PieEditor extends React.Component
             <div className='center'>
                 <div>
                     <h5>Size Settings:</h5>
-                    <LabeledNumericTextField 
-                        label='Radius:'
-                        index='outline-radius'
-                        initialValue={chartOutline.size.radius}
-                        rows={1}
-                        cols={5}
-                        onlyPositive={true}
-                        onChange={(d, i) => {
-                            this._UpdateDecoratorSettings('chartOutline', 'size', 'radius', parseFloat(d));
-                        }} 
-                        isDisabled={isDisabled}
-                    />
                     <LabeledNumericTextField 
                         label='Stroke Width:'
                         index='stroke-width'

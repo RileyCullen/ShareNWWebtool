@@ -380,7 +380,6 @@ class ObesityTemplateOne extends AInfographic
         });*/
         var outerOutline = new ChartOutlineDecorator({
             chart: donut, 
-            radius: 70, 
             outlineWidth: 5, 
             outlineColor: '#7b706a'
         });

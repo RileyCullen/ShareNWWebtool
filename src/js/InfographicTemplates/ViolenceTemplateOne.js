@@ -597,8 +597,7 @@ class ViolenceTemplateOne extends AInfographic
             radius: 55
         });
         var circleOutline = new ChartOutlineDecorator({
-            chart: circle, 
-            radius: 60, 
+            chart: circle,  
             outlineWidth: 2.5, 
             outlineColor: 'black'
         });

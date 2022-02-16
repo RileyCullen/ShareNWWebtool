@@ -103,7 +103,6 @@ function BuildPieChartDecoratorList(chart, dSettings)
             case 'chartOutline':
                 decoratorList[size] = new ChartOutlineDecorator({
                     chart: prevChart,
-                    radius: dSettings.chartOutline.size.radius,
                     outlineWidth: dSettings.chartOutline.size.outlineWidth,
                     outlineColor: dSettings.chartOutline.color.outlineColor,
                 });

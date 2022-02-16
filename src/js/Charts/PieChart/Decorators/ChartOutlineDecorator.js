@@ -20,12 +20,12 @@ class ChartOutlineDecorator extends APieChartDecorator
      * @param {double}    outlineWidth The width of the outline
      * @param {string}    outlineColor The color of the outline
      */
-    constructor({chart, radius, outlineWidth, outlineColor})
+    constructor({chart, outlineWidth, outlineColor})
     {
         super(chart);
         this._outlineWidth = outlineWidth;
         this._outlineColor = outlineColor;
-        this._startingRadius = radius;
+        this._startingRadius = this._radius;
     }
 
     /**
@@ -44,7 +44,6 @@ class ChartOutlineDecorator extends APieChartDecorator
         return {
             chartOutline: {
                 size: {
-                    radius: this._startingRadius,
                     outlineWidth: this._outlineWidth,
                 },
                 color: {
@@ -52,6 +51,18 @@ class ChartOutlineDecorator extends APieChartDecorator
                 }
             }
         };
+    }
+
+    /**
+     * @description Overrides APieChartDecorator's UpdateDecorator method, 
+     *              adding the additional step to update the outline's radius 
+     *              to match the new chart.
+     * @param {APieChart} chart 
+     */
+    UpdateDecorator(chart)
+    {
+        super.UpdateDecorator(chart);
+        this._startingRadius = chart._radius;
     }
 
     /**
