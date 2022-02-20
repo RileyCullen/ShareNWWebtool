@@ -219,7 +219,9 @@ class PieEditor extends React.Component
 
     _GetSizeContents()
     {
-        let size = this.props.cSettings.size;
+        let size = this.props.cSettings.size, 
+            diff = size.chartRadius - size.innerRadius,
+            sliderValue = (diff <= 0) ? 0 : diff;
         let innerRadiusContent = (this.props.type === 'pie-editor') ? false : 
             ( 
                 <div style={{
@@ -233,7 +235,7 @@ class PieEditor extends React.Component
                         min={10} 
                         max={size.chartRadius}
                         step={1}
-                        value={size.chartRadius - size.innerRadius}
+                        value={sliderValue}
                         disabled={size.chartRadius <= 20}
                         onChange={event => { 
                             this._SetDonutRadius(event.target.value)}}
