@@ -267,31 +267,6 @@ class PieEditor extends React.Component
         return [
             <div className='center'>
                 <div>
-                    <h5>Position Settings:</h5>
-                    <LabeledTextField 
-                        label='X:'
-                        index='label-x'
-                        initialValue={statistic.position.x}
-                        rows={1}
-                        cols={5}
-                        onChange={(d, i) => { 
-                            this._UpdateDecoratorSettings('statistic', 'position', 'x', d);
-                        }} 
-                        isDisabled={isDisabled}
-                    />
-                    <LabeledTextField 
-                        label='Y:'
-                        index='label-y'
-                        initialValue={statistic.position.y}
-                        rows={1}
-                        cols={5}
-                        onChange={(d, i) => { 
-                            this._UpdateDecoratorSettings('statistic', 'position', 'y', d);
-                        }} 
-                        isDisabled={isDisabled}
-                    />
-                </div>
-                <div>
                     <h5>Font Settings:</h5>
                     <FontSelector 
                         initialFont={statistic.font}
