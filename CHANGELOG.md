@@ -1,4 +1,7 @@
 # Change Log
+## [v0.5.3] - 2022-02-19
+### Changed
+* Textfield for thickness option in PieEditor changed to slider
 ## [v0.5.2] - 2022-02-14
 ### Changed
 * Transition time when hovering over ContentElement images made faster
