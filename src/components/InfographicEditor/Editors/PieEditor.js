@@ -221,14 +221,25 @@ class PieEditor extends React.Component
     {
         let size = this.props.cSettings.size;
         let innerRadiusContent = (this.props.type === 'pie-editor') ? false : 
-            ( <LabeledNumericTextField 
-                label='Thickness:'
-                index='donut-radius'
-                initialValue={parseFloat(size.chartRadius) - parseFloat(size.innerRadius)}
-                rows={1}
-                cols={5}
-                onChange={ (d, i) => { this._SetDonutRadius(d); }}
-            />);
+            ( 
+                <div style={{
+                    display: 'grid', gridTemplateColumns: 'auto auto', 
+                    gridColumnGap: '20px'
+                }}>
+                    <label>Thickness:</label>
+                    <input 
+                        type='range'
+                        style={{width: 'auto'}}
+                        min={10} 
+                        max={size.chartRadius}
+                        step={1}
+                        value={size.chartRadius - size.innerRadius}
+                        disabled={size.chartRadius <= 20}
+                        onChange={event => { 
+                            this._SetDonutRadius(event.target.value)}}
+                    ></input>
+                </div>
+            );
         return [
             <div className='center'>
                 <LabeledNumericTextField 
