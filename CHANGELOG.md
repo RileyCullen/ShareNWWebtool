@@ -2,6 +2,9 @@
 ## [v0.5.3] - 2022-02-19
 ### Changed
 * Textfield for thickness option in PieEditor changed to slider
+### Removed
+* Lock to chart option in WaffleEditor removed
+* Position settings for PieEditor removed
 ## [v0.5.2] - 2022-02-14
 ### Changed
 * Transition time when hovering over ContentElement images made faster
