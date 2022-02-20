@@ -2,6 +2,7 @@
 ## [v0.5.3] - 2022-02-19
 ### Changed
 * Textfield for thickness option in PieEditor changed to slider
+* Width and height listeners and initial values in BarEditor swapped so they are consistent with what updating the chart actually does
 ### Removed
 * Lock to chart option in WaffleEditor removed
 * Position settings for PieEditor removed
