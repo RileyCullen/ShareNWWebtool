@@ -74,13 +74,15 @@ class LineDataValueDecorator extends ALineChartDecorator
                     yPos += (fontHeight / 2) + this._pointRadius;
                     break;
                 case 'Top':
-                    yPos -= (fontHeight / 2) + this._pointRadius;
+                    yPos -= (fontHeight / 2) + this._pointRadius + 20;
                     break;
                 case 'Left':
-                    xPos -= (textWidth / 2) + this._pointRadius;
+                    xPos -= (textWidth / 2) + this._pointRadius + 10;
+                    yPos -= (fontHeight / 2);
                     break;
                 case 'Right':
-                    xPos += (textWidth / 2) + this._pointRadius;
+                    xPos += (textWidth / 2) + this._pointRadius + 10;
+                    yPos -= (fontHeight / 2);
                     break;
                 default: 
                     break;
