@@ -70,7 +70,7 @@ class LineChartInputFields extends React.Component
                         icon={faPlus} 
                         style={{
                             position: 'relative',
-                            left: '61.5px'
+                            left: '49px'
                         }}
                         onClick={() => { this._AddEntry(); }}
                     />
