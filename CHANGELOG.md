@@ -1,8 +1,11 @@
 # Change Log
-## [v0.5.3] - 2022-02-19
+## [v0.5.3] - 2022-02-21
 ### Changed
 * Textfield for thickness option in PieEditor changed to slider
 * Width and height listeners and initial values in BarEditor swapped so they are consistent with what updating the chart actually does
+* Misalignment of plus button in LineChartInputFields fixed
+* Changing of point radius no longer breaks data labels code for LineChart type
+* Positioning of DataLabels for LineChart type updated to be aligned with point
 ### Removed
 * Lock to chart option in WaffleEditor removed
 * Position settings for PieEditor removed
