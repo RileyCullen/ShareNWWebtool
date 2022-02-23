@@ -52,7 +52,6 @@ class DonutDecorator extends APieChartDecorator
      */
     _DrawInnerCircle()
     {
-        console.log('ir: ' + this._innerRadius)
         this._group.add(new Konva.Circle({
             radius: this._innerRadius,
             fill: this._color,

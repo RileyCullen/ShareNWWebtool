@@ -259,29 +259,32 @@ class BarEditor extends React.Component
 
     _GetSizeContent()
     {
-        let cSettings = this.props.cSettings, cols = 15;
+        let cSettings = this.props.cSettings, cols = 15, 
+            isLandscape = cSettings.orientation.landscape;
         return [
             <div className='center'>
                 <LabeledNumericTextField 
                     label='Width:'
                     index={'c-width'}
-                    initialValue={cSettings.size.chartWidth}
+                    initialValue={(isLandscape) ? cSettings.size.chartHeight : cSettings.size.chartWidth}
                     rows={1}
                     cols={cols}
                     onlyPositive={true}
                     onChange={(d, i) => { 
-                        this._SetChartSettings('size', 'chartWidth', parseFloat(d)); 
+                        let property = (isLandscape) ? 'chartHeight' : 'chartWidth';
+                        this._SetChartSettings('size', property, parseFloat(d)); 
                     }}
                     />
                 <LabeledNumericTextField
                     label='Height:'
                     index={'c-height'}
-                    initialValue={cSettings.size.chartHeight}
+                    initialValue={(isLandscape) ? cSettings.size.chartWidth: cSettings.size.chartHeight}
                     rows={1}
                     cols={cols}
                     onlyPositive={true}
                     onChange={(d, i) => { 
-                        this._SetChartSettings('size', 'chartHeight', parseFloat(d)); 
+                        let property = (isLandscape) ? 'chartWidth' : 'chartHeight';
+                        this._SetChartSettings('size', property, parseFloat(d)); 
                     }} 
                 />
                 <LabeledNumericTextField

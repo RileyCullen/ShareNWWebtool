@@ -221,7 +221,7 @@ class LineEditor extends React.Component
                     rows={1}
                     cols={5}
                     onlyPositive={true}
-                    onChange={(d, i) => { this._SetChartSettings('size', 'pointRadius', d); }}
+                    onChange={(d, i) => { this._SetChartSettings('size', 'pointRadius', parseInt(d)); }}
                 />
             </div>
         ];

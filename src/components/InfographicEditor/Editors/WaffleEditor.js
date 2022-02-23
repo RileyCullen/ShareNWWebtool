@@ -275,14 +275,6 @@ class WaffleEditor extends React.Component
                         }} 
                         isDisabled={isDisabled}
                     />
-                    <LabeledCheckbox 
-                        label='Lock to Chart'
-                        initialValue={statistic.display.lockToChart}
-                        onClick={(d) => { 
-                            this._UpdateDecoratorSettings('statistic', 'display', 'lockToChart', d);
-                        }}
-                        isDisabled={isDisabled}
-                    />
                 </div>
                 <div>
                     <h5>Font Settings:</h5>
