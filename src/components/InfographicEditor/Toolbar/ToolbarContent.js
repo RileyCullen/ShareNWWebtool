@@ -359,8 +359,9 @@ class ToolbarContent extends React.Component
 
     _CreateIconBarIcons()
     {
-        let selected = 0, displayReplaceIcons = false;
+        let selected = 0, displayReplaceIcons = true;
         if (this.props.currentEditor === 'update-chart') selected = 1;
+        if (this.props.currentEditor === 'update-chart-icon') selected = 2;
         return (
             <div className='chart-container'>
                 {this._CreateCanvasSettings()}
@@ -397,8 +398,10 @@ class ToolbarContent extends React.Component
                     {displayReplaceIcons && 
                     <button 
                         id='replace-chart-icon-button' 
-                        className='insert-button'
-                        onClick={() => { }}>
+                        className={'insert-button' + (selected === 2 ? 'selected-editor' : '')}
+                        onClick={() => { 
+                            if (selected !== 2) this.props.editorHandler('update-chart-icon');
+                        }}>
                         <FontAwesomeIcon 
                             className='insert-icon'
                             icon={faIcons}/>
