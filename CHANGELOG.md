@@ -1,4 +1,7 @@
 # Change Log
+## [v0.5.4] - 2022-02-25
+### Added
+* Replace chart icon functionality added
 ## [v0.5.3] - 2022-02-21
 ### Changed
 * Textfield for thickness option in PieEditor changed to slider
