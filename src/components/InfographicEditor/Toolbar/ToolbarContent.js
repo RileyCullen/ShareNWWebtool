@@ -398,7 +398,7 @@ class ToolbarContent extends React.Component
                     {displayReplaceIcons && 
                     <button 
                         id='replace-chart-icon-button' 
-                        className={'insert-button' + (selected === 2 ? 'selected-editor' : '')}
+                        className={'insert-button' + (selected === 2 ? ' selected-editor' : '')}
                         onClick={() => { 
                             if (selected !== 2) this.props.editorHandler('update-chart-icon');
                         }}>
