@@ -196,6 +196,7 @@ class InfographicEditor extends React.Component
             case 'image-editor':
             case 'icon-editor':
             case 'text-editor':
+            case 'update-chart-icon':
                 return '100px';
         }
         return '150px';
