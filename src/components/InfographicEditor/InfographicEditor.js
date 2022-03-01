@@ -196,6 +196,7 @@ class InfographicEditor extends React.Component
             case 'image-editor':
             case 'icon-editor':
             case 'text-editor':
+            case 'update-chart-icon':
                 return '100px';
         }
         return '150px';
@@ -295,6 +296,20 @@ class InfographicEditor extends React.Component
             updateType: type,
             updateElement: element,
         });
+    }
+
+    _ToggleChartIconUpdate(type, element) 
+    {
+        let cSettings = Lodash.cloneDeep(this.state.cSettings), 
+            iconCode = String.fromCharCode(parseInt(element, 16));
+
+        // Waffle chart types store their icon settings in the "icon" property
+        if (cSettings.hasOwnProperty('icon')) {
+            cSettings.icon.iconCode = iconCode;
+        } else if (cSettings.hasOwnProperty('iconSettings')) {
+            cSettings.iconSettings.iconCode = iconCode;
+        }
+        this._SetChartSettings(cSettings);
     }
 
     _ToggleBackgroundSettings(settings, updateBkg = true)
@@ -464,6 +479,9 @@ class InfographicEditor extends React.Component
             return (<Background
                 settings={this.state.backgroundSettings} 
                 toggleBackgroundSettings={(settings) => { this._ToggleBackgroundSettings(settings); }}/>);
+        } else if (this.state.currentEditor === 'update-chart-icon') {
+            return <Icon 
+                toggleInsert={(type, element) => { this._ToggleChartIconUpdate(type, element)}}/>;
         }
         return false;
     }

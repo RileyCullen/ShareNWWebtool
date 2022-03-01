@@ -58,6 +58,8 @@ class AWaffleChart
 
     UpdateChartSettings(settings)
     {
+        this._presetA.icon = settings.icon.iconCode;
+        this._presetB.icon = settings.icon.iconCode;
         this._presetA.color = settings.icon.aColor;
         this._presetB.color = settings.icon.bColor;
         this._fontSize = settings.icon.size;
@@ -83,6 +85,7 @@ class AWaffleChart
     {
         return {
             icon: {
+                iconCode: this._presetA.icon,
                 aColor: this._presetA.color,
                 bColor: this._presetB.color,
                 size: this._fontSize,

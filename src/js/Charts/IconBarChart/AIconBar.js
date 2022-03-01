@@ -48,6 +48,7 @@ class AIconBar
     {
         return {
             iconSettings: {
+                iconCode: this._icon,
                 iconColor: this._remainderColor,
                 iconSize: this._iconSize,
                 padding: this._padding, 
@@ -103,6 +104,7 @@ class AIconBar
         this._remainderColor = settings.iconSettings.iconColor;
         this._iconSize = settings.iconSettings.iconSize;
         this._padding = settings.iconSettings.padding;
+        this._icon = settings.iconSettings.iconCode;
 
         this._group.destroyChildren();
     }     

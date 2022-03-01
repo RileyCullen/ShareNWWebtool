@@ -287,3 +287,7 @@
     position: relative;
     left: 35px;
 }
+
+#replace-chart-icon-button {
+    height: 80px;
+}
