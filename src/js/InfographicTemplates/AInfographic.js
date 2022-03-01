@@ -382,6 +382,8 @@ class AInfographic
             this._AddListeners(helper, 'text');
             this._TextHelper(helper);
         } else if (type === 'bkg-elem') {
+            group.x(0)
+            group.y(0)
             insertCommand = new InsertHeaderCommand({
                 element: element,
                 colorScheme: this._colorScheme,
