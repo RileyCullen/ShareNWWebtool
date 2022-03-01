@@ -3,6 +3,8 @@
 ### Added
 * Replace chart icon functionality added
 * faWoman icon added to icon library
+### Changed
+* Initial position for inserted header elements moved to top of the infographic
 ## [v0.5.3] - 2022-02-21
 ### Changed
 * Textfield for thickness option in PieEditor changed to slider
