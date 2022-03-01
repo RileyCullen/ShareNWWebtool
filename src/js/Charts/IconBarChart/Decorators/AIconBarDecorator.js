@@ -38,6 +38,8 @@ class AIconBarDecorator extends AIconBar
          this._chart = chart;
          this._yScale = chart._yScale;
          this._xScale = chart._xScale;
+         this._icon = chart._icon;
+         this._iconSize = chart._iconSize;
 
          this._iconSize = parseFloat(chart._iconSize);
          this._padding = parseFloat(chart._padding);
