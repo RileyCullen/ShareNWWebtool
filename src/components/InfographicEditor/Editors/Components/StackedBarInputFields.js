@@ -87,7 +87,7 @@ class StackedBarInputFields extends React.Component
                                     }}
                                 />
                                 <TextField 
-                                    key={d.subcategory + '-' + i + '-subcategory'}
+                                    key={i}
                                     id={d.subcategory + '-subcategory'}
                                     index={i}
                                     initialValue={d.subcategory}
