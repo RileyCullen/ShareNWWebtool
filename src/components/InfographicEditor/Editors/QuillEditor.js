@@ -64,7 +64,6 @@ function QuillEditor(props)
 
             // Set up font, font sizes, and line heights so Quill recognizes them
             // and can use them
-            console.log(props.textElem);
             // RegisterFontSizes(Quill, sizeList);
             RegisterFontFamilies(Quill, fontList)
             InitLineHeights(Quill, lineHeightList);
@@ -263,7 +262,6 @@ function SpanCSSToDelta(textElem, Quill)
 
     textElem.textElem.childNodes.forEach((d, i) => {
         d.childNodes.forEach((elem) => {
-            console.log(elem)
             contents.insert(elem.innerHTML, {
                 font: cssList[elemCount].fontFamily,
                 color: cssList[elemCount].textColor, 
@@ -564,7 +562,6 @@ function DeltaToSpanCSS(quill, textElem)
 {
     var attributeCount = 0;
     var cssList = [];
-    console.log(quill.getContents())
     quill.getContents().ops.forEach((d, i) => {
         let isAttrs = d.hasOwnProperty('attributes');
         if (d.insert !== '\n') {
@@ -580,7 +577,6 @@ function DeltaToSpanCSS(quill, textElem)
         }
     });
     textElem.spanCSS = cssList; 
-    console.log(cssList)
 }
 
 /**
