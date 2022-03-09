@@ -55,6 +55,7 @@ function QuillEditor(props)
             let elem = document.querySelector('.ql-container'),
                 spanCSS = props.textElem.spanCSS;
             
+            // Update background color of QuillEditor when text is white
             for (let i = 0; i < spanCSS.length; i++) {
                 if (spanCSS[i].textColor === '#ffffff' || spanCSS[i].textColor === 'white') {
                     elem.style.backgroundColor = '#000';
@@ -80,6 +81,8 @@ function QuillEditor(props)
                 fontList: fontArr,
             });
 
+            // This adds, among other things, the events that handles updating
+            // text when the QuillEditor changes
             AddQuillListeners({
                 quill: quill,
                 sizeList: sizeList,
@@ -90,6 +93,9 @@ function QuillEditor(props)
                 setTextElem: (text, image, css) => { props.setTextElem(text, image, css); }
             });
 
+            // This function runs when there are selection changes being made
+            // in the QuillEditor (i.e. when text is highlighted or the cursor
+            // is moved, etc)
             quill.on('selection-change', () => {
             
                 /**
@@ -585,7 +591,8 @@ function DeltaToSpanCSS(quill, textElem)
  */
 function IsEditorEmpty(quill)
 {
-    return (quill.getContents().ops[0].insert === '\n')
+    return (quill.getContents().ops.length === 1 
+        && quill.getContents().ops[0].insert.match(/[\n]+/)); 
 }
 
 export { QuillEditor };
