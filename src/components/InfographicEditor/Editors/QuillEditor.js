@@ -268,13 +268,23 @@ function SpanCSSToDelta(textElem, Quill)
 
     textElem.textElem.childNodes.forEach((d, i) => {
         d.childNodes.forEach((elem) => {
-            contents.insert(elem.innerHTML, {
-                font: cssList[elemCount].fontFamily,
-                color: cssList[elemCount].textColor, 
-                size: cssList[elemCount].fontSize,
-                lineheight: cssList[elemCount].lineHeight,
-            });
-            elemCount++;
+            if (elem.nodeName === 'BR') {
+                contents.insert("");
+            } else {
+                // Note that here, we assume that each elem has one and only
+                // one child node
+                if (elem.firstChild.nodeName === 'SPAN') {
+                    contents.insert("")
+                } else {
+                    contents.insert(elem.innerHTML, {
+                        font: cssList[elemCount].fontFamily,
+                        color: cssList[elemCount].textColor, 
+                        size: cssList[elemCount].fontSize,
+                        lineheight: cssList[elemCount].lineHeight,
+                    });
+                    elemCount++;
+                }
+            }
         });
         contents.insert('\n');
     });
@@ -598,7 +608,6 @@ function HTMLToCanvas(quill, textElem, setTextElem)
         // Update the <canvas> with the new text image... NOTE that his occurs
         // as soon as the change is detected while the actual textElement (in
         // infographic) is not updated until the text editor is removed.
-        
         setTextElem(qlEditor, image, textElem.spanCSS);
     });
     helper.remove();
@@ -616,7 +625,7 @@ function DeltaToSpanCSS(quill, textElem)
     var cssList = [];
     quill.getContents().ops.forEach((d, i) => {
         let isAttrs = d.hasOwnProperty('attributes');
-        if (d.insert !== '\n') {
+        if (!d.insert.match(/[\n]+/)) {
             var elem = {
                 fontFamily: (isAttrs) ? d.attributes.font : '900-museo',
                 fontSize: (isAttrs) ? d.attributes.size : '10px',
