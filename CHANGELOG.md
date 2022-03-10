@@ -1,4 +1,10 @@
 # Change Log
+## [v0.5.5] - 2022-03-09
+### Added
+* UpdateAttrs added (basically, it's a function that updates attributes in the quill editor if the attributes are missing), this allows for proper storing and reading of the textElem object (and the spanCSS)
+### Changed
+* SpanCSSToDelta now converts correctly when <br> elements and <span> nodes nested in other <span> nodes are present
+* Lower pie chart in the Violence infographic colors updated: secondary color changed to white
 ## [v0.5.4] - 2022-02-28
 ### Added
 * Replace chart icon functionality added

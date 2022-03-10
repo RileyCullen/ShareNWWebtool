@@ -55,6 +55,7 @@ function QuillEditor(props)
             let elem = document.querySelector('.ql-container'),
                 spanCSS = props.textElem.spanCSS;
             
+            // Update background color of QuillEditor when text is white
             for (let i = 0; i < spanCSS.length; i++) {
                 if (spanCSS[i].textColor === '#ffffff' || spanCSS[i].textColor === 'white') {
                     elem.style.backgroundColor = '#000';
@@ -64,7 +65,6 @@ function QuillEditor(props)
 
             // Set up font, font sizes, and line heights so Quill recognizes them
             // and can use them
-            console.log(props.textElem);
             // RegisterFontSizes(Quill, sizeList);
             RegisterFontFamilies(Quill, fontList)
             InitLineHeights(Quill, lineHeightList);
@@ -81,6 +81,8 @@ function QuillEditor(props)
                 fontList: fontArr,
             });
 
+            // This adds, among other things, the events that handles updating
+            // text when the QuillEditor changes
             AddQuillListeners({
                 quill: quill,
                 sizeList: sizeList,
@@ -91,6 +93,9 @@ function QuillEditor(props)
                 setTextElem: (text, image, css) => { props.setTextElem(text, image, css); }
             });
 
+            // This function runs when there are selection changes being made
+            // in the QuillEditor (i.e. when text is highlighted or the cursor
+            // is moved, etc)
             quill.on('selection-change', () => {
             
                 /**
@@ -263,14 +268,23 @@ function SpanCSSToDelta(textElem, Quill)
 
     textElem.textElem.childNodes.forEach((d, i) => {
         d.childNodes.forEach((elem) => {
-            console.log(elem)
-            contents.insert(elem.innerHTML, {
-                font: cssList[elemCount].fontFamily,
-                color: cssList[elemCount].textColor, 
-                size: cssList[elemCount].fontSize,
-                lineheight: cssList[elemCount].lineHeight,
-            });
-            elemCount++;
+            if (elem.nodeName === 'BR') {
+                contents.insert("");
+            } else {
+                // Note that here, we assume that each elem has one and only
+                // one child node
+                if (elem.firstChild.nodeName === 'SPAN') {
+                    contents.insert("")
+                } else {
+                    contents.insert(elem.innerHTML, {
+                        font: cssList[elemCount].fontFamily,
+                        color: cssList[elemCount].textColor, 
+                        size: cssList[elemCount].fontSize,
+                        lineheight: cssList[elemCount].lineHeight,
+                    });
+                    elemCount++;
+                }
+            }
         });
         contents.insert('\n');
     });
@@ -478,10 +492,57 @@ function AddTextListener(quill, font, fontArr, textElem, setTextElem)
     var timeout = {timeout: null};
     quill.on('text-change', () => { 
         UpdateQuillFont(quill, false, font.font, fontArr);
+        UpdateAttrs(quill); 
         UpdateTextListener(quill, timeout, textElem, (text, image, css) => (setTextElem(text, image, css))); 
     });
 }
 
+/**
+ * @description The purpose of this function is to reformat an empty line when
+ *              the user starts typing again. This is needed because once a user
+ *              deletes an entire line, the attributes are lost and need to be
+ *              recovered, then reassigned to the given line.
+ * @param {*} quill 
+ */
+function UpdateAttrs(quill)
+{
+    function helper(quill, attrs) {
+        quill.getContents().forEach((d, i) => {
+            let tmpString = d.insert.replaceAll("\n", "");
+            if (tmpString.length != 0 && !d.hasOwnProperty("attributes")) {
+                let selection = FindSelectionBounds(quill, i);
+                quill.formatText(selection.lowerBound, selection.upperBound - selection.lowerBound, {
+                    font: attrs.font,
+                    color: attrs.color,
+                    size: attrs.size,
+                    lineheight: attrs.lineheight, 
+                });
+            }
+        });
+    }
+    
+    // Get the undo stack (this is represented as an array where the last 
+    // element in the array is the element that will be popped)
+    const stack = quill.history.stack.undo;
+    if (stack.length !== 0) {
+        // If not, find the last element in the undo stack that has attrs
+        for (let i = stack.length - 1; i >= 0; i--) {
+            let curr = stack[i].undo.ops;
+            for (let j = curr.length - 1; j >= 0; j--) {
+                if (curr[j].hasOwnProperty('attributes')) {
+                    helper(quill, curr[j].attributes);
+                    return;
+                }
+            }
+        }
+    }
+    helper(quill, {
+        font: "900-museo",
+        color: "000",
+        size: "17px",
+        lineheight: "1.2",
+    });
+}
 
 /**
  * @summary     Updates the selected text element.
@@ -510,7 +571,6 @@ function HTMLToCanvas(quill, textElem, setTextElem)
      * need this error check here.
      */
     if (IsEditorEmpty(quill)) {
-        quill.format('font', '900-museo');
         return;
     }
 
@@ -548,7 +608,6 @@ function HTMLToCanvas(quill, textElem, setTextElem)
         // Update the <canvas> with the new text image... NOTE that his occurs
         // as soon as the change is detected while the actual textElement (in
         // infographic) is not updated until the text editor is removed.
-        
         setTextElem(qlEditor, image, textElem.spanCSS);
     });
     helper.remove();
@@ -564,10 +623,9 @@ function DeltaToSpanCSS(quill, textElem)
 {
     var attributeCount = 0;
     var cssList = [];
-    console.log(quill.getContents())
     quill.getContents().ops.forEach((d, i) => {
         let isAttrs = d.hasOwnProperty('attributes');
-        if (d.insert !== '\n') {
+        if (!d.insert.match(/[\n]+/)) {
             var elem = {
                 fontFamily: (isAttrs) ? d.attributes.font : '900-museo',
                 fontSize: (isAttrs) ? d.attributes.size : '10px',
@@ -580,7 +638,6 @@ function DeltaToSpanCSS(quill, textElem)
         }
     });
     textElem.spanCSS = cssList; 
-    console.log(cssList)
 }
 
 /**
@@ -589,7 +646,8 @@ function DeltaToSpanCSS(quill, textElem)
  */
 function IsEditorEmpty(quill)
 {
-    return (quill.getContents().ops[0].insert === '\n')
+    return (quill.getContents().ops.length === 1 
+        && quill.getContents().ops[0].insert.match(/[\n]+/)); 
 }
 
 export { QuillEditor };
