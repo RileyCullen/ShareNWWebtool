@@ -526,6 +526,12 @@ function UpdateAttrs(quill)
             }
         }
     }
+    helper(quill, {
+        font: "900-museo",
+        color: "000",
+        size: "17px",
+        lineheight: "1.2",
+    });
 }
 
 /**
