@@ -482,10 +482,51 @@ function AddTextListener(quill, font, fontArr, textElem, setTextElem)
     var timeout = {timeout: null};
     quill.on('text-change', () => { 
         UpdateQuillFont(quill, false, font.font, fontArr);
+        UpdateAttrs(quill); 
         UpdateTextListener(quill, timeout, textElem, (text, image, css) => (setTextElem(text, image, css))); 
     });
 }
 
+/**
+ * @description The purpose of this function is to reformat an empty line when
+ *              the user starts typing again. This is needed because once a user
+ *              deletes an entire line, the attributes are lost and need to be
+ *              recovered, then reassigned to the given line.
+ * @param {*} quill 
+ */
+function UpdateAttrs(quill)
+{
+    function helper(quill, attrs) {
+        quill.getContents().forEach((d, i) => {
+            let tmpString = d.insert.replaceAll("\n", "");
+            if (tmpString.length != 0 && !d.hasOwnProperty("attributes")) {
+                let selection = FindSelectionBounds(quill, i);
+                quill.formatText(selection.lowerBound, selection.upperBound - selection.lowerBound, {
+                    font: attrs.font,
+                    color: attrs.color,
+                    size: attrs.size,
+                    lineheight: attrs.lineheight, 
+                });
+            }
+        });
+    }
+    
+    // Get the undo stack (this is represented as an array where the last 
+    // element in the array is the element that will be popped)
+    const stack = quill.history.stack.undo;
+    if (stack.length !== 0) {
+        // If not, find the last element in the undo stack that has attrs
+        for (let i = stack.length - 1; i >= 0; i--) {
+            let curr = stack[i].undo.ops;
+            for (let j = curr.length - 1; j >= 0; j--) {
+                if (curr[j].hasOwnProperty('attributes')) {
+                    helper(quill, curr[j].attributes);
+                    return;
+                }
+            }
+        }
+    }
+}
 
 /**
  * @summary     Updates the selected text element.
@@ -514,7 +555,6 @@ function HTMLToCanvas(quill, textElem, setTextElem)
      * need this error check here.
      */
     if (IsEditorEmpty(quill)) {
-        quill.format('font', '900-museo');
         return;
     }
 
