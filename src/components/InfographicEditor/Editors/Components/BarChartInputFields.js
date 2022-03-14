@@ -89,7 +89,6 @@ class BarChartInputFields extends React.Component
     {
         let data = Lodash.cloneDeep(this.props.chartData);
         data.splice(i, 1);
-        console.log(data);
         this.props.setChartData(data);
     }
 
