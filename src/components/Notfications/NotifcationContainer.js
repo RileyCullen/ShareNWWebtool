@@ -4,6 +4,7 @@ import { NotificationManager } from './index';
 import { Notification } from './Notification';
 
 import '../../css/React/NotificationContainer.css';
+import '../../css/React/Notification.css';
 
 class NotificationContainer extends React.Component
 {
@@ -19,12 +20,11 @@ class NotificationContainer extends React.Component
     {
         return (
             <div id='notification-container'>
-                <p>class comp</p>
                 <TransitionGroup>
                     {this.state.notifications.map((d, i) => {
                         return (<CSSTransition
                             key={i}
-                            classNames="fade"
+                            classNames="notification"
                             timeout={{ enter: 400, exit: 400 }}
                         >
                             <Notification 
