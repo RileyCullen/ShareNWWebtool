@@ -1,0 +1,69 @@
+.notification {
+    width: 300px;
+    border-radius: 10px;
+
+    display: flex;
+}
+
+.notification-div {
+    width: 240px;
+}
+
+.notification-div p {
+    color: white;
+    margin: 10px;
+}
+
+.notification-title {
+    font-size: 30px;
+}
+
+.notification-icon-container {
+    width: 60px;
+}
+
+.notification.success {
+    background-color: #4F8A10;
+}
+
+.notification.error {
+    background-color: #D8000C;
+}
+
+.notification.info {
+    background-color: #00529B;
+}
+
+.notification-icon {
+    grid-column: 1;
+    color: white;
+    font-size: 40px;
+    
+    position: relative;
+    left: 50%;
+
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.notification-enter {
+    visibility: hidden;
+    transform: translate3d(100%, 0, 0);
+}
+
+.notification-enter.notification-enter-active {
+    visibility: visible;
+    transform: translate3d(0, 0, 0);
+    transition: 500ms;
+}
+
+.notification-exit {
+    visibility: visible;
+    transform: translate3d(0, 0, 0);
+}
+
+.notification-exit.notification-exit-active {
+    visibility: hidden;
+    transform: translate3d(100%, 0, 0);
+    transition: 500ms;
+}
