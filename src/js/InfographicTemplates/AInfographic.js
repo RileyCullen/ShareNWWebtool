@@ -14,6 +14,7 @@ import { AutoLayerCommand, BackgroundSettingsCommand, ChartDataCommand, ChartDec
     ReplaceGraphicCommand, 
     TextContentCommand} from '../Commands/index'
 import { InsertChartCommand } from '../Commands/EditorCommands/InsertChartCommand';
+import QuillStateManager from '../../components/Helpers/QuillStateManager';
 
 class AInfographic 
 {
@@ -762,14 +763,17 @@ class AInfographic
         });
 
         var HandleOutsideClick = (e) => {
-            if (e.target !== textElem) {
-                this._selectedTextIndex = -1;
-                this._editorHandler('none');
-                this._tr.nodes([]);
-                textElem.setAttr('draggable', false);
-                this._main.batchDraw();
-                this._stage.off('click', HandleOutsideClick);
-            }
+            let Unselect = () => { 
+                if (e.target !== textElem && !QuillStateManager.IsUpdating()) {
+                    this._selectedTextIndex = -1;
+                    this._editorHandler('none');
+                    this._tr.nodes([]);
+                    textElem.setAttr('draggable', false);
+                    this._main.batchDraw();
+                    this._stage.off('click', HandleOutsideClick);
+                }
+            };
+            setTimeout(Unselect, 100);
         };
     }
 
