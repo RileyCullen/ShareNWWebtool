@@ -1,0 +1,5 @@
+#notification-container {
+    z-index: 3;
+    right: 30px;
+    position: fixed;
+}
