@@ -15,6 +15,7 @@ import { AutoLayerCommand, BackgroundSettingsCommand, ChartDataCommand, ChartDec
     TextContentCommand} from '../Commands/index'
 import { InsertChartCommand } from '../Commands/EditorCommands/InsertChartCommand';
 import QuillStateManager from '../../components/Helpers/QuillStateManager';
+import { NotificationManager } from '../../components/Notfications/index';
 
 class AInfographic 
 {
@@ -763,7 +764,20 @@ class AInfographic
         });
 
         var HandleOutsideClick = (e) => {
+            let start = new Date();
+            let displayNotif = true;
             let Unselect = () => { 
+                let curr = new Date();
+                let diff = curr.getTime() - start.getTime();
+                if (diff > 250 && displayNotif) {
+                    NotificationManager.Info({
+                        title: "Loading Issues",
+                        message: "Florence is having trouble with rendering the text, please wait.",
+                        timeout: 3000,
+                    });
+                    displayNotif = false;
+                }
+
                 if (e.target !== textElem && !QuillStateManager.IsUpdating()) {
                     this._selectedTextIndex = -1;
                     this._editorHandler('none');
