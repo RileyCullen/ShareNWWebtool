@@ -73,6 +73,28 @@ class NotificationManager extends EventEmitter
         });
     }
 
+    Error({title, message, timeout}) 
+    {
+        this.AddNotification({
+            id: Create_UUID(),
+            type: Constants.ERROR,
+            title: title,
+            message: message,
+            timeout: timeout
+        });
+    }
+
+    Info({title, message, timeout}) 
+    {
+        this.AddNotification({
+            id: Create_UUID(),
+            type: Constants.INFO,
+            title: title,
+            message: message,
+            timeout: timeout
+        });
+    }
+
     Remove(notification)
     {
         this._notifications = this._notifications.filter((d) => notification.id !== d.id);
