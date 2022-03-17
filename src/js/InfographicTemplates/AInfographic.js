@@ -769,7 +769,7 @@ class AInfographic
             let Unselect = () => { 
                 let curr = new Date();
                 let diff = curr.getTime() - start.getTime();
-                if (diff > 250 && displayNotif) {
+                if (diff > 1000 && displayNotif) {
                     NotificationManager.Info({
                         title: "Loading Issues",
                         message: "Florence is having trouble with rendering the text, please wait.",
