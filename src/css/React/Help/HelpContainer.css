@@ -1,0 +1,51 @@
+#help-container {
+    position: fixed;
+    z-index: 3;
+
+    right: 10px;
+    top: 0px;
+}
+
+.help-button-transition-enter {
+    visibility: hidden;
+    transform: translate3d(100%, 0, 0);
+}
+
+.help-button-transition-enter-active {
+    visibility: visible;
+    transform: translate3d(0, 0, 0);
+    transition: 500ms;
+}
+
+.help-button-transition-exit {
+    visibility: visible;
+    transform: translate3d(0, 0, 0);
+}
+
+.help-button-transition-exit-active {
+    visibility: hidden;
+    transform: translate3d(100%, 0, 0);
+    transition: 500ms;
+}
+
+.help-menu-transition-enter {
+    visibility: hidden;
+    transform: translate3d(100%, 0, 0);
+}
+
+.help-menu-transition-enter-active {
+    visibility: visible;
+    transform: translate3d(0, 0, 0);
+    transition: 500ms;
+}
+
+.help-menu-transition-exit {
+    visibility: visible;
+    transform: translate3d(0, 0, 0);
+}
+
+.help-menu-transition-exit-active {
+    visibility: hidden;
+    transform: translate3d(100%, 0, 0);
+    transition: 500ms;
+}

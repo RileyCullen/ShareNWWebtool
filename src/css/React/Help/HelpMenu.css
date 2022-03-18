@@ -1,0 +1,18 @@
+#help-menu {
+    position: fixed;
+    z-index: 3;
+
+    right: 10px;
+
+    width: 300px;
+    height: 100%;
+    overflow: scroll;
+}
+
+#help-content-holder {
+    position: relative;
+    background-color: #d1cdcd;
+    height: 700px;
+
+    margin: 30px 0px 10px 0px;
+}
