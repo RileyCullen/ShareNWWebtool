@@ -208,7 +208,7 @@ class WaffleEditor extends React.Component
                     onlyPositive={true}
                     onChange={(d, i) => { this._SetChartSettings('dynamicResize', 'width', d); }} 
                 />
-                <LabeledNumericTextField 
+                {false && <LabeledNumericTextField 
                     label='Height'
                     index='c-height'
                     initialValue={resize.height}
@@ -216,7 +216,7 @@ class WaffleEditor extends React.Component
                     cols={5}
                     onlyPositive={true}
                     onChange={(d, i) => { this._SetChartSettings('dynamicResize', 'height', d); }} 
-                />
+                />}
                 <LabeledNumericTextField 
                     label='Max icons per row: '
                     index='max'
