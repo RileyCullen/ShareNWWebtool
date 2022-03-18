@@ -3,7 +3,13 @@
     border-radius: 10px;
 
     display: flex;
-    margin: 10px
+    margin: 10px;
+    opacity: 0.90;
+}
+
+.notification:hover {
+    opacity: 1.0;
+    cursor: pointer;
 }
 
 .notification-div {
