@@ -10,7 +10,6 @@
 }
 
 .notification-div p {
-    color: white;
     margin: 10px;
 }
 
@@ -23,20 +22,22 @@
 }
 
 .notification.success {
-    background-color: #4F8A10;
+    color: #4F8A10;
+    background-color: #d7f3a6;
 }
 
 .notification.error {
-    background-color: #D8000C;
+    color: #D8000C;
+    background-color: #fab9b9;
 }
 
 .notification.info {
-    background-color: #00529B;
+    color: #00529B;
+    background-color: #BDE5F8;
 }
 
 .notification-icon {
     grid-column: 1;
-    color: white;
     font-size: 40px;
     
     position: relative;
