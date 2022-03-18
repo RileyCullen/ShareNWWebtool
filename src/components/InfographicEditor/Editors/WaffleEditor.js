@@ -207,6 +207,7 @@ class WaffleEditor extends React.Component
                     cols={5}
                     onlyPositive={true}
                     onChange={(d, i) => { this._SetChartSettings('dynamicResize', 'width', d); }} 
+                    isDisabled={!this.props.cSettings.dynamicResize.isChecked}
                 />
                 {false && <LabeledNumericTextField 
                     label='Height'
