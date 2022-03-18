@@ -4,9 +4,10 @@
 * Notifications module implemented
 * Module react-transition-group added to packagie
 ### Changed
-* Bug where duplicate and empty categories/subcategories in StackBarChart fixed
+* Bug where duplicate and empty categories/subcategories in StackedBarChart fixed
 * Text editing bottleneck with async html2canvas and unselect function in canvas fixed
 * Default maxIconsPerRow for WaffleChart type changed from 10 to 5
+* Width input field in size settings for WaffleChart type now gets disabled when automatic resizing is unchecked
 ### Removed
 * Height attribute in size settings for waffle chart type
 ## [v0.5.5] - 2022-03-09
