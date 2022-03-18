@@ -4,6 +4,8 @@ import { Toolbar } from './Toolbar/Toolbar';
 import { Content } from './Content/Content';
 import { InfographicEditor } from '../InfographicEditor/InfographicEditor';
 
+import { HelpContainer } from '../Help/HelpContainer';
+
 import HIVInfog from '../../Media/InfographicThumbnails/HIVInfog.png';
 import ObesityInfog from '../../Media/InfographicThumbnails/ObesityInfog.png';
 import LGBTInfog from '../../Media/InfographicThumbnails/LGBTInfog.png';
@@ -57,8 +59,22 @@ class Home extends React.Component
     render()
     {
         var content = this._GetContent();
+
+        let helpPos = {
+            right: "0px",
+            top: "17px",
+        }
+
+        if (this.state.displayEditor) {
+            helpPos = {
+                right: "0px",
+                top: "5px"
+            }
+        }
+
         return (
             <div className='home'>
+                <HelpContainer pos={helpPos}/>
                 {content}
             </div>
         );
