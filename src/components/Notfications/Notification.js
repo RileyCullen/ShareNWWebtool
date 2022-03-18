@@ -9,7 +9,8 @@ class Notification extends React.Component
     render()
     {
         return (
-            <div className={"notification " + this.props.type}>
+            <div className={"notification " + this.props.type}
+                onClick={this.props.requestHide.bind(this)}>
                 <div className="notification-icon-container">
                     <FontAwesomeIcon 
                         className="notification-icon" 
