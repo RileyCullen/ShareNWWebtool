@@ -1,4 +1,14 @@
 # Change Log
+## [v0.6.0] - 2022-03-17
+### Added
+* Notifications module implemented
+* Module react-transition-group added to packagie
+### Changed
+* Bug where duplicate and empty categories/subcategories in StackBarChart fixed
+* Text editing bottleneck with async html2canvas and unselect function in canvas fixed
+* Default maxIconsPerRow for WaffleChart type changed from 10 to 5
+### Removed
+* Height attribute in size settings for waffle chart type
 ## [v0.5.5] - 2022-03-09
 ### Added
 * UpdateAttrs added (basically, it's a function that updates attributes in the quill editor if the attributes are missing), this allows for proper storing and reading of the textElem object (and the spanCSS)
