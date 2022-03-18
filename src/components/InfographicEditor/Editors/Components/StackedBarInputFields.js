@@ -246,7 +246,7 @@ class StackedBarInputFields extends React.Component
     {
         const usedSubCategories = new Set(this.props.chartData.map(d => d.subcategory));
 
-        if (d === "" || d.match(/\s+/)) {
+        if (d === "") {
             NotificationManager.Error({
                 title: "Error",
                 message: "Empty subcategories are not allowed",
