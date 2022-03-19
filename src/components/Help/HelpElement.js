@@ -29,7 +29,9 @@ function HelpElement(props)
                         icon={faTimesCircle} />
                 </button>
                 </div>
-                {props.children}
+                <div className='help-element-children-container'>
+                    {props.children}
+                </div>
             </>
         );
     }
