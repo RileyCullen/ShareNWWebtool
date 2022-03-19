@@ -37,3 +37,8 @@
 .help-element-children-container {
    overflow-wrap: break-word;
 }
+
+.helper-card:hover {
+    background-color: rgb(56, 56, 56); 
+    cursor: pointer;
+}
