@@ -36,8 +36,10 @@ function HelpElement(props)
         );
     }
 
+    let style = (displayContent) ? "" : " helper-card"
+
     return (
-        <div className="help-element" onClick={toggleContent.bind(this)}>
+        <div className={"help-element" + style} onClick={toggleContent.bind(this)}>
             {content}
         </div>
     );
