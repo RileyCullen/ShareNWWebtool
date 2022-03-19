@@ -2,6 +2,8 @@ import React, { useEffect, useState }from 'react';
 import html2canvas from 'html2canvas';
 import { useQuill } from 'react-quilljs';
 import Delta from 'quill-delta';
+import { NotificationManager } from '../../Notfications/index';
+import QuillStateManager from '../../Helpers/QuillStateManager';
 import 'quill/dist/quill.snow.css';
 import '../../../css/Quill/FontList.css';
 import '../../../css/Quill/FontSize.css';
@@ -107,7 +109,6 @@ function QuillEditor(props)
                  * text. So, we must manually reformat the text here.
                  */
                 if (IsEditorEmpty(quill)) {
-                    quill.format('font', '900-museo');
                     return;
                 }
     
@@ -571,6 +572,11 @@ function HTMLToCanvas(quill, textElem, setTextElem)
      * need this error check here.
      */
     if (IsEditorEmpty(quill)) {
+        // NotificationManager.Error({
+        //     title: "title",
+        //     message: "message",
+        //     timeout: 1000,
+        // })
         return;
     }
 
@@ -598,7 +604,7 @@ function HTMLToCanvas(quill, textElem, setTextElem)
     // Update textElem in textHandler element
     textElem.textElem = qlEditor;
     DeltaToSpanCSS(quill, textElem);
-
+    QuillStateManager.ToggleUpdate();
     // Calling html2canvas and converting the quill editor contents into
     // a Konva.Image.
     html2canvas(helper, {
@@ -609,6 +615,7 @@ function HTMLToCanvas(quill, textElem, setTextElem)
         // as soon as the change is detected while the actual textElement (in
         // infographic) is not updated until the text editor is removed.
         setTextElem(qlEditor, image, textElem.spanCSS);
+        QuillStateManager.ToggleUpdate();
     });
     helper.remove();
 }

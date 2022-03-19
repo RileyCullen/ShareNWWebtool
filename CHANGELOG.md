@@ -1,9 +1,21 @@
 # Change Log
+## [v0.6.0] - 2022-03-18
+### Added
+* Notifications module implemented
+* Module react-transition-group added to package
+* Help module added
+### Changed
+* Bug where duplicate and empty categories/subcategories in StackedBarChart fixed
+* Text editing bottleneck with async html2canvas and unselect function in canvas fixed
+* Default maxIconsPerRow for WaffleChart type changed from 10 to 5
+* Width input field in size settings for WaffleChart type now gets disabled when automatic resizing is unchecked
+### Removed
+* Height attribute in size settings for waffle chart type
 ## [v0.5.5] - 2022-03-09
 ### Added
 * UpdateAttrs added (basically, it's a function that updates attributes in the quill editor if the attributes are missing), this allows for proper storing and reading of the textElem object (and the spanCSS)
 ### Changed
-* SpanCSSToDelta now converts correctly when <br> elements and <span> nodes nested in other <span> nodes are present
+* SpanCSSToDelta now converts correctly when \<br> elements and \<span> nodes nested in other \<span> nodes are present
 * Lower pie chart in the Violence infographic colors updated: secondary color changed to white
 ## [v0.5.4] - 2022-02-28
 ### Added

@@ -21,7 +21,7 @@ class WaffleChart extends AWaffleChart
      * @see AWaffleChart.js for constructor variable documentation. 
      */
     constructor({numerator, denominator, group, presetA, presetB, fontSize, 
-        isDynamicResize = true, maxIconsPerRow = 10,})
+        isDynamicResize = true, maxIconsPerRow = 5,})
     {
         super(numerator, denominator, group, presetA, presetB, fontSize, 
             isDynamicResize, maxIconsPerRow);

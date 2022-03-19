@@ -6,6 +6,7 @@ import React from 'react';
 import Konva from 'konva';
 import ReactDOM from 'react-dom';
 import { Home } from './components/Home/Home';
+import { NotificationContainer, NotificationManager } from './components/Notfications';
 
 import './css/React/NavigationBar.css';
 
@@ -17,7 +18,10 @@ class App extends React.Component
     render()
     {
         return (
-            <Home />
+            <>
+                <NotificationContainer />
+                <Home />
+            </>
         );
     }
 }

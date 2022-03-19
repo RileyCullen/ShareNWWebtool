@@ -1,0 +1,47 @@
+#help-menu {
+    position: fixed;
+    z-index: 3;
+
+    right: 10px;
+
+    width: 300px;
+    height: 100%;
+    overflow-y: auto;
+}
+
+#help-content-holder {
+    position: relative;
+    background-color: rgb(158, 158, 158);
+    min-height: 700px;
+
+    margin: 30px 0px 10px 0px;
+
+    padding-bottom: 10px;
+}
+
+#help-header {
+    display: grid;
+    grid-template-columns: auto 100px;
+}
+
+#help-menu-exit {
+    background-color: rgb(158, 158, 158);
+    border: none;   
+}
+
+#help-menu-exit:hover {
+    background-color: rgb(138, 138, 138);
+}
+
+#help-menu-exit-icon {
+    font-size: 25px;
+}
+
+.help-menu-text {
+    color: white;
+}
+
+.title {
+    font-size: 30px;
+    margin-left: 15px;
+}

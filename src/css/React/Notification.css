@@ -1,0 +1,77 @@
+.notification {
+    width: 300px;
+    border-radius: 10px;
+
+    display: flex;
+    margin: 10px;
+    opacity: 0.90;
+}
+
+.notification:hover {
+    opacity: 1.0;
+    cursor: pointer;
+}
+
+.notification-div {
+    width: 240px;
+}
+
+.notification-div p {
+    margin: 10px;
+}
+
+.notification-title {
+    font-size: 30px;
+}
+
+.notification-icon-container {
+    width: 60px;
+}
+
+.notification.success {
+    color: #4F8A10;
+    background-color: #d7f3a6;
+}
+
+.notification.error {
+    color: #D8000C;
+    background-color: #fab9b9;
+}
+
+.notification.info {
+    color: #00529B;
+    background-color: #BDE5F8;
+}
+
+.notification-icon {
+    grid-column: 1;
+    font-size: 40px;
+    
+    position: relative;
+    left: 50%;
+
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.notification-enter {
+    visibility: hidden;
+    transform: translate3d(100%, 0, 0);
+}
+
+.notification-enter.notification-enter-active {
+    visibility: visible;
+    transform: translate3d(0, 0, 0);
+    transition: 500ms;
+}
+
+.notification-exit {
+    visibility: visible;
+    transform: translate3d(0, 0, 0);
+}
+
+.notification-exit.notification-exit-active {
+    visibility: hidden;
+    transform: translate3d(100%, 0, 0);
+    transition: 500ms;
+}

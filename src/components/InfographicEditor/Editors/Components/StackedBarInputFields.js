@@ -6,6 +6,7 @@ import '../../../../css/React/Editors/StackedBarInputFields.css';
 
 import { ColorPicker, TextField, NumericTextField } from './index';
 import { CategoryGenerator } from '../../../Helpers/CategoryGenerator';
+import { NotificationManager } from '../../../Notfications';
 import Lodash from 'lodash';
 
 class StackedBarInputFields extends React.Component
@@ -18,8 +19,10 @@ class StackedBarInputFields extends React.Component
 
     render()
     {
+        const usedCategories = new Set(this.props.chartData.map(d => d.category));
+
         let data = this._ReformatData(), 
-            categories = Array.from(new Set(this.props.chartData.map(d => d.category))),
+            categories = Array.from(usedCategories),
             cols = 10;
         return (
             <div style={{
@@ -57,6 +60,16 @@ class StackedBarInputFields extends React.Component
                                             rows={1}
                                             cols={cols}
                                             onChange={(value, index) => { 
+                                                if (value === "" || 
+                                                    usedCategories.has(value)) {
+                                                    NotificationManager.Error({
+                                                        title: "Error",
+                                                        message: "Invalid category",
+                                                        timeout: 2000,
+                                                    })
+                                                    return;
+                                                }
+                                                    
                                                 this._SetCategory(categories, value, index);
                                             }}
                                         />
@@ -231,6 +244,26 @@ class StackedBarInputFields extends React.Component
 
     _SetSubcategory(data, d, i)
     {
+        const usedSubCategories = new Set(this.props.chartData.map(d => d.subcategory));
+
+        if (d === "") {
+            NotificationManager.Error({
+                title: "Error",
+                message: "Empty subcategories are not allowed",
+                timeout: 2000,
+            });
+            return;
+        }
+
+        if (usedSubCategories.has(d)) {
+            NotificationManager.Error({
+                title: "Error",
+                message: "Duplicate subcategories are not allowed",
+                timeout: 2000,
+            });
+            return;
+        }
+
         let tmp = this._CreateDataCopy();
         data[i].data.forEach((content) => {
             tmp[content.originalIndex].subcategory = d;

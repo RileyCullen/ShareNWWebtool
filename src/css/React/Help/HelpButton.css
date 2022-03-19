@@ -1,0 +1,18 @@
+#help-button-container {
+    position: relative;
+}
+
+#help-button {
+    border: none;
+    background-color: #B6472A;
+}
+
+#help-button:hover {
+    background-color: #9b3c24;
+}
+
+#help-button-icon {
+    font-size: 25px;
+    color: white;
+}
+
