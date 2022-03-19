@@ -2,6 +2,8 @@
     background-color: rgb(73, 73, 73);
     width: 90%;
     margin-left: 12px;
+
+    margin-top: 15px;
 }
 
 .help-element h1 {
@@ -11,7 +13,7 @@
 
 .help-element p {
     color: white;
-    padding: 5px;
+    padding: 0px 15px 15px 15px;
 }
 
 .help-element-header {
@@ -30,4 +32,8 @@
 
 .help-element-exit-icon {
     color: white;
+}
+
+.help-element-children-container {
+   overflow-wrap: break-word;
 }
