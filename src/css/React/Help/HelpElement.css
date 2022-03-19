@@ -1,0 +1,33 @@
+.help-element {
+    background-color: rgb(73, 73, 73);
+    width: 90%;
+    margin-left: 12px;
+}
+
+.help-element h1 {
+    font-size: 20px;
+    padding: 5px;
+}
+
+.help-element p {
+    color: white;
+    padding: 5px;
+}
+
+.help-element-header {
+    display: grid;
+    grid-template-columns: auto 40px;
+}
+
+.help-element-exit {
+    background-color: rgb(73, 73, 73);
+    border: none;
+}
+
+.help-element-exit:hover {
+    background-color: rgb(56, 56, 56);
+}
+
+.help-element-exit-icon {
+    color: white;
+}
