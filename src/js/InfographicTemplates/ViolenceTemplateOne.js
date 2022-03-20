@@ -575,7 +575,8 @@ class ViolenceTemplateOne extends AInfographic
             presetA: orangePersonPreset, 
             presetB: bluePersonPreset, 
             fontSize: 20, 
-            isDynamicResize: false
+            isDynamicResize: false,
+            maxIconsPerRow: 10,
         });
         this._chartHandler.AddChart({
             chart: waffleChart, 
