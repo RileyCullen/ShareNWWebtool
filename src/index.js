@@ -7,6 +7,7 @@ import Konva from 'konva';
 import ReactDOM from 'react-dom';
 import { Home } from './components/Home/Home';
 import { NotificationContainer, NotificationManager } from './components/Notfications';
+import Washington from './Media/States/washingtonstate.png';
 
 import './css/React/NavigationBar.css';
 
@@ -23,6 +24,14 @@ class App extends React.Component
                 <Home />
             </>
         );
+    }
+
+    componentDidMount()
+    {
+        // Add Image of Washington state to image library (done here because we
+        // only want it to occur once)
+        sessionStorage.clear();
+        sessionStorage.setItem("Washington_State", Washington)
     }
 }
 

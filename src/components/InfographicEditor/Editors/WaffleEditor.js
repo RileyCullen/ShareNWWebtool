@@ -2,14 +2,21 @@ import React from 'react';
 import { Menu, Editor, LabeledColorPicker, LabeledTextField, FontSelector, LabeledCheckbox,
     LabeledNumericTextField } from './Components/index';
 import Lodash from 'lodash';
+import '../../../css/React/Editors/WaffleEditor.css';
 import '../../../css/React/Editors/ChartEditor.css';
 import { SettingsManager } from '../../Helpers/SettingsManager';
+import { BoundedTextField } from './Components/BoundedTextField';
 
 class WaffleEditor extends React.Component
 {
     constructor(props)
     {
         super(props);
+
+        this.state = {
+            iconSize: this.props.cSettings.icon.size,
+            padding: this.props.cSettings.icon.padding
+        }
 
         this._defaultFont = {
             fontFamily: 'Times New Roman, Times, serif',
@@ -197,6 +204,9 @@ class WaffleEditor extends React.Component
     {
         let resize = this.props.cSettings.dynamicResize,
             iconSettings = this.props.cSettings.icon;
+
+        const MAX_ICON_SIZE = 100, MIN_ICON_SIZE = 20;
+        const MIN_PADDING = 10, MAX_PADDING = 100;
         return [
             <div className='center'>
                 <LabeledNumericTextField 
@@ -233,28 +243,70 @@ class WaffleEditor extends React.Component
                     initialValue={this.props.cSettings.dynamicResize.isChecked}
                     onClick={(d) => { this._SetChartSettings('dynamicResize', 'isChecked', d); }} 
                 />
-                <LabeledNumericTextField 
-                    label='Icon Size: '
-                    index='max'
-                    initialValue={iconSettings.size}
-                    rows={1}
-                    cols={5}
-                    onlyPositive={true}
-                    onChange={(d, i) => { this._SetChartSettings('icon', 'size', d)}}
-                    isDisabled={this.props.cSettings.dynamicResize.isChecked}
-                />
-                <LabeledNumericTextField 
-                    label='Padding: '
-                    index='max'
-                    initialValue={iconSettings.padding}
-                    rows={1}
-                    cols={5}
-                    onlyPositive={true}
-                    onChange={(d, i) => { this._SetChartSettings('icon', 'padding', d)}}
-                    isDisabled={this.props.cSettings.dynamicResize.isChecked}
-                />
+                <div className="waffle-icon-size-container">
+                    <label>Icon size:</label>
+                    <input 
+                        type='range'
+                        min={MIN_ICON_SIZE}
+                        max={MAX_ICON_SIZE}
+                        step={1}
+                        value={iconSettings.size}
+                        onChange={this._UpdateIconSize.bind(this)}></input>
+                    <BoundedTextField 
+                        id={0}
+                        index='icon-size'
+                        initialValue={iconSettings.size}
+                        rows={1}
+                        cols={5}
+                        onlyPositive={true}
+                        isDisabled={this.props.cSettings.dynamicResize.isChecked}
+                        onChange={(d, i) => { this._SetChartSettings('icon', 'size', d)}}
+                        lowerBound={MIN_ICON_SIZE}
+                        upperBound={MAX_ICON_SIZE}
+                    />
+                </div>
+                <div className="waffle-icon-padding-container">
+                    <label>Padding:</label>
+                    <input 
+                        type='range'
+                        min={MIN_PADDING}
+                        max={MAX_PADDING}
+                        step={1}
+                        value={iconSettings.padding}
+                        onChange={this._UpdateIconPadding.bind(this)}></input>
+                    <BoundedTextField 
+                        id={0}
+                        index='icon-size'
+                        initialValue={iconSettings.padding}
+                        rows={1}
+                        cols={5}
+                        onlyPositive={true}
+                        isDisabled={this.props.cSettings.dynamicResize.isChecked}
+                        onChange={(d, i) => { this._SetChartSettings('icon', 'padding', d)}}
+                        lowerBound={MIN_PADDING}
+                        upperBound={MAX_PADDING}
+                    />
+                </div>
             </div>
         ];
+    }
+
+    _UpdateIconSize(e)
+    {
+        let d = e.target.value;
+        this.setState({
+            iconSize: d,
+        });
+        this._SetChartSettings('icon', 'size', d);
+    }
+
+    _UpdateIconPadding(e) 
+    {
+        let d = e.target.value;
+        this.setState({
+            padding: d,
+        });
+        this._SetChartSettings('icon', 'padding', d);
     }
 
     _GetDataLabelsContent()

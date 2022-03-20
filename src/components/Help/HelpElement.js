@@ -22,12 +22,12 @@ function HelpElement(props)
         content = (
             <>
                 <div className='help-element-header'>
-                <h1 className='help-menu-text'>{props.title}</h1>
-                <button className='help-element-exit'
-                    onClick={removeContent.bind(this)}>
-                    <FontAwesomeIcon className='help-element-exit-icon' 
-                        icon={faTimesCircle} />
-                </button>
+                    <h1 className='help-menu-text'>{props.title}</h1>
+                    <button className='help-element-exit'
+                        onClick={removeContent.bind(this)}>
+                        <FontAwesomeIcon className='help-element-exit-icon' 
+                            icon={faTimesCircle} />
+                    </button>
                 </div>
                 <div className='help-element-children-container'>
                     {props.children}

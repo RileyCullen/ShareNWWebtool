@@ -1,14 +1,18 @@
 # Change Log
-## [v0.6.0] - 2022-03-18
+## [v0.6.0] - 2022-03-20
 ### Added
 * Notifications module implemented
 * Module react-transition-group added to package
-* Help module added
+* Help module addeid
+* Image of the state of Washington added to image library
+* BoundedTextField component added
 ### Changed
 * Bug where duplicate and empty categories/subcategories in StackedBarChart fixed
 * Text editing bottleneck with async html2canvas and unselect function in canvas fixed
 * Default maxIconsPerRow for WaffleChart type changed from 10 to 5
 * Width input field in size settings for WaffleChart type now gets disabled when automatic resizing is unchecked
+* Title changed from React App to Florence
+* Input fields for icon size and padding in WaffleEditor updated to include a slider and a TextFiield
 ### Removed
 * Height attribute in size settings for waffle chart type
 ## [v0.5.5] - 2022-03-09
