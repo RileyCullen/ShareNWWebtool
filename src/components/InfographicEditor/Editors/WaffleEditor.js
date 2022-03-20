@@ -247,6 +247,7 @@ class WaffleEditor extends React.Component
                     <label>Icon size:</label>
                     <input 
                         type='range'
+                        disabled={this.props.cSettings.dynamicResize.isChecked}
                         min={MIN_ICON_SIZE}
                         max={MAX_ICON_SIZE}
                         step={1}
@@ -269,6 +270,7 @@ class WaffleEditor extends React.Component
                     <label>Padding:</label>
                     <input 
                         type='range'
+                        disabled={this.props.cSettings.dynamicResize.isChecked}
                         min={MIN_PADDING}
                         max={MAX_PADDING}
                         step={1}
