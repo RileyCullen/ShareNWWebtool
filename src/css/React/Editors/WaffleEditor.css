@@ -1,0 +1,19 @@
+.waffle-icon-size-container, .waffle-icon-padding-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    align-content: center;
+    padding-bottom: 20px;
+}
+
+.waffle-icon-padding-container input[type='range'],
+.waffle-icon-size-container input[type='range'] {
+    position: relative;
+    top: -5px;
+}
+
+.waffle-icon-padding-container textarea,
+.waffle-icon-size-container textarea {
+    position: relative;
+    top: -2px;
+    left: 15px;
+}
