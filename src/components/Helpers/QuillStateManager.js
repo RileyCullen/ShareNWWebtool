@@ -10,6 +10,8 @@ class QuillStateManager
     constructor()
     {
         this._isUpdating = false;
+        this._shouldReformat = false;
+        this._reformatIndex = -1;
     }
 
     ToggleUpdate()
@@ -17,7 +19,17 @@ class QuillStateManager
        this._isUpdating = !this._isUpdating; 
     }
 
+    ToggleReformat(index = -1)
+    {
+        this._shouldReformat = !this._shouldReformat;
+        this._reformatIndex = index;
+    }
+
     IsUpdating() { return this._isUpdating; }
+
+    ShouldReformat() { return this._shouldReformat; }
+
+    GetReformatIndex() { return this._reformatIndex; }
 }
 
 const instance = new QuillStateManager();
