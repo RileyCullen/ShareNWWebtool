@@ -12,8 +12,14 @@ function BoundedTextField({index, rows, cols, onChange, initialValue,
     }, [initialValue]);
 
     useEffect(() => {
-        if (value < lowerBound) setValue(lowerBound);
-        if (value > upperBound) setValue(upperBound);
+        if (value < lowerBound) {
+            setValue(lowerBound);
+            onChange(lowerBound, index);
+        }
+        if (value > upperBound) {
+            setValue(upperBound);
+            onChange(upperBound, index);
+        }
     }, [focused]);
 
     function handleChange(e) {
