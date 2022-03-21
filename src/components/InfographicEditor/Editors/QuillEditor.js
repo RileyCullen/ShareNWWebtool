@@ -519,16 +519,17 @@ function UpdateAttrs(quill)
             let tmpString = d.insert.replaceAll("\n", "");
 
             if (tmpString.length != 0) {
-                let selection = FindSelectionBounds(quill, i);
+                let { lowerBound, upperBound } = FindSelectionBounds(quill, i);
+                let length = upperBound - lowerBound;
                 if (!d.hasOwnProperty("attributes")) {
-                    quill.formatText(selection.lowerBound, selection.upperBound - selection.lowerBound, {
+                    quill.formatText(lowerBound, length, {
                         font: attrs.font,
                         color: attrs.color,
                         size: attrs.size,
                         lineheight: attrs.lineheight, 
                     });
                 } else if (!d.attributes.hasOwnProperty('font')) {
-                    quill.formatText(selection.lowerBound, selection.upperBound - selection.lowerBound, {
+                    quill.formatText(lowerBound, length, {
                         font: attrs.font,
                     });
                 } 
