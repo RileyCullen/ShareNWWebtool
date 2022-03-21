@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { faAngleUp } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 
 import '../../css/React/Help/HelpElement.css';
@@ -26,7 +26,7 @@ function HelpElement(props)
                     <button className='help-element-exit'
                         onClick={removeContent.bind(this)}>
                         <FontAwesomeIcon className='help-element-exit-icon' 
-                            icon={faTimesCircle} />
+                            icon={faAngleUp} />
                     </button>
                 </div>
                 <div className='help-element-children-container'>
