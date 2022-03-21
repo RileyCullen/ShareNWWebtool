@@ -494,7 +494,7 @@ function AddTextListener(quill, font, fontArr, textElem, setTextElem)
     quill.on('text-change', () => { 
         UpdateQuillFont(quill, false, font.font, fontArr);
         UpdateAttrs(quill); 
-        UpdateTextListener(quill, timeout, textElem, (text, image, css) => (setTextElem(text, image, css))); 
+        UpdateTextListener(quill, timeout, textElem, (text, image, css) => (setTextElem(text, image, css)));
     });
 }
 
@@ -507,17 +507,31 @@ function AddTextListener(quill, font, fontArr, textElem, setTextElem)
  */
 function UpdateAttrs(quill)
 {
+    /**
+     * @description This function is responsible for adding attributes to quill
+     *              deltas within the editor that are missing entire attribute
+     *              properties.
+     * @param {Object} quill 
+     * @param {Object} attrs 
+     */
     function helper(quill, attrs) {
         quill.getContents().forEach((d, i) => {
             let tmpString = d.insert.replaceAll("\n", "");
-            if (tmpString.length != 0 && !d.hasOwnProperty("attributes")) {
+
+            if (tmpString.length != 0) {
                 let selection = FindSelectionBounds(quill, i);
-                quill.formatText(selection.lowerBound, selection.upperBound - selection.lowerBound, {
-                    font: attrs.font,
-                    color: attrs.color,
-                    size: attrs.size,
-                    lineheight: attrs.lineheight, 
-                });
+                if (!d.hasOwnProperty("attributes")) {
+                    quill.formatText(selection.lowerBound, selection.upperBound - selection.lowerBound, {
+                        font: attrs.font,
+                        color: attrs.color,
+                        size: attrs.size,
+                        lineheight: attrs.lineheight, 
+                    });
+                } else if (!d.attributes.hasOwnProperty('font')) {
+                    quill.formatText(selection.lowerBound, selection.upperBound - selection.lowerBound, {
+                        font: attrs.font,
+                    });
+                } 
             }
         });
     }
