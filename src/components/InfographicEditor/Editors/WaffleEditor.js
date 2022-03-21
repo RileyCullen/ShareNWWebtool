@@ -211,7 +211,7 @@ class WaffleEditor extends React.Component
         const MIN_WIDTH = 50, MAX_WIDTH = 500;
         return [
             <div className='center'>
-                <div className="waffle-icon-size-container">
+                <div className="waffle-width-container">
                     <label>Width:</label>
                     <input 
                         type='range'
