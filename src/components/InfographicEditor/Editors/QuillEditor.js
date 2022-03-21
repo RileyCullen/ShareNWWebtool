@@ -492,6 +492,29 @@ function AddTextListener(quill, font, fontArr, textElem, setTextElem)
 {
     var timeout = {timeout: null};
     quill.on('text-change', () => { 
+
+        if (QuillStateManager.ShouldReformat()) {
+            /**
+             * TLDR this exists as a work around given the inconsistencies of
+             * the Quill editor. If we press enter in the middle of a line of 
+             * text, the text on the new line will lose it's formatting. To 
+             * circumvent this, we can reformat the editor contents; however,
+             * if we type immediately after doing this, the text to the left
+             * of the cursor have a format according to the editor's Delta
+             * (what quill uses to create the actual editor contents), but
+             * will be in a different <span> (should be same). 
+             * 
+             * This whole mess can be fixed by simply reformating the line that
+             * was changed.
+             */
+            QuillStateManager.ToggleReformat();
+            let index = QuillStateManager.GetReformatIndex();
+            let { lowerBound, upperBound } = FindSelectionBounds(quill, index);
+            let length = upperBound - lowerBound;
+            let format = quill.getFormat(lowerBound, length);
+            quill.formatText(lowerBound, length, format);
+        }
+
         UpdateQuillFont(quill, false, font.font, fontArr);
         UpdateAttrs(quill); 
         UpdateTextListener(quill, timeout, textElem, (text, image, css) => (setTextElem(text, image, css)));
@@ -532,6 +555,7 @@ function UpdateAttrs(quill)
                     quill.formatText(lowerBound, length, {
                         font: attrs.font,
                     });
+                    QuillStateManager.ToggleReformat(i);
                 } 
             }
         });
