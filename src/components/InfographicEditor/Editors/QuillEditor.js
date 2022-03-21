@@ -492,9 +492,32 @@ function AddTextListener(quill, font, fontArr, textElem, setTextElem)
 {
     var timeout = {timeout: null};
     quill.on('text-change', () => { 
+
+        if (QuillStateManager.ShouldReformat()) {
+            /**
+             * TLDR this exists as a work around given the inconsistencies of
+             * the Quill editor. If we press enter in the middle of a line of 
+             * text, the text on the new line will lose it's formatting. To 
+             * circumvent this, we can reformat the editor contents; however,
+             * if we type immediately after doing this, the text to the left
+             * of the cursor have a format according to the editor's Delta
+             * (what quill uses to create the actual editor contents), but
+             * will be in a different <span> (should be same). 
+             * 
+             * This whole mess can be fixed by simply reformating the line that
+             * was changed.
+             */
+            QuillStateManager.ToggleReformat();
+            let index = QuillStateManager.GetReformatIndex();
+            let { lowerBound, upperBound } = FindSelectionBounds(quill, index);
+            let length = upperBound - lowerBound;
+            let format = quill.getFormat(lowerBound, length);
+            quill.formatText(lowerBound, length, format);
+        }
+
         UpdateQuillFont(quill, false, font.font, fontArr);
         UpdateAttrs(quill); 
-        UpdateTextListener(quill, timeout, textElem, (text, image, css) => (setTextElem(text, image, css))); 
+        UpdateTextListener(quill, timeout, textElem, (text, image, css) => (setTextElem(text, image, css)));
     });
 }
 
@@ -507,17 +530,33 @@ function AddTextListener(quill, font, fontArr, textElem, setTextElem)
  */
 function UpdateAttrs(quill)
 {
+    /**
+     * @description This function is responsible for adding attributes to quill
+     *              deltas within the editor that are missing entire attribute
+     *              properties.
+     * @param {Object} quill 
+     * @param {Object} attrs 
+     */
     function helper(quill, attrs) {
         quill.getContents().forEach((d, i) => {
             let tmpString = d.insert.replaceAll("\n", "");
-            if (tmpString.length != 0 && !d.hasOwnProperty("attributes")) {
-                let selection = FindSelectionBounds(quill, i);
-                quill.formatText(selection.lowerBound, selection.upperBound - selection.lowerBound, {
-                    font: attrs.font,
-                    color: attrs.color,
-                    size: attrs.size,
-                    lineheight: attrs.lineheight, 
-                });
+
+            if (tmpString.length != 0) {
+                let { lowerBound, upperBound } = FindSelectionBounds(quill, i);
+                let length = upperBound - lowerBound;
+                if (!d.hasOwnProperty("attributes")) {
+                    quill.formatText(lowerBound, length, {
+                        font: attrs.font,
+                        color: attrs.color,
+                        size: attrs.size,
+                        lineheight: attrs.lineheight, 
+                    });
+                } else if (!d.attributes.hasOwnProperty('font')) {
+                    quill.formatText(lowerBound, length, {
+                        font: attrs.font,
+                    });
+                    QuillStateManager.ToggleReformat(i);
+                } 
             }
         });
     }
