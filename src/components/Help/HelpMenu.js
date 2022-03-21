@@ -57,9 +57,8 @@ function HelpMenu(props)
                         <div>
                             <p>
                                 Chart decorations are extra design elements that
-                                you can add to a chart element. This includes
-                                design elements like adding an x-axis, y-axis,
-                                or adding data labels.
+                                you can add to a chart element, such as an 
+                                x-axis, y-axis, or adding data labels.
                             </p>
                             <h2>Adding chart decorations</h2>
                             <ol>

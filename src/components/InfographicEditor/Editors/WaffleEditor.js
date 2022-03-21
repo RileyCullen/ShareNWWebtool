@@ -15,7 +15,8 @@ class WaffleEditor extends React.Component
 
         this.state = {
             iconSize: this.props.cSettings.icon.size,
-            padding: this.props.cSettings.icon.padding
+            padding: this.props.cSettings.icon.padding,
+            width: this.props.cSettings.dynamicResize.width,
         }
 
         this._defaultFont = {
@@ -207,18 +208,32 @@ class WaffleEditor extends React.Component
 
         const MAX_ICON_SIZE = 100, MIN_ICON_SIZE = 20;
         const MIN_PADDING = 10, MAX_PADDING = 100;
+        const MIN_WIDTH = 50, MAX_WIDTH = 500;
         return [
             <div className='center'>
-                <LabeledNumericTextField 
-                    label='Width'
-                    index='c-width'
-                    initialValue={resize.width}
-                    rows={1}
-                    cols={5}
-                    onlyPositive={true}
-                    onChange={(d, i) => { this._SetChartSettings('dynamicResize', 'width', d); }} 
-                    isDisabled={!this.props.cSettings.dynamicResize.isChecked}
-                />
+                <div className="waffle-width-container">
+                    <label>Width:</label>
+                    <input 
+                        type='range'
+                        disabled={!this.props.cSettings.dynamicResize.isChecked}
+                        min={MIN_WIDTH}
+                        max={MAX_WIDTH}
+                        step={1}
+                        value={resize.width}
+                        onChange={this._UpdateWidth.bind(this)}></input>
+                    <BoundedTextField 
+                        id={0}
+                        index='icon-size'
+                        initialValue={resize.width}
+                        rows={1}
+                        cols={5}
+                        onlyPositive={true}
+                        isDisabled={!this.props.cSettings.dynamicResize.isChecked}
+                        onChange={(d, i) => { this._SetChartSettings('dynamicResize', 'width', d)}}
+                        lowerBound={MIN_WIDTH}
+                        upperBound={MAX_WIDTH}
+                    />
+                </div>
                 {false && <LabeledNumericTextField 
                     label='Height'
                     index='c-height'
@@ -310,6 +325,16 @@ class WaffleEditor extends React.Component
         });
         this._SetChartSettings('icon', 'padding', d);
     }
+
+    _UpdateWidth(e) 
+    {
+        let d = e.target.value;
+        this.setState({
+            width: d,
+        });
+        this._SetChartSettings('dynamicResize', 'width', d);
+    }
+
 
     _GetDataLabelsContent()
     {
