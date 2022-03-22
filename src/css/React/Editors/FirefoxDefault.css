@@ -1,0 +1,11 @@
+@-moz-document url-prefix() {
+    input[type="color"] {
+        width: 50px;
+        height: 27px;
+    }
+
+    textarea {
+        width: 133px;
+        height: 25px;
+    }
+}
