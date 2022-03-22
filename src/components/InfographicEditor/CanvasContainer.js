@@ -90,6 +90,8 @@ class CanvasContainer extends React.Component
                     default:
                         if (this.props.updateType === 'icon') {
                             this.props.editorHandler('icon-editor');
+                        } else if (this.props.updateType === 'image') {
+                            this.props.editorHandler('image-editor');
                         }
                         break;
                 }
