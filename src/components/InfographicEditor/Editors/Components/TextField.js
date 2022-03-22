@@ -1,5 +1,7 @@
 import React from 'react';
 
+import '../../../../css/React/Editors/FirefoxDefault.css';
+
 class TextField extends React.Component 
 {
     constructor(props)
