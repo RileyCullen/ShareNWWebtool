@@ -49,6 +49,11 @@
     #remove-column-icon {
         width: auto;
     }
+    
+    .stacked-bar-grid-auto textarea {
+        width: 93px;
+        height: 25px;
+    }
 }
 /* Safari 11+ */
 @media not all and (min-resolution:.001dpcm) { 
