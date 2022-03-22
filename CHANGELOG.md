@@ -1,4 +1,11 @@
 # Change Log
+## [v0.6.1] - 2022-03-21
+Hotfix patch regarding usability test bugs found in Day 1
+### Added
+* Default styles for firefox and safari added
+### Changed
+* Replacing images now returns user back to image editor
+* UpdateGraphicCommand now writes at original index when replacing images
 ## [v0.6.0] - 2022-03-20
 ### Added
 * Notifications module implemented
