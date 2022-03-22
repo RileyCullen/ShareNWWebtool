@@ -1,5 +1,7 @@
 import React from 'react';
 
+import '../../../../css/React/Editors/FirefoxDefault.css';
+
 class ColorPicker extends React.Component 
 {
     static defaultProps = {
