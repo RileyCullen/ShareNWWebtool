@@ -89,7 +89,8 @@ class ReplaceGraphicCommand extends ACommand
                     handler: this._handler,
                     transformer: this._tr,
                     main: this._main,
-                    absPos: this._absPos
+                    absPos: this._absPos,
+                    index: this._id
                 });
             default: return null;
         }
