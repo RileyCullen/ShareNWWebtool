@@ -4,25 +4,27 @@ import { ACommand } from '../ACommand';
 
 class InsertImageCommand extends ACommand
 {
-    constructor({ image, imageHelper, group, handler, transformer, main, absPos = null})
+    constructor({ image, imageHelper, group, handler, transformer, main, 
+        absPos = null, index = -1})
     {
         super();
         this._image = image;
         this._imageHelper = imageHelper;
         this._group = group;
         this._handler = handler;
-        this._id = -1;
+        this._id = index;
         this._tr = transformer;
         this._main = main;
         this._absPos = absPos;
 
         this._removeCommand = null;
+        this._init = true;
     }
 
     Execute()
     {
-        if (this._id === -1) this._CreateImage();
-        else                  this._removeCommand.Unexecute();
+        if (this._init) this._CreateImage();
+        else            this._removeCommand.Unexecute();
     }
 
     Unexecute()
@@ -63,14 +65,23 @@ class InsertImageCommand extends ACommand
         imageObj.src = this._image;
         
         this._group.add(this._imageHelper);
-        this._handler.AddGraphic({
-            type: 'image',
-            graphic: this._imageHelper,
-            group: this._group,
-        });
+        if (this._id === -1) {
+            this._handler.AddGraphic({
+                type: 'image',
+                graphic: this._imageHelper,
+                group: this._group,
+            });
+        } else {
+            this._handler.AddGraphicAtIndex({
+                type: 'image',
+                graphic: this._imageHelper,
+                group: this._group,
+                index: this._id,
+            });
+        }
         this._id = this._handler.GetId();
 
-        this._hasLoaded = true;
+        this._init = false;
 
         this._removeCommand = new RemoveGraphicCommand({
             id: this._id,
