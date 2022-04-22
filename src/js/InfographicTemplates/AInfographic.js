@@ -572,7 +572,6 @@ class AInfographic
         this._AddTextSelection();
         this._AddGraphicSelection();
         this._AddDataLabelSelection();
-        // this._AddMultipleElementSelector();
         this._MoveToMain();
     }
 
@@ -1095,111 +1094,6 @@ class AInfographic
             y: absPos.y,
         });
         this._commandManager.Add(currPosition);
-    }
-
-    _AddMultipleElementSelector()
-    {
-        this._main.add(this._selectionRectangle);
-        this._MultipleSelectorStart();
-        this._MultipleSelectorMove();
-        this._MultipleSelectorEnd();
-        this._MultipleSelectorDeselect();
-    }
-
-    _MultipleSelectorStart()
-    {
-        this._stage.on('mousedown touchstart', e => {
-            //if (e.target !== this._stage) return;
-            this._isSelecting = true;
-
-            this._mouseX1 = this._stage.getPointerPosition().x;
-            this._mouseX2 = this._mouseX1;
-            this._mouseY1 = this._stage.getPointerPosition().y;
-            this._mouseY2 = this._mouseY1;
-
-            this._selectionRectangle.visible(true);
-            this._selectionRectangle.width(0);
-            this._selectionRectangle.height(0);
-            this._main.batchDraw();
-        });
-    }
-
-    _MultipleSelectorMove()
-    {
-        this._stage.on('mousemove touchmove', () => {
-            if (!this._selectionRectangle.visible()) return;
-
-            this._mouseX2 = this._stage.getPointerPosition().x;
-            this._mouseY2 = this._stage.getPointerPosition().y;
-
-            this._selectionRectangle.setAttrs({
-                x: Math.min(this._mouseX1, this._mouseX2),
-                y: Math.min(this._mouseY1, this._mouseY2),
-                width: Math.abs(this._mouseX2 - this._mouseX1),
-                height: Math.abs(this._mouseY2 - this._mouseY1),
-            });
-
-            this._main.batchDraw();
-        });
-    }
-
-    _MultipleSelectorEnd()
-    {
-        this._stage.on('mouseup touchend', () => {
-            if (!this._selectionRectangle.visible()) return;
-            // selection code 
-            var elems = this._stage.find('.Selectable').toArray();
-            var box = this._selectionRectangle.getClientRect();
-            /*var selected = elems.filter((element) => {
-                if (Konva.Util.haveIntersection(box, element.getClientRect())) {
-                    alert('h')
-                    return element;
-                }
-                var x = element.getClientRect().x,
-                    y = element.getClientRect().y;
-                if (x >= box.x &&
-                    x <= box.x + box.width &&
-                    y >= box.y &&
-                    y <= box.y + box.height)
-                {
-                    element.setAttr('draggable', true);
-                    this._oldNodes.push(element);
-                    return element;
-                }
-            });*/
-
-            var selected = elems.filter((elem) =>
-                Konva.Util.haveIntersection(box, elem.getClientRect())
-            );
-
-            this._tr.nodes(selected);
-            this._tr.moveToTop();
-            this._main.batchDraw();
-
-            setTimeout(() => {
-                this._selectionRectangle.visible(false);
-                this._main.batchDraw();
-                this._hasSelected = true;
-                this._isSelecting = false;
-            });
-        });
-    }
-
-    _MultipleSelectorDeselect()
-    {
-        this._stage.on('click tap', e => {
-            if (this._selectionRectangle.visible()) return;
-            if (this._hasSelected) {
-                this._oldNodes.forEach(node => {
-                    node.setAttr('draggable', false);
-                });
-                
-                this._tr.nodes([]);
-                this._main.batchDraw();
-                this._hasSelected = false;
-                return;
-            }
-        });
     }
 }
 
