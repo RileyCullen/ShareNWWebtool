@@ -119,112 +119,8 @@ class AInfographic
     }
 
     /**
-     * @summary     Undo the most recent action.
-     * @description Wrapper function that calls _commandManager's Undo method.
+     * !!!! UPDATE METHODS !!!! 
      */
-    Undo()
-    {
-        let undoObj = this._commandManager.Undo();
-        // Essentially, there is an edge case in undoing/redoing where if we 
-        // remove an element, undo, select the element, then redo, it will 
-        // cause a runtime error since the editor has not been reset.
-        this._ResetEditor(undoObj)
-        this._UpdateEditorUI(undoObj);
-    }
-
-    /**
-     * @summary     Redo the most recent action.
-     * @description Wrapper function that calls _commandManager's Redo method.
-     */
-    Redo()
-    {
-        let redoObj = this._commandManager.Redo();
-        this._ResetEditor(redoObj);
-        this._UpdateEditorUI(redoObj);
-    }
-
-    /**
-     * @summary Resets element indexes to -1 and removes selected editor.
-     * @param {ACommand} obj 
-     */
-    _ResetEditor(obj)
-    {
-        let isRemoveObj = (obj instanceof RemoveChartCommand || obj instanceof 
-            RemoveGraphicCommand || obj instanceof RemoveTextCommand);
-        let isInsertObj = (obj instanceof InsertChartCommand || obj instanceof 
-            InsertTextCommand || obj instanceof InsertIconCommand || obj
-            instanceof InsertHeaderCommand);
-        if (isRemoveObj || isInsertObj) {
-            this._selectedTextIndex = this._selectedGraphicIndex = this._selectedChartIndex = -1;
-            this._editorHandler('none')
-        }
-    }
-
-    /**
-     * @summary Updates the editor UI.
-     * @param {ACommand} obj 
-     */
-    _UpdateEditorUI(obj)
-    {
-        let chartExpr = (obj instanceof ChartDataCommand || 
-            obj instanceof ChartDecoratorCommand || 
-            obj instanceof ChartSettingsCommand || 
-            obj instanceof ReplaceChartCommand); 
-        if (chartExpr && this._selectedChartIndex !== -1) {
-            let chart = this._chartHandler.GetChart(this._selectedChartIndex),
-                dSettings = this._chartHandler.GetDecoratorSettingsArray(this._selectedChartIndex);
-            if (obj instanceof ReplaceChartCommand) {
-                let group = this._chartHandler.GetGroup(this._selectedChartIndex);
-                this._UpdateChartEditorUI(group);
-            }
-            this._chartCallback(chart.GetData(), chart.GetChartSettings(), dSettings);
-        }
-
-        if (obj instanceof GraphicSettingsCommand && this._selectedGraphicIndex !== -1) {
-            this._graphicCallback(
-                this._graphicsHandler.GetSettings(this._selectedGraphicIndex)
-            );
-        }
-
-        if (obj instanceof TextContentCommand && this._selectedTextIndex !== -1) {
-            this._textCallback(this._textHandler.GetHandlerElem(this._selectedTextIndex));
-        }
-
-        if (obj instanceof BackgroundSettingsCommand) {
-            this._backgroundCallback(this._bkg.getAttrs());
-        }
-    }
-
-    /**
-     * @summary     Returns chart's dimensions to caller.
-     * @description Returns the chart's width and height in the form of a JSON
-     *              object to the caller.
-     * @returns A JSON object containing the chart's width and height.
-     */
-    GetDimensions()
-    {
-        return {
-            width: this._chartWidth,
-            height: this._chartHeight,
-        };
-    }
-
-    /**
-     * @summary     Manages memory for infographic type.
-     * @description A function that is responsible for freeing memory that would 
-     *              otherwise cause memory leaks. 
-     */
-    Clean()
-    {
-        // Remove chart/text listeners
-        this._RemoveTextListeners();
-        this._RemoveChartListeners();
-        this._RemoveGraphicListeners();
-
-        // Remove all the elements from this._stage
-        this._stage.destroy();
-        this._stage = 0;
-    }
 
     ClearSelection()
     {
@@ -282,6 +178,10 @@ class AInfographic
         }));
     }
 
+    /**
+     * @summary Replace element
+     * @param {*} param0 
+     */
     UpdateElement({type, element})
     {
         if (this._selectedGraphicIndex !== -1) {
@@ -416,378 +316,6 @@ class AInfographic
             this._GraphicHelper(group);
         }
         this._main.batchDraw();
-    }
-
-    _CreateSwitchableContainer(attrs = {}, id = '')
-    {
-        attrs.name = 'Switchable Container ' + id;
-        return new Konva.Group(attrs);
-    }
-
-    /**
-     * @summary Removes the event listeners from each text node.
-     */
-    _RemoveTextListeners()
-    {
-        var selection = this._stage.find((node) => {
-            return node.hasName('Selectable') && node.hasName('EditableText');
-        });
-        selection.forEach(textElem => { textElem.off('dblclick'); })
-    }
-
-    /**
-     * @summary Removes the event listeners from each chart node.
-     */
-    _RemoveChartListeners()
-    {
-        var selection = this._stage.find((node) => {
-            return node.hasName('Selectable') && node.hasName('Chart');
-        });
-        selection.forEach(chartElem => { chartElem.off('dblclick'); })
-    }
-
-    _RemoveGraphicListeners()
-    {
-        var selection = this._stage.find((node) => {
-            return node.hasName('Graphic');
-        });
-        selection.forEach(group => { group.off('dblclick'); });
-    }
-
-    _CreateImage({x, y, width, height, src, group})
-    {
-        let image = new Image(), imageHelper = new Konva.Image(),
-            imageGroup = new Konva.Group();
-
-        image.onload = () => {
-            imageHelper.setAttrs({
-                x: x, 
-                y: y,
-                height: height,
-                width: width,
-                image: image,
-                opacity: 1,
-                stroke: 'black',
-                strokeWidth: 0
-            });
-            imageHelper.cache();
-            imageHelper.filters([
-                Konva.Filters.Contrast,
-                Konva.Filters.Brighten,
-                Konva.Filters.Blur,
-            ]);
-
-            imageHelper.brightness(0);
-            imageHelper.blurRadius(0);
-            imageHelper.contrast(0);
-
-            this._main.batchDraw();
-            image.onload = null;
-        };
-
-        image.src = src;
-        imageGroup.add(imageHelper);
-        group.add(imageGroup);
-        this._graphicsHandler.AddGraphic({
-            type: 'image',
-            graphic: imageHelper,
-            group: imageGroup,
-        });
-    }
-
-    /**
-     * @summary     A function that takes in a font and a font weight and maps it
-     *              to the proper quill code.
-     * 
-     * @param {string} font   The font associated with a quill code.
-     * @param {int}    weight The weight associated with a quill code. 
-     */
-    _quillMap(font, weight = 0)
-    {
-        if (font === 'museo' && weight === 900) return '900-museo';
-        else if (font === 'canada-type-gibson') {
-            switch (weight) {
-                case 100: return '100-canada';
-                case 200: return '200-canada';
-                case 400: return '400-canada';
-                case 500: return '500-canada';
-                case 600: return '600-canada';
-                case 700: return '700-canada';
-                case 900: return '900-canada';
-                default: return '100-canada';
-            }
-        } else if (font === 'Montserrat') return '200-Montserrat';
-        else if (font === 'Open Sans') return 'Open-Sans';
-        else if (font === 'Roboto') {
-            switch(weight) {
-                case 100: return '100-Roboto';
-                case 300: return '300-Roboto';
-                case 400: return '400-Roboto';
-                case 500: return '500-Roboto';
-                case 700: return '700-Roboto';
-                case 900: return '900-Roboto';
-                default: return '100-Roboto';
-            }
-        }
-    }
-
-    /**
-     * @summary     Returns the width of a text element given the text's font.
-     * @description Using canvas' measureText function, _GetTextWidth returns the
-     *              width in pixels of a given piece of text.
-     * 
-     * @param {string} text       The text we want to determine the width of.
-     * @param {double} fontSize   The font size of the text we want to find the width of.
-     * @param {string} fontFamily The font family of the text we want to analyze.
-     */
-    _GetTextWidth(text, fontSize, fontFamily)
-    {
-        var canvas = document.createElement('canvas');
-        var ctx = canvas.getContext('2d');
-
-        ctx.font = fontSize + 'px ' + fontFamily;
-        var helper = ctx.measureText(text).width;
-        canvas.remove();
-
-        return helper;
-    }
-    /**
-     * @param {double} width  The width of the element we are centering.
-     * @param {double} center The x-coordinate we want to center about.
-     */
-    _CenterXAbout(width, center)
-    {
-        return center - (width / 2);
-    }
-
-    /**
-     * @summary     Calls additional functions to complete the infographic.
-     * @description Renders all of the text elements and adds the capability to 
-     *              edit graphs and text elements.
-     */
-    _FinalizeInfog()
-    {
-        this._RenderText();
-        this._AddGraphSelection();
-        this._AddTextSelection();
-        this._AddGraphicSelection();
-        this._AddDataLabelSelection();
-        this._MoveToMain();
-    }
-
-    /**
-     * @description Moves all of the infographic elements into the main group. 
-     *              This allows us to perform layering functions.
-     */
-    _MoveToMain()
-    {
-        let selection = this._stage.find(node => {
-            let isChart = (node.hasName('Selectable') && node.hasName('Chart'));
-            let isGraphic = node.hasName('Graphic');
-            let isText = (node.hasName('Selectable') && node.hasName('EditableText'));
-            return isChart || isGraphic || isText;
-        });
-        selection.forEach(group => {
-            let absPos = group.absolutePosition();
-            group.moveTo(this._elementHolder);
-            group.absolutePosition(absPos);
-        });
-    }
-
-    /**
-     * @summary Adds selection capabilities to the data labels on charts (if 
-     *          they exist).
-     */
-    _AddDataLabelSelection()
-    {
-        let selection = this._stage.find((node) => {
-            return node.hasName('Selectable') && node.hasName('Decorator');
-        }); 
-
-        selection.forEach((group) => {
-            group.off('dblclick');
-            group.on('dblclick', () => {
-                this._DecoratorHelper(group);
-            });
-        });
-    }
-
-    _DecoratorHelper(group)
-    {
-        let parent = group.getParent();
-        parent.off('dblclick');
-        parent.off('dragstart');
-        parent.off('dragend');
-
-        this._tr.nodes([group]);
-        this._tr.moveToTop();
-        this._main.batchDraw();
-        group.setAttr('draggable', true);
-
-        setTimeout(() => {
-            this._stage.on('click', HandleOutsideClick);
-        });
-
-        var HandleOutsideClick = (e) => {
-            if (e.target !== group) {
-                parent.on('dblclick', () => { this._ChartHelper(parent) });
-                parent.on('dragstart', () => { this._LogStartingPosition(parent) });
-                parent.on('dragend', () => { 
-                    this._LogEndingPosition(parent);
-                });
-
-                this._tr.nodes([]);
-                group.setAttr('draggable', false);
-                this._main.batchDraw();
-                this._stage.off('click', HandleOutsideClick);
-            }
-        }; 
-    }
-
-    /**
-     * @summary     Renders all of the text elements.
-     * @description Iterates through all of the elements in textHandler and converts
-     *              them from DOM elements to Konva.Image elements.
-     */
-    _RenderText()
-    {
-        var helperElem = document.createElement('div');
-        helperElem.style.position = 'absolute';
-        document.getElementById('renderHelper').appendChild(helperElem);
-
-        for (var i = 0; i < this._textHandler.GetSize(); i++) {
-            helperElem.appendChild(this._textHandler.GetTextElem(i));
-            this._HTMLToCanvas('.EditableText', i);
-            this._textHandler.GetTextElem(i).remove();
-        }
-        helperElem.remove();
-    }
-
-    /**
-     * @summary     Converts DOM elements on the page to Konva.Image elements
-     * @description Uses the html2canvas module to convert DOM elements located 
-     *              within the body into Konva.Image elements.
-     * 
-     * @param {int} index The index of the text element we want to convert.
-     */
-    _HTMLToCanvas(query, index)
-    {
-        var element = document.querySelector(query);
-        // var comp = window.getComputedStyle(element, null);
-        html2canvas(element, {
-            logging: false,
-            backgroundColor: null,
-            scrollY: -(window.scrollY),
-            // width: comp.width.replace('px', ''),
-        }).then((image) => {
-            // console.log('image width: ' + image.width)
-            this._textHandler.GetImage(index).image(image);
-            this._main.batchDraw();
-        }).catch(() => {
-            var helperElem = document.createElement('div');
-            helperElem.style.position = 'absolute';
-            document.getElementById('renderHelper').appendChild(helperElem);
-
-            helperElem.appendChild(this._textHandler.GetTextElem(index));
-            this._HTMLToCanvas('.EditableText', index);
-            this._textHandler.GetTextElem(index).remove();
-            helperElem.remove();
-        });
-        /*console.log('width: ' + comp.width);
-        console.log('height: ' + comp.height);
-        console.log('x: ' + comp.x);
-        console.log('y: ' + comp.y)*/
-    }
-
-    /**
-     * @summary     Adds the capability to select and edit text.
-     * @description Iterates through all of the elements in the text handler and
-     *              adds an event listener that triggers when the text element
-     *              is double clicked.
-     */
-    _AddTextSelection()
-    {
-        var selection = this._stage.find((node) => {
-            return node.hasName('Selectable') && node.hasName('EditableText');
-        });
-
-        selection.forEach((textElem) => {
-            let top = this._FindTopContainer(textElem),
-                absPos = textElem.getAbsolutePosition();
-            textElem.moveTo(top);
-            textElem.absolutePosition({
-                x: absPos.x,
-                y: absPos.y
-            });
-
-            this._AddListeners(textElem, 'text');
-        });
-    }
-
-    /**
-     * @summary     Adds user defined event listeners to elem.
-     * @param {Konva.Group} elem 
-     */
-    _AddListeners(elem, type)
-    {
-        elem.on('dblclick', () => {
-            if (type === 'text') this._TextHelper(elem);
-            else if (type === 'chart') this._ChartHelper(elem);
-            else if (type === 'graphic') this._GraphicHelper(elem);
-        });
-
-        elem.on('dragstart', () => {
-            this._LogStartingPosition(elem);
-        });
-
-        elem.on('dragend', () => {
-            this._LogEndingPosition(elem);
-        });
-    }
-
-    _TextHelper(textElem)
-    {
-        textElem.setAttr('draggable', true);
-
-        this._tr.nodes([textElem]);
-        this._tr.moveToTop();
-        this._main.batchDraw();
-        
-        this._selectedTextIndex = textElem.getAttr('id');
-
-        this._textCallback(this._textHandler.GetHandlerElem(this._selectedTextIndex));
-        this._editorHandler('text-editor');
-
-        setTimeout(() => {
-            this._stage.on('click', HandleOutsideClick);
-        });
-
-        var HandleOutsideClick = (e) => {
-            let start = new Date();
-            let displayNotif = true;
-            let Unselect = () => { 
-                let curr = new Date();
-                let diff = curr.getTime() - start.getTime();
-                if (diff > 1000 && displayNotif) {
-                    NotificationManager.Info({
-                        title: "Loading Issues",
-                        message: "Florence is having trouble with rendering the text, please wait.",
-                        timeout: 3000,
-                    });
-                    displayNotif = false;
-                }
-
-                if (e.target !== textElem && !QuillStateManager.IsUpdating()) {
-                    this._selectedTextIndex = -1;
-                    this._editorHandler('none');
-                    this._tr.nodes([]);
-                    textElem.setAttr('draggable', false);
-                    this._main.batchDraw();
-                    this._stage.off('click', HandleOutsideClick);
-                }
-            };
-            setTimeout(Unselect, 100);
-        };
     }
 
     /**
@@ -933,6 +461,122 @@ class AInfographic
     }
 
     /**
+     * @description Updates the editor UI to reflect the chart type specified by
+     *              group.
+     * @param {Konva.Group} group 
+     */
+    _UpdateChartEditorUI(group)
+    {
+        if (group.getAttr('name') === 'Selectable Chart Waffle') {
+            this._editorHandler('waffle-editor');
+        } else if (group.getAttr('name') === 'Selectable Chart Pie') {
+            this._editorHandler('pie-editor');
+        } else if (group.getAttr('name') === 'Selectable Chart Bar') {
+            this._editorHandler('bar-editor')
+        } else if (group.getAttr('name') === 'Selectable Chart Stacked') {
+            this._editorHandler('stacked-bar-editor');
+        } else if (group.getAttr('name') === 'Selectable Chart Line') {
+            this._editorHandler('line-editor');
+        } else if (group.getAttr('name') === 'Selectable Chart Icon') {
+            this._editorHandler('icon-bar-editor');
+        } else if (group.getAttr('name') === 'Selectable Chart Donut') {
+            this._editorHandler('donut-editor');
+        }
+    }
+
+    /**
+     * @summary     Undo the most recent action.
+     * @description Wrapper function that calls _commandManager's Undo method.
+     */
+    Undo()
+    {
+        let undoObj = this._commandManager.Undo();
+        // Essentially, there is an edge case in undoing/redoing where if we 
+        // remove an element, undo, select the element, then redo, it will 
+        // cause a runtime error since the editor has not been reset.
+        this._ResetEditor(undoObj)
+        this._UpdateEditorUI(undoObj);
+    }
+
+    /**
+     * @summary     Redo the most recent action.
+     * @description Wrapper function that calls _commandManager's Redo method.
+     */
+    Redo()
+    {
+        let redoObj = this._commandManager.Redo();
+        this._ResetEditor(redoObj);
+        this._UpdateEditorUI(redoObj);
+    }
+
+    /**
+     * !!!! INTERACIVITY AND TEXT RENDERING CODE BELOW !!!!
+     */
+
+    /**
+     * @summary     Calls additional functions to complete the infographic.
+     * @description Renders all of the text elements and adds the capability to 
+     *              edit graphs and text elements.
+     */
+    _FinalizeInfog()
+    {
+        this._RenderText();
+        this._AddGraphSelection();
+        this._AddTextSelection();
+        this._AddGraphicSelection();
+        this._AddDataLabelSelection();
+        this._MoveToMain();
+    }
+
+    /**
+     * @summary     Renders all of the text elements.
+     * @description Iterates through all of the elements in textHandler and converts
+     *              them from DOM elements to Konva.Image elements.
+     */
+    _RenderText()
+    {
+        var helperElem = document.createElement('div');
+        helperElem.style.position = 'absolute';
+        document.getElementById('renderHelper').appendChild(helperElem);
+
+        for (var i = 0; i < this._textHandler.GetSize(); i++) {
+            helperElem.appendChild(this._textHandler.GetTextElem(i));
+            this._HTMLToCanvas('.EditableText', i);
+            this._textHandler.GetTextElem(i).remove();
+        }
+        helperElem.remove();
+    }
+
+    /**
+     * @summary     Converts DOM elements on the page to Konva.Image elements
+     * @description Uses the html2canvas module to convert DOM elements located 
+     *              within the body into Konva.Image elements.
+     * 
+     * @param {int} index The index of the text element we want to convert.
+     */
+    _HTMLToCanvas(query, index)
+    {
+        var element = document.querySelector(query); 
+        html2canvas(element, {
+            logging: false,
+            backgroundColor: null,
+            scrollY: -(window.scrollY),
+        }).then((image) => {
+            this._textHandler.GetImage(index).image(image);
+            this._main.batchDraw();
+        }).catch(() => {
+            var helperElem = document.createElement('div');
+            helperElem.style.position = 'absolute';
+            document.getElementById('renderHelper').appendChild(helperElem);
+
+            helperElem.appendChild(this._textHandler.GetTextElem(index));
+            this._HTMLToCanvas('.EditableText', index);
+            this._textHandler.GetTextElem(index).remove();
+            helperElem.remove();
+        });
+    }
+
+    /**
      * @summary     Adds the capability to select and edit graphs.
      * @description Iterates through all of the elements in the graph handler and
      *              adds an event listener when they are double clicked on.
@@ -950,7 +594,27 @@ class AInfographic
         });
     }
 
+     /**
+     * @summary     Adds user defined event listeners to elem.
+     * @param {Konva.Group} elem 
+     */
+    _AddListeners(elem, type)
+    {
+        elem.on('dblclick', () => {
+            if (type === 'text') this._TextHelper(elem);
+            else if (type === 'chart') this._ChartHelper(elem);
+            else if (type === 'graphic') this._GraphicHelper(elem);
+        });
 
+        elem.on('dragstart', () => {
+            this._LogStartingPosition(elem);
+        });
+
+        elem.on('dragend', () => {
+            this._LogEndingPosition(elem);
+        });
+    }
+ 
     _ChartHelper(chart)
     {
         this._selectedChartIndex = parseInt(chart.getAttr('id'));
@@ -982,27 +646,73 @@ class AInfographic
     }
 
     /**
-     * @description Updates the editor UI to reflect the chart type specified by
-     *              group.
-     * @param {Konva.Group} group 
+     * @summary     Adds the capability to select and edit text.
+     * @description Iterates through all of the elements in the text handler and
+     *              adds an event listener that triggers when the text element
+     *              is double clicked.
      */
-    _UpdateChartEditorUI(group)
+    _AddTextSelection()
     {
-        if (group.getAttr('name') === 'Selectable Chart Waffle') {
-            this._editorHandler('waffle-editor');
-        } else if (group.getAttr('name') === 'Selectable Chart Pie') {
-            this._editorHandler('pie-editor');
-        } else if (group.getAttr('name') === 'Selectable Chart Bar') {
-            this._editorHandler('bar-editor')
-        } else if (group.getAttr('name') === 'Selectable Chart Stacked') {
-            this._editorHandler('stacked-bar-editor');
-        } else if (group.getAttr('name') === 'Selectable Chart Line') {
-            this._editorHandler('line-editor');
-        } else if (group.getAttr('name') === 'Selectable Chart Icon') {
-            this._editorHandler('icon-bar-editor');
-        } else if (group.getAttr('name') === 'Selectable Chart Donut') {
-            this._editorHandler('donut-editor');
-        }
+        var selection = this._stage.find((node) => {
+            return node.hasName('Selectable') && node.hasName('EditableText');
+        });
+
+        selection.forEach((textElem) => {
+            let top = this._FindTopContainer(textElem),
+                absPos = textElem.getAbsolutePosition();
+            textElem.moveTo(top);
+            textElem.absolutePosition({
+                x: absPos.x,
+                y: absPos.y
+            });
+
+            this._AddListeners(textElem, 'text');
+        });
+    }
+
+    _TextHelper(textElem)
+    {
+        textElem.setAttr('draggable', true);
+
+        this._tr.nodes([textElem]);
+        this._tr.moveToTop();
+        this._main.batchDraw();
+        
+        this._selectedTextIndex = textElem.getAttr('id');
+
+        this._textCallback(this._textHandler.GetHandlerElem(this._selectedTextIndex));
+        this._editorHandler('text-editor');
+
+        setTimeout(() => {
+            this._stage.on('click', HandleOutsideClick);
+        });
+
+        var HandleOutsideClick = (e) => {
+            let start = new Date();
+            let displayNotif = true;
+            let Unselect = () => { 
+                let curr = new Date();
+                let diff = curr.getTime() - start.getTime();
+                if (diff > 1000 && displayNotif) {
+                    NotificationManager.Info({
+                        title: "Loading Issues",
+                        message: "Florence is having trouble with rendering the text, please wait.",
+                        timeout: 3000,
+                    });
+                    displayNotif = false;
+                }
+
+                if (e.target !== textElem && !QuillStateManager.IsUpdating()) {
+                    this._selectedTextIndex = -1;
+                    this._editorHandler('none');
+                    this._tr.nodes([]);
+                    textElem.setAttr('draggable', false);
+                    this._main.batchDraw();
+                    this._stage.off('click', HandleOutsideClick);
+                }
+            };
+            setTimeout(Unselect, 100);
+        };
     }
 
     _AddGraphicSelection()
@@ -1045,6 +755,300 @@ class AInfographic
                 this._stage.off('click', HandleOutsideClick);
             }
         };
+    }
+
+    /**
+     * @summary Adds selection capabilities to the data labels on charts (if 
+     *          they exist).
+     */
+    _AddDataLabelSelection()
+    {
+        let selection = this._stage.find((node) => {
+            return node.hasName('Selectable') && node.hasName('Decorator');
+        }); 
+
+        selection.forEach((group) => {
+            group.off('dblclick');
+            group.on('dblclick', () => {
+                this._DecoratorHelper(group);
+            });
+        });
+    }
+
+    _DecoratorHelper(group)
+    {
+        let parent = group.getParent();
+        parent.off('dblclick');
+        parent.off('dragstart');
+        parent.off('dragend');
+
+        this._tr.nodes([group]);
+        this._tr.moveToTop();
+        this._main.batchDraw();
+        group.setAttr('draggable', true);
+
+        setTimeout(() => {
+            this._stage.on('click', HandleOutsideClick);
+        });
+
+        var HandleOutsideClick = (e) => {
+            if (e.target !== group) {
+                parent.on('dblclick', () => { this._ChartHelper(parent) });
+                parent.on('dragstart', () => { this._LogStartingPosition(parent) });
+                parent.on('dragend', () => { 
+                    this._LogEndingPosition(parent);
+                });
+
+                this._tr.nodes([]);
+                group.setAttr('draggable', false);
+                this._main.batchDraw();
+                this._stage.off('click', HandleOutsideClick);
+            }
+        }; 
+    }
+
+    /**
+     * @description Moves all of the infographic elements into the main group. 
+     *              This allows us to perform layering functions.
+     */
+    _MoveToMain()
+    {
+        let selection = this._stage.find(node => {
+            let isChart = (node.hasName('Selectable') && node.hasName('Chart'));
+            let isGraphic = node.hasName('Graphic');
+            let isText = (node.hasName('Selectable') && node.hasName('EditableText'));
+            return isChart || isGraphic || isText;
+        });
+        selection.forEach(group => {
+            let absPos = group.absolutePosition();
+            group.moveTo(this._elementHolder);
+            group.absolutePosition(absPos);
+        });
+    }
+
+    /**
+     * @summary Resets element indexes to -1 and removes selected editor.
+     * @param {ACommand} obj 
+     */
+    _ResetEditor(obj)
+    {
+        let isRemoveObj = (obj instanceof RemoveChartCommand || obj instanceof 
+            RemoveGraphicCommand || obj instanceof RemoveTextCommand);
+        let isInsertObj = (obj instanceof InsertChartCommand || obj instanceof 
+            InsertTextCommand || obj instanceof InsertIconCommand || obj
+            instanceof InsertHeaderCommand);
+        if (isRemoveObj || isInsertObj) {
+            this._selectedTextIndex = this._selectedGraphicIndex = this._selectedChartIndex = -1;
+            this._editorHandler('none')
+        }
+    }
+
+    /**
+     * @summary Updates the editor UI.
+     * @param {ACommand} obj 
+     */
+    _UpdateEditorUI(obj)
+    {
+        let chartExpr = (obj instanceof ChartDataCommand || 
+            obj instanceof ChartDecoratorCommand || 
+            obj instanceof ChartSettingsCommand || 
+            obj instanceof ReplaceChartCommand); 
+        if (chartExpr && this._selectedChartIndex !== -1) {
+            let chart = this._chartHandler.GetChart(this._selectedChartIndex),
+                dSettings = this._chartHandler.GetDecoratorSettingsArray(this._selectedChartIndex);
+            if (obj instanceof ReplaceChartCommand) {
+                let group = this._chartHandler.GetGroup(this._selectedChartIndex);
+                this._UpdateChartEditorUI(group);
+            }
+            this._chartCallback(chart.GetData(), chart.GetChartSettings(), dSettings);
+        }
+
+        if (obj instanceof GraphicSettingsCommand && this._selectedGraphicIndex !== -1) {
+            this._graphicCallback(
+                this._graphicsHandler.GetSettings(this._selectedGraphicIndex)
+            );
+        }
+
+        if (obj instanceof TextContentCommand && this._selectedTextIndex !== -1) {
+            this._textCallback(this._textHandler.GetHandlerElem(this._selectedTextIndex));
+        }
+
+        if (obj instanceof BackgroundSettingsCommand) {
+            this._backgroundCallback(this._bkg.getAttrs());
+        }
+    }
+
+    /**
+     * @summary     Returns chart's dimensions to caller.
+     * @description Returns the chart's width and height in the form of a JSON
+     *              object to the caller.
+     * @returns A JSON object containing the chart's width and height.
+     */
+    GetDimensions()
+    {
+        return {
+            width: this._chartWidth,
+            height: this._chartHeight,
+        };
+    }
+
+    /**
+     * @summary     Manages memory for infographic type.
+     * @description A function that is responsible for freeing memory that would 
+     *              otherwise cause memory leaks. 
+     */
+    Clean()
+    {
+        // Remove chart/text listeners
+        this._RemoveTextListeners();
+        this._RemoveChartListeners();
+        this._RemoveGraphicListeners();
+
+        // Remove all the elements from this._stage
+        this._stage.destroy();
+        this._stage = 0;
+    }
+
+    _CreateSwitchableContainer(attrs = {}, id = '')
+    {
+        attrs.name = 'Switchable Container ' + id;
+        return new Konva.Group(attrs);
+    }
+
+    /**
+     * @summary Removes the event listeners from each text node.
+     */
+    _RemoveTextListeners()
+    {
+        var selection = this._stage.find((node) => {
+            return node.hasName('Selectable') && node.hasName('EditableText');
+        });
+        selection.forEach(textElem => { textElem.off('dblclick'); })
+    }
+
+    /**
+     * @summary Removes the event listeners from each chart node.
+     */
+    _RemoveChartListeners()
+    {
+        var selection = this._stage.find((node) => {
+            return node.hasName('Selectable') && node.hasName('Chart');
+        });
+        selection.forEach(chartElem => { chartElem.off('dblclick'); })
+    }
+
+    _RemoveGraphicListeners()
+    {
+        var selection = this._stage.find((node) => {
+            return node.hasName('Graphic');
+        });
+        selection.forEach(group => { group.off('dblclick'); });
+    }
+
+    _CreateImage({x, y, width, height, src, group})
+    {
+        let image = new Image(), imageHelper = new Konva.Image(),
+            imageGroup = new Konva.Group();
+
+        image.onload = () => {
+            imageHelper.setAttrs({
+                x: x, 
+                y: y,
+                height: height,
+                width: width,
+                image: image,
+                opacity: 1,
+                stroke: 'black',
+                strokeWidth: 0
+            });
+            imageHelper.cache();
+            imageHelper.filters([
+                Konva.Filters.Contrast,
+                Konva.Filters.Brighten,
+                Konva.Filters.Blur,
+            ]);
+
+            imageHelper.brightness(0);
+            imageHelper.blurRadius(0);
+            imageHelper.contrast(0);
+
+            this._main.batchDraw();
+            image.onload = null;
+        };
+
+        image.src = src;
+        imageGroup.add(imageHelper);
+        group.add(imageGroup);
+        this._graphicsHandler.AddGraphic({
+            type: 'image',
+            graphic: imageHelper,
+            group: imageGroup,
+        });
+    }
+
+    /**
+     * @summary     A function that takes in a font and a font weight and maps it
+     *              to the proper quill code.
+     * 
+     * @param {string} font   The font associated with a quill code.
+     * @param {int}    weight The weight associated with a quill code. 
+     */
+    _quillMap(font, weight = 0)
+    {
+        if (font === 'museo' && weight === 900) return '900-museo';
+        else if (font === 'canada-type-gibson') {
+            switch (weight) {
+                case 100: return '100-canada';
+                case 200: return '200-canada';
+                case 400: return '400-canada';
+                case 500: return '500-canada';
+                case 600: return '600-canada';
+                case 700: return '700-canada';
+                case 900: return '900-canada';
+                default: return '100-canada';
+            }
+        } else if (font === 'Montserrat') return '200-Montserrat';
+        else if (font === 'Open Sans') return 'Open-Sans';
+        else if (font === 'Roboto') {
+            switch(weight) {
+                case 100: return '100-Roboto';
+                case 300: return '300-Roboto';
+                case 400: return '400-Roboto';
+                case 500: return '500-Roboto';
+                case 700: return '700-Roboto';
+                case 900: return '900-Roboto';
+                default: return '100-Roboto';
+            }
+        }
+    }
+
+    /**
+     * @summary     Returns the width of a text element given the text's font.
+     * @description Using canvas' measureText function, _GetTextWidth returns the
+     *              width in pixels of a given piece of text.
+     * 
+     * @param {string} text       The text we want to determine the width of.
+     * @param {double} fontSize   The font size of the text we want to find the width of.
+     * @param {string} fontFamily The font family of the text we want to analyze.
+     */
+    _GetTextWidth(text, fontSize, fontFamily)
+    {
+        var canvas = document.createElement('canvas');
+        var ctx = canvas.getContext('2d');
+
+        ctx.font = fontSize + 'px ' + fontFamily;
+        var helper = ctx.measureText(text).width;
+        canvas.remove();
+
+        return helper;
+    }
+    /**
+     * @param {double} width  The width of the element we are centering.
+     * @param {double} center The x-coordinate we want to center about.
+     */
+    _CenterXAbout(width, center)
+    {
+        return center - (width / 2);
     }
 
     _FindTopContainer(elem)
