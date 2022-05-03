@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { HIVTemplateOne, ObesityTemplateOne, ViolenceTemplateOne, 
-    DiabetesTemplateOne } from '../../js/InfographicTemplates/index';
+    DiabetesTemplateOne, ADHDTemplateOne } from '../../js/InfographicTemplates/index';
 import '../../css/React/CanvasContainer.css';
 
 /**
@@ -157,6 +157,9 @@ class CanvasContainer extends React.Component
                     break;
                 case 'DiabetesTemplateOne':
                     this._infogObj = new DiabetesTemplateOne(handlerObj);
+                    break;
+                case 'ADHDTemplateOne':
+                    this._infogObj = new ADHDTemplateOne(handlerObj);
                     break;
                 default:
                     this._infogObj = new HIVTemplateOne(handlerObj);
