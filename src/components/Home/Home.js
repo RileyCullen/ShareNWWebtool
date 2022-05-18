@@ -10,7 +10,7 @@ import HIVInfog from '../../Media/InfographicThumbnails/HIVInfog.png';
 import ObesityInfog from '../../Media/InfographicThumbnails/ObesityInfog.png';
 import LGBTInfog from '../../Media/InfographicThumbnails/LGBTInfog.png';
 import DiabetesInfog from '../../Media/InfographicThumbnails/DiabetesInfog.png';
-import ADHDInfog from '../../Media/InfographicThumbnails/ADHDInfog.png';
+import ADHDInfog from '../../Media/InfographicThumbnails/ADHDTemplate.png';
 
 class Home extends React.Component 
 {

@@ -3,12 +3,16 @@ import { AInfographic } from "./AInfographic";
 import { ArrowHeader } from '../Headers/ArrowHeader';
 import { RectangleHeader } from "../Headers";
 import { WaffleChart, GenerateWafflePreset} from '../Charts/WaffleChart/index';
+import { BasicBarChart,  DataValueDecorator,  XAxisDecorator } 
+    from '../Charts/BarChart/index';
+import personWithBook from '../../Media/templateImages/personWithBook.jpg';
+import visual from '../../Media/templateImages/visual.jpg';
 
 class ADHDTemplateOne extends AInfographic
 {
     constructor({editorHandler, textHandler, chartHandler, graphicHandler, backgroundHandler})
     {
-        super(700, 800, editorHandler, textHandler, chartHandler, graphicHandler, backgroundHandler);
+        super(920, 800, editorHandler, textHandler, chartHandler, graphicHandler, backgroundHandler);
         this._colorScheme = {
             primary: '#F9ab7c',
             secondary: '#ee5d25'
@@ -19,7 +23,9 @@ class ADHDTemplateOne extends AInfographic
     {
         this._CreateHeader()
         this._CreateSectionHeader()
+        this._CreateWaffleCharts()
         this._CreateCharts()
+        this._endNote()
         this._FinalizeInfog()
     }
 
@@ -95,6 +101,15 @@ class ADHDTemplateOne extends AInfographic
             textColor: underTitleDiv.style.color,
             lineHeight: '1.2',
             align: 'center',
+        });
+
+        this._CreateImage({
+            x: 500, 
+            y: 50,
+            width: 120,
+            height: 150,
+            src: personWithBook,
+            group: header,
         });
 
         let strip = new RectangleHeader(
@@ -201,7 +216,7 @@ class ADHDTemplateOne extends AInfographic
         });
     }
 
-    _CreateCharts() 
+    _CreateWaffleCharts() 
     {
         let sectionOne = this._CreateSwitchableContainer(
         {
@@ -223,7 +238,7 @@ class ADHDTemplateOne extends AInfographic
                 x: 0,
                 y: 70,
                 width: (this._chartWidth - 2)/2,
-                height: 160,
+                height: 180,
                 fill: '#ffd34e',
                 group: chartBackgroundGroup,
             }
@@ -238,8 +253,8 @@ class ADHDTemplateOne extends AInfographic
             name: 'WaffleChart',
             id: 0,
             offsetY: -90,
-            offsetX: -55,
-            width: 280,
+            offsetX: -35,
+            width: 300,
             height: 100,
         });
         
@@ -267,30 +282,49 @@ class ADHDTemplateOne extends AInfographic
         this._chartHandler.GetChart(this._chartHandler.GetCurrChartID()).CreateChart();
 
         var waffleOneTextDiv = document.createElement('div')
-        var waffleOneText = '<p style="margin: 0px;"><span style="font-size: 20px; font-family: Roboto, sans-serif; font-weight: 400; line-height: 1.0;">'
+        var waffleOneText = '<p style="margin: 0px;"><span style="font-size: 18px; font-family: Roboto, sans-serif; font-weight: 400; line-height: 1.0;">'
         + '8.4% of children  ages 3-17 are</span></p>'
-        +'<p style="margin: 0px;"><span style="font-size: 20px; font-family: Roboto, sans-serif; font-weight: 400; line-height: 1.0;">'
+        +'<p style="margin: 0px;"><span style="font-size: 18px; font-family: Roboto, sans-serif; font-weight: 400; line-height: 1.0;">'
         + 'diagnosed with ADHD</span></p>';
         waffleOneTextDiv.innerHTML = waffleOneText;
-        waffleOneTextDiv.style.color = '#ae4d34';
+        waffleOneTextDiv.style.color = '#000000';
         this._textHandler.AddTextElem({
             textElem: waffleOneTextDiv, 
             group: sectionOne, 
-            x: 50, 
+            x: 80, 
             y: 175
         });
         this._textHandler.SetCSSInfo({
             id: this._textHandler.GetCurrID(),
             fontFamily: roboto400,
-            fontSize: '20px',
+            fontSize: '18px',
             textColor: waffleOneTextDiv.style.color,
             lineHeight: '1.0',
         });
         this._textHandler.SetCSSInfo({
             id: this._textHandler.GetCurrID(),
             fontFamily: roboto400,
-            fontSize: '20px',
+            fontSize: '18px',
             textColor: waffleOneTextDiv.style.color,
+            lineHeight: '1.0',
+        });
+
+        var waffleOneTextTwoDiv = document.createElement('div');
+        var waffleOneTextTwo = '<p style="margin: 0px;"><span style="font-size: 16px; font-family: Roboto, sans-serif; font-weight: 400; line-height: 1.0;">'
+        + 'That\'s about 5.2 Million children</span></p>'
+        waffleOneTextTwoDiv.innerHTML = waffleOneTextTwo
+        waffleOneTextTwoDiv.style.color = '#ae4d34';
+        this._textHandler.AddTextElem({
+            textElem: waffleOneTextTwoDiv, 
+            group: sectionOne, 
+            x: 80, 
+            y: 220
+        });
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
+            fontFamily: roboto400,
+            fontSize: '16px',
+            textColor: waffleOneTextTwoDiv.style.color,
             lineHeight: '1.0',
         });
 
@@ -361,6 +395,276 @@ class ADHDTemplateOne extends AInfographic
             lineHeight: '1.0',
         });
 
+    }
+
+    _CreateCharts()
+    {
+        let sectionOne = this._CreateSwitchableContainer(
+        {
+            x:0,
+            y:550
+        }, 'sectionOne')
+    
+        this._main.add(sectionOne)
+
+        var roboto400 = this._quillMap('Roboto', 400);
+
+        const ADHD = '\uf183', DARK_BLUE = '#185963', RED = '#c04637',
+            DEFAULT_OFFSET = 30;
+        var ICON_FONT = '"Font Awesome 5 Free"';
+        console.log("Default offset: " + DEFAULT_OFFSET);
+
+        var barTextDiv = document.createElement("div");
+        var barText = '<p style="margin: 0px;"><span style="font-size: 20px; font-family: Roboto, sans-serif; font-weight: 400; line-height: 1.0;">'
+        + 'The percentage of children </span></p>'
+        + '<p style="margin: 0px;"><span style="font-size: 20px; font-family: Roboto, sans-serif; font-weight: 400; line-height: 1.0;">'
+        + 'with an ADHD diagnosis rose </span></p>'
+        + '<p style="margin: 0px;"><span style="font-size: 20px; font-family: Roboto, sans-serif; font-weight: 400; line-height: 1.0;">'
+        + '22% from 2003-2007 </span></p>';
+        barTextDiv.innerHTML = barText;
+        this._textHandler.AddTextElem({
+            textElem: barTextDiv, 
+            group: sectionOne, 
+            x: 80, 
+            y: 20
+        });
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
+            fontFamily: roboto400,
+            fontSize: '20px',
+            textColor: barTextDiv.style.color,
+            lineHeight: '1.0',
+        });
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
+            fontFamily: roboto400,
+            fontSize: '20px',
+            textColor: barTextDiv.style.color,
+            lineHeight: '1.0',
+        });
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
+            fontFamily: roboto400,
+            fontSize: '20px',
+            textColor: barTextDiv.style.color,
+            lineHeight: '1.0',
+        });
+        
+        var adhdBarChartData = []
+        var adhdBarChartGroup = new Konva.Group({
+            x: 70,
+            y: 105,
+        });
+        sectionOne.add(adhdBarChartGroup);
+        adhdBarChartData[0] = {
+            'category': '2003',
+            'value': 4.4,
+            'color': '#bd4932',
+        };
+        adhdBarChartData[1] = {
+            'category': '2007',
+            'value': 5.4,
+            'color': '#105a63',
+        };
+        var xAxisFont = {
+            'fontSize': 11, 
+            'fontFamily': roboto400, 
+            'fontColor': 'black'
+        };
+        var adhdBarChartOne = new BasicBarChart({
+            data: adhdBarChartData, 
+            group: adhdBarChartGroup,
+            width: 250, 
+            height: 70, 
+            padding: 0.4
+        })
+        var xAxisOne = new XAxisDecorator({
+            chart: adhdBarChartOne, 
+            lineStrokeWidth: 1, 
+            tickStrokeWidth: 0.5, 
+            font: xAxisFont
+        });
+        var valueDecoratorOne = new DataValueDecorator({
+            chart: xAxisOne, 
+            isPercentage: false, 
+            isCategory: false, 
+            isMiddle: false,
+            font: {
+                'fontSize': 15,
+                'fontFamily': roboto400,
+                'fontColor': 'black',
+            }
+        });
+        this._chartHandler.AddChart({
+            chart: adhdBarChartOne, 
+            group: adhdBarChartGroup, 
+            type: 'Bar'
+        });
+        this._chartHandler.AddDecorator({
+            decorator: xAxisOne, 
+            id: this._chartHandler.GetCurrChartID()
+        });
+        this._chartHandler.AddDecorator({
+            decorator: valueDecoratorOne, 
+            id: this._chartHandler.GetCurrChartID()
+        });
+        this._chartHandler.GetDecorator({
+            chartID: this._chartHandler.GetCurrChartID(), 
+            decoratorID: this._chartHandler.GetCurrDecSize()
+        })
+        .CreateChart();
+
+        let chartBackgroundGroup = new Konva.Group();
+        sectionOne.add(chartBackgroundGroup);
+        let chartBackground = new RectangleHeader(
+            {
+                x: 400,
+                y: 15,
+                width: (this._chartWidth - 2)/2,
+                height: 180,
+                fill: '#105a63',
+                group: chartBackgroundGroup,
+            }
+        );
+        this._graphicsHandler.AddGraphic({
+            type: 'header',
+            graphic: chartBackground,
+            group: chartBackgroundGroup
+        });
+
+        var waffleGroup = new Konva.Group({
+            name: 'WaffleChart',
+            id: 0,
+            offsetY: -30,
+            offsetX: -500,
+            width: 200,
+            height: 50,
+        });
+        sectionOne.add(waffleGroup);
+
+        var BoysPreset = GenerateWafflePreset(ADHD, '#dd9b3c', DEFAULT_OFFSET, ICON_FONT),
+            redBoysPreset = GenerateWafflePreset(ADHD, '#fecf41', DEFAULT_OFFSET - 1, ICON_FONT);
+
+
+        var waffle = new WaffleChart({
+            numerator: 3, 
+            denominator: 10, 
+            group: waffleGroup, 
+            presetA: BoysPreset, 
+            presetB: redBoysPreset, 
+            fontSize: 12,
+            maxIconsPerRow: 10
+        });
+        this._chartHandler.AddChart({
+            chart: waffle, 
+            group: waffleGroup, 
+            type:'Waffle'
+        });
+        this._chartHandler.GetChart(this._chartHandler.GetCurrChartID()).CreateChart();
+
+        var waffleTextDiv = document.createElement('div');
+        var waffleText = '<p style="margin: 0px;"><span style="font-size: 16px; font-family: Roboto, sans-serif; font-weight: 400; line-height: 1.0;">'
+        + 'Children with ADHD Experience 30%</span></p>'
+        +'<p style="margin: 0px;"><span style="font-size: 16px; font-family: Roboto, sans-serif; font-weight: 400; line-height: 1.0;">'
+        + 'slower emotional development than</span></p>'
+        +'<p style="margin: 0px;"><span style="font-size: 16px; font-family: Roboto, sans-serif; font-weight: 400; line-height: 1.0;">'
+        + 'their peers</span></p>'
+        waffleTextDiv.innerHTML = waffleText
+        waffleTextDiv.style.color = '#cfe2c8'
+        this._textHandler.AddTextElem({
+            textElem: waffleTextDiv, 
+            group: sectionOne, 
+            x: 500, 
+            y: 100
+        });
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
+            fontFamily: roboto400,
+            fontSize: '16px',
+            textColor: waffleTextDiv.style.color,
+            lineHeight: '1.0',
+        });
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
+            fontFamily: roboto400,
+            fontSize: '16px',
+            textColor: waffleTextDiv.style.color,
+            lineHeight: '1.0',
+        });
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
+            fontFamily: roboto400,
+            fontSize: '16px',
+            textColor: waffleTextDiv.style.color,
+            lineHeight: '1.0',
+        });
+    }
+
+    _endNote()
+    {
+        let sectionOne = this._CreateSwitchableContainer(
+        {
+            x:0,
+            y:750
+        }, 'sectionOne')
+    
+        this._main.add(sectionOne)
+    
+        var roboto400 = this._quillMap('Roboto', 400);
+
+        var leftTextDiv = document.createElement('div')
+        var leftText = '<p style="margin: 0px;"><span style="font-size: 20px; font-family: Roboto, sans-serif; font-weight: 400; line-height: 1.0;">'
+        + '25% of children with ADHD also</span></p>'
+        +'<p style="margin: 0px;"><span style="font-size: 20px; font-family: Roboto, sans-serif; font-weight: 400; line-height: 1.0;">'
+        + 'have problems with listening</span></p>'
+        +'<p style="margin: 0px;"><span style="font-size: 20px; font-family: Roboto, sans-serif; font-weight: 400; line-height: 1.0;">'
+        + 'skills, reading comprehension,</span></p>'
+        +'<p style="margin: 0px;"><span style="font-size: 20px; font-family: Roboto, sans-serif; font-weight: 400; line-height: 1.0;">'
+        + 'and/or math</span></p>'
+        leftTextDiv.innerHTML = leftText
+        this._textHandler.AddTextElem({
+            textElem: leftTextDiv, 
+            group: sectionOne, 
+            x: 80, 
+            y: 40
+        });
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
+            fontFamily: roboto400,
+            fontSize: '20px',
+            textColor: leftTextDiv.style.color,
+            lineHeight: '1.0',
+        });
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
+            fontFamily: roboto400,
+            fontSize: '20px',
+            textColor: leftTextDiv.style.color,
+            lineHeight: '1.0',
+        });
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
+            fontFamily: roboto400,
+            fontSize: '20px',
+            textColor: leftTextDiv.style.color,
+            lineHeight: '1.0',
+        });
+        this._textHandler.SetCSSInfo({
+            id: this._textHandler.GetCurrID(),
+            fontFamily: roboto400,
+            fontSize: '20px',
+            textColor: leftTextDiv.style.color,
+            lineHeight: '1.0',
+        });
+
+        this._CreateImage({
+            x: 470,
+            y: 25,
+            width: 300,
+            height: 120,
+            src: visual,
+            group: sectionOne,
+        })
     }
 
     Draw()
