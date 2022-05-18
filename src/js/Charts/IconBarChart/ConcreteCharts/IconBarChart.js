@@ -55,7 +55,9 @@ class IconBarChart extends AIconBar
      */
     CreateChart()
     {
-        if (this._dynamicFont) this._DetermineFontSize();
+        /**
+         * TODO: Implement dynamic resizing flag
+         */
         var upperBound = this._UpdateUpperBound();
         
         var virtualCanvas = document.createElement('custom');
