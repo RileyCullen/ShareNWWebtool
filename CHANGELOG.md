@@ -1,4 +1,12 @@
 # Change Log
+## [v0.7.0] - 2022-05-18
+Ability to replace individual icons for WaffleChart type added
+### Added 
+* ICON_LIST constant defined
+### Changed
+* Icon.js updated to use ICON_LIST
+### Removed
+* Replace Icons button removed from toolbar when WaffleEditor is selected
 ## [v0.6.2] - 2022-05-18
 ### Changed 
 * AInfographic code reorganized
