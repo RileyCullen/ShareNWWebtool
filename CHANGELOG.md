@@ -1,4 +1,7 @@
 # Change Log
+## [v0.6.2] - 2022-05-18
+### Changed 
+* AInfographic code reorganized
 ## [v0.6.1] - 2022-03-21
 Hotfix patch regarding usability test bugs found in Day 1
 ### Added
