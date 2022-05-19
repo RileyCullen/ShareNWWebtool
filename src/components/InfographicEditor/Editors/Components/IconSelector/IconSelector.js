@@ -4,7 +4,7 @@ import { IconButton } from './IconButton';
 import { IconLibrary } from './IconLibrary';
 
 /**
- * @param {Object} props icon: string, iconColor: string,
+ * @param {Object} props icon: string, iconColor: string, changeIcon: function,
  */
 const IconSelector = (props) => {
     const [displayIcons, setDisplayIcons] = useState(false);
@@ -18,7 +18,10 @@ const IconSelector = (props) => {
     }
 
     const SetContent = () => {
-        if (displayIcons) return <IconLibrary closeLibrary={CloseIconLibrary}/>;
+        if (displayIcons) return (
+                <IconLibrary closeLibrary={CloseIconLibrary}
+                    changeIcon={props.changeIcon}/>
+            );
         else return (
             <CSSTransition>
                 <IconButton 
