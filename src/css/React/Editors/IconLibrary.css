@@ -1,4 +1,11 @@
 .icon-library-container {
+    position: fixed; 
     display: grid;
     grid-template-columns: auto;
+    z-index: 3;
+}
+
+.icon-library {
+    display: grid;
+    grid-template-columns: auto auto auto;
 }
