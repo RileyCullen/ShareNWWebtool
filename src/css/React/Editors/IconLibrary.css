@@ -9,3 +9,11 @@
     display: grid;
     grid-template-columns: auto auto auto;
 }
+
+.icon-library-button {
+    border: none;
+}
+
+.icon-library-close {
+    float: right;
+}
