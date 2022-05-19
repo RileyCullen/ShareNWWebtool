@@ -2,6 +2,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import ICON_LIST from '../../../IconList';
 
+import '../../../../../css/React/Editors/IconLibrary.css';
+
 /**
  * 
  * @param {Object} props closeLibrary: function, 
@@ -10,7 +12,7 @@ const IconLibrary = (props) => {
     return (
         <div className='icon-library-container'>
             <div className='icon-library-header'>
-                <button onClick={props.closeLibrary}>
+                <button className='icon-library-close' onClick={props.closeLibrary}>
                     <FontAwesomeIcon icon={faTimesCircle} />
                 </button>
             </div>
@@ -18,7 +20,7 @@ const IconLibrary = (props) => {
                 {
                     ICON_LIST.map(d => {
                         return (
-                            <button>
+                            <button className='icon-library-button'>
                                 <FontAwesomeIcon className='tmp' icon={d} />
                             </button>
                         );
