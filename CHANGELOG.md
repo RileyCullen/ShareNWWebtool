@@ -3,8 +3,11 @@
 Ability to replace individual icons for WaffleChart type added
 ### Added 
 * ICON_LIST constant defined
+* IconSelector types added (IconButton, IconLibrary, IconSelector)
 ### Changed
 * Icon.js updated to use ICON_LIST
+* AWaffleChart.GetChartSettings now returns preset A's and preset B's iconCode as aCode and bCode respectively
+* AWaffleChart.SetChartSettings updated to adhere to new export format in GetChartSettings
 ### Removed
 * Replace Icons button removed from toolbar when WaffleEditor is selected
 ## [v0.6.2] - 2022-05-18
