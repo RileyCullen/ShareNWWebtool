@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import { IconButton } from './IconButton';
 import { IconLibrary } from './IconLibrary';
 
 /**
- * @param {Object} props 
+ * @param {Object} props icon: string, iconColor: string,
  */
 const IconSelector = (props) => {
     const [displayIcons, setDisplayIcons] = useState(false);
@@ -20,7 +21,10 @@ const IconSelector = (props) => {
         if (displayIcons) return <IconLibrary closeLibrary={CloseIconLibrary}/>;
         else return (
             <CSSTransition>
-                <button onClick={OpenIconLibrary}>Change Icon</button>
+                <IconButton 
+                    icon={props.icon} 
+                    iconColor={props.iconColor}
+                    onClick={OpenIconLibrary}/>
             </CSSTransition>
         );
     }
