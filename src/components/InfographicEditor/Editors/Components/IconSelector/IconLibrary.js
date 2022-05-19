@@ -6,7 +6,7 @@ import '../../../../../css/React/Editors/IconLibrary.css';
 
 /**
  * 
- * @param {Object} props closeLibrary: function, 
+ * @param {Object} props closeLibrary: function, changeIcon: function
  */
 const IconLibrary = (props) => {
     return (
@@ -19,8 +19,15 @@ const IconLibrary = (props) => {
             <div className='icon-library'>
                 {
                     ICON_LIST.map(d => {
+                        const changeIcon = () => {
+                            const iconCode = String.fromCharCode(
+                                parseInt(d.icon[3], 16));
+                            props.changeIcon(iconCode);
+                        }
+
                         return (
-                            <button className='icon-library-button'>
+                            <button className='icon-library-button'
+                                onClick={changeIcon}>
                                 <FontAwesomeIcon className='tmp' icon={d} />
                             </button>
                         );
