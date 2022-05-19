@@ -19,3 +19,4 @@ export { Slider } from './Slider';
 export { LabeledSlider } from './LabeledSlider';
 export { NumericTextField } from './NumericTextField';
 export { LabeledNumericTextField } from './LabeledNumericTextField';
+export { IconSelector } from './IconSelector/IconSelector';
