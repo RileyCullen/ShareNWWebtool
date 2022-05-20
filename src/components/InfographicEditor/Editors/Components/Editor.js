@@ -21,7 +21,7 @@ class Editor extends React.Component
                 <TabContainer
                     currentTab={this.state.currentTab} 
                     onClick={(state) => { this._SetCurrentTab(state); }}/>
-                <div className='editor-content'>
+                <div id='editor-content-scrollable' className='editor-content'>
                     <div className='editor-menu-container'>
                         {this._DisplayContent()}
                     </div>
