@@ -2,18 +2,53 @@
     position: fixed; 
     display: grid;
     grid-template-columns: auto;
+    gap: 10px;
     z-index: 3;
+
+    right: 8px;
+
+    width: 200px;
+    background-color: #ececec;
+}
+
+.icon-library-header {
+    margin: 10px;
 }
 
 .icon-library {
     display: grid;
     grid-template-columns: auto auto auto;
+    gap: 10px 10px;
+    margin: 10px;
 }
 
 .icon-library-button {
     border: none;
+    background-color: #fff;
+    padding: 10px;
+}
+
+.icon-library-button:hover {
+    background-color: rgb(249, 249, 249);
+    cursor: pointer;
+}
+
+.icon-library-icon {
+    font-size: 25px;
 }
 
 .icon-library-close {
     float: right;
+    border: none;
+    background-color: #ececec;
+    padding: 10px;
+}
+
+.icon-library-close:hover {
+    background-color: #d8d6d6;
+    cursor: pointer;
+}
+
+.close-icon {
+    font-size: 20px;
 }
