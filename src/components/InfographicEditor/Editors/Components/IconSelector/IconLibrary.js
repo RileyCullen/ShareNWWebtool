@@ -1,22 +1,25 @@
 import { useRef } from 'react';
+import ReactDOM from 'react-dom';
 import useOutsideClick from '../../../../Hooks/HandleOutsideClick';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import ICON_LIST from '../../../IconList';
 
 import '../../../../../css/React/Editors/IconLibrary.css';
+import useScrollDetection from '../../../../Hooks/DetectScrolling';
 
 /**
  * 
- * @param {Object} props closeLibrary: function, changeIcon: function
+ * @param {Object} props closeLibrary: function, changeIcon: function, top, left
  */
 const IconLibrary = (props) => {
     const ref = useRef(null);
     
     useOutsideClick(ref, props.closeLibrary);
+    useScrollDetection(props.closeLibrary);
 
-    return (
-        <div ref={ref} className='icon-library-container'>
+    return ReactDOM.createPortal(
+        <div ref={ref} className='icon-library-container' style={{top: props.top, left: props.left - 150}}>
             <div className='icon-library-header'>
                 <button className='icon-library-close' onClick={props.closeLibrary}>
                     <FontAwesomeIcon className='close-icon' icon={faTimesCircle} />
@@ -42,7 +45,7 @@ const IconLibrary = (props) => {
                 }
             </div>
         </div>
-    );
+    , document.getElementById('root'));
 };
 
 export { IconLibrary };
