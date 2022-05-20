@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
+import ReactDOM from 'react-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { IconButton } from './IconButton';
 import { IconLibrary } from './IconLibrary';
@@ -9,6 +10,8 @@ import { IconLibrary } from './IconLibrary';
 const IconSelector = (props) => {
     const [displayIcons, setDisplayIcons] = useState(false);
     
+    const ref = useRef(null);
+
     const OpenIconLibrary = () => {
         setDisplayIcons(true);
     }
@@ -18,11 +21,15 @@ const IconSelector = (props) => {
     }
 
     const SetContent = () => {
-        if (displayIcons) return (
+        if (displayIcons) {
+            let rect = ref.current.getBoundingClientRect()
+            return (
                 <IconLibrary closeLibrary={CloseIconLibrary}
-                    changeIcon={props.changeIcon}/>
+                    changeIcon={props.changeIcon}
+                    top={rect.top}
+                    left={rect.left}/>
             );
-        else return (
+        } else return (
             <CSSTransition>
                 <IconButton 
                     icon={props.icon} 
@@ -33,7 +40,7 @@ const IconSelector = (props) => {
     }
 
     return (
-        <div className='icon-selector-container'>
+        <div ref={ref} className='icon-selector-container'>
             <TransitionGroup>
                 {SetContent()}
             </TransitionGroup>
