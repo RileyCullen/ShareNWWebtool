@@ -13,7 +13,7 @@ const IconLibrary = (props) => {
         <div className='icon-library-container'>
             <div className='icon-library-header'>
                 <button className='icon-library-close' onClick={props.closeLibrary}>
-                    <FontAwesomeIcon icon={faTimesCircle} />
+                    <FontAwesomeIcon className='close-icon' icon={faTimesCircle} />
                 </button>
             </div>
             <div className='icon-library'>
@@ -22,13 +22,14 @@ const IconLibrary = (props) => {
                         const changeIcon = () => {
                             const iconCode = String.fromCharCode(
                                 parseInt(d.icon[3], 16));
+                            props.closeLibrary();
                             props.changeIcon(iconCode);
                         }
 
                         return (
                             <button className='icon-library-button'
                                 onClick={changeIcon}>
-                                <FontAwesomeIcon className='tmp' icon={d} />
+                                <FontAwesomeIcon className='icon-library-icon' icon={d} />
                             </button>
                         );
                     })
