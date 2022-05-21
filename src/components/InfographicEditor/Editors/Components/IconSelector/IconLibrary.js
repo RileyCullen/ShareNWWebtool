@@ -7,6 +7,7 @@ import ICON_LIST from '../../../IconList';
 
 import '../../../../../css/React/Editors/IconLibrary.css';
 import useScrollDetection from '../../../../Hooks/DetectScrolling';
+import useResizeDetection from '../../../../Hooks/DetectResize';
 
 /**
  * 
@@ -17,6 +18,7 @@ const IconLibrary = (props) => {
     
     useOutsideClick(ref, props.closeLibrary);
     useScrollDetection(props.closeLibrary);
+    useResizeDetection(props.closeLibrary);
 
     return ReactDOM.createPortal(
         <div ref={ref} className='icon-library-container' style={{top: props.top, left: props.left - 150}}>
