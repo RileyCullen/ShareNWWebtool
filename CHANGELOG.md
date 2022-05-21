@@ -4,6 +4,7 @@ Ability to replace individual icons for WaffleChart type added
 ### Added 
 * ICON_LIST constant defined
 * IconSelector types added (IconButton, IconLibrary, IconSelector)
+* Custom hooks for detecting outside click, window resizing, and scrolling
 ### Changed
 * Icon.js updated to use ICON_LIST
 * AWaffleChart.GetChartSettings now returns preset A's and preset B's iconCode as aCode and bCode respectively
