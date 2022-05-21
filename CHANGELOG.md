@@ -1,5 +1,5 @@
 # Change Log
-## [v0.7.0] - 2022-05-18
+## [v0.7.0] - 2022-05-20
 Ability to replace individual icons for WaffleChart type added
 ### Added 
 * ICON_LIST constant defined
