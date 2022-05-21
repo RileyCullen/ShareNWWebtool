@@ -2,10 +2,7 @@ import React from 'react';
 
 import '../../../../css/React/Editors/Insert/Insert.css';
 import '../../../../css/React/Editors/Insert/Icon.css';
-import { faAmbulance, faBrain, faCapsules, faFirstAid, faHeart, faHeartbeat, 
-    faHospital, faLungs, faLungsVirus, faMedkit, faPills, faPrescription, 
-    faPrescriptionBottle, faStethoscope, faSyringe, faUserMd, faWheelchair, 
-    faFemale, } from '@fortawesome/free-solid-svg-icons';
+import ICON_LIST from '../../IconList';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class Icon extends React.Component 
@@ -29,11 +26,7 @@ class Icon extends React.Component
          * Note that accessing the 3rd index in fa{Name}'s icon attribute will
          * give the unicode, which is what the canvas uses to draw the icons 
          */
-        let iconList = [faAmbulance, faHeart, faHeartbeat, faHospital, faMedkit,
-            faPrescription, faPrescriptionBottle, faStethoscope, faUserMd, 
-            faWheelchair, faBrain, faCapsules, faFirstAid, faLungs, faLungsVirus
-            , faPills, faSyringe, faFemale]
-        return iconList.map((d, i) => {
+        return ICON_LIST.map((d) => {
             return (
                 <button className='insert-fa-icon-button'
                     onClick={() => { this.props.toggleInsert('icon', d.icon[3])}}>

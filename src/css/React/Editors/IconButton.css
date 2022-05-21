@@ -1,0 +1,15 @@
+.icon-button {
+    border: none;
+    background-color: #fff;
+    position: relative;
+    top: 15px;
+}
+
+.icon-button:hover {
+    cursor: pointer;
+    background-color: #eee;
+}
+
+.icon {
+    font-size: 30px;
+}

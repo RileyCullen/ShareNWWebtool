@@ -58,8 +58,8 @@ class AWaffleChart
 
     UpdateChartSettings(settings)
     {
-        this._presetA.icon = settings.icon.iconCode;
-        this._presetB.icon = settings.icon.iconCode;
+        this._presetA.icon = settings.icon.aCode;
+        this._presetB.icon = settings.icon.bCode;
         this._presetA.color = settings.icon.aColor;
         this._presetB.color = settings.icon.bColor;
         this._fontSize = settings.icon.size;
@@ -70,7 +70,6 @@ class AWaffleChart
         this._isDynamicResize = settings.dynamicResize.isChecked;
         this._group.setAttr('width', settings.dynamicResize.width);
         this._group.setAttr('height', settings.dynamicResize.height);
-        console.log(this._isDynamicResize)
     }
 
     GetData()
@@ -85,7 +84,8 @@ class AWaffleChart
     {
         return {
             icon: {
-                iconCode: this._presetA.icon,
+                aCode: this._presetA.icon,
+                bCode: this._presetB.icon,
                 aColor: this._presetA.color,
                 bColor: this._presetB.color,
                 size: this._fontSize,

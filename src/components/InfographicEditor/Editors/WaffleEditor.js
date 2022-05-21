@@ -1,6 +1,6 @@
 import React from 'react';
 import { Menu, Editor, LabeledColorPicker, LabeledTextField, FontSelector, LabeledCheckbox,
-    LabeledNumericTextField } from './Components/index';
+    LabeledNumericTextField, IconSelector } from './Components/index';
 import Lodash from 'lodash';
 import '../../../css/React/Editors/WaffleEditor.css';
 import '../../../css/React/Editors/ChartEditor.css';
@@ -62,7 +62,7 @@ class WaffleEditor extends React.Component
         // ally), the LabeledTextFields would not rerender when undo/redo is
         // called.
         let chartDataContent = [
-                <div className='center'>
+                <div className='waffle-data center'>
                     <LabeledNumericTextField 
                         label='Numerator:'
                         index={data.numerator}
@@ -72,6 +72,10 @@ class WaffleEditor extends React.Component
                         onlyPositive={true}
                         onChange={(d, i) => { this._SetChartData(0, d); }}
                     />
+                    <IconSelector 
+                        icon={this.props.cSettings.icon.aCode}
+                        iconColor={this.props.cSettings.icon.aColor}
+                        changeIcon={(icon) => { this._SetChartSettings('icon', 'aCode', icon)}}/>
                     <LabeledTextField 
                         label='Denominator:'
                         index={data.denominator}
@@ -81,6 +85,10 @@ class WaffleEditor extends React.Component
                         onlyPositive={true}
                         onChange={(d, i) => { this._SetChartData(1, d); }}
                     />
+                    <IconSelector 
+                        icon={this.props.cSettings.icon.bCode}
+                        iconColor={this.props.cSettings.icon.bColor}
+                        changeIcon={(icon) => { this._SetChartSettings('icon', 'bCode', icon)}}/>
                 </div>
         ]
 

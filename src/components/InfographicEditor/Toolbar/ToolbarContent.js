@@ -124,7 +124,8 @@ class ToolbarContent extends React.Component
     {
         if (this.props.options === 'bar-editor' || this.props.options === 'pie-editor' 
             || this.props.options === 'stacked-bar-editor' || this.props.options === 'line-editor' 
-            || this.props.options === 'donut-editor' || this.props.options === 'update-chart') {
+            || this.props.options === 'donut-editor' || this.props.options === 'update-chart'
+            || this.props.options === 'waffle-editor') {
             return this._CreateChartIcons();
         } else if (this.props.options === 'text-editor') {
             return this._CreateTextIcons();
@@ -134,7 +135,7 @@ class ToolbarContent extends React.Component
             return this._CreateImageIcons();
         } else if (this.props.options === 'icon-editor') {
             return this._CreateIconIcons();
-        } else if (this.props.options === 'icon-bar-editor' || this.props.options === 'waffle-editor') {
+        } else if (this.props.options === 'icon-bar-editor') {
             return this._CreateIconBarIcons();
         }
     }

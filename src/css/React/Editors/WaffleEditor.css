@@ -29,3 +29,9 @@
     top: -2px;
     left: 22px;
 }
+
+.waffle-data {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 0px 5px;
+}
